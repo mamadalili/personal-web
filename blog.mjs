@@ -95,7 +95,7 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
     const y = value=>200-(value-bottom)/(top-bottom)*180, zero=y(0), step=600/block.labels[lang].length;
     let marks = '';
     for (const item of data) {
-      const color = item.index%2?'#4e9b85':'#7657d8';
+      const color = item.index%2?'#4e9b85':'#1c0998';
       if (state.view==='bars') marks += item.values.map((value,index)=>value===null?'':`<rect x="${index*step+step*.18+data.indexOf(item)*step*.64/data.length}" y="${Math.min(y(value),zero)}" width="${step*.64/data.length-3}" height="${Math.max(0.6,Math.abs(y(value)-zero))}" rx="3" fill="${color}"/>`).join('');
       else {
         let drawing = false, path = '';

@@ -17,9 +17,9 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 ## Key features
 
 - **Native Persian and English:** complete translations, a language switch and mirrored RTL/LTR layouts. No browser translation is required.
-- **Personal homepage:** unnumbered cards, with Blog as the large feature, equally sized small CV/Contact cards, and a Skills card. A portrait and name remain in the header.
+- **Personal homepage:** a welcome introduction and “Find your way around” heading lead to a prominent Skills hero. On desktop, the first view stays pinned as the lower Blog/CV/Contact cards scroll over it; those cards start below the first viewport. Blog is the large lower card, with equally sized small CV/Contact cards. Narrow screens use normal document flow. A portrait and name remain in the header; cards are unnumbered.
 - **Skills:** a bilingual page covering online sales, digital market presence, marketing/content, advertising, analytics and web execution, linked to relevant work-history entries.
-- **Call-to-action style:** bold black labels on light surfaces; design rules are recorded in `AGENTS.md`.
+- **Visual style:** primary accent `#1c0998` (RGB 28, 9, 152), with bold black call-to-action labels on light surfaces. Design rules are recorded in `AGENTS.md`.
 - **Professional CV:** a sticky profile card on the right in Persian and on the left in English; a stacked layout on small screens.
 - **Interactive experience:** eight roles with individual responsibilities, dates and focus areas.
 - **Selected projects:** expandable project details, plus About and Contact tabs.
@@ -132,10 +132,10 @@ Edit CSS custom properties and component styles in `portfolio.css`. Keep homepag
 
 | Token | Current value | Use |
 | --- | --- | --- |
-| `--purple` | `#7657d8` | Accent and active controls |
+| `--purple` | `#1c0998` | Accent and active controls |
 | `--ink` | `#292634` | Main text |
 | `--bg` | `#f6f6f9` | Page background |
-| `--pale` | `#f4f0ff` | Selected experience |
+| `--pale` | `#efedff` | Selected experience |
 
 Vazirmatn is served locally, with system-font fallbacks. The main responsive breakpoints are `760px` for the stacked layout and `1000px` for compact desktop columns; extra spacing applies at `1400px` and above.
 
@@ -156,7 +156,7 @@ node --check blog-data.mjs
 git diff --check
 ```
 
-In the browser, check Home, Blog, CV, Contact and Skills in both languages, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
+In the browser, check Home, Blog, CV, Contact and Skills in both languages. On desktop, confirm the Skills hero is visible before scrolling and the lower cards start below the fold and overlap the pinned first view during scroll. Check normal stacked flow on mobile, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
 
 ## Privacy and external links
 

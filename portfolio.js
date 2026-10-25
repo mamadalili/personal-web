@@ -99,13 +99,20 @@ function homeCardCTA(target,label){return `<a class="card-cta" href="${pageURL(t
 function renderHome(){
  const t=copy[lang],s=siteCopy[lang],k=skillsCopy[lang];
  const preview=lang==='fa'?[['بخوانید','ایده‌ها و یادداشت‌ها'],['مقایسه کنید','نگاه‌های متفاوت به یک موضوع'],['تجربه کنید','تعامل با داده و سناریوها']]:[['Read','Ideas and notes'],['Compare','Different ways to look at a topic'],['Explore','Data and scenarios you can interact with']];
- $('main').innerHTML=`<section class="page-hero home-hero"><div class="eyebrow">${s.homeEyebrow}</div><h1>${s.homeTitle}</h1><p>${s.homeIntro}</p><div class="home-topics">${chips(t.skills.slice(0,3))}</div><span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span></section>
- <section aria-labelledby="explore-title"><div class="home-section-heading"><h2 id="explore-title">${s.explore}</h2><p>${s.exploreNote}</p></div><div class="home-grid">
+ const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
+ $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view" aria-labelledby="explore-title"><div class="page-hero home-hero"><div class="eyebrow">${s.homeEyebrow}</div><h1>${s.homeTitle}</h1><p>${s.homeIntro}</p><div class="home-topics">${chips(t.skills.slice(0,3))}</div><span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span></div>
+ <div class="home-section-heading"><h2 id="explore-title">${s.explore}</h2><p>${s.exploreNote}</p></div>
+ <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><div class="card-top"><span class="card-icon">${skillIcon('market')}</span><span class="card-label">${k.label}</span></div><h3 id="skills-hero-title">${k.cardTitle}</h3><p>${k.cardBody}</p></div><div class="skills-card-side"><div class="skills-card-tags">${k.cardTags.map(tag=>`<span>${tag}</span>`).join('')}</div>${homeCardCTA('skills',k.cardAction)}</div></article>
+ </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
  <article class="home-card blog-card feature-card"><div class="card-top"><span class="card-icon">${icon('blog')}</span><span class="card-label">${s.blogLabel}</span></div><h3>${s.blogTitle}</h3><p>${s.blogBody}</p><div class="blog-preview" aria-hidden="true">${preview.map(([title,description])=>`<div><span class="blog-preview-dot"></span><div><strong>${title}</strong><small>${description}</small></div></div>`).join('')}</div>${homeCardCTA('blog',s.blogAction)}</article>
  <article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody}</p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article>
- <article class="home-card skills-home-card"><div class="skills-card-copy"><div class="card-top"><span class="card-icon">${skillIcon('market')}</span><span class="card-label">${k.label}</span></div><h3>${k.cardTitle}</h3><p>${k.cardBody}</p></div><div class="skills-card-side"><div class="skills-card-tags">${k.cardTags.map(tag=>`<span>${tag}</span>`).join('')}</div>${homeCardCTA('skills',k.cardAction)}</div></article>
- </div></section><p class="page-signoff">© ${new Date().getFullYear()} ${s.copyright}</p>`;
+ </div></section></div><p class="page-signoff">© ${new Date().getFullYear()} ${s.copyright}</p>`;
+ // Restore visibility when keyboard navigation returns to the pinned skills link.
+ $('main').querySelector('.skills-hero-card .card-cta').addEventListener('focus',()=>{
+  const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),deck=$('main').querySelector('.home-card-deck');
+  if(matchMedia('(min-width:1000px)').matches&&deck.getBoundingClientRect().top<hero.getBoundingClientRect().bottom){window.scrollTo(0,Math.max(0,stage.parentElement.getBoundingClientRect().top+scrollY-20));}
+ });
 }
 function renderSkills(){
  const k=skillsCopy[lang];
