@@ -13,9 +13,9 @@
 
 /* A floating, rounded liquid-glass navigation shared by every page. */
 body{padding-bottom:40px;background:radial-gradient(ellipse at 8% 90%,#e6e9f44d,transparent 45%),radial-gradient(ellipse at 93% 20%,#efe8fb66,transparent 40%),var(--bg)}
-#footer{position:fixed;z-index:20;left:50%;top:calc(20px + env(safe-area-inset-top));bottom:auto;transform:translateX(-50%);width:calc(100% - 32px);max-width:432px;display:block;padding:7px;margin:0;border:1px solid #ffffffde;border-radius:29px;background:linear-gradient(135deg,#ffffffb8,#e8f2ff70 55%,#efe6ff8c);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);box-shadow:0 12px 36px #3f365526,0 2px 6px #4d45600a,inset 0 1px 1px #fff,inset 0 -1px 2px #ffffffa6;color:#655b75;font-size:12px;line-height:1.5;isolation:isolate}
+#footer{position:fixed;z-index:20;left:50%;top:calc(20px + env(safe-area-inset-top));bottom:auto;transform:translateX(-50%);width:calc(100% - 32px);max-width:532px;display:block;padding:7px;margin:0;border:1px solid #ffffffde;border-radius:29px;background:linear-gradient(135deg,#ffffffb8,#e8f2ff70 55%,#efe6ff8c);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);box-shadow:0 12px 36px #3f365526,0 2px 6px #4d45600a,inset 0 1px 1px #fff,inset 0 -1px 2px #ffffffa6;color:#655b75;font-size:12px;line-height:1.5;isolation:isolate}
 #footer:before{content:'';pointer-events:none;position:absolute;inset:1px;border-radius:27px;box-shadow:inset 1px 0 1px #fff,inset -1px 0 1px #fff8;z-index:-1}
-#footer nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+#footer nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
 #footer a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:58px;padding:7px 9px;border:1px solid transparent;border-radius:22px;transition:background .2s,color .2s,box-shadow .2s}
 #footer a svg{width:21px;height:21px;flex:none}
 #footer a:hover{color:var(--purple);background:#ffffff80}
@@ -142,3 +142,7 @@ a:is(.primary-link,.blog-button):hover{background:#e2dcf9;color:#000}
  .capability-tile h4{font-size:14px}.capability-tile p{font-size:10.5px;line-height:1.65}
  .capability-icon{width:24px;height:24px;margin-bottom:6px}
 }
+
+@media(max-width:360px){#footer{width:calc(100% - 20px);padding:5px}#footer nav{gap:2px}#footer a{font-size:9.5px;padding-inline:1px;gap:3px}#footer a svg{width:18px;height:18px}}
+#language{white-space:nowrap;flex-shrink:0}
+@media(min-width:1000px) and (max-width:1100px){#footer{max-width:500px}}

@@ -17,13 +17,13 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 ## Key features
 
 - **Native Persian and English:** complete translations, a language switch and mirrored RTL/LTR layouts. No browser translation is required.
-- **Personal homepage:** a welcome introduction and “Find your way around” heading lead to a prominent Skills hero. On desktop, the first view stays pinned as the lower Blog/CV/Contact cards scroll over it; those cards start below the first viewport. Blog is the large lower card, with equally sized small CV/Contact cards. Narrow screens use normal document flow. A portrait and name remain in the header; cards are unnumbered.
-- **Skills:** four linked capability tiles form a balanced 2×2 cluster that breaks out of the hero edge: growth leadership, connected marketing/sales, full-stack product delivery and AI-enabled execution. The bilingual detail page connects capabilities to relevant work history and the author’s tools/approach.
+- **Personal homepage:** a welcome introduction and “Find your way around” heading lead to a prominent Solutions hero. On desktop, the first view stays pinned as the lower Blog/CV/Contact cards scroll over it; those cards start below the first viewport. Blog is the large lower card, with equally sized small CV/Contact cards. Narrow screens use normal document flow. A portrait and name remain in the header; cards are unnumbered.
+- **Solutions / راهکارها:** a category hub with complete bilingual pages for Strategy, Execution, Technology and AI Tools. Each explains suitable problems, proposed outputs, the working process, related experience and ways to begin a conversation. Four homepage capability tiles link directly to these pages in the existing balanced 2×2 breakout layout; the Skills page remains available as supporting background.
 - **Visual style:** primary accent `#1c0998` (RGB 28, 9, 152), with bold black call-to-action labels on light surfaces. Design rules are recorded in `AGENTS.md`.
 - **Professional CV:** a sticky profile card on the right in Persian and on the left in English; a stacked layout on small screens.
 - **Interactive experience:** eight roles with individual responsibilities, dates and focus areas.
 - **Selected projects:** expandable project details, plus About and Contact tabs.
-- **Liquid-glass navigation:** fixed at the top centre on desktop and mobile, with Home, Blog, CV and Contact links, rounded translucent layers, backdrop blur and an active-page indicator. Header and anchor spacing clear the bar. The historical element ID is `footer`.
+- **Liquid-glass navigation:** fixed at the top centre on desktop and mobile, with Home, Solutions, Blog, CV and Contact links, rounded translucent layers, backdrop blur and an active-page indicator. Header and anchor spacing clear the bar. The historical element ID is `footer`.
 - **Interactive blog:** native bilingual articles with an active outline, reading progress, comparison tabs, glossary dialogs, application explorers, proportional treemaps, linear/log charts, data tables, tested learning calculators and interpretation quizzes. Visible source cards distinguish disclosures, estimates and assumptions. The labelled template example stays separate from published articles.
 - **First article:** “Inside the AI Model Market” is an independently written, attributed interpretation of the reference research, with dated primary disclosures and adjustable educational scenarios. Open `article.html?post=ai-model-market&lang=fa` or switch to `lang=en`.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
@@ -52,7 +52,15 @@ personal-web/
 ├── docs/interactive-blog.md      # Content schema and authoring guide
 ├── tests/blog-core.test.mjs      # Node tests for links and calculations
 ├── contact.html         # Dedicated contact page
-├── skills.html          # Skills and links to relevant work experience
+├── skills.html          # Supporting skills and work experience
+├── solutions.html       # Solutions category hub
+├── strategy.html        # Strategy solution
+├── execution.html       # Execution solution
+├── technology.html      # Technology solution
+├── ai-tools.html        # AI Tools solution
+├── solutions-data.mjs   # Native bilingual Solutions content
+├── solutions.mjs        # Shared hub/detail renderer
+├── solutions.css        # Solutions layouts
 ├── AGENTS.md            # Persistent design and content rules
 ├── portfolio.css        # Current layout, responsive styles and glass footer
 ├── portfolio.js         # Both languages, career/project data and interactions
@@ -81,11 +89,13 @@ On systems where Python 3 is named `python3`, use `python3 -m http.server 8080` 
 
 ## Pages and navigation
 
-The glass navigation at the top centre links to Home, Blog, CV and Contact. Each link keeps the selected language, and the active page is marked when represented in that navigation. Skills is reachable through its homepage card and has a dedicated page.
+The glass navigation at the top centre links to Home, Solutions, Blog, CV and Contact, in that order. Each link keeps the selected language. Solutions stays active on its four detail pages and the supporting Skills page. The homepage hero opens the hub, with four capability tiles linking directly to the detail pages.
 
 | Page | File | Content |
 | --- | --- | --- |
 | Home | `index.html` | Introduction, portrait and cards for CV, Blog and Contact |
+| Solutions | `solutions.html` | Hub for Strategy, Execution, Technology and AI Tools |
+| Strategy / Execution / Technology / AI Tools | `strategy.html`, `execution.html`, `technology.html`, `ai-tools.html` | Dedicated solution pages with scope, outputs, approach and related experience |
 | Blog | `blog.html` | Published posts and search; preview link while empty |
 | CV | `profile.html` | Original professional profile, experience, projects, About and Contact tabs |
 | Contact | `contact.html` | Email, GitHub and professional-profile links |
@@ -99,6 +109,8 @@ The glass navigation at the top centre links to Home, Blog, CV and Contact. Each
 | `/?lang=en` | English homepage, left-to-right layout |
 | `/profile.html?lang=fa&tab=projects` | Persian CV projects |
 | `/profile.html?lang=en&tab=experience&role=turbin` | English Turbin Tahrir experience |
+| `/solutions.html?lang=fa` | Persian Solutions hub |
+| `/ai-tools.html?lang=en` | AI Tools solution in English |
 | `/blog.html?lang=fa` | Persian blog |
 | `/blog-template.html?lang=fa` | Interactive template preview |
 | `/article.html?post=slug&lang=en` | Published article in English |
@@ -116,6 +128,8 @@ Keep real sources, units, formulas and claims intact. Do not reuse the demo numb
 ## Customization
 
 ### Content and translations
+
+Edit `solutions-data.mjs` for the Solutions hub and the four detail pages. All visitor-facing fields have native `fa` and `en` versions. Keep evidence links tied to actual work history, and describe proposed collaboration without invented outcomes or guarantees.
 
 Edit `portfolio.js`:
 
