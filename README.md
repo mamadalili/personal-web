@@ -18,12 +18,12 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 
 - **Native Persian and English:** complete translations, a language switch and mirrored RTL/LTR layouts. No browser translation is required.
 - **Personal homepage:** a welcome introduction and “Find your way around” heading lead to a prominent Skills hero. On desktop, the first view stays pinned as the lower Blog/CV/Contact cards scroll over it; those cards start below the first viewport. Blog is the large lower card, with equally sized small CV/Contact cards. Narrow screens use normal document flow. A portrait and name remain in the header; cards are unnumbered.
-- **Skills:** a bilingual page covering online sales, digital market presence, marketing/content, advertising, analytics and web execution, linked to relevant work-history entries.
+- **Skills:** four linked capability tiles form a balanced 2×2 cluster that breaks out of the hero edge: growth leadership, connected marketing/sales, full-stack product delivery and AI-enabled execution. The bilingual detail page connects capabilities to relevant work history and the author’s tools/approach.
 - **Visual style:** primary accent `#1c0998` (RGB 28, 9, 152), with bold black call-to-action labels on light surfaces. Design rules are recorded in `AGENTS.md`.
 - **Professional CV:** a sticky profile card on the right in Persian and on the left in English; a stacked layout on small screens.
 - **Interactive experience:** eight roles with individual responsibilities, dates and focus areas.
 - **Selected projects:** expandable project details, plus About and Contact tabs.
-- **Liquid-glass navigation:** a floating, rounded footer with Home, Blog, CV and Contact links, translucent layers, backdrop blur and an active-page indicator. Content has bottom space to clear it.
+- **Liquid-glass navigation:** fixed at the top centre on desktop and mobile, with Home, Blog, CV and Contact links, rounded translucent layers, backdrop blur and an active-page indicator. Header and anchor spacing clear the bar. The historical element ID is `footer`.
 - **Interactive blog:** reusable bilingual articles with comparison tabs, expandable explanations, on-demand glossary dialogs, contextual internal links, metric/view/series chart controls, data tables and a live simulator. The labelled template example stays separate from published articles.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
 - **Contact page:** direct email and GitHub links, plus a link back to the professional CV.
@@ -78,7 +78,7 @@ On systems where Python 3 is named `python3`, use `python3 -m http.server 8080` 
 
 ## Pages and navigation
 
-The floating footer links to Home, Blog, CV and Contact. Each link keeps the selected language, and the active page is marked when represented in that navigation. Skills is reachable through its homepage card and has a dedicated page.
+The glass navigation at the top centre links to Home, Blog, CV and Contact. Each link keeps the selected language, and the active page is marked when represented in that navigation. Skills is reachable through its homepage card and has a dedicated page.
 
 | Page | File | Content |
 | --- | --- | --- |
@@ -139,7 +139,7 @@ Edit CSS custom properties and component styles in `portfolio.css`. Keep homepag
 
 Vazirmatn is served locally, with system-font fallbacks. The main responsive breakpoints are `760px` for the stacked layout and `1000px` for compact desktop columns; extra spacing applies at `1400px` and above.
 
-Preserve the fixed glass footer (`#footer`) and the bottom padding that prevents it from covering the end of the page. Use logical CSS properties so Persian and English layouts continue to mirror correctly.
+Preserve the fixed top-centred glass navigation (`#footer`), the narrow-screen header spacing and anchor offsets that keep it clear of content. Use logical CSS properties so Persian and English layouts continue to mirror correctly.
 
 ### Profile photo
 
@@ -156,7 +156,7 @@ node --check blog-data.mjs
 git diff --check
 ```
 
-In the browser, check Home, Blog, CV, Contact and Skills in both languages. On desktop, confirm the Skills hero is visible before scrolling and the lower cards start below the fold and overlap the pinned first view during scroll. Check normal stacked flow on mobile, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
+In the browser, check Home, Blog, CV, Contact and Skills in both languages. On desktop, confirm the Skills hero is visible before scrolling and the lower cards start below the fold and overlap the pinned first view during scroll. Check normal stacked flow on mobile, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the fixed top navigation does not hide headers or anchor targets and the floating capability tiles fit within the viewport. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
 
 ## Privacy and external links
 
