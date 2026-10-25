@@ -1,7 +1,7 @@
 import { solutions, solutionsCopy } from './solutions-data.mjs';
 import { escapeHTML as esc } from './blog-core.mjs';
 
-export function mountSolutions(root,{language='fa',solution='',url,icon}) {
+export function mountSolutions(root,{language='fa',solution='',url,icon,collaboration}) {
   const lang=language==='en'?'en':'fa',t=solutionsCopy[lang];
   const current=solution?solutions.find(item=>item.id===solution):null;
   const href=(target,params={})=>{
@@ -15,7 +15,7 @@ export function mountSolutions(root,{language='fa',solution='',url,icon}) {
   const heading=parts=>`${esc(parts[0])}<br><em>${esc(parts[1])}</em>`;
   const cta=(target,label,secondary=false)=>`<a class="solution-cta${secondary?' solution-cta-secondary':''}" href="${esc(href(target))}">${esc(label)}${arrow}</a>`;
   const cards=items=>items.map(item=>`<article class="solution-card"><span class="solution-icon">${icon(item.icon)}</span><h3><a href="${esc(href(item.id))}">${esc(item[lang].label)}</a></h3><p>${esc(item[lang].summary)}</p><ul class="solution-tags">${item[lang].tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul>${cta(item.id,t.explore)}</article>`).join('');
-  const closing=()=>`<section class="solution-closing"><div><h2>${esc(t.closingTitle)}</h2><p>${esc(t.closingText)}</p></div><div>${cta('contact',t.contact)}<a class="solution-context-link" href="${esc(href('skills'))}">${esc(t.skills)}${arrow}</a></div></section>`;
+  const closing=()=>collaboration();
 
   root.classList.add('solutions-page');
   if(solution&&!current){

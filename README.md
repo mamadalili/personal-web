@@ -27,6 +27,8 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 - **Interactive blog:** native bilingual articles with an active outline, reading progress, comparison tabs, glossary dialogs, application explorers, proportional treemaps, linear/log charts, data tables, tested learning calculators and interpretation quizzes. Visible source cards distinguish disclosures, estimates and assumptions. The labelled template example stays separate from published articles.
 - **First article:** “Inside the AI Model Market” is an independently written, attributed interpretation of the reference research, with dated primary disclosures and adjustable educational scenarios. Open `article.html?post=ai-model-market&lang=fa` or switch to `lang=en`.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
+- **Collaboration invitation:** Skills and Solutions share a bilingual closing section with a clear contact action, practical prompts for starting a conversation and a secondary CV link. The Solutions version keeps a link to the supporting Skills page.
+- **Sitemap:** `sitemap.xml` covers the six main sections, four solution pages and published articles in both languages, with reciprocal language alternatives. `robots.txt` points to the configured sitemap.
 - **Contact page:** direct email and GitHub links, plus a link back to the professional CV.
 - **Local assets:** a WebP portrait and a self-hosted Vazirmatn font.
 - **No build step:** plain HTML, CSS and JavaScript; no package installation or runtime framework required.
@@ -61,6 +63,11 @@ personal-web/
 ├── solutions-data.mjs   # Native bilingual Solutions content
 ├── solutions.mjs        # Shared hub/detail renderer
 ├── solutions.css        # Solutions layouts
+├── site-config.mjs      # Public deployment base for crawl metadata
+├── sitemap-core.mjs     # Pure sitemap URL and XML helpers
+├── scripts/generate-sitemap.mjs # Generate/check crawl metadata
+├── sitemap.xml          # Published fa/en page URLs and alternatives
+├── robots.txt           # Crawler discovery pointer
 ├── AGENTS.md            # Persistent design and content rules
 ├── portfolio.css        # Current layout, responsive styles and glass footer
 ├── portfolio.js         # Both languages, career/project data and interactions
@@ -126,6 +133,19 @@ Real posts are imported from `posts/` into the `posts` registry in `blog-data.mj
 Keep real sources, units, formulas and claims intact. Do not reuse the demo numbers as actual business results. The built-in simulator specifically calculates estimated orders from visits and conversion rate; other formulas need their own implementation and checks.
 
 ## Customization
+
+### Sitemap and public base URL
+
+The configured base is `https://mrdalili.com/`, retained from the public personal-domain link. Set the actual deployment base in `site-config.mjs` if hosting changes, then run:
+
+```sh
+node scripts/generate-sitemap.mjs
+node scripts/generate-sitemap.mjs --check
+```
+
+The generator reads the six main routes, `solutions-data.mjs` and published entries from `blog-data.mjs`. It currently produces 22 URLs: Home, Solutions, Skills, Blog, CV, Contact, the four solution pages and the first article, each in Persian and English. Templates, drafts, the duplicate landing/index aliases and CV tab/role views are excluded. The root URL represents Home. No modification dates are fabricated.
+
+Each URL has matching `fa`, `en` and Persian-fallback `x-default` alternatives, using [Google's multilingual sitemap format](https://developers.google.com/search/docs/specialty/international/localized-versions#sitemap). URLs are absolute and XML-escaped according to the [Sitemap protocol](https://www.sitemaps.org/protocol.html). `robots.txt` contains the discovery pointer. File generation does not publish the site or submit it to Search Console.
 
 ### Content and translations
 

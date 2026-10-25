@@ -134,6 +134,8 @@ The included simulator is a mathematical demonstration, not a forecast. Visits m
 
 ## Verification
 
+After adding or removing a published article, regenerate the crawl metadata with `node scripts/generate-sitemap.mjs`; check it with `node scripts/generate-sitemap.mjs --check`. The generator includes both language versions from the public registry and omits the template and drafts.
+
 ```sh
 node --test
 node --check portfolio.js
