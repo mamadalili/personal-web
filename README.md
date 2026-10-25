@@ -17,7 +17,9 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 ## Key features
 
 - **Native Persian and English:** complete translations, a language switch and mirrored RTL/LTR layouts. No browser translation is required.
-- **Personal homepage:** a portrait and name in the header, plus cards linking to CV, Blog and Contact.
+- **Personal homepage:** unnumbered cards, with Blog as the large feature, equally sized small CV/Contact cards, and a Skills card. A portrait and name remain in the header.
+- **Skills:** a bilingual page covering online sales, digital market presence, marketing/content, advertising, analytics and web execution, linked to relevant work-history entries.
+- **Call-to-action style:** bold black labels on light surfaces; design rules are recorded in `AGENTS.md`.
 - **Professional CV:** a sticky profile card on the right in Persian and on the left in English; a stacked layout on small screens.
 - **Interactive experience:** eight roles with individual responsibilities, dates and focus areas.
 - **Selected projects:** expandable project details, plus About and Contact tabs.
@@ -47,6 +49,8 @@ personal-web/
 ├── docs/interactive-blog.md      # Content schema and authoring guide
 ├── tests/blog-core.test.mjs      # Node tests for links and calculations
 ├── contact.html         # Dedicated contact page
+├── skills.html          # Skills and links to relevant work experience
+├── AGENTS.md            # Persistent design and content rules
 ├── portfolio.css        # Current layout, responsive styles and glass footer
 ├── portfolio.js         # Both languages, career/project data and interactions
 ├── images/
@@ -74,7 +78,7 @@ On systems where Python 3 is named `python3`, use `python3 -m http.server 8080` 
 
 ## Pages and navigation
 
-The floating footer links to four pages. Each link keeps the selected language, and the active page is marked in the navigation.
+The floating footer links to Home, Blog, CV and Contact. Each link keeps the selected language, and the active page is marked when represented in that navigation. Skills is reachable through its homepage card and has a dedicated page.
 
 | Page | File | Content |
 | --- | --- | --- |
@@ -82,6 +86,7 @@ The floating footer links to four pages. Each link keeps the selected language, 
 | Blog | `blog.html` | Published posts and search; preview link while empty |
 | CV | `profile.html` | Original professional profile, experience, projects, About and Contact tabs |
 | Contact | `contact.html` | Email, GitHub and professional-profile links |
+| Skills | `skills.html` | Capability areas and links to relevant work experience |
 
 `landing.html` is an alternative entry point for Home. Previously shared homepage URLs containing `tab` or `role` continue to open the CV.
 
@@ -115,13 +120,15 @@ Edit `portfolio.js`:
 - `projects`: project titles, descriptions, tags and optional repository links.
 - `copy.fa` and `copy.en`: CV labels, biography, education and contact copy.
 - `siteCopy.fa` and `siteCopy.en`: homepage, page cards, blog, contact page and footer-navigation translations.
-- `pageFiles`: relative page destinations, compatible with static hosting in a subdirectory.
+- `skillsCopy.fa` and `skillsCopy.en`: Skills card, detailed capabilities, related work-history entries and calls to action.
+- `pageFiles`: the four footer destinations. `pageURL()` also resolves the dedicated Skills page, keeping routes compatible with static hosting in a subdirectory.
 
 Keep both languages in sync. Preserve stable role IDs so existing links continue to work. Career-wide achievements should not be assigned to a particular employer unless supported by the supplied résumé or project evidence. Update the visible tab counts if the number of entries changes.
 
 ### Colors, layout and typography
 
-Edit CSS custom properties and component styles in `portfolio.css`:
+Edit CSS custom properties and component styles in `portfolio.css`. Keep homepage cards unnumbered, with no decorative leading zeroes, and calls to action bold and black as described in `AGENTS.md`:
+
 
 | Token | Current value | Use |
 | --- | --- | --- |
@@ -149,7 +156,7 @@ node --check blog-data.mjs
 git diff --check
 ```
 
-In the browser, check all four pages in both languages, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
+In the browser, check Home, Blog, CV, Contact and Skills in both languages, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
 
 ## Privacy and external links
 

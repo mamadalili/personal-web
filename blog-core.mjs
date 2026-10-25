@@ -6,7 +6,7 @@ export function publishedPosts(posts) {
 }
 
 export function internalHref(target, language, posts = [], base = 'https://example.invalid/') {
-  const pages = {home:'index.html',blog:'blog.html',cv:'profile.html','cv:projects':'profile.html?tab=projects',contact:'contact.html',template:'blog-template.html'};
+  const pages = {home:'index.html',blog:'blog.html',cv:'profile.html','cv:projects':'profile.html?tab=projects',contact:'contact.html',skills:'skills.html',template:'blog-template.html'};
   let path = Object.hasOwn(pages,target) ? pages[target] : null;
   if (target.startsWith('post:')) {
     const slug = target.slice(5);
