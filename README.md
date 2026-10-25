@@ -22,7 +22,8 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 - **Interactive experience:** eight roles with individual responsibilities, dates and focus areas.
 - **Selected projects:** expandable project details, plus About and Contact tabs.
 - **Liquid-glass navigation:** a floating, rounded footer with Home, Blog, CV and Contact links, translucent layers, backdrop blur and an active-page indicator. Content has bottom space to clear it.
-- **Blog:** a dedicated bilingual page with an honest empty state until posts are published.
+- **Interactive blog:** reusable bilingual articles with comparison tabs, expandable explanations, on-demand glossary dialogs, contextual internal links, metric/view/series chart controls, data tables and a live simulator. The labelled template example stays separate from published articles.
+- **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
 - **Contact page:** direct email and GitHub links, plus a link back to the professional CV.
 - **Local assets:** a WebP portrait and a self-hosted Vazirmatn font.
 - **No build step:** plain HTML, CSS and JavaScript; no package installation or runtime framework required.
@@ -35,7 +36,16 @@ personal-web/
 ├── index.html           # Homepage with page cards
 ├── profile.html         # Professional CV and interactive experience
 ├── landing.html         # Alternative homepage entry point
-├── blog.html            # Blog entry point (no posts published yet)
+├── blog.html            # Published articles and search
+├── article.html         # Article selected by ?post=slug
+├── blog-template.html   # Labelled interactive example
+├── blog-data.mjs        # Article registry and separate demo content
+├── blog.mjs             # Reusable interactive article renderer
+├── blog-core.mjs        # Link, publication and calculation helpers
+├── blog.css             # Blog layout and widget styles
+├── prompts/interactive-blog.fa.md # Text-to-interactive-article prompt
+├── docs/interactive-blog.md      # Content schema and authoring guide
+├── tests/blog-core.test.mjs      # Node tests for links and calculations
 ├── contact.html         # Dedicated contact page
 ├── portfolio.css        # Current layout, responsive styles and glass footer
 ├── portfolio.js         # Both languages, career/project data and interactions
@@ -69,7 +79,7 @@ The floating footer links to four pages. Each link keeps the selected language, 
 | Page | File | Content |
 | --- | --- | --- |
 | Home | `index.html` | Introduction, portrait and cards for CV, Blog and Contact |
-| Blog | `blog.html` | Bilingual empty state until articles are published |
+| Blog | `blog.html` | Published posts and search; preview link while empty |
 | CV | `profile.html` | Original professional profile, experience, projects, About and Contact tabs |
 | Contact | `contact.html` | Email, GitHub and professional-profile links |
 
@@ -82,8 +92,18 @@ The floating footer links to four pages. Each link keeps the selected language, 
 | `/profile.html?lang=fa&tab=projects` | Persian CV projects |
 | `/profile.html?lang=en&tab=experience&role=turbin` | English Turbin Tahrir experience |
 | `/blog.html?lang=fa` | Persian blog |
+| `/blog-template.html?lang=fa` | Interactive template preview |
+| `/article.html?post=slug&lang=en` | Published article in English |
 
 Supported main tabs are `experience`, `projects`, `about` and `contact`. Work-history dates remain in the **Solar Hijri calendar**, including in English, where `SH` is shown.
+
+## Turn writing into an interactive article
+
+Use [the ready-to-copy Persian prompt](prompts/interactive-blog.fa.md), paste the article text and any sources/data, and let the coding agent apply the existing components. [The authoring guide](docs/interactive-blog.md) describes the schema and supported blocks. Choose interactions that explain the article; not every post needs a chart or calculator.
+
+Real posts belong in `posts` in `blog-data.mjs`, with both language versions and `status:'published'`. They appear automatically in the blog list and open at `article.html?post=slug`. The demo is separate, labelled as illustrative, and does not count as a published post. A `draft` source entry is not private in a public repository.
+
+Keep real sources, units, formulas and claims intact. Do not reuse the demo numbers as actual business results. The built-in simulator specifically calculates estimated orders from visits and conversion rate; other formulas need their own implementation and checks.
 
 ## Customization
 
@@ -121,11 +141,15 @@ Replace `images/myphoto.webp` with the desired WebP image. The original JPG is r
 ## Checks after editing
 
 ```sh
+node --test
 node --check portfolio.js
+node --check blog.mjs
+node --check blog-core.mjs
+node --check blog-data.mjs
 git diff --check
 ```
 
-In the browser, check all four pages in both languages, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. These are manual checks; there is no automated test suite configured.
+In the browser, check all four pages in both languages, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the sticky profile and fixed footer do not hide the final content. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
 
 ## Privacy and external links
 

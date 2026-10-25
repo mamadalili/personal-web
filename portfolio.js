@@ -25,6 +25,8 @@ const pageFiles={home:'index.html',blog:'blog.html',cv:'profile.html',contact:'c
 const requestedPage=document.body.dataset.page||'cv';
 // Keep previously shared profile links working after introducing the homepage.
 const page=requestedPage==='home'&&(params.has('tab')||params.has('role'))?'cv':requestedPage;
+const navPage=page==='article'?'blog':page;
+let blogMountVersion=0;
 const siteCopy={
  fa:{nav:['خانه','بلاگ','CV','تماس'],navLabel:'منوی اصلی',homeLabel:'خانهٔ شخصی',homeEyebrow:'به خانهٔ دیجیتال من خوش آمدید',homeTitle:'مسیر کاری، ایده‌ها<br>و <em>گفت‌وگوهای تازه.</em>',homeIntro:'من محمدرضا دلیلی هستم؛ در نقطهٔ تلاقی بازاریابی، تجارت الکترونیک و فناوری. اینجا می‌توانید با مسیر کاری من آشنا شوید و در ارتباط باشیم.',explore:'از اینجا شروع کنید',exploreNote:'هر کارت، دری به یک بخش از این خانه.',cvLabel:'پروفایل کاری',cvTitle:'تجربه‌هایی که مسیرم را ساخته‌اند.',cvBody:'سوابق کاری، پروژه‌ها، مهارت‌ها و تحصیلات من؛ با جزئیات هر تجربه.',cvAction:'دیدن پروفایل کاری',experienceCount:'۸ تجربهٔ کاری',projectCount:'۳ پروژه',blogLabel:'بلاگ',blogTitle:'جایی برای ایده‌ها و یادداشت‌ها.',blogBody:'دربارهٔ بازاریابی، تجارت الکترونیک و فناوری.',blogAction:'رفتن به بلاگ',contactLabel:'تماس',contactTitle:'یک گفت‌وگوی تازه شروع کنیم.',contactBody:'برای صحبت دربارهٔ همکاری، پروژه‌ها و ایده‌های مشترک.',contactAction:'راه‌های ارتباط',blogEyebrow:'یادداشت‌های من',blogHeading:'ایده‌ها، تجربه‌ها<br>و <em>چیزهایی که یاد می‌گیرم.</em>',blogIntro:'جایی برای نوشتن دربارهٔ بازاریابی، رشد کسب‌وکار آنلاین و فناوری.',emptyTitle:'هنوز نوشته‌ای منتشر نشده.',emptyBody:'وقتی اولین یادداشت منتشر شود، همین‌جا می‌توانید آن را بخوانید.',backHome:'بازگشت به خانه',contactEyebrow:'در ارتباط باشیم',contactHeading:'از یک سلام<br>تا <em>یک همکاری تازه.</em>',contactIntro:'برای صحبت دربارهٔ تجارت الکترونیک، رشد فروش آنلاین و پروژه‌های دیجیتال، به من ایمیل بزنید.',contactNote:'لینک ایمیل، برنامهٔ ایمیل شما را باز می‌کند.',cvLink:'آشنایی با مسیر کاری من',copyright:'محمدرضا دلیلی'},
  en:{nav:['Home','Blog','CV','Contact'],navLabel:'Main navigation',homeLabel:'Personal space',homeEyebrow:'WELCOME TO MY DIGITAL HOME',homeTitle:'Work, ideas &<br><em>new conversations.</em>',homeIntro:'I’m Mohamad Reza Dalili. I work where marketing, e-commerce and technology meet. Explore my professional journey and let’s connect.',explore:'Find your way around',exploreNote:'A few doors into my world.',cvLabel:'Professional profile',cvTitle:'The experiences that shaped my journey.',cvBody:'Explore my work experience, projects, skills and education, with the details behind each role.',cvAction:'Explore my CV',experienceCount:'8 work experiences',projectCount:'3 projects',blogLabel:'Blog',blogTitle:'A space for ideas & notes.',blogBody:'On marketing, e-commerce and technology.',blogAction:'Visit the blog',contactLabel:'Contact',contactTitle:'Start a new conversation.',contactBody:'Let’s talk about work, projects and shared ideas.',contactAction:'Get in touch',blogEyebrow:'MY NOTES',blogHeading:'Ideas, experiences &<br><em>things I’m learning.</em>',blogIntro:'A space to write about marketing, online business growth and technology.',emptyTitle:'No posts published yet.',emptyBody:'When the first note is published, you’ll find it here.',backHome:'Back to home',contactEyebrow:'LET’S CONNECT',contactHeading:'From a hello<br>to <em>something new.</em>',contactIntro:'For a conversation about e-commerce, online sales growth or a digital project, get in touch by email.',contactNote:'The email link opens your email application.',cvLink:'Explore my professional journey',copyright:'Mohamad Reza Dalili'}
@@ -43,21 +45,22 @@ function pageURL(id){return `${pageFiles[id]}?lang=${lang}`;}
 function updateURL(){const url=new URL(location.href);url.searchParams.set('lang',lang);if(page==='cv'){url.searchParams.set('tab',activeTab);url.searchParams.set('role',activeCareer);}else{url.searchParams.delete('tab');url.searchParams.delete('role');}history.replaceState(null,'',url);}
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 function render(){
-  const t=copy[lang],s=siteCopy[lang];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${s.nav[Object.keys(pageFiles).indexOf(page)]} — ${t.name}`;
+  const t=copy[lang],s=siteCopy[lang];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${s.nav[Object.keys(pageFiles).indexOf(navPage)]} — ${t.name}`;
   document.querySelector('meta[name="description"]').content=page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
-  $('brand-name').textContent=t.name;$('header-label').textContent=page==='home'?s.homeLabel:s.nav[Object.keys(pageFiles).indexOf(page)];
+  $('brand-name').textContent=t.name;$('header-label').textContent=page==='home'?s.homeLabel:s.nav[Object.keys(pageFiles).indexOf(navPage)];
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
   const mark=document.querySelector('.brand-mark');mark.innerHTML=page==='home'?`<img class="header-portrait" src="images/myphoto.webp" width="44" height="44" alt="" fetchpriority="high">`:'<span class="monogram" dir="ltr">m.</span>';
   $('language').innerHTML=lang==='fa'?'English <span aria-hidden="true">↗</span>':'فارسی <span aria-hidden="true">↗</span>';
   $('language').lang=lang==='fa'?'en':'fa';$('language').setAttribute('aria-label',lang==='fa'?'Switch to English':'تغییر زبان به فارسی');
-  $('footer').innerHTML=`<nav aria-label="${s.navLabel}">${Object.keys(pageFiles).map((id,i)=>`<a href="${pageURL(id)}" ${page===id?'aria-current="page"':''}>${icon(id)}<span>${s.nav[i]}</span></a>`).join('')}</nav>`;
+  $('footer').innerHTML=`<nav aria-label="${s.navLabel}">${Object.keys(pageFiles).map((id,i)=>`<a href="${pageURL(id)}" ${navPage===id?'aria-current="page"':''}>${icon(id)}<span>${s.nav[i]}</span></a>`).join('')}</nav>`;
   $('main').className=page==='cv'?'layout':'page-layout';
   if(page==='cv'){
     $('main').innerHTML='<aside id="profile" class="profile-card"></aside><section class="workspace"><div id="intro" class="intro"></div><div class="work-card"><div id="main-tabs" class="main-tabs" role="tablist"></div><div id="content"></div></div></section>';
     renderCV();
   }else if(page==='home')renderHome();
   else if(page==='blog')renderBlog();
+  else if(page==='article')renderBlog('article');
   else renderContactPage();
   updateURL();
 }
@@ -75,9 +78,17 @@ function renderHome(){
  const t=copy[lang],s=siteCopy[lang];
  $('main').innerHTML=`<section class="page-hero home-hero"><div class="eyebrow">${s.homeEyebrow}</div><h1>${s.homeTitle}</h1><p>${s.homeIntro}</p><div class="home-topics">${chips(t.skills.slice(0,3))}</div><span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span></section><section aria-labelledby="explore-title"><div class="home-section-heading"><h2 id="explore-title">${s.explore}</h2><p>${s.exploreNote}</p></div><div class="home-grid"><a class="home-card cv-card" href="${pageURL('cv')}"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span><span class="card-number" aria-hidden="true">01</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody}</p><div class="career-preview" aria-hidden="true">${career.slice(0,3).map(c=>`<div><span class="preview-dot"></span><span>${c[lang].company}</span><small>${years(c.years)}</small></div>`).join('')}</div><div class="card-bottom"><span>${s.cvAction}</span><span class="card-arrow">${icon('arrow')}</span></div><div class="card-tags"><span>${s.experienceCount}</span><span>${s.projectCount}</span></div></a><a class="home-card blog-card" href="${pageURL('blog')}"><div class="card-top"><span class="card-icon">${icon('blog')}</span><span class="card-label">${s.blogLabel}</span><span class="card-number" aria-hidden="true">02</span></div><h3>${s.blogTitle}</h3><p>${s.blogBody}</p><div class="card-bottom"><span>${s.blogAction}</span><span class="card-arrow">${icon('arrow')}</span></div></a><a class="home-card contact-home-card" href="${pageURL('contact')}"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span><span class="card-number" aria-hidden="true">03</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p><div class="card-bottom"><span>${s.contactAction}</span><span class="card-arrow">${icon('arrow')}</span></div></a></div></section><p class="page-signoff">© ${new Date().getFullYear()} ${s.copyright}</p>`;
 }
-function renderBlog(){
- const s=siteCopy[lang];
- $('main').innerHTML=`<section class="page-hero"><div class="eyebrow">${s.blogEyebrow}</div><h1>${s.blogHeading}</h1><p>${s.blogIntro}</p></section><section class="empty-blog"><span class="empty-icon">${icon('blog')}</span><h2>${s.emptyTitle}</h2><p>${s.emptyBody}</p><a class="inline-action" href="${pageURL('home')}">${s.backHome}${icon('arrow')}</a></section>`;
+function renderBlog(mode='index'){
+ const version=++blogMountVersion,language=lang;
+ $('main').innerHTML=`<p class="blog-loading" role="status">${lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…'}</p>`;
+ import('./blog.mjs').then(({mountBlog})=>{
+  if(version!==blogMountVersion||language!==lang)return;
+  mountBlog($('main'),{language,mode,template:document.body.dataset.template==='true'});
+ }).catch(error=>{
+  if(version!==blogMountVersion)return;
+  $('main').innerHTML=`<p class="blog-loading">${lang==='fa'?'نمایش نوشته‌ها با مشکل روبه‌رو شد. صفحه را دوباره بارگذاری کنید.':'The posts could not be loaded. Please reload the page.'}</p>`;
+  console.error('Blog could not be loaded',error);
+ });
 }
 function contactLinks(){
  const t=copy[lang];return `<a class="contact-card" href="mailto:Mohammadreza.dalili@live.com"><small>${t.contactEmail}</small><span dir="ltr">Mohammadreza.dalili@live.com ↗</span></a><a class="contact-card" href="https://github.com/mamadalili" target="_blank" rel="noopener noreferrer"><small>${t.github}</small><span dir="ltr">github.com/mamadalili ↗</span></a>`;
@@ -97,7 +108,7 @@ function selectTab(id){activeTab=id;for(const item of document.querySelectorAll(
 function selectCareer(id){activeCareer=id;for(const item of document.querySelectorAll('[data-career]')){const active=item.dataset.career===id;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;$(`detail-${item.dataset.career}`).hidden=!active;}updateURL();}
 document.addEventListener('click',event=>{const tab=event.target.closest('[data-tab]');const company=event.target.closest('[data-career]');if(tab)selectTab(tab.dataset.tab);if(company)selectCareer(company.dataset.career);});
 document.addEventListener('keydown',event=>{
- const el=event.target.closest('[role="tab"]');if(!el)return;
+ const el=event.target.closest('[data-tab],[data-career]');if(!el)return;
  const items=[...el.closest('[role="tablist"]').querySelectorAll('[role="tab"]')];let index=items.indexOf(el);const vertical=el.hasAttribute('data-career');
  if(event.key==='Home')index=0;else if(event.key==='End')index=items.length-1;
  else if(vertical&&['ArrowDown','ArrowUp'].includes(event.key))index+=(event.key==='ArrowDown'?1:-1);
