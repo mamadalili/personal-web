@@ -58,37 +58,6 @@ python -m http.server 8080
 
 On systems where Python 3 is named `python3`, use `python3 -m http.server 8080` instead. Open [localhost:8080](http://localhost:8080). Any equivalent static HTTP server also works.
 
-## Continue in the same Codespace
-
-1. On the other computer, sign in to GitHub with the account that owns the existing Codespace.
-2. Open [Your Codespaces](https://github.com/codespaces) and select the existing environment for `mamadalili/personal-web`.
-3. Wait for it to resume and open the project folder `/workspaces/personal-web`.
-4. Open **Terminal → New Terminal**. To work with the Codex CLI already installed in the current environment, run:
-
-   ```sh
-   cd /workspaces/personal-web
-   codex
-   ```
-
-5. Ask Codex to read this README and inspect `portfolio.js` and `portfolio.css`, then describe the change you want.
-
-The same Codespace contains the same workspace files when accessed from another computer. Opening it does not automatically transfer a separate desktop chat into the CLI. Use the repository documentation to establish context in a new chat; `codex resume` can reopen saved CLI chats when available in that environment.
-
-If Codex requests authentication and you want to sign in with ChatGPT from the remote terminal, use `codex login --device-auth` and follow its link and one-time code. Device-code login must be allowed by your account or workspace. See [official authentication guidance](https://learn.chatgpt.com/docs/auth).
-
-For a browser preview in Codespaces, use a free port, for example:
-
-```sh
-cd /workspaces/personal-web
-python3 -m http.server 8081
-```
-
-Open the **Ports** panel and choose **Open in Browser** for port `8081`. Keep the port private. A localhost address from another computer is not a portable Codespace preview URL.
-
-### راهنمای کوتاه فارسی
-
-در سیستم دوم با همان حساب گیت‌هاب وارد شوید و از صفحهٔ Codespaces، محیط موجود پروژه را باز کنید. در ترمینال پوشهٔ `/workspaces/personal-web` دستور `codex` را اجرا کنید. فایل‌ها همان فایل‌های این پروژه هستند؛ برای معرفی وضعیت کار به گفت‌وگوی جدید، از کدکس بخواهید ابتدا README را بخواند. برای مشاهدهٔ سایت، سرور محلی را اجرا و پورت آن را از بخش Ports در مرورگر باز کنید.
-
 ## Pages and navigation
 
 All four HTML entry points use the same portfolio interface. `contact.html` initially selects Contact; the others initially select Experience. Explicit query parameters override these defaults.
