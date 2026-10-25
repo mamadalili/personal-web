@@ -27,6 +27,7 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 - **Interactive blog:** native bilingual articles with an active outline, reading progress, comparison tabs, glossary dialogs, application explorers, proportional treemaps, linear/log charts, data tables, tested learning calculators and interpretation quizzes. Visible source cards distinguish disclosures, estimates and assumptions. The labelled template example stays separate from published articles.
 - **First article:** “Inside the AI Model Market” is an independently written, attributed interpretation of the reference research, with dated primary disclosures and adjustable educational scenarios. Open `article.html?post=ai-model-market&lang=fa` or switch to `lang=en`.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
+- **Required Anatomy authoring:** every new or revised interactive article uses the complete, pinned Anatomy skill and an article-specific explanatory figure. The skill and the site's companion workflow travel with the repository.
 - **Collaboration invitation:** Skills and Solutions share a bilingual closing section with a clear contact action, practical prompts for starting a conversation and a secondary CV link. The Solutions version keeps a link to the supporting Skills page.
 - **Sitemap:** `sitemap.xml` covers the six main sections, four solution pages and published articles in both languages, with reciprocal language alternatives. `robots.txt` points to the configured sitemap.
 - **Contact page:** direct email and GitHub links, plus a link back to the professional CV.
@@ -38,6 +39,8 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 
 ```text
 personal-web/
+├── .agents/skills/anatomy/ # Complete upstream skill, kit, references and examples (MIT)
+├── .agents/skills/interactive-blog-anatomy/ # Required article authoring workflow
 ├── index.html           # Homepage with page cards
 ├── profile.html         # Professional CV and interactive experience
 ├── landing.html         # Alternative homepage entry point
@@ -52,6 +55,7 @@ personal-web/
 ├── blog.css             # Blog layout and widget styles
 ├── prompts/interactive-blog.fa.md # Text-to-interactive-article prompt
 ├── docs/interactive-blog.md      # Content schema and authoring guide
+├── docs/anatomy-source.json      # Pinned upstream revision and file hashes
 ├── tests/blog-core.test.mjs      # Node tests for links and calculations
 ├── contact.html         # Dedicated contact page
 ├── skills.html          # Supporting skills and work experience
@@ -66,6 +70,8 @@ personal-web/
 ├── site-config.mjs      # Public deployment base for crawl metadata
 ├── sitemap-core.mjs     # Pure sitemap URL and XML helpers
 ├── scripts/generate-sitemap.mjs # Generate/check crawl metadata
+├── scripts/check-blog-skills.mjs # Offline Anatomy integrity check
+├── scripts/test-site.mjs        # Run only this site's Node tests
 ├── sitemap.xml          # Published fa/en page URLs and alternatives
 ├── robots.txt           # Crawler discovery pointer
 ├── AGENTS.md            # Persistent design and content rules
@@ -126,7 +132,9 @@ Supported main tabs are `experience`, `projects`, `about` and `contact`. Work-hi
 
 ## Turn writing into an interactive article
 
-Use [the ready-to-copy Persian prompt](prompts/interactive-blog.fa.md), paste the article text and any sources/data, and let the coding agent apply the existing components. [The authoring guide](docs/interactive-blog.md) describes the schema and supported blocks. Choose interactions that explain the article; not every post needs a chart or calculator.
+Use [the ready-to-copy Persian prompt](prompts/interactive-blog.fa.md), paste the article text and any sources/data, and let the coding agent follow [interactive-blog-anatomy](.agents/skills/interactive-blog-anatomy/SKILL.md) and the complete [Anatomy skill](.agents/skills/anatomy/SKILL.md). This workflow is required for every new or revised interactive article: include a meaningful Anatomy figure that explains the subject, with controls, motion and readouts driven by one truthful model. Other interactions remain selective; not every post needs a chart or calculator. [The authoring guide](docs/interactive-blog.md) describes integration, native fa/en content, accessibility and the existing block schema.
+
+The complete Anatomy source is pinned to [revision 1482e8469b0a9e0d8cc18ea2740a01423d29ae80](https://github.com/wheresryan22/anatomy/tree/1482e8469b0a9e0d8cc18ea2740a01423d29ae80), with its MIT license and file hashes in `docs/anatomy-source.json`. The project skills are stored under `.agents/skills` and the requirement is recorded in `AGENTS.md`, so cloning the project preserves the workflow. They are authoring resources; the existing website does not load the whole package. New figures should use the framework-free kit and integrate with the shared article renderer. Installation alone does not retrofit existing articles or implement a new block type.
 
 Real posts are imported from `posts/` into the `posts` registry in `blog-data.mjs`, with both language versions and `status:'published'`. They appear automatically in the blog list and open at `article.html?post=slug`. The demo is separate, labelled as illustrative, and does not count as a published post. A `draft` source entry is not private in a public repository.
 
@@ -185,13 +193,16 @@ Replace `images/myphoto.webp` with the desired WebP image. The original JPG is r
 ## Checks after editing
 
 ```sh
-node --test
+node scripts/check-blog-skills.mjs
+node scripts/test-site.mjs
 node --check portfolio.js
 node --check blog.mjs
 node --check blog-core.mjs
 node --check blog-data.mjs
 git diff --check
 ```
+
+Use the scoped runner instead of bare `node --test`, which can also discover the vendored skill's independent tests. The integrity check is offline and compares all upstream files with the pinned manifest.
 
 In the browser, check Home, Blog, CV, Contact and Skills in both languages. On desktop, confirm the Skills hero is visible before scrolling and the lower cards start below the fold and overlap the pinned first view during scroll. Check normal stacked flow on mobile, homepage cards, active footer links, work-experience tabs, project expansion, keyboard navigation, email links, portrait loading, and narrow/mobile layouts. Confirm that the fixed top navigation does not hide headers or anchor targets and the floating capability tiles fit within the viewport. Also check article dialogs, comparison tabs, chart controls/data tables, simulator/reset/invalid inputs, and contextual links. The dependency-free Node test suite covers safe/internal links, publication filtering, chart calculations and the simulator formula.
 
@@ -208,6 +219,8 @@ In the browser, check Home, Blog, CV, Contact and Skills in both languages. On d
 This version improves the earlier [personal-web-draft](https://github.com/mamadalili/personal-web-draft) portfolio. Its README structure and project introduction informed this documentation, updated to match the current implementation.
 
 The profile-and-tabs layout takes inspiration from [Agile CRM — Customer Profile](https://dribbble.com/shots/3029510-Agile-CRM-Customer-Profile), adapted for a personal portfolio. The [Vazirmatn font](https://github.com/rastikerdar/vazirmatn) is distributed under the license included in `fonts/OFL.txt`.
+
+[Anatomy](https://skills.wheresryan.sh/anatomy), by Ryan, is included as an authoring skill under the [MIT license](.agents/skills/anatomy/LICENSE). Its source is preserved separately from this site's workflow and article content.
 
 ## Contact
 

@@ -2,6 +2,27 @@
 
 The site uses its existing static HTML/CSS/JavaScript stack. There is no CMS, AI API, tracking or build dependency. The reusable authoring prompt is [interactive-blog.fa.md](../prompts/interactive-blog.fa.md).
 
+## Required Anatomy workflow
+
+For **every new or revised interactive article**, first load the project workflow [interactive-blog-anatomy](../.agents/skills/interactive-blog-anatomy/SKILL.md) and the complete [Anatomy skill](../.agents/skills/anatomy/SKILL.md). Read its `references/craft.md` and the closest example before designing the figure. This is a required authoring step, not an optional visual reference. Each article must include at least one substantive Anatomy figure that explains its subject, unless the user explicitly changes the requirement. Other interactions remain selective; a chart or calculator alone does not replace the figure.
+
+Anatomy turns a concept into a recognisable physical mechanism, with crafted isometric solids and movement driven by the same model as the displayed result. Start with its Figure scope where sufficient. Record a short authoring brief with:
+
+- The reader's question and the relationship the figure teaches.
+- The mechanism, what the reader controls, what moves and what that movement means.
+- The model or formula, units, sources and dates, assumptions and limits; distinguish reported data from an illustrative model.
+- The article-specific figure/model files and the checks performed.
+
+Do not invent facts or imply that an explanatory mechanism is a real device or business result. If the text cannot support a truthful mechanism, identify that content problem and propose a concrete treatment. Reading the skill or adding a decorative drawing does not complete the requirement.
+
+Keep the framework-free HTML/CSS/JavaScript stack. The complete upstream package is vendored, unmodified, at `.agents/skills/anatomy`; it is authoring material, not a visitor bundle. Put new figure source, models and selected runtime assets outside that folder, with the article's own files. Add any reusable block/mount/dispose behavior to the shared renderer rather than duplicating the blog engine. Extend the documented block schema when that integration is implemented; no Anatomy block is implemented merely by installing the skill.
+
+Provide native Persian and English titles, hints, captions, control labels, units, glossary text and live readouts. Mirror the surrounding layout and keep words outside the drawing where Anatomy requires it. Use `#1c0998`, light surfaces and bold black action labels. The site's unnumbered design overrides Anatomy's decorative `Fig n` label; do not add leading-zero card labels.
+
+Verify keyboard and pointer controls, focus, accessible results, reduced motion, offscreen pausing and disposal on language remount. Inspect mobile, desktop and moving states, at normal size and 4× detail. Use the host's permitted browser tools; in Codex sessions governed by `cua_repl`, do not run the upstream capture/drive/CDP helpers instead. Pure Node geometry/model checks may be used after inspecting their effects. The optional Anatomy community-gallery publisher and session-log collection are outside ordinary site/Git work and require a separate explicit human request.
+
+The pinned source is [wheresryan22/anatomy](https://github.com/wheresryan22/anatomy/tree/1482e8469b0a9e0d8cc18ea2740a01423d29ae80), revision `1482e8469b0a9e0d8cc18ea2740a01423d29ae80`, under the included MIT license. [anatomy-source.json](anatomy-source.json) records every upstream file's byte size, SHA-256 and Git blob ID. `node scripts/check-blog-skills.mjs` verifies the project copy offline. Update the pinned package and manifest together only as an intentional skill upgrade. The project workflow is stored alongside it so both travel with the repository.
+
 ## Files and entry points
 
 - `blog.html`: published-article list and search. With no posts, it links to the interactive example.
@@ -137,7 +158,8 @@ The included simulator is a mathematical demonstration, not a forecast. Visits m
 After adding or removing a published article, regenerate the crawl metadata with `node scripts/generate-sitemap.mjs`; check it with `node scripts/generate-sitemap.mjs --check`. The generator includes both language versions from the public registry and omits the template and drafts.
 
 ```sh
-node --test
+node scripts/check-blog-skills.mjs
+node scripts/test-site.mjs
 node --check portfolio.js
 node --check blog-core.mjs
 node --check blog-data.mjs
@@ -146,6 +168,8 @@ node --check blog-widgets.mjs
 node --check posts/ai-model-market.mjs
 git diff --check
 ```
+
+Use the scoped test runner: bare `node --test` can also discover the vendored skill's independent tests. Skill authoring resources are not part of the site's runtime test suite.
 
 Open the actual article in Persian and English. Check glossary dialogs (including Escape/focus return), comparison tabs with keyboard arrows, disclosure, each metric/view/series combination, period details and data table, simulator values/reset/invalid input, section links, contextual links and related cards. Check desktop and a narrow mobile viewport for overflow and modal fit. Confirm the Blog item remains active in the shared footer. Unknown/unpublished article URLs must show a useful not-found state.
 

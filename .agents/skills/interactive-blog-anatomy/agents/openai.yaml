@@ -1,0 +1,6 @@
+interface:
+  display_name: "Interactive Blog · Anatomy"
+  short_description: "Build interactive articles with required Anatomy figures"
+  default_prompt: "Use $interactive-blog-anatomy to turn this article into a meaningful interactive blog with an Anatomy figure and verify it in the host site."
+policy:
+  allow_implicit_invocation: true
