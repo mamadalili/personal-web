@@ -11,7 +11,6 @@
 .bio{font-size:13px;color:#655f70}.intro p{font-size:13px;color:#706978}.responsibilities li{font-size:13px;color:#696171}.company-copy strong{font-size:12px}.company-copy small{font-size:10px;color:#82788e}.main-tabs button{font-size:13px}.stat span{font-size:11px;color:#786e84}.stat strong{direction:ltr;unicode-bidi:isolate;text-align:start}html[dir=rtl] .stat strong{text-align:right}.project-title{font-size:14px}.project-body,.about>p,.contact>p{font-size:13px}.chip{font-size:11px}.small-label{color:#7e738a}.meta{font-size:11px;color:#82758f}.role{font-size:13px}.note{color:#7e748a}
 @media(max-width:760px){.main-tabs button{font-size:12px}.company-copy strong{font-size:11px}.bio{line-height:1.9}}
 
-/* Keep the original fixed glass footer, with translucent blue light. */
+/* Original footer from the pre-redesign site (61f6443). */
 body{padding-bottom:88px}
-#footer{position:fixed;z-index:20;bottom:0;inset-inline:0;display:flex;justify-content:center;align-items:center;gap:12px;min-height:60px;padding:16px 24px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(75deg,rgba(235,248,252,.72),rgba(179,224,255,.65));-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border-top:1px solid rgba(255,255,255,.85);box-shadow:0 -9px 19px rgba(44,58,81,.08),inset 0 1px 0 rgba(255,255,255,.8);color:#55546a;font-size:11px;text-align:center}
-@media(max-width:760px){#footer{gap:3px 12px;padding-inline:16px;font-size:10px;flex-wrap:wrap}body{padding-bottom:96px}}
+#footer{position:fixed;z-index:20;bottom:0;left:0;width:100%;display:flex;justify-content:center;align-items:center;gap:0;min-height:0;padding:16px 0;margin:0;background:linear-gradient(75deg,#ebf8fc,#b3e0ff);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);border:0;box-shadow:0 -9px 19px rgba(0,0,0,.1);color:#fff;font-size:14px;line-height:20px;text-align:center}
