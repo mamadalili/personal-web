@@ -24,7 +24,8 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 - **Interactive experience:** eight roles with individual responsibilities, dates and focus areas.
 - **Selected projects:** expandable project details, plus About and Contact tabs.
 - **Liquid-glass navigation:** fixed at the top centre on desktop and mobile, with Home, Blog, CV and Contact links, rounded translucent layers, backdrop blur and an active-page indicator. Header and anchor spacing clear the bar. The historical element ID is `footer`.
-- **Interactive blog:** reusable bilingual articles with comparison tabs, expandable explanations, on-demand glossary dialogs, contextual internal links, metric/view/series chart controls, data tables and a live simulator. The labelled template example stays separate from published articles.
+- **Interactive blog:** native bilingual articles with an active outline, reading progress, comparison tabs, glossary dialogs, application explorers, proportional treemaps, linear/log charts, data tables, tested learning calculators and interpretation quizzes. Visible source cards distinguish disclosures, estimates and assumptions. The labelled template example stays separate from published articles.
+- **First article:** “Inside the AI Model Market” is an independently written, attributed interpretation of the reference research, with dated primary disclosures and adjustable educational scenarios. Open `article.html?post=ai-model-market&lang=fa` or switch to `lang=en`.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
 - **Contact page:** direct email and GitHub links, plus a link back to the professional CV.
 - **Local assets:** a WebP portrait and a self-hosted Vazirmatn font.
@@ -43,7 +44,9 @@ personal-web/
 ├── blog-template.html   # Labelled interactive example
 ├── blog-data.mjs        # Article registry and separate demo content
 ├── blog.mjs             # Reusable interactive article renderer
+├── blog-widgets.mjs     # Research widgets and source cards
 ├── blog-core.mjs        # Link, publication and calculation helpers
+├── posts/               # Bilingual article modules
 ├── blog.css             # Blog layout and widget styles
 ├── prompts/interactive-blog.fa.md # Text-to-interactive-article prompt
 ├── docs/interactive-blog.md      # Content schema and authoring guide
@@ -106,7 +109,7 @@ Supported main tabs are `experience`, `projects`, `about` and `contact`. Work-hi
 
 Use [the ready-to-copy Persian prompt](prompts/interactive-blog.fa.md), paste the article text and any sources/data, and let the coding agent apply the existing components. [The authoring guide](docs/interactive-blog.md) describes the schema and supported blocks. Choose interactions that explain the article; not every post needs a chart or calculator.
 
-Real posts belong in `posts` in `blog-data.mjs`, with both language versions and `status:'published'`. They appear automatically in the blog list and open at `article.html?post=slug`. The demo is separate, labelled as illustrative, and does not count as a published post. A `draft` source entry is not private in a public repository.
+Real posts are imported from `posts/` into the `posts` registry in `blog-data.mjs`, with both language versions and `status:'published'`. They appear automatically in the blog list and open at `article.html?post=slug`. The demo is separate, labelled as illustrative, and does not count as a published post. A `draft` source entry is not private in a public repository.
 
 Keep real sources, units, formulas and claims intact. Do not reuse the demo numbers as actual business results. The built-in simulator specifically calculates estimated orders from visits and conversion rate; other formulas need their own implementation and checks.
 

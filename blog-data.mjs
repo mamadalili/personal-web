@@ -1,5 +1,6 @@
-// Add real, bilingual articles here. Template previews never appear as published posts.
-export const posts = [];
+import { aiModelMarket } from './posts/ai-model-market.mjs';
+// Real bilingual articles. Template previews never appear as published posts.
+export const posts = [aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',
