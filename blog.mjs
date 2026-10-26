@@ -63,10 +63,6 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   };
   const research=createResearchWidgets({lang,article,number,rich,openDialog:(...args)=>openDialog(...args),signal});
   const solo=createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
-  if (article.presentation === 'market-atlas') {
-    mountMarketArticle(root,{article,lang,href,sourceCard:research.sourceCard,sourceDetail:research.sourceDetail,signal});
-    return;
-  }
   const pointValue=(block,metric,value,index)=>{const qualifier=block.observations?.[index]?.qualifiers?.[metric.id]||'';return `${esc(qualifier)}${number(roundBound(value,qualifier,metric.format==='number'?0:1),metric.format)}`;};
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;
@@ -109,6 +105,9 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   };
   dialog.addEventListener('close',()=>{ if(lastTrigger?.isConnected) lastTrigger.focus(); },{signal});
   dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();},{signal});
+  if (article.presentation === 'market-atlas') {
+    mountMarketArticle(root,{article,lang,sourceDetail:research.sourceDetail,openDialog,signal});
+  }
   research.mount(root);
   solo.mount(root);
 

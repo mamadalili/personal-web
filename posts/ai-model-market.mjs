@@ -78,13 +78,13 @@ const geography = [
 ].map(row=>({...row,sources:['stanford2026']}));
 const chapter = (id,visual,fa,en,aliases=[]) => ({id,visual,fa:{title:fa[0],nav:fa[1],text:fa[2],stat:fa[3],takeaway:fa[4],foot:fa[5]},en:{title:en[0],nav:en[1],text:en[2],stat:en[3],takeaway:en[4],foot:en[5]},aliases,blocks:[{type:'paragraph',fa:fa[2],en:en[2]}]});
 export const aiModelMarket = {
- slug:'ai-model-market',status:'published',presentation:'market-atlas',date:'2026-10-25',reviewed:'2026-10-26',sources,
+ slug:'ai-model-market',status:'published',coverSeries:'ice-emerald-pair',coverPairPosition:1,presentation:'market-atlas',date:'2026-10-25',reviewed:'2026-10-26',sources,
  cover:{
-  fa:{src:'assets/blog/ai-model-market-fa.webp',alt:'تراشه و برج‌های شیشه‌ای در تصویری مفهومی از بازار مدل‌های هوش مصنوعی.',width:1672,height:941},
-  en:{src:'assets/blog/ai-model-market-en.webp',alt:'A silicon wafer and glass towers illustrating the AI model market.',width:1672,height:941}
+  fa:{src:'assets/blog/ai-model-market-fa-v2.webp',alt:'نمودارهای شیشه‌ای سبز و فیروزه‌ای و کلیدواژه‌های محو درآمد، ارزش‌گذاری و هزینهٔ آموزش در پس‌زمینه.',width:1672,height:941},
+  en:{src:'assets/blog/ai-model-market-en-v2.webp',alt:'Emerald and turquoise glass charts with softly faded revenue, valuation and training-cost keywords.',width:1672,height:941}
  },
- fa:{title:'بازار مدل‌های هوش مصنوعی',excerpt:'چه مدل‌هایی پول می‌سازند، چه شرکت‌هایی جلو هستند و این رقابت چقدر هزینه دارد؟ یک نقشهٔ تصویری در هشت بخش کوتاه.',category:'هوش مصنوعی و اقتصاد دیجیتال',readTime:'۸ دقیقه',credit:'با الهام و اقتباس ساختاری از The AI Model Market اثر Koosh + Claude؛ با متن و نمودارهای مستقل و منابع قابل بررسی.'},
- en:{title:'The AI Model Market',excerpt:'Which models make money, who builds them, and what does the race cost? A visual map in eight short chapters.',category:'AI & the digital economy',readTime:'8 min',credit:'Inspired by the structure of The AI Model Market by Koosh + Claude, with independently written prose, charts and inspectable sources.'},
+ fa:{takeaways:['کاربردها و بازیگران اصلی بازار را بشناسید.','درآمد، ارزش‌گذاری و سرمایه را از هم جدا کنید.','هزینهٔ آموزش و جغرافیای ساخت مدل‌ها را ببینید.'],title:'بازار مدل‌های هوش مصنوعی',excerpt:'چه مدل‌هایی پول می‌سازند، چه شرکت‌هایی جلو هستند و این رقابت چقدر هزینه دارد؟ یک نقشهٔ تصویری در هشت بخش کوتاه.',category:'هوش مصنوعی و اقتصاد دیجیتال',readTime:'۸ دقیقه',credit:'با الهام و اقتباس ساختاری از The AI Model Market اثر Koosh + Claude؛ با متن و نمودارهای مستقل و منابع قابل بررسی.'},
+ en:{takeaways:['Explore the major applications and players.','Separate revenue, valuation and financing.','Compare training costs and where models are built.'],title:'The AI Model Market',excerpt:'Which models make money, who builds them, and what does the race cost? A visual map in eight short chapters.',category:'AI & the digital economy',readTime:'8 min',credit:'Inspired by the structure of The AI Model Market by Koosh + Claude, with independently written prose, charts and inspectable sources.'},
  atlas:{categories,leaders,labs,tools,training,geography},
  sections:[
   chapter('ecosystem','applications',
@@ -112,5 +112,8 @@ export const aiModelMarket = {
    ['مدل‌ها کجا ساخته می‌شوند؟','جغرافیا','در فهرست مدل‌های برجستهٔ سال ۲۰۲۵، آمریکا و چین با فاصله در جلو هستند. اما تعداد مدل، تمام داستان نیست؛ کیفیت، هزینه، دسترسی و کاربرد هم تعیین می‌کنند کدام مدل به کار ما می‌آید.','۵۹ در برابر ۳۵','مدل برجسته در آمریکا و چین؛ داده‌های ۲۰۲۵','Stanford AI Index 2026، شکل ۱٫۱٫۱؛ مناطق منتخب. هر مربع یک مدل است. وابستگی چندکشوری می‌تواند هم‌پوشانی بسازد؛ این تعداد همهٔ مدل‌های جهان نیست.'],
    ['Where are the models built?','Geography','The US and China lead the list of notable models released in 2025 by a wide margin. Counts are only part of the story: quality, cost, access and the task still determine which model is useful.','59 versus 35','notable models from the US and China in 2025','Stanford AI Index 2026, figure 1.1.1; selected areas. Each square is one model. Multi-country affiliations can overlap; these are not all the world’s models.'],['business'])
  ],
- related:[{target:'post:ai-payoff-workload',fa:'آیا AI واقعاً بازده می‌سازد؟',en:'Does AI actually deliver a payoff?'},{target:'post:solo-business',fa:'کسب‌وکار یک‌نفره با AI',en:'A one-person business with AI'},{target:'ai-tools',fa:'AI در کار واقعی',en:'AI in real work'}]
+ related:[
+  {target:'post:ai-payoff-workload',fa:{title:'هوش مصنوعی؛ کار بیشتر، بازده کجاست؟',description:'از اندازهٔ بازار به اثر واقعی AI بر کار، تیم و بازده برسیم.'},en:{title:'AI: more work, where is the return?',description:'Move from market size to AI’s real effect on work, teams and returns.'}},
+  {target:'post:solo-business',fa:{title:'یک نفر، چند نقش؛ با کمک AI',description:'پیشنهاد، نقش انسانی و اولین آزمایش یک کسب‌وکار مستقل را روشن کنید.'},en:{title:'One person, many roles, with AI',description:'Explore the offer, human responsibility and first experiment for an independent business.'}}
+ ]
 };

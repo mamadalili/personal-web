@@ -1,5 +1,4 @@
 import { escapeHTML as esc, layoutTreemap, roundBound } from './blog-core.mjs';
-import { renderPostCover } from './blog-covers.mjs';
 import { logFraction, valuationMultiple, capitalPoints } from './blog-market-model.mjs';
 
 const copy = {
@@ -7,8 +6,8 @@ const copy = {
  en:{back:'All posts',guide:'Article map',source:'Source & details',sources:'Sources & method',close:'Close',revenue:'Annualised revenue',valuation:'Valuation / deal',estimated:'Estimate',missing:'— Not disclosed',billion:'USD billion',date:'Revenue date',valuationDate:'Valuation date',roundDate:'Round date',round:'Round / capital commitment',read:'Reading time',reviewed:'Reviewed',select:'Select a field',outside:'No separate figure; outside the scale',players:'Select a company to see its appearances',all:'Show all',appearances:'fields in this selection',table:'Chart values',cost:'Estimated training cost',year:'Release year',related:'Keep exploring',multiple:'Price-to-sales multiple',bound:'This is a disclosed bound; the ratio has the corresponding bound.',transaction:'Transaction value; now part of SpaceX.',dates:'Dated snapshots, not a live ranking',fundingX:'Round / commitment',fundingY:'Annualised revenue',profit:'This ratio does not measure profitability.',plotHint:'Select a company for its figures and sources.'}
 };
 
-export function mountMarketArticle(root, { article, lang, href, sourceCard, sourceDetail, signal }) {
- const t=copy[lang], a=article[lang], data=article.atlas, companies=[...data.labs,...data.tools];
+export function mountMarketArticle(root, { article, lang, sourceDetail, openDialog, signal }) {
+ const t=copy[lang], data=article.atlas, companies=[...data.labs,...data.tools];
  const n=(value,digits=1)=>new Intl.NumberFormat(lang,{maximumFractionDigits:digits}).format(value);
  const year=value=>new Intl.NumberFormat(lang,{useGrouping:false}).format(value);
  const short=value=>value>=1e9?'$'+n(value/1e9,1)+'B':value>=1e6?'$'+n(value/1e6,1)+'M':value>=1e3?'$'+n(value/1e3,1)+'K':'$'+n(value,0);
@@ -30,30 +29,37 @@ export function mountMarketArticle(root, { article, lang, href, sourceCard, sour
  const players=()=>'<div class="market-player-tools"><p role="status" class="market-player-status">'+t.players+'</p><button type="button" data-market-reset disabled>'+t.all+'</button></div><div class="market-players">'+data.leaders.map(row=>'<div class="market-player-row"><span class="market-player-field">'+esc(category(row.id)[lang].label)+'</span><div>'+row.entries.map(([name,detail,group])=>'<button type="button" data-market-player="'+esc(group)+'" aria-pressed="false" class="player-'+esc(group)+'"><strong dir="ltr">'+esc(name)+'</strong><small dir="ltr">'+esc(detail)+'</small></button>').join('')+'</div></div>').join('')+'</div>';
  const capital=()=>'<div class="market-capital" dir="ltr"></div><p class="market-chart-hint">'+t.plotHint+'</p><details class="market-data"><summary>'+t.table+'</summary><div class="market-data-scroll"><table><thead><tr><th>'+(lang==='fa'?'شرکت':'Company')+'</th><th>'+t.round+'</th><th>'+t.revenue+'</th><th>'+t.roundDate+'</th></tr></thead><tbody>'+capitalPoints(companies).map(point=>'<tr><th><button type="button" data-market-round="'+point.id+'" aria-haspopup="dialog">'+esc(companies.find(row=>row.id===point.id).name)+'</button></th><td><bdi>'+money(point.amount)+'</bdi></td><td><bdi>'+money(point.revenue,point.revenueBound)+'</bdi></td><td>'+esc(month(point.date))+'</td></tr>').join('')+'</tbody></table></div></details>';
  const visuals={applications:()=>'<div class="market-area"></div><div class="market-unscaled">'+data.categories.filter(row=>row.value===null).map(row=>'<button type="button" data-market-category="'+row.id+'" aria-haspopup="dialog"><i style="background:'+row.color+'"></i>'+esc(row[lang].label)+'<span>↗</span></button>').join('')+'</div><p class="market-chart-hint">'+t.select+' · '+t.billion+'</p>',leaders:players,labs:()=>finance(data.labs),tools:()=>finance(data.tools),training,capital,multiples,geography};
- root.classList.add('article-page','market-story');
- root.innerHTML='<header class="market-hero"><div class="market-hero-copy"><a class="market-back" href="'+href('blog')+'">'+t.back+' ↗</a><h1>'+esc(a.title)+'</h1><p class="market-deck">'+esc(a.excerpt)+'</p><div class="market-meta"><span>'+(lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili')+'</span><span>'+esc(a.readTime)+'</span></div><a class="market-credit" href="https://kooshiar.com/r/ai" target="_blank" rel="noopener noreferrer">'+(lang==='fa'?'بر اساس مرجع Koosh + Claude':'Inspired by Koosh + Claude')+' ↗</a></div>'+renderPostCover(article,lang,{className:'market-cover',eager:true,decorative:false})+'</header><nav class="market-nav" aria-label="'+t.guide+'">'+article.sections.map(section=>'<a href="#'+section.id+'">'+esc(section[lang].nav)+'</a>').join('')+'</nav><div class="market-chapters">'+article.sections.map(section=>{
-  const s=section[lang];
-  return '<section class="market-chapter" id="'+section.id+'" aria-labelledby="market-title-'+section.id+'">'+section.aliases.map(alias=>'<span class="market-anchor" id="'+alias+'" aria-hidden="true"></span>').join('')+'<div class="market-chapter-copy"><span class="market-kicker">'+esc(s.nav)+'</span><h2 id="market-title-'+section.id+'">'+esc(s.title)+'</h2><p>'+esc(s.text)+'</p><div class="market-takeaway"><strong>'+esc(s.stat)+'</strong><span>'+esc(s.takeaway)+'</span></div></div><figure class="market-figure" aria-label="'+esc(s.title)+'">'+visuals[section.visual]()+'<figcaption>'+esc(s.foot)+'</figcaption></figure></section>';
- }).join('')+'</div><footer class="market-ending" id="sources"><p class="market-credit">'+esc(a.credit)+'</p><p class="market-reviewed">'+t.reviewed+': <time datetime="'+article.reviewed+'">'+new Intl.DateTimeFormat(lang,{dateStyle:'long'}).format(new Date(article.reviewed+'T12:00:00Z'))+'</time> · '+t.dates+'</p><details class="market-source-list"><summary>'+t.sources+' <span>↗</span></summary><div>'+article.sources.map(source=>'<section>'+sourceCard(source)+'</section>').join('')+'</div></details><div class="market-related"><h2>'+t.related+'</h2>'+article.related.map(link=>'<a href="'+esc(href(link.target))+'">'+esc(link[lang])+' <span>↗</span></a>').join('')+'</div></footer><dialog class="blog-dialog market-dialog" aria-labelledby="market-dialog-title"><button class="dialog-close" type="button" aria-label="'+t.close+'">×</button><div class="market-dialog-body"></div></dialog>';
-
- const dialog=root.querySelector('dialog'), body=dialog.querySelector('.market-dialog-body');
- let lastTrigger, lastAction, selectedGroup=null;
+ root.classList.add('market-story');
+ root.querySelector('.article-body').classList.add('market-article-body');
+ for(const section of article.sections){
+  const node=root.querySelector('#'+section.id),s=section[lang];
+  node.classList.add('market-chapter');
+  node.setAttribute('aria-labelledby','market-title-'+section.id);
+  node.innerHTML=section.aliases.map(alias=>'<span class="market-anchor" id="'+alias+'" aria-hidden="true"></span>').join('')+'<div class="market-chapter-copy"><span class="market-kicker">'+esc(s.nav)+'</span><h2 id="market-title-'+section.id+'">'+esc(s.title)+'</h2><p>'+esc(s.text)+'</p><div class="market-takeaway"><strong>'+esc(s.stat)+'</strong><span>'+esc(s.takeaway)+'</span></div></div><figure class="market-figure" aria-label="'+esc(s.title)+'">'+visuals[section.visual]()+'<figcaption>'+esc(s.foot)+'</figcaption></figure>';
+ }
+ // Keep the shared source section, with the long ledger available on demand.
+ const ledger=root.querySelector('.source-ledger');
+ if(ledger){
+  const details=document.createElement('details'),summary=document.createElement('summary');
+  details.className='article-disclosure market-source-disclosure';
+  summary.textContent=t.sources;
+  ledger.before(details);details.append(summary,ledger);
+ }
+ const dialog=root.querySelector('.article-dialog');
+ let lastTrigger,lastAction,selectedGroup=null;
  function open(title,html,trigger){
   if(signal.aborted)return;
   lastTrigger=trigger;
-  lastAction=trigger?.getAttributeNames().find(name=>name.startsWith('data-market-'));
-  lastAction=lastAction?{name:lastAction,value:trigger.getAttribute(lastAction)}:null;
-  body.innerHTML='<h2 id="market-dialog-title">'+esc(title)+'</h2>'+html;
-  if(!dialog.open)dialog.showModal();
-  dialog.querySelector('.dialog-close').focus();
+  const name=trigger?.getAttributeNames().find(name=>name.startsWith('data-market-'));
+  lastAction=name?{name,value:trigger.getAttribute(name)}:null;
+  openDialog(title,html,trigger);
  }
- dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close(),{signal});
  dialog.addEventListener('close',()=>{
-  const replacement=lastAction?[...root.querySelectorAll('button')].find(button=>button.getAttribute(lastAction.name)===lastAction.value):null;
-  (lastTrigger?.isConnected?lastTrigger:replacement||root).focus();
+  if(lastTrigger?.isConnected||!lastAction)return;
+  const replacement=[...root.querySelectorAll('button')].find(button=>button.getAttribute(lastAction.name)===lastAction.value);
+  (replacement||root).focus();
  },{signal});
- dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}},{signal});
- signal.addEventListener('abort',()=>{if(dialog.open)dialog.close();observer.disconnect();},{once:true});
+ signal.addEventListener('abort',()=>observer.disconnect(),{once:true});
  const sourceHtml=ids=>'<div class="market-dialog-sources">'+[...new Set(ids)].map(sourceDetail).join('')+'</div>';
  function companyDetail(id,roundOnly,trigger){
   const row=companies.find(row=>row.id===id);

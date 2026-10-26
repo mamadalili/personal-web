@@ -26,7 +26,7 @@ The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresrya
 - `blog-data.mjs`: `posts` registry and the separate `articleTemplate` example.
 - `posts/*.mjs`: individual bilingual article data, imported into the registry.
 - `blog.mjs`: article/list renderer and local interaction handlers.
-- `blog-market.mjs`, `blog-market-model.mjs` and `blog-market.css`: the AI-market article’s eight-chapter editorial presentation, mounted through the same abort lifecycle. Large adjacent charts carry the story; selection opens relevant figures and sources. `posts/ai-model-market.mjs` holds the native prose and dated observations. Funding compares the named round (including commitments), rather than lifetime capital or profit; unknown application totals remain outside the area scale.
+- `blog-market.mjs`, `blog-market-model.mjs` and `blog-market.css`: the AI-market article’s eight chart chapters, mounted inside the shared article frame. The shared renderer owns the header/banner, sidebar, reading progress, takeaways, sources, related cards and dialog. Market charts keep their own content-led interactions and abort lifecycle; do not replace the shared frame. Funding compares the named round (including commitments), rather than lifetime capital or profit.
 - `blog-widgets.mjs`: reusable application explorers, treemaps, calculators, quizzes and source cards.
 - `blog-solo.mjs` and `blog-solo.css`: reusable offer filters, search and detail dialogs.
 - `figures/solo-model.mjs`: offer filtering and historical capacity-model utilities. The old `solo-workbench.mjs`/`solo-order.mjs` prototype remains authoring source only and is not imported by the site.

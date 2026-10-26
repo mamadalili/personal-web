@@ -3,6 +3,16 @@ import assert from 'node:assert/strict';
 import { logFraction, valuationMultiple, capitalPoints } from '../blog-market-model.mjs';
 import { aiModelMarket } from '../posts/ai-model-market.mjs';
 import { roundBound } from '../blog-core.mjs';
+import { posts } from '../blog-data.mjs';
+
+test('published related cards satisfy the shared native title and description contract', () => {
+  for (const post of posts) for (const item of post.related || []) for (const lang of ['fa','en']) {
+    assert.equal(typeof item[lang], 'object', `${post.slug}: ${lang} related copy`);
+    assert.ok(typeof item[lang].title === 'string' && item[lang].title.trim());
+    assert.ok(typeof item[lang].description === 'string' && item[lang].description.trim());
+    assert.notEqual(item.target, `post:${post.slug}`);
+  }
+});
 
 test('strict displayed bounds round outward, so they never promise more precision than the observation', () => {
   assert.equal(roundBound(965 / 65, '<', 1), 14.9);
