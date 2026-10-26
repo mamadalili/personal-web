@@ -103,16 +103,21 @@ function renderCV(){
 function homeCardCTA(target,label){return `<a class="card-cta" href="${pageURL(target)}"><span>${label}</span><span class="card-arrow">${icon('arrow')}</span></a>`;}
 function renderHome(){
  const t=copy[lang],s=siteCopy[lang],k=skillsCopy[lang];
- const preview=lang==='fa'?[['بخوانید','ایده‌ها و یادداشت‌ها'],['مقایسه کنید','نگاه‌های متفاوت به یک موضوع'],['تجربه کنید','تعامل با داده و سناریوها']]:[['Read','Ideas and notes'],['Compare','Different ways to look at a topic'],['Explore','Data and scenarios you can interact with']];
+
  const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
  $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view" aria-labelledby="explore-title"><div class="page-hero home-hero"><div class="eyebrow">${s.homeEyebrow}</div><h1>${s.homeTitle}</h1><p>${s.homeIntro}</p><span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span></div>
  <div class="home-section-heading"><h2 id="explore-title">${s.explore}</h2><p>${s.exploreNote}</p></div>
  <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><div class="card-top"><span class="card-icon">${skillIcon('market')}</span><span class="card-label">${k.heroLabel}</span></div><h3 id="skills-hero-title">${k.cardTitle}</h3><p>${k.cardBody}</p>${homeCardCTA('solutions',k.cardAction)}</div><div class="skills-card-side"><div class="skills-capability-grid">${k.pillars.map(pillar=>`<a class="capability-tile" href="${pageURL(pillar.page)}"><span class="capability-icon">${skillIcon(pillar.icon)}</span><h4>${pillar.title}</h4><p>${pillar.text}</p></a>`).join('')}</div></div></article>
  </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
- <article class="home-card blog-card feature-card"><div class="card-top"><span class="card-icon">${icon('blog')}</span><span class="card-label">${s.blogLabel}</span></div><h3>${s.blogTitle}</h3><p>${s.blogBody}</p><div class="blog-preview" aria-hidden="true">${preview.map(([title,description])=>`<div><span class="blog-preview-dot"></span><div><strong>${title}</strong><small>${description}</small></div></div>`).join('')}</div>${homeCardCTA('blog',s.blogAction)}</article>
+ <article class="home-card blog-card feature-card"><div class="card-top"><span class="card-icon">${icon('blog')}</span><span class="card-label">${s.blogLabel}</span></div><h3>${s.blogTitle}</h3><p>${s.blogBody}</p><div class="home-blog-mount" aria-busy="true"></div>${homeCardCTA('blog',s.blogAction)}</article>
  <article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody}</p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article>
  </div></section></div><p class="page-signoff">© ${new Date().getFullYear()} ${s.copyright}</p>`;
+ const blogRoot=$('main').querySelector('.home-blog-mount');
+ const blogLanguage=lang;
+ import('./home-blog.mjs').then(({mountHomeBlog})=>{
+  if(blogRoot.isConnected) mountHomeBlog(blogRoot,{language:blogLanguage});
+ }).catch(error=>{blogRoot.removeAttribute('aria-busy');console.error('Home blog could not be loaded',error);});
  // Restore visibility when keyboard navigation returns to the pinned skills link.
  const revealSkills=()=>{
   const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),tiles=$('main').querySelector('.skills-capability-grid'),deck=$('main').querySelector('.home-card-deck');
