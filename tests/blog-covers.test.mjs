@@ -50,6 +50,8 @@ test('published articles have real native cover files and the native covers appe
     }
     assert.notEqual(article.cover.fa.src, article.cover.en.src);
   }
-  assert.deepEqual(homePostPages(posts).map(page => page.map(item => item.slug)),
-    [['ai-payoff-workload', 'solo-business', 'ai-model-market']]);
+  const pages=homePostPages(posts);
+  assert.deepEqual(pages.map(page=>page.length),[6,6,6,1]);
+  assert.equal(new Set(pages.flat().map(item=>item.slug)).size,posts.length);
+  assert.deepEqual(pages.flat().map(item=>item.slug),posts.map(item=>item.slug));
 });

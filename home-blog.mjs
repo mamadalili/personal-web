@@ -104,7 +104,9 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
     select(target, smooth);
     const outer = track.getBoundingClientRect(), inner = panels[target].getBoundingClientRect();
     const left = lang === 'fa' ? inner.right - outer.right : inner.left - outer.left;
-    track.scrollBy({ left, behavior: smooth && !motion.matches ? 'smooth' : 'instant' });
+    // An endpoint-only scroll may cross snap-stop:always panels (Home/End
+    // and breakpoint restoration); scrollBy can stop at an intervening page.
+    track.scrollTo({ left: track.scrollLeft + left, behavior: smooth && !motion.matches ? 'smooth' : 'instant' });
   }
   select(0);
   root.addEventListener('click', event => {

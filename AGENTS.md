@@ -24,3 +24,5 @@
 - Use `#CCFF00` as the secondary highlight: a stroke around Home’s Solutions CTA and the four Solutions controls. Keep the primary purple accent and black bold CTA text. CTA arrows are clean horizontal arrows mirrored for RTL, without tilted decorative badges.
 - Shared background motion uses subtle lime particles, snow-like drift, glints and diffuse light under the content. Decorations are ARIA-hidden, ignore pointer input, pause while the document is hidden and become static with reduced motion. Preserve the existing Home hero components.
 - The Blog index uses `blog-index.mjs` and `blog-library-model.mjs`: one real latest feature, a nonduplicated archive, native topic filters and bilingual keyword search. Keep article reading frames unchanged.
+
+- The sixteen-article 2026 collection completes the ice/emerald pair with Product Pages, then follows `posts/series-2026-manifest.mjs`. Housing Offer Terms starts `silver-lemon-pair`, position 1; the next new article must complete position 2 with native fa/en artwork before starting another palette. Cover chart traces are illustrative, not evidence.

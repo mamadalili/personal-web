@@ -181,3 +181,9 @@ Use the scoped test runner: bare `node --test` can also discover the vendored sk
 Open the actual article in Persian and English. Check glossary dialogs (including Escape/focus return), comparison tabs with keyboard arrows, disclosure, each metric/view/series combination, period details and data table, simulator values/reset/invalid input, section links, contextual links and related cards. Check desktop and a narrow mobile viewport for overflow and modal fit. Confirm the Blog item remains active in the shared footer. Unknown/unpublished article URLs must show a useful not-found state.
 
 For research blocks, also check the treemap at 0%, 30% and 100%; linear/log scale positions; visible bounds/dates; calculator updates and zero denominators; quiz feedback; active outline/progress; and direct source links. Confirm a language change stays on the same article and cleans up event handlers and resize observers.
+
+## Evidence checklist block
+
+`decision-audit` is optional when the reader can inspect actual evidence. Supply localized `title`, `hint`, `complete` plus unique item IDs with native `label` and `next`. The renderer returns the first unchecked item in authored priority and can reveal all remaining items; there is no score, sales forecast or stored personal response. Native checkboxes support keyboard input, reset and abortable lifecycle. Choose this only when checking a real page/task is the article’s point; other articles can use tabs, explorer, disclosures or interpretation quizzes.
+
+For multi-source collections, record one source-to-article mapping, access status and commercial context. Publisher paraphrase budgets apply across both languages together. Substantial original exercises must be identified as proposals, not publisher research. See [the sixteen-article coverage audit](blog-series-2026.md).

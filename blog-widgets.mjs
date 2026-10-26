@@ -6,7 +6,7 @@ const copy = {
 };
 
 export function createResearchWidgets({lang,article,number,rich,openDialog,signal}) {
-  const t={...copy[lang],kinds:{...copy[lang].kinds,guide:lang==='fa'?'راهنمای رسمی':'Official guide',analysis:lang==='fa'?'یادداشت تحلیلی':'Analytical note'}},widgets=new Map();
+  const t={...copy[lang],kinds:{...copy[lang].kinds,guide:lang==='fa'?'راهنمای رسمی':'Official guide',analysis:lang==='fa'?'یادداشت تحلیلی':'Analytical note',sponsored:lang==='fa'?'محتوای حمایت‌شده':'Sponsored content'}},widgets=new Map();
   const date=value=>value?new Intl.DateTimeFormat(lang,{dateStyle:'medium'}).format(new Date(`${value}T12:00:00Z`)):'';
   const sourceById=id=>article.sources?.find(source=>source.id===id);
   const sourceCard=source=>{

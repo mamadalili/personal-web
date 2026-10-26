@@ -50,3 +50,7 @@ Create a finished original editorial blog cover banner, landscape 16:9, 1536x864
 Scene: Original conceptual editorial photograph of an anonymous knowledge worker from behind, surrounded by a rising swirl of translucent task sheets and softly glowing digital fragments, with a clear calm boundary of violet light around the person. The tension is growing output versus limited human attention, thoughtful rather than apocalyptic. Warm amber horizon contrasts with deep indigo. No desk machine, no clinical burnout diagnosis, no numerical chart. Subject on the right, spacious quiet dark area on the left for a large English headline across at most three lines.
 Typography language: English, expertly typeset left-to-right.
 Text verbatim: "AI: More Work. Where’s the Return?".
+
+## Sixteen-article collection
+
+The 32 additional native assets, exact prompts and built-in generation mode are documented in [blog-series-cover-prompts.md](blog-series-cover-prompts.md). Pair order is authoritative in `posts/series-2026-manifest.mjs`. All selected files are local WebP exports; decorative chart traces are not data.

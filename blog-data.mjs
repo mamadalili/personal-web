@@ -2,8 +2,9 @@ import { aiPayoffWorkload } from './posts/ai-payoff-workload.mjs';
 import { aiModelMarket } from './posts/ai-model-market.mjs';
 import { soloBusiness } from './posts/solo-business.mjs';
 import { soloGroups, soloOpportunities } from './posts/solo-opportunities.mjs';
+import { seriesPosts } from './posts/series-2026.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [aiPayoffWorkload, soloBusiness, aiModelMarket];
+export const posts = [...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',
