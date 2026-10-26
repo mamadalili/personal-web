@@ -21,7 +21,7 @@ const copy = {
 };
 const tabIds=['experience','projects','about','contact'];
 const params=new URLSearchParams(location.search);
-const pageFiles={home:'index.html',solutions:'solutions.html',blog:'blog.html',cv:'profile.html',contact:'contact.html'};
+const pageFiles={home:'index.html',solutions:'strategy.html',blog:'blog.html',cv:'profile.html',contact:'contact.html'};
 const extraPageFiles={skills:'skills.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',article:'article.html'};
 const requestedPage=document.body.dataset.page||'cv';
 // Keep previously shared profile links working after introducing the homepage.
@@ -55,7 +55,7 @@ const skillsCopy={
 };
 const skillIconPaths={ai:'<rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 3v3m6-3v3m-6 12v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3M9 10h6m-6 4h4"/>',sales:'<path d="M3 4h2l2 12h11l3-8H6M9 20h.01M17 20h.01"/>',market:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18M12 3c-5 5-5 13 0 18"/>',marketing:'<path d="m3 11 18-7v16L3 14Zm5 5 1 5h4l-2-4M3 11v3"/>',ads:'<path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/>',analytics:'<path d="M4 3v17h17M8 15l4-5 4 3 5-7"/>',web:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18m-10 4-3 2 3 2m4-4 3 2-3 2"/>'};
 const skillIcon=name=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${skillIconPaths[name]}</svg>`;
-const iconPaths={solutions:'<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>',home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',blog:'<path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Zm0 11h12a4 4 0 0 1 4 4M8 8h8M8 11h5"/>',cv:'<rect x="4" y="3" width="16" height="18" rx="3"/><circle cx="10" cy="9" r="2"/><path d="M7 15c0-3 6-3 6 0m3-7h1m-1 4h1M7 18h10"/>',contact:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/>',arrow:'<path d="M7 17 17 7M7 7h10v10"/>'};
+const iconPaths={solutions:'<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>',home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',blog:'<path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Zm0 11h12a4 4 0 0 1 4 4M8 8h8M8 11h5"/>',cv:'<rect x="4" y="3" width="16" height="18" rx="3"/><circle cx="10" cy="9" r="2"/><path d="M7 15c0-3 6-3 6 0m3-7h1m-1 4h1M7 18h10"/>',contact:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/>',arrow:'<path d="M4 12h16m-6-6 6 6-6 6"/>'};
 const icon=name=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name]}</svg>`;
 let savedLanguage;try{savedLanguage=localStorage.getItem('portfolio-language');}catch{}
 let lang=['fa','en'].includes(params.get('lang'))?params.get('lang'):['fa','en'].includes(savedLanguage)?savedLanguage:'fa';
@@ -69,6 +69,7 @@ function pageURL(id){const file=pageFiles[id]||extraPageFiles[id];return file?`$
 function updateURL(){const url=new URL(location.href);url.searchParams.set('lang',lang);if(page==='cv'){url.searchParams.set('tab',activeTab);url.searchParams.set('role',activeCareer);}else{url.searchParams.delete('tab');url.searchParams.delete('role');}history.replaceState(null,'',url);}
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 function render(){
+  ensureAmbient();
   const t=copy[lang],s=siteCopy[lang],pageLabel=page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${pageLabel} — ${t.name}`;
   document.querySelector('meta[name="description"]').content=page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
@@ -100,6 +101,13 @@ function renderCV(){
   $('content').innerHTML=tabIds.map(id=>`<section role="tabpanel" id="panel-${id}" aria-labelledby="tab-${id}" tabindex="0" ${id===activeTab?'':'hidden'}></section>`).join('');
   renderContent();
 }
+function ensureAmbient(){
+ if(document.querySelector('.ambient-field'))return;
+ const field=document.createElement('div');field.className='ambient-field';field.setAttribute('aria-hidden','true');
+ field.innerHTML=Array.from({length:22},(_,index)=>`<span class="ambient-particle ${index%4===0?'ambient-glint':''}" style="--x:${(index*43+7)%100}%;--y:${(index*29+11)%100}%;--size:${index%4===0?11:3+index%4}px;--duration:${23+index%11}s;--delay:-${index*1.7}s;--dx:${index%2?38:-38}px"></span>`).join('')+'<span class="ambient-light light-a"></span><span class="ambient-light light-b"></span>';
+ document.body.prepend(field);
+ const pause=()=>field.classList.toggle('is-paused',document.hidden);pause();document.addEventListener('visibilitychange',pause);
+}
 function homeCardCTA(target,label){return `<a class="card-cta" href="${pageURL(target)}"><span>${label}</span><span class="card-arrow">${icon('arrow')}</span></a>`;}
 let disposeHomeBlog=()=>{};
 function renderHome(){
@@ -111,9 +119,9 @@ function renderHome(){
  <div class="home-section-heading"><h2 id="explore-title">${s.explore}</h2><p>${s.exploreNote}</p></div>
  <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><div class="card-top"><span class="card-icon">${skillIcon('market')}</span><span class="card-label">${k.heroLabel}</span></div><h3 id="skills-hero-title">${k.cardTitle}</h3><p>${k.cardBody}</p>${homeCardCTA('solutions',k.cardAction)}</div><div class="skills-card-side"><div class="skills-capability-grid">${k.pillars.map(pillar=>`<a class="capability-tile" href="${pageURL(pillar.page)}"><span class="capability-icon">${skillIcon(pillar.icon)}</span><h4>${pillar.title}</h4><p>${pillar.text}</p></a>`).join('')}</div></div></article>
  </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
- <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h3 id="home-blog-title">${lang==='fa'?'تازه‌های بلاگ':'Latest from the blog'}</h3><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}<span aria-hidden="true">↗</span></a></header><p>${s.blogBody}</p><div data-home-blog><p class="home-blog-loading" role="status">${lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…'}</p></div></article>
- <div class="home-quick-links"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody}</p>${homeCardCTA('cv',s.cvAction)}</article>
- <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></div>
+ <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h3 id="home-blog-title">${lang==='fa'?'تازه‌های بلاگ':'Latest from the blog'}</h3><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><p>${s.blogBody}</p><div data-home-blog><p class="home-blog-loading" role="status">${lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…'}</p></div></article>
+ <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody}</p>${homeCardCTA('cv',s.cvAction)}</article>
+ <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
  </div></section></div><p class="page-signoff">© ${new Date().getFullYear()} ${s.copyright}</p>`;
  const blogRoot=$('main').querySelector('[data-home-blog]');
  import('./home-blog.mjs').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
@@ -150,6 +158,7 @@ function renderBlog(mode='index'){
  });
 }
 function renderSolutions(){
+ if(!document.body.dataset.solution){location.replace(pageURL('strategy')+location.hash);return;}
  const version=++solutionsMountVersion,language=lang;
  $('main').innerHTML=`<p class="solutions-loading" role="status">${lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…'}</p>`;
  import('./solutions.mjs').then(({mountSolutions})=>{

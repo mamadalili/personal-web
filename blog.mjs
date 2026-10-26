@@ -1,3 +1,4 @@
+import { mountBlogIndex } from './blog-index.mjs';
 import { renderPostCover } from './blog-covers.mjs';
 import { posts, articleTemplate } from './blog-data.mjs';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
@@ -13,7 +14,7 @@ let dispose = () => {};
 
 export function mountBlog(root, { language = 'fa', mode = 'index', template = false } = {}) {
   dispose();
-  root.classList.remove('market-story');
+  root.classList.remove('market-story','blog-index');
   const controller = new AbortController(), signal = controller.signal;
   dispose = () => controller.abort();
   const lang = language === 'en' ? 'en' : 'fa', t = {...copy[lang],...(lang==='fa'?{dots:'نقطه‌ای',linear:'خطی',log:'لگاریتمی',scale:'مقیاس محور',sources:'منابع و روش',reviewed:'بازبینی منابع',reading:'پیشرفت خواندن',logNote:'مقیاس لگاریتمی؛ صفر و مقدار منفی نمایش داده نمی‌شوند.'}:{dots:'Dots',linear:'Linear',log:'Logarithmic',scale:'Axis scale',sources:'Sources & methodology',reviewed:'Sources reviewed',reading:'Reading progress',logNote:'Log scale; zero and negative values are not plotted.'})};
@@ -21,20 +22,7 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   const number = (value,format='number') => value === null || !Number.isFinite(value) ? '—' : new Intl.NumberFormat(lang,{maximumFractionDigits:format==='number'?0:1}).format(value) + (format==='percent'?(lang==='fa'?'٪':'%'):format==='multiple'?'×':'');
   const livePosts = publishedPosts(posts);
 
-  if (mode === 'index') {
-    root.innerHTML = `<section class="page-hero"><div class="eyebrow">${t.eyebrow}</div><h1>${t.heading}</h1><p>${t.intro}</p></section>${livePosts.length ? `<label class="blog-search">${t.search}<input type="search" id="blog-search" autocomplete="off"></label><div class="blog-post-grid" id="blog-post-list"></div><p class="blog-search-status" role="status"></p>` : `<section class="empty-blog"><span class="blog-empty-mark" aria-hidden="true">✦</span><h2>${t.empty}</h2><p>${t.emptyBody}</p><a class="blog-button" href="${href('template')}">${t.preview}<span aria-hidden="true">↗</span></a></section>`}`;
-    const list = root.querySelector('#blog-post-list');
-    if (list) {
-      const update = query => {
-        const filtered = livePosts.filter(post => `${post[lang].title} ${post[lang].excerpt} ${post[lang].category}`.toLocaleLowerCase(lang).includes(query.toLocaleLowerCase(lang)));
-        list.innerHTML = filtered.map(post => `<a class="blog-post-card ${post.cover?'has-cover':''}" href="${href(`post:${post.slug}`)}">${renderPostCover(post,lang,{className:'blog-list-cover'})}<span>${esc(post[lang].category)}</span><h2>${esc(post[lang].title)}</h2><p>${esc(post[lang].excerpt)}</p><small>${esc(post[lang].readTime || '')} <span aria-hidden="true">↗</span></small></a>`).join('');
-        root.querySelector('.blog-search-status').textContent = filtered.length ? '' : t.noResults;
-      };
-      update('');
-      root.querySelector('#blog-search').addEventListener('input',event=>update(event.target.value.trim()),{signal});
-    }
-    return;
-  }
+  if(mode==='index'){mountBlogIndex(root,{lang,items:posts,href,signal});return;}
 
   const slug = new URLSearchParams(location.search).get('post');
   const article = template ? articleTemplate : livePosts.find(post => post.slug === slug);

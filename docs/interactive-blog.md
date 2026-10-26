@@ -18,8 +18,8 @@ The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresrya
 
 ## Files and entry points
 
-- `blog.html`: published-article list and search. With no posts, it links to the interactive example.
-- `home-blog.mjs`: the Home carousel reads the same published registry automatically, two articles per page. Publishing a bilingual article updates Home without a separate card edit; drafts and the template remain excluded.
+- `blog.html`, `blog-index.mjs` and `blog-library-model.mjs`: editorial feature, nonduplicated archive, topic selection and keyword search. With no posts, it links to the interactive example.
+- `home-blog.mjs`: the Home carousel reads the same published registry automatically, up to six articles per desktop page (three columns, two rows), four on tablets and two on phones. Publishing a bilingual article updates Home without a separate card edit; drafts and the template remain excluded.
 - `blog-covers.mjs`: validated local native fa/en cover selection and image markup; full banners on articles/lists, compact artwork-focused Home thumbnails beside native titles. Each post's `cover.fa` and `cover.en` contain `src`, descriptive `alt`, and actual integer `width`/`height`. Never fall back to an image with the other language's headline. [Banner prompts and provenance](blog-covers.md) accompany the six current exports.
 - `blog-template.html`: bilingual, explicitly labelled example. It has `noindex,follow` and is excluded from the article registry.
 - `article.html?post=slug&lang=fa`: a published article; `lang=en` opens its English version.

@@ -65,7 +65,7 @@ personal-web/
 ├── tests/blog-core.test.mjs      # Node tests for links and calculations
 ├── contact.html         # Dedicated contact page
 ├── skills.html          # Supporting skills and work experience
-├── solutions.html       # Solutions category hub
+├── solutions.html       # Compatibility redirect to the selectable Solutions entry
 ├── strategy.html        # Strategy solution
 ├── execution.html       # Execution solution
 ├── technology.html      # Technology solution
@@ -113,7 +113,7 @@ The glass navigation at the top centre links to Home, Solutions, Blog, CV and Co
 | Page | File | Content |
 | --- | --- | --- |
 | Home | `index.html` | Introduction, portrait and cards for CV, Blog and Contact |
-| Solutions | `solutions.html` | Hub for Strategy, Execution, Technology and AI Tools |
+| Solutions | `strategy.html` | Shared four-branch selector; Strategy is the default entry |
 | Strategy / Execution / Technology / AI Tools | `strategy.html`, `execution.html`, `technology.html`, `ai-tools.html` | Dedicated solution pages with scope, outputs, approach and related experience |
 | Blog | `blog.html` | Published posts and search; preview link while empty |
 | CV | `profile.html` | Original professional profile, experience, projects, About and Contact tabs |
@@ -128,7 +128,7 @@ The glass navigation at the top centre links to Home, Solutions, Blog, CV and Co
 | `/?lang=en` | English homepage, left-to-right layout |
 | `/profile.html?lang=fa&tab=projects` | Persian CV projects |
 | `/profile.html?lang=en&tab=experience&role=turbin` | English Turbin Tahrir experience |
-| `/solutions.html?lang=fa` | Persian Solutions hub |
+| `/strategy.html?lang=fa` | Persian Solutions entry with the four-branch selector |
 | `/ai-tools.html?lang=en` | AI Tools solution in English |
 | `/blog.html?lang=fa` | Persian blog |
 | `/blog-template.html?lang=fa` | Interactive template preview |

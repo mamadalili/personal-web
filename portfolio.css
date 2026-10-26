@@ -161,3 +161,37 @@ html[lang=en] .collaboration-copy h2{line-height:1.35;letter-spacing:-.7px}html[
 #footer a svg{width:19px;height:19px}
 @media(max-width:760px){#footer{padding:5px;border-radius:24px}#footer:before{border-radius:23px}#footer a{min-height:44px;padding:2px 4px;font-size:10.5px}#footer a svg{width:18px;height:18px}}
 @media(max-width:360px){#footer{padding:4px}#footer a{padding-inline:1px;font-size:9.5px}#footer a svg{width:17px;height:17px}}
+
+/* Lime accents and calm decorative motion shared by the portfolio pages. */
+:root{--lime:#ccff00}
+.site-header,#main{position:relative;z-index:1}
+.ambient-field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;isolation:isolate}
+.ambient-particle{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);border-radius:50%;background:#ccff00;box-shadow:0 0 15px #ccff0066;opacity:.28;animation:ambient-drift var(--duration) ease-in-out var(--delay) infinite alternate;will-change:transform}
+.ambient-glint{background:none;box-shadow:none;border-radius:0;opacity:.24}
+.ambient-glint:before,.ambient-glint:after{content:'';position:absolute;left:50%;top:50%;background:radial-gradient(ellipse,#ccff00 0%,#ccff0055 40%,transparent 72%);transform:translate(-50%,-50%)}
+.ambient-glint:before{width:100%;height:3px}.ambient-glint:after{height:100%;width:3px}
+.ambient-light{position:absolute;width:470px;height:470px;max-width:80vw;max-height:80vw;border-radius:50%;background:radial-gradient(ellipse,#ccff001a,transparent 66%);animation:ambient-light 25s ease-in-out infinite alternate}
+.light-a{top:4%;left:-180px}.light-b{right:-190px;bottom:8%;animation-delay:-12s}
+.ambient-field.is-paused *{animation-play-state:paused}
+@keyframes ambient-drift{from{transform:translate3d(0,-28px,0);opacity:.12}to{transform:translate3d(var(--dx),60px,0);opacity:.4}}
+@keyframes ambient-light{from{transform:translate3d(0,0,0);opacity:.3}to{transform:translate3d(60px,-80px,0);opacity:.8}}
+.skills-hero-card .skills-card-copy .card-cta{border:2px solid #ccff00;background:#fff;box-shadow:0 0 0 4px #ccff0012}
+.skills-hero-card .skills-card-copy .card-cta:hover{background:#f9ffdf;border-color:#ccff00}
+.card-arrow{background:none;border:0;border-radius:0;width:22px;height:22px}
+.card-arrow svg{width:20px;height:20px}
+.collaboration-cta{background:linear-gradient(130deg,#fff,#f9faf6);border:1px solid #dfe2d8;border-radius:20px;box-shadow:0 12px 40px #14240905;padding:38px;gap:42px}
+.collaboration-cta:before,.collaboration-eyebrow:before{display:none}
+.collaboration-eyebrow{color:#514672;font-weight:700;letter-spacing:1px}
+.collaboration-copy h2{font-size:29px;font-weight:750;line-height:1.65}
+.collaboration-copy h2>em{font-style:normal}
+.collaboration-actions{background:none;box-shadow:none;border:0;border-inline-start:1px solid #e4e7dc;border-radius:0;padding:10px 0;padding-inline-start:30px}
+.collaboration-primary{border:2px solid #ccff00;background:#fff;border-radius:10px;padding:13px 16px;min-height:56px;font-weight:700;color:#000}
+.collaboration-primary:hover{background:#f6ffdb;border-color:#ccff00}
+.collaboration-arrow{width:22px;height:22px;background:none;border:0;border-radius:0;color:#000}
+.collaboration-arrow svg{width:22px;height:22px}
+html[dir=rtl] .collaboration-arrow svg,html[dir=rtl] .collaboration-secondary svg{transform:scaleX(-1)}
+.collaboration-prepare li:before{display:none}
+.collaboration-prepare ul{gap:8px}.collaboration-prepare li{border:1px solid #e4e7de;border-radius:6px;background:#fff;padding:5px 10px}
+.collaboration-secondary{border-color:#e0e4d7;font-size:12px}
+@media(max-width:760px){.collaboration-cta{padding:25px 22px;gap:25px}.collaboration-actions{padding:22px 0 0;border-inline-start:0;border-top:1px solid #e4e7dc}.collaboration-copy h2{font-size:25px}.ambient-particle:nth-child(n+16){display:none}}
+@media(prefers-reduced-motion:reduce){.ambient-field *{animation:none!important;will-change:auto}.ambient-particle{opacity:.14}.ambient-light{opacity:.3}}

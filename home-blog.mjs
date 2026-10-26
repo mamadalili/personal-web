@@ -2,10 +2,11 @@ import { renderPostCover } from './blog-covers.mjs';
 import { posts } from './blog-data.mjs';
 import { escapeHTML as esc, internalHref, publishedPosts } from './blog-core.mjs';
 
-export function homePostPages(items) {
+export function homePostPages(items, pageSize=6) {
+  if(!Number.isInteger(pageSize)||pageSize<1||pageSize>6)throw new RangeError('Home carousel pages contain one to six articles.');
   const live = publishedPosts(items).filter(post => typeof post.slug === 'string' && post.slug && post.fa?.title && post.en?.title);
   const pages = [];
-  for (let index = 0; index < live.length; index += 2) pages.push(live.slice(index, index + 2));
+  for (let index = 0; index < live.length; index += pageSize) pages.push(live.slice(index, index + pageSize));
   return pages;
 }
 
@@ -28,19 +29,39 @@ export function createWheelPager() {
   };
 }
 
+export function wheelPageVisible({top,bottom,viewportHeight,topInset=110,bottomInset=16}){
+  return [top,bottom,viewportHeight,topInset,bottomInset].every(Number.isFinite)&&bottom>top&&top>=topInset&&bottom<=viewportHeight-bottomInset;
+}
+
 const copy = {
   fa: { region: 'آخرین نوشته‌های بلاگ', carousel: 'کاروسل', previous: 'نوشته‌های جدیدتر', next: 'نوشته‌های قدیمی‌تر',
-    read: 'خواندن مقاله', hint: 'اسکرول یا کشیدن', latest: 'تازه‌ترین نوشته‌ها', empty: 'نوشته‌های منتشرشده از اینجا در دسترس خواهند بود.',
+    read: 'خواندن مقاله', hint: 'کشیدن، اسکرول افقی یا دکمه‌ها', latest: 'تازه‌ترین نوشته‌ها', empty: 'نوشته‌های منتشرشده از اینجا در دسترس خواهند بود.',
     page: (index, total) => `مجموعهٔ ${index} از ${total} نوشته‌ها` },
   en: { region: 'Latest blog posts', carousel: 'carousel', previous: 'Newer posts', next: 'Older posts',
-    read: 'Read article', hint: 'Scroll or swipe', latest: 'Latest posts', empty: 'Published articles will appear here.',
+    read: 'Read article', hint: 'Swipe, scroll sideways or use the arrows', latest: 'Latest posts', empty: 'Published articles will appear here.',
     page: (index, total) => `Post group ${index} of ${total}` }
 };
 let carouselSerial = 0;
 const arrow = direction => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="${direction === 'previous' ? 'm14 6-6 6 6 6' : 'm10 6 6 6-6 6'}"/></svg>`;
 
 export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
-  const lang = language === 'en' ? 'en' : 'fa', t = copy[lang], pages = homePostPages(items);
+  const controller=new AbortController(),wide=matchMedia('(min-width:1000px)'),medium=matchMedia('(min-width:761px)');
+  let dispose=()=>{};
+  const redraw=()=>{
+    const active=document.activeElement,inside=root.contains(active),visible=root.querySelector('.home-blog-page[aria-hidden=false] .home-post-card');
+    const focusedCard=inside?active.closest?.('.home-post-card'):null;
+    const restoreHref=(focusedCard||visible)?.href;
+    const focusKind=!inside?null:focusedCard?'card':active.hasAttribute('data-home-step')?'step:'+active.dataset.homeStep:'track';
+    dispose();
+    dispose=mountHomeCarousel(root,{language,items,pageSize:wide.matches?6:medium.matches?4:2,restoreHref,focusKind});
+  };
+  [wide,medium].forEach(media=>media.addEventListener('change',redraw,{signal:controller.signal}));
+  redraw();
+  return ()=>{controller.abort();dispose();};
+}
+
+function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind}){
+  const lang = language === 'en' ? 'en' : 'fa', t = copy[lang], pages = homePostPages(items,pageSize);
   const controller = new AbortController(), signal = controller.signal;
   if (!pages.length) { root.innerHTML = `<p class="home-blog-empty">${t.empty}</p>`; return () => controller.abort(); }
   const number = value => new Intl.NumberFormat(lang).format(value);
@@ -53,12 +74,17 @@ export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
   root.classList.add('home-blog-mount');
   root.innerHTML = `<div class="home-blog-track" id="${trackId}" tabindex="0" role="region" aria-label="${t.region}" aria-roledescription="${t.carousel}">${pages.map((page, index) => `<div class="home-blog-page" role="group" aria-label="${t.page(number(index + 1), number(pages.length))}">${page.map(post => {
     const a = post[lang], href = internalHref(`post:${post.slug}`, lang, items, location.href);
-    return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover'})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date(post.date)}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${t.read}<span aria-hidden="true">↗</span></span></span></a>`;
+    return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover'})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date(post.date)}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${t.read}<span aria-hidden="true">${lang==='fa'?'←':'→'}</span></span></span></a>`;
   }).join('')}</div>`).join('')}</div><div class="home-blog-controls"><span class="home-blog-hint">${pages.length > 1 ? t.hint : t.latest}</span><span class="home-blog-position" aria-hidden="true"><i style="inline-size:${100 / pages.length}%"></i></span><div class="home-blog-buttons"><button type="button" data-home-step="-1" aria-controls="${trackId}" aria-label="${t.previous}">${arrow('previous')}</button><button type="button" data-home-step="1" aria-controls="${trackId}" aria-label="${t.next}">${arrow('next')}</button></div></div><p class="home-blog-status" role="status" aria-live="polite" aria-atomic="true"></p>`;
   const track = root.querySelector('.home-blog-track'), panels = [...track.children];
   const previous = root.querySelector('[data-home-step="-1"]'), next = root.querySelector('[data-home-step="1"]');
-  const wheel = createWheelPager(), motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let wheel = createWheelPager();
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let index = 0, scrollTimer = 0, width = track.clientWidth;
+  function sizeActivePage(){
+    const height=panels[index]?.scrollHeight;
+    if(height>0)root.style.setProperty('--home-track-height',height+'px');
+  }
   function select(page, announce = false) {
     const changed = page !== index;
     const focused = document.activeElement;
@@ -69,6 +95,7 @@ export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
       panel.setAttribute('aria-hidden', String(position !== index));
     });
     previous.disabled = index === 0; next.disabled = index === pages.length - 1;
+    sizeActivePage();
     root.querySelector('.home-blog-position i').style.transform = `translateX(${index * 100 * (lang === 'fa' ? -1 : 1)}%)`;
     if (changed && announce) root.querySelector('.home-blog-status').textContent = t.page(number(index + 1), number(pages.length));
   }
@@ -95,6 +122,10 @@ export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
     event.preventDefault(); goTo(target);
   }, { signal });
   if (pages.length > 1) track.addEventListener('wheel', event => {
+    const bounds=track.getBoundingClientRect();
+    if(!wheelPageVisible({top:bounds.top,bottom:bounds.bottom,viewportHeight:innerHeight,topInset:innerWidth>760?110:90})){
+      wheel=createWheelPager();return;
+    }
     const decision = wheel({ page: index, pageCount: pages.length, deltaX: event.deltaX, deltaY: event.deltaY,
       deltaMode: event.deltaMode, viewportHeight: track.clientHeight, time: performance.now(),
       ctrlKey: event.ctrlKey, metaKey: event.metaKey, shiftKey: event.shiftKey, altKey: event.altKey });
@@ -111,9 +142,21 @@ export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
     }, 160);
   }, { passive: true, signal });
   const observer = new ResizeObserver(() => {
-    if (signal.aborted || !root.isConnected || width === track.clientWidth) return;
-    width = track.clientWidth; goTo(index, false);
+    if (signal.aborted || !root.isConnected) return;
+    if(width!==track.clientWidth){width=track.clientWidth;goTo(index,false);}
+    else sizeActivePage();
   });
   observer.observe(track);
+  panels.forEach(panel=>observer.observe(panel));
+  if(restoreHref){
+    const target=[...root.querySelectorAll('.home-post-card')].find(link=>link.href===restoreHref);
+    const page=target?panels.indexOf(target.closest('.home-blog-page')):-1;
+    if(page>=0){goTo(page,false);}
+    if(focusKind==='card'&&target)target.focus({preventScroll:true});
+    else if(focusKind){
+      const control=focusKind==='step:-1'?previous:focusKind==='step:1'?next:null;
+      (control&&!control.disabled?control:track).focus({preventScroll:true});
+    }
+  }
   return () => { controller.abort(); observer.disconnect(); clearTimeout(scrollTimer); };
 }

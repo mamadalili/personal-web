@@ -41,7 +41,7 @@ test('article covers retain localized alternatives while link thumbnails avoid d
   assert.equal(renderPostCover({}, 'fa'), '');
 });
 
-test('published articles have real native cover files and the third post appears in the first Home pair', () => {
+test('published articles have real native cover files and the native covers appear in the responsive Home groups', () => {
   for (const article of posts) {
     for (const language of ['fa', 'en']) {
       const cover = coverFor(article, language);
@@ -51,5 +51,5 @@ test('published articles have real native cover files and the third post appears
     assert.notEqual(article.cover.fa.src, article.cover.en.src);
   }
   assert.deepEqual(homePostPages(posts).map(page => page.map(item => item.slug)),
-    [['ai-payoff-workload', 'solo-business'], ['ai-model-market']]);
+    [['ai-payoff-workload', 'solo-business', 'ai-model-market']]);
 });
