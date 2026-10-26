@@ -28,3 +28,7 @@
 - The sixteen-article 2026 collection completes the ice/emerald pair with Product Pages, then follows `posts/series-2026-manifest.mjs`. Housing Offer Terms starts `silver-lemon-pair`, position 1; the next new article must complete position 2 with native fa/en artwork before starting another palette. Cover chart traces are illustrative, not evidence.
 
 - Keep CV copy natural and concise. Do not add a calendar-system badge or explanatory label such as “تاریخ‌ها: هجری شمسی” / “Solar Hijri dates (SH)”. Preserve the actual résumé dates.
+
+- The approved professional title is “مارکتر و اپراتور هوش‌مصنوعی” / “Marketer & AI Operator”. Use the shared professional-title component: bold navy text, smaller than the adjacent name, with a restrained #CCFF00 text shine. Keep native language and reduced-motion/hidden-page handling.
+- Use the outlined `assets/brand/monogram.svg` signature consistently for non-Home headers, favicons, actual loading states, Contact decoration and Home’s copyright signoff. Home keeps its portrait header. Do not introduce artificial loading delays.
+- Contact and the CV contact tab share five author-approved channels: call, WhatsApp, Telegram, email and GitHub. Keep links in `contactChannels`, do not invent a Telegram handle, and omit the redundant email-app explanation.
