@@ -27,6 +27,7 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 - **Interactive blog:** native bilingual articles with an active outline, reading progress, comparison tabs, glossary dialogs, application explorers, proportional treemaps, linear/log charts, data tables, tested learning calculators and interpretation quizzes. Visible source cards distinguish disclosures, estimates and assumptions. The labelled template example stays separate from published articles.
 - **First article:** “Inside the AI Model Market” is an independently written, attributed interpretation of the reference research, with dated primary disclosures and adjustable educational scenarios. Open `article.html?post=ai-model-market&lang=fa` or switch to `lang=en`.
 - **Second article:** “One person, many roles: building a business with AI” adds six starting points, twelve original offer experiments, searchable detail cards and an Anatomy workbench with a tested workload model. Open `article.html?post=solo-business&lang=fa` or use `lang=en` for native English.
+- **Homepage blog carousel:** a wide blog area shows two real published posts per view, with compact CV and Contact cards beside it. Posts are side by side on desktop and stacked on phones. Buttons, keyboard arrows, horizontal swipe/scroll and vertical wheel gestures browse additional groups. Boundary wheel gestures return to normal page scrolling; a single group has disabled arrows. The shared top glass bar is about 20% shorter with 44px or larger touch targets.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
 - **Required Anatomy authoring:** every new or revised interactive article uses the complete, pinned Anatomy skill and an article-specific explanatory figure. The skill and the site's companion workflow travel with the repository.
 - **Collaboration invitation:** Skills and Solutions share a bilingual closing section with a clear contact action, practical prompts for starting a conversation and a secondary CV link. The Solutions version keeps a link to the supporting Skills page.
@@ -43,6 +44,8 @@ personal-web/
 ├── .agents/skills/anatomy/ # Complete upstream skill, kit, references and examples (MIT)
 ├── .agents/skills/interactive-blog-anatomy/ # Required article authoring workflow
 ├── index.html           # Homepage with page cards
+├── home-blog.mjs        # Published-post carousel and wheel/keyboard paging
+├── home-blog.css        # Wide blog deck and compact post/quick-link cards
 ├── profile.html         # Professional CV and interactive experience
 ├── landing.html         # Alternative homepage entry point
 ├── blog.html            # Published articles and search

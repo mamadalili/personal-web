@@ -153,3 +153,11 @@ a:is(.primary-link,.blog-button):hover{background:#e2dcf9;color:#000}
 html[lang=en] .collaboration-copy h2{line-height:1.35;letter-spacing:-.7px}html[lang=en] .collaboration-copy>p{line-height:1.95}
 @media(max-width:1000px){.collaboration-cta{gap:25px;padding:28px;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr)}.collaboration-copy h2{font-size:26px}.collaboration-actions{padding:22px}.collaboration-primary{font-size:12px}}
 @media(max-width:760px){.collaboration-cta{grid-template-columns:1fr;padding:25px 22px;gap:25px;margin-top:28px;border-radius:20px}.collaboration-copy h2{font-size:25px;letter-spacing:-.4px;line-height:1.75}.collaboration-copy>p{font-size:12px;line-height:2.2;margin-top:13px}.collaboration-eyebrow{font-size:10px;margin-bottom:11px}.collaboration-prepare{margin-top:20px}.collaboration-prepare ul{gap:7px 16px}.collaboration-prepare li{font-size:10px}.collaboration-actions{padding:20px;border-radius:15px}.collaboration-primary{font-size:12px;padding-inline:12px;min-height:54px}.collaboration-action-label{font-size:11px}.collaboration-actions>.collaboration-action-note{font-size:10px}.collaboration-secondary{font-size:11px}.collaboration-copy>.collaboration-background{font-size:10px;line-height:2.1}html[lang=en] .collaboration-copy h2{line-height:1.4}}
+
+/* Shorter glass navigation: retain the top-centred surface and touch targets. */
+#footer{padding:5px;border-radius:25px;font-size:11px}
+#footer:before{border-radius:24px}
+#footer a{min-height:48px;padding:3px 9px;gap:2px;border-radius:18px;font-size:11px}
+#footer a svg{width:19px;height:19px}
+@media(max-width:760px){#footer{padding:5px;border-radius:24px}#footer:before{border-radius:23px}#footer a{min-height:44px;padding:2px 4px;font-size:10.5px}#footer a svg{width:18px;height:18px}}
+@media(max-width:360px){#footer{padding:4px}#footer a{padding-inline:1px;font-size:9.5px}#footer a svg{width:17px;height:17px}}
