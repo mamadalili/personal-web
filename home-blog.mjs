@@ -125,7 +125,10 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
   }, { signal });
   if (pages.length > 1) track.addEventListener('wheel', event => {
     const bounds=track.getBoundingClientRect();
-    if(!wheelPageVisible({top:bounds.top,bottom:bounds.bottom,viewportHeight:innerHeight,topInset:innerWidth>760?110:90})){
+    const phone=innerWidth<=760,navigation=document.getElementById('footer')?.getBoundingClientRect();
+    const topInset=phone?16:Math.max(110,(navigation?.bottom||0)+16);
+    const bottomInset=phone&&navigation?Math.max(16,innerHeight-navigation.top+16):16;
+    if(!wheelPageVisible({top:bounds.top,bottom:bounds.bottom,viewportHeight:innerHeight,topInset,bottomInset})){
       wheel=createWheelPager();return;
     }
     const decision = wheel({ page: index, pageCount: pages.length, deltaX: event.deltaX, deltaY: event.deltaY,
