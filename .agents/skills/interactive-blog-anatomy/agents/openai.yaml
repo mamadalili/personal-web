@@ -1,6 +1,6 @@
 interface:
-  display_name: "Interactive Blog · Anatomy"
-  short_description: "Build interactive articles with required Anatomy figures"
-  default_prompt: "Use $interactive-blog-anatomy to turn this article into a meaningful interactive blog with an Anatomy figure and verify it in the host site."
+  display_name: "Interactive Blog · Content First"
+  short_description: "Choose interactions that explain the article"
+  default_prompt: "Use $interactive-blog-anatomy to adapt this article with relevant interactions and native fa/en; use Anatomy only when it helps explain the subject."
 policy:
   allow_implicit_invocation: true

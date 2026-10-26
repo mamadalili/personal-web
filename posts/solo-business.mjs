@@ -4,18 +4,18 @@ export const soloBusiness = {
   slug: 'solo-business', status: 'published', date: '2026-10-26', reviewed: '2026-10-25',
   fa: {
     title: 'یک نفر، چند نقش؛ کسب‌وکار با کمک AI',
-    excerpt: 'از توانایی فعلی‌ات به یک پیشنهاد روشن برس. مسیرها را باز کن، سهم AI و مسئولیت خودت را ببین و ظرفیت تحویل را روی یک میز کار تعاملی امتحان کن.',
+    excerpt: 'از توانایی فعلی‌ات به یک پیشنهاد روشن برس. مسیرهای کسب‌وکار را بررسی کن، خریدار و خروجی را مشخص کن و سهم AI، مسئولیت خودت و اولین آزمایش را ببین.',
     category: 'کسب‌وکار و هوش مصنوعی', readTime: '۹ دقیقه + تجربه',
-    credit: 'نوشته و تجربهٔ تعاملی مستقل، با الهام از Solo اثر کوشیار؛ همراه با منابع تکمیلی و مدل آموزشی اختصاصی.',
-    sourceNote: 'مرجع Solo الهام‌بخش تجربهٔ انتخاب مسیر است. پیشنهادها و مدل زمان، سناریوهای آموزشیِ این مقاله‌اند؛ نرخ بازار، درآمد گزارش‌شده یا نتیجهٔ تضمینی نیستند. منابع تکمیلی برای روش شناخت مشتری و طراحی استفادهٔ مسئولانه از AI آمده‌اند.',
+    credit: 'نوشته و تجربهٔ تعاملی مستقل، با الهام از Solo اثر کوشیار؛ همراه با پیشنهادهای قابل بررسی و منابع تکمیلی.',
+    sourceNote: 'مرجع Solo الهام‌بخش تجربهٔ انتخاب مسیر است. پیشنهادهای این مقاله، ایده‌هایی برای آزمایش‌اند؛ نرخ بازار، درآمد گزارش‌شده یا نتیجهٔ تضمینی نیستند. منابع تکمیلی برای روش شناخت مشتری و طراحی استفادهٔ مسئولانه از AI آمده‌اند.',
     takeaways: ['توانایی را به خروجی قابل تحویل تبدیل کن.', 'زمان بازبینی و ارتباط با مشتری را حساب کن.', 'با یک نمونه و معیار پذیرش شروع کن.']
   },
   en: {
     title: 'One person, many roles: building a business with AI',
-    excerpt: 'Turn an existing capability into a clear offer. Explore possible paths, separate AI assistance from your responsibilities, and test delivery capacity on an interactive workbench.',
+    excerpt: 'Turn an existing capability into a clear offer. Explore business paths, identify the buyer and deliverable, and inspect AI’s contribution, your responsibilities and a first experiment.',
     category: 'BUSINESS & AI', readTime: '9 minutes + exploration',
-    credit: 'Independent writing and interaction design inspired by Kooshiar’s Solo, with additional sources and an original educational model.',
-    sourceNote: 'Solo inspired the path-selection experience. The offers and workload model are educational scenarios developed for this article, not market rates, reported earnings or guaranteed results. Additional sources inform customer research and responsible AI workflow design.',
+    credit: 'Independent writing and interaction design inspired by Kooshiar’s Solo, with offers to investigate and additional sources.',
+    sourceNote: 'Solo inspired the path-selection experience. These offers are ideas to test, not market rates, reported earnings or guaranteed results. Additional sources inform customer research and responsible AI workflow design.',
     takeaways: ['Turn a capability into a bounded deliverable.', 'Count review and client-communication time.', 'Start with a sample and acceptance evidence.']
   },
   glossary: {
@@ -35,8 +35,8 @@ export const soloBusiness = {
   sources: [
     {
       id: 'solo-reference', url: 'https://kooshiar.com/solo', publisher: 'Kooshiar', kind: 'inspiration',
-      fa: { title: 'Solo — مرجع تجربهٔ انتخاب مسیر', note: 'الهام از انتخاب پیشینه و بازکردن جزئیات مسیر. متن، دسته‌بندی پیشنهادها، تصویر و مدل این صفحه مستقل ساخته شده‌اند. برآوردهای درآمد و جدول زمانی مرجع به‌عنوان واقعیت به این مقاله منتقل نشده‌اند.' },
-      en: { title: 'Solo — inspiration for choosing a path', note: 'Inspiration for selecting a starting point and opening focused details. This article’s writing, offer taxonomy, figure and model were developed independently. The reference’s earnings estimates and timeline are not imported as facts.' }
+      fa: { title: 'Solo — مرجع تجربهٔ انتخاب مسیر', note: 'الهام از انتخاب پیشینه و بازکردن جزئیات مسیر. متن، دسته‌بندی پیشنهادها و طراحی تعامل این صفحه مستقل ساخته شده‌اند. برآوردهای درآمد و جدول زمانی مرجع به‌عنوان واقعیت به این مقاله منتقل نشده‌اند.' },
+      en: { title: 'Solo — inspiration for choosing a path', note: 'Inspiration for selecting a starting point and opening focused details. This article’s writing, offer taxonomy and interaction design were developed independently. The reference’s earnings estimates and timeline are not imported as facts.' }
     },
     {
       id: 'sba-research', url: 'https://www.sba.gov/counseling/plan-your-business/', publisher: 'U.S. Small Business Administration', kind: 'guide',
@@ -45,21 +45,16 @@ export const soloBusiness = {
     },
     {
       id: 'openai-agents', url: 'https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/', publisher: 'OpenAI', kind: 'guide', date: '2026-01-15',
-      fa: { title: 'طراحی جریان AI با مرز و بازبینی انسانی', note: 'مبنای تأکید بر دامنهٔ روشن ابزار، کنترل دسترسی و ارجاع به انسان در خطا یا عملیات حساس. مثال زمان این مقاله، دادهٔ عملکرد این راهنما نیست.' },
-      en: { title: 'AI workflows with boundaries and human intervention', note: 'Supports clear tool boundaries, access controls and human escalation for failures or sensitive actions. This article’s timing assumptions are not performance data from the guide.' }
+      fa: { title: 'طراحی جریان AI با مرز و بازبینی انسانی', note: 'مبنای تأکید بر دامنهٔ روشن ابزار، کنترل دسترسی و ارجاع به انسان در خطا یا عملیات حساس.' },
+      en: { title: 'AI workflows with boundaries and human intervention', note: 'Supports clear tool boundaries, access controls and human escalation for failures or sensitive actions.' }
     }
   ],
   sections: [
     {
-      id: 'delivery-capacity', fa: { title: 'میز کار تک‌نفره‌ات را تنظیم کن' }, en: { title: 'Set up your one-person workbench' },
+      id: 'delivery-capacity', fa: { title: 'توانایی‌ات را به یک پیشنهاد قابل تحویل تبدیل کن' }, en: { title: 'Turn your capability into a deliverable offer' },
       blocks: [
         { type: 'paragraph', fa: 'یک کسب‌وکار تک‌نفره به چند نقش نیاز دارد: فهم مسئله، فروش، ساخت، بازبینی و ارتباط. AI می‌تواند در بخشی از این کارها کمک کند. نقطهٔ شروع، یک [[bounded-offer|پیشنهاد با دامنهٔ روشن]] است که بتوانی کیفیتش را بررسی و در زمان موجود تحویل بدهی.', en: 'A one-person business still needs several roles: understanding a problem, selling, making, reviewing and communicating. AI can assist with parts of that work. Start with a [[bounded-offer|bounded offer]] whose quality you can check and whose delivery fits your available time.' },
-        {
-          type: 'capacity-rig', model: 'solo-capacity', defaults: { hours: 12, orders: 12, automation: 60 },
-          fa: { title: 'AI چقدر جا روی میزت باز می‌کند؟', note: 'ورودی‌ها را تغییر بده. کارت‌ها، فاصلهٔ پرس و عقربه از یک مدل مشترک پیروی می‌کنند؛ زمان بازبینی و ارتباط با مشتری در محاسبه باقی می‌ماند.' },
-          en: { title: 'How much room can AI make on your bench?', note: 'Change the inputs. Cards, the press gap and the dial follow one shared model; review and client-communication time stay in the calculation.' }
-        },
-        { type: 'callout', fa: 'فرض آموزشی هر سفارش: ۷۵ دقیقه آماده‌سازی، ۲۵ دقیقه بازبینی و ۲۰ دقیقه ارتباط. نوار واگذاری فقط از زمان آماده‌سازی کم می‌کند. «قابل تحویل» سقف زمانی همین مثال است؛ پیدا شدن مشتری و پذیرش خروجی باید جداگانه بررسی شوند.', en: 'Educational assumptions per order: 75 preparation minutes, 25 review minutes and 20 communication minutes. Delegation reduces preparation only. “Can be delivered” is this example’s time constraint; finding buyers and getting work accepted require separate validation.' }
+        { type: 'callout', fa: 'از مسیرهای زیر، یک پیشنهاد را باز کن و این چهار چیز را روشن کن: چه کسی خریدار است، چه خروجی می‌گیرد، AI کدام بخش را کمک می‌کند و تو چطور کیفیت را تأیید می‌کنی. بعد با یک آزمایش کوچک، زمان واقعی و نیاز مشتری را بررسی کن.', en: 'Open one of the offers below and clarify four things: who buys it, what they receive, where AI assists and how you verify quality. Then use a small experiment to investigate the actual effort and the customer’s need.' }
       ]
     },
     {
@@ -95,21 +90,21 @@ export const soloBusiness = {
       ]
     },
     {
-      id: 'quality-and-responsibility', fa: { title: 'کیفیت، داده و مسئولیت روی میز می‌مانند' }, en: { title: 'Quality, data and responsibility stay on the bench' },
+      id: 'quality-and-responsibility', fa: { title: 'کیفیت، داده و مسئولیت را در جریان کار روشن کن' }, en: { title: 'Make quality, data and responsibility explicit' },
       blocks: [
         { type: 'paragraph', fa: 'برای خروجی، [[acceptance-evidence|شاهد پذیرش]] تعریف کن و مسیر ارجاع را روشن نگه دار. [راهنمای OpenAI](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) بر مرز ابزار، کنترل دسترسی و ورود انسان در خطاها و عملیات حساس تأکید می‌کند. در پیشنهاد تو هم باید معلوم باشد چه کاری کمک‌گرفته از AI است و چه کسی نتیجه را تأیید می‌کند.', en: 'Define [[acceptance-evidence|acceptance evidence]] and keep an escalation path clear. [OpenAI’s guide](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) emphasizes tool boundaries, access controls and human intervention for failures and sensitive actions. Your offer should also make clear where AI assists and who approves the result.' },
         { type: 'callout', fa: 'پیش از واگذاری یک گام، بپرس: داده مجاز است؟ خروجی چطور بررسی می‌شود؟ در خطا چه اتفاقی می‌افتد؟ برای تصمیم حساس، متخصص مسئول و کنترل مناسب لازم است. این پرسش‌ها بخشی از طراحی تحویل‌اند.', en: 'Before delegating a step, ask: is the data permitted, how will the output be checked, and what happens on failure? Sensitive decisions require the responsible specialist and appropriate controls. These questions belong in the delivery design.' },
-        { type: 'quiz', fa: { question: 'پرس سریع‌تر شده، اما سفارش‌ها هنوز بیرون از ظرفیت‌اند. قدم مناسب چیست؟' }, en: { question: 'Preparation is faster, but requests still exceed capacity. What is a useful next step?' }, choices: [
+        { type: 'quiz', fa: { question: 'AI آماده‌سازی را سریع‌تر کرده، اما زمان کافی برای تحویل سفارش‌ها نداری. قدم مناسب چیست؟' }, en: { question: 'AI makes preparation faster, but you still lack enough time to deliver the orders. What is a useful next step?' }, choices: [
           { correct: false, fa: 'زمان بازبینی را از برنامه حذف کنم.', en: 'Remove review time from the plan.' },
           { correct: true, fa: 'دامنه، تعداد سفارش و زمان واقعی تحویل را دوباره بررسی کنم.', en: 'Revisit scope, order count and actual delivery time.' },
           { correct: false, fa: 'عدد درآمد را از سرعت تولید نتیجه بگیرم.', en: 'Infer earnings from production speed.' }
-        ], faExplanation: 'ظرفیت این مدل به زمان انسانی و تقاضا وابسته است. سرعت آماده‌سازی، کیفیتِ پذیرفته‌شده یا درآمد را به‌تنهایی تعیین نمی‌کند.', enExplanation: 'This model’s capacity depends on human time and demand. Preparation speed alone establishes neither accepted quality nor earnings.' }
+        ], faExplanation: 'برای برآورد ظرفیت، زمان ساخت، بازبینی و ارتباط با مشتری را با هم حساب کن. سریع‌تر شدن آماده‌سازی، به‌تنهایی کیفیت پذیرفته‌شده، تحویل به‌موقع یا درآمد را تضمین نمی‌کند.', enExplanation: 'Estimate capacity using production, review and client-communication time together. Faster preparation alone does not guarantee accepted quality, timely delivery or earnings.' }
       ]
     }
   ],
   related: [
     { target: 'post:ai-model-market', fa: { title: 'درون بازار مدل‌های AI', description: 'مقالهٔ اول؛ برای تفکیک داده، فرض و برداشت در بازار هوش مصنوعی.' }, en: { title: 'Inside the AI model market', description: 'The first article: separating data, assumptions and interpretation.' } },
-    { target: 'solutions', fa: { title: 'یک مسئلهٔ واقعی روی میز بگذاریم', description: 'از استراتژی و اجرا تا فناوری و ابزارهای AI.' }, en: { title: 'Put a real problem on the bench', description: 'Explore strategy, execution, technology and AI tools.' } },
+    { target: 'solutions', fa: { title: 'برای یک مسئلهٔ واقعی راهکار پیدا کنیم', description: 'از استراتژی و اجرا تا فناوری و ابزارهای AI.' }, en: { title: 'Find a solution to a real problem', description: 'Explore strategy, execution, technology and AI tools.' } },
     { target: 'cv:projects', fa: { title: 'پروژه‌ها و تجربه‌های من', description: 'نگاهی به زمینهٔ کاری پشت این رویکرد.' }, en: { title: 'My projects and experience', description: 'The professional background behind this approach.' } }
   ]
 };

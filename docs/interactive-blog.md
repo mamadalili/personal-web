@@ -2,26 +2,19 @@
 
 The site uses its existing static HTML/CSS/JavaScript stack. There is no CMS, AI API, tracking or build dependency. The reusable authoring prompt is [interactive-blog.fa.md](../prompts/interactive-blog.fa.md).
 
-## Required Anatomy workflow
+## Choose interactions for the article
 
-For **every new or revised interactive article**, first load the project workflow [interactive-blog-anatomy](../.agents/skills/interactive-blog-anatomy/SKILL.md) and the complete [Anatomy skill](../.agents/skills/anatomy/SKILL.md). Read its `references/craft.md` and the closest example before designing the figure. This is a required authoring step, not an optional visual reference. Each article must include at least one substantive Anatomy figure that explains its subject, unless the user explicitly changes the requirement. Other interactions remain selective; a chart or calculator alone does not replace the figure.
+Start with [interactive-blog-anatomy](../.agents/skills/interactive-blog-anatomy/SKILL.md), the companion authoring workflow, and the reusable prompt. Identify the reader’s question before choosing a widget. Filters, focused details, comparisons, charts or a calculator can each be sufficient when they directly support that question. There is no minimum figure count.
 
-Anatomy turns a concept into a recognisable physical mechanism, with crafted isometric solids and movement driven by the same model as the displayed result. Start with its Figure scope where sufficient. Record a short authoring brief with:
+**Anatomy is optional.** Use it when a recognisable mechanism genuinely makes the subject easier to understand. Omit it when it adds visual distraction, an unrelated physical metaphor or extra work for the reader. Do not add a device to satisfy a skill requirement. The Solo article now focuses on real offer choices, AI/human responsibilities and first experiments; the rejected workbench and its artificial timing exercise are removed from the article and template.
 
-- The reader's question and the relationship the figure teaches.
-- The mechanism, what the reader controls, what moves and what that movement means.
-- The model or formula, units, sources and dates, assumptions and limits; distinguish reported data from an illustrative model.
-- The article-specific figure/model files and the checks performed.
+When a figure is useful, load the complete [Anatomy skill](../.agents/skills/anatomy/SKILL.md), its `references/craft.md` and the closest relevant example. Record the reader’s question, what the reader controls, what changes and why that change explains the subject. State any formula, unit, source/date, assumption and limitation; keep reported data separate from illustrative models. Do not invent facts to make an analogy work.
 
-Do not invent facts or imply that an explanatory mechanism is a real device or business result. If the text cannot support a truthful mechanism, identify that content problem and propose a concrete treatment. Reading the skill or adding a decorative drawing does not complete the requirement.
+Keep the existing framework-free HTML/CSS/JavaScript stack. The upstream package at `.agents/skills/anatomy` stays unmodified and is authoring material. Place article figures and any needed runtime assets outside it; load only what the chosen interaction uses. Integrate reusable behavior through the shared renderer with proper mount/dispose handling.
 
-Keep the framework-free HTML/CSS/JavaScript stack. The complete upstream package is vendored, unmodified, at `.agents/skills/anatomy`; it is authoring material, not a visitor bundle. Put new figure source, models and selected runtime assets outside that folder, with the article's own files. Add reusable block/mount/dispose behavior to the shared renderer rather than duplicating the blog engine. The Solo article and template now demonstrate the `capacity-rig` block; new concepts require their own appropriate mechanisms and models.
+Provide native Persian and English content and controls, mirrored RTL/LTR, `#1c0998`, light surfaces and bold black action labels. Keep cards unnumbered. Verify keyboard/pointer input, focus, accessible results, language remount and mobile/desktop fit. For motion, also verify reduced motion, offscreen behavior and relevant moving states. Use the host’s permitted browser tools; do not substitute upstream headless capture/drive/CDP helpers. Optional community-gallery publishing and session-log collection require their own explicit human request.
 
-Provide native Persian and English titles, hints, captions, control labels, units, glossary text and live readouts. Mirror the surrounding layout and keep words outside the drawing where Anatomy requires it. Use `#1c0998`, light surfaces and bold black action labels. The site's unnumbered design overrides Anatomy's decorative `Fig n` label; do not add leading-zero card labels.
-
-Verify keyboard and pointer controls, focus, accessible results, reduced motion, offscreen pausing and disposal on language remount. Inspect mobile, desktop and moving states, at normal size and 4× detail. Use the host's permitted browser tools; in Codex sessions governed by `cua_repl`, do not run the upstream capture/drive/CDP helpers instead. Pure Node geometry/model checks may be used after inspecting their effects. The optional Anatomy community-gallery publisher and session-log collection are outside ordinary site/Git work and require a separate explicit human request.
-
-The pinned source is [wheresryan22/anatomy](https://github.com/wheresryan22/anatomy/tree/1482e8469b0a9e0d8cc18ea2740a01423d29ae80), revision `1482e8469b0a9e0d8cc18ea2740a01423d29ae80`, under the included MIT license. [anatomy-source.json](anatomy-source.json) records every upstream file's byte size, SHA-256 and Git blob ID. `node scripts/check-blog-skills.mjs` verifies the project copy offline. Update the pinned package and manifest together only as an intentional skill upgrade. The project workflow is stored alongside it so both travel with the repository.
+The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresryan22/anatomy/tree/1482e8469b0a9e0d8cc18ea2740a01423d29ae80), revision `1482e8469b0a9e0d8cc18ea2740a01423d29ae80`, under its MIT license. [anatomy-source.json](anatomy-source.json) records upstream hashes; `node scripts/check-blog-skills.mjs` checks integrity offline. Availability of the package does not require using it in an article.
 
 ## Files and entry points
 
@@ -33,9 +26,9 @@ The pinned source is [wheresryan22/anatomy](https://github.com/wheresryan22/anat
 - `posts/*.mjs`: individual bilingual article data, imported into the registry.
 - `blog.mjs`: article/list renderer and local interaction handlers.
 - `blog-widgets.mjs`: reusable application explorers, treemaps, calculators, quizzes and source cards.
-- `blog-solo.mjs` and `blog-solo.css`: reusable offer filtering/dialogs and the capacity-workbench block.
-- `figures/solo-model.mjs`, `solo-workbench.mjs`, `solo-order.mjs`: pure model, Anatomy geometry and generated depth order.
-- `assets/anatomy/`: only the pinned SVG core, scoped CSS and MIT license used by the visitor page.
+- `blog-solo.mjs` and `blog-solo.css`: reusable offer filters, search and detail dialogs.
+- `figures/solo-model.mjs`: offer filtering and historical capacity-model utilities. The old `solo-workbench.mjs`/`solo-order.mjs` prototype remains authoring source only and is not imported by the site.
+- `assets/anatomy/`: preserved optional SVG core, scoped CSS and MIT license; the current blog pages do not load them.
 - `blog-core.mjs`: safe link resolution, publication filtering and numerical helpers.
 - `blog.css`: scoped article and widget styles. The shared liquid-glass footer remains in `portfolio.css`.
 
@@ -94,17 +87,14 @@ Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology
 | `calculator` | `formula`, localized `title,note`, input definitions, optional `source` | Tested compound-cost or revenue/cost/capital learning labs |
 | `quiz` | Localized `question`, choices with `correct,fa,en`, `faExplanation,enExplanation` | A reader-selected interpretation check with immediate feedback |
 | `opportunities` | Localized `eyebrow,title,note`; `groups`, bilingual `items` | Group filtering, Persian/English search, focused dialogs and contextual links |
-| `capacity-rig` | `model:'solo-capacity'`, `defaults:{hours,orders,automation}`, localized `title,note` | Anatomy workbench showing human-time capacity; fixed educational assumptions |
 
 Widget `id` values in the example are author-facing references; the renderer generates unique DOM IDs. A glossary definition should be self-contained plain text. Native dialog behavior provides focus containment, Escape and return focus. Dialogs open only after reader action. The outline tracks the active section and reading progress; it starts collapsed on mobile. Sources remain readable in a visible ledger, outside dialogs.
 
-### Opportunity browser and Anatomy workbench
+### Opportunity browser
 
 See `posts/solo-opportunities.mjs` for complete bilingual data. Groups use `{id,fa,en}`; items have a stable `id`, matching `group`, optional internal `target` and `fa/en:{title,buyer,outcome,proof,ai,human,experiment,boundary}`. Search covers localized fields and normalizes Persian/Arabic yeh and kaf. Filters are keyboard-accessible buttons; dialogs return focus to the triggering card.
 
-`capacity-rig` implements **only** `solo-capacity`: 75 preparation minutes reduced by 0–90% delegation, plus 25 review and 20 client-communication minutes per order. Hours range from 0–40; orders are integers from 0–16. Capacity is floor(available minutes / human minutes per order). Figure and readout use the same pure model. Zero hours and invalid inputs do not produce infinite results. All assumptions are visibly educational.
-
-Do not relabel this rig as another formula or insert it into unrelated articles to satisfy Anatomy. Design the appropriate mechanism and model. The workbench uses short input-driven easing, offscreen/reduced-motion settling and abort-based disposal. [Its figure brief](figures/solo-workbench.md) records the analogy, parts and audit. Run `node scripts/build-solo-figure.mjs --check` after geometry changes; regenerate without `--check` when depth constraints change.
+The old physical workbench is no longer a supported article block. Do not reintroduce it through the template or authoring prompt. Its [historical figure brief](figures/solo-workbench.md) documents the retired prototype, not an instruction to add it.
 
 ### Charts
 

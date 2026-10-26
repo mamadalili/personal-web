@@ -1,5 +1,7 @@
 # Solo workbench figure brief
 
+> Retired prototype: removed from the Solo article, template and visitor runtime after editorial review. This brief records the historical experiment; it is not a current authoring requirement.
+
 ## Question and mechanism
 
 How does delegating preparation affect what one person can deliver within limited time?
