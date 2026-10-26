@@ -1,3 +1,4 @@
+import { renderPostCover } from './blog-covers.mjs';
 import { posts, articleTemplate } from './blog-data.mjs';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
@@ -24,7 +25,7 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
     if (list) {
       const update = query => {
         const filtered = livePosts.filter(post => `${post[lang].title} ${post[lang].excerpt} ${post[lang].category}`.toLocaleLowerCase(lang).includes(query.toLocaleLowerCase(lang)));
-        list.innerHTML = filtered.map(post => `<a class="blog-post-card" href="${href(`post:${post.slug}`)}"><span>${esc(post[lang].category)}</span><h2>${esc(post[lang].title)}</h2><p>${esc(post[lang].excerpt)}</p><small>${esc(post[lang].readTime || '')} <span aria-hidden="true">↗</span></small></a>`).join('');
+        list.innerHTML = filtered.map(post => `<a class="blog-post-card ${post.cover?'has-cover':''}" href="${href(`post:${post.slug}`)}">${renderPostCover(post,lang,{className:'blog-list-cover'})}<span>${esc(post[lang].category)}</span><h2>${esc(post[lang].title)}</h2><p>${esc(post[lang].excerpt)}</p><small>${esc(post[lang].readTime || '')} <span aria-hidden="true">↗</span></small></a>`).join('');
         root.querySelector('.blog-search-status').textContent = filtered.length ? '' : t.noResults;
       };
       update('');
@@ -85,6 +86,7 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
     <header class="article-header"><a class="article-back" href="${href('blog')}">← ${t.back}</a><div class="eyebrow">${esc(a.category)}</div><h1>${esc(a.title)}</h1><p>${esc(a.excerpt)}</p>
       <div class="article-byline"><img src="images/myphoto.webp" width="32" height="32" alt=""><span>${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}</span><span aria-hidden="true">·</span><span>${esc(a.readTime || '')}</span>${article.date?`<time datetime="${esc(article.date)}">${esc(research.date(article.date))}</time>`:''}</div>
       ${a.credit?`<p class="article-credit">${esc(a.credit)} <a href="#sources">${t.sources} ↗</a></p>`:''}${article.reviewed?`<p class="article-reviewed">${t.reviewed}: <time datetime="${esc(article.reviewed)}">${esc(research.date(article.reviewed))}</time></p>`:''}
+      ${renderPostCover(article,lang,{className:'article-cover-image',eager:true,decorative:false})}
     </header>
     <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ${matchMedia('(min-width:761px)').matches?'open':''}><summary><span>${t.toc}</span><output data-reading-label>${number(0,'percent')}</output></summary><progress value="0" max="100" aria-label="${t.reading}"></progress><nav class="article-toc" aria-label="${t.toc}">${article.sections.map(section=>`<a href="#${esc(section.id)}">${esc(section[lang].title)}</a>`).join('')}${article.sources?.length?`<a href="#sources">${t.sources}</a>`:''}</nav></details>${a.takeaways?.length?`<div class="article-takeaways"><h2>${t.takeaways}</h2><ul>${a.takeaways.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></div>`:''}</aside>
       <article class="article-body">${article.sections.map(section=>`<section id="${esc(section.id)}" class="article-section"><h2>${esc(section[lang].title)}</h2>${section.blocks.map(renderBlock).join('')}</section>`).join('')}

@@ -12,6 +12,10 @@ const sources = [
 ];
 
 export const aiModelMarket = {
+  cover: {
+    fa: { src: 'assets/blog/ai-model-market-fa.webp', alt: 'تراشه و برج‌های شیشه‌ای در تصویری مفهومی از بازار مدل‌های هوش مصنوعی.', width: 1672, height: 941 },
+    en: { src: 'assets/blog/ai-model-market-en.webp', alt: 'A silicon wafer and glass towers illustrating the AI model market.', width: 1672, height: 941 }
+  },
  slug:'ai-model-market',status:'published',date:'2026-10-25',reviewed:'2026-10-25',sources,
  fa:{title:'بازار مدل‌های هوش مصنوعی؛ پشت اعداد چه می‌گذرد؟',excerpt:'یک روایت تعاملی از کاربردها، درآمد، ارزش‌گذاری و هزینهٔ AI؛ با داده‌های تاریخ‌دار، فرض‌های قابل تغییر و منابع قابل بررسی.',category:'هوش مصنوعی و اقتصاد دیجیتال',readTime:'۱۲ دقیقه',credit:'روایتی مستقل با الهام از پژوهش The AI Model Market اثر Koosh + Claude؛ همراه با بازبینی منابع اصلی و بازطراحی تعامل‌ها.',takeaways:['درآمد، ارزش‌گذاری و سرمایهٔ جذب‌شده را از هم جدا کنید.','سهم منتسب به AI را با یک فرض قابل تغییر بررسی کنید.','برای هر عدد، تاریخ و روش اندازه‌گیری را ببینید.']},
  en:{title:'Inside the AI Model Market: What Do the Numbers Mean?',excerpt:'Explore AI applications, revenue, valuation and costs through dated disclosures, adjustable assumptions and inspectable sources.',category:'AI & the digital economy',readTime:'12 min',credit:'An independently written interpretation inspired by The AI Model Market by Koosh + Claude, with primary-source review and redesigned interactions.',takeaways:['Separate revenue, valuation and capital raised.','Test AI attribution as an explicit, adjustable assumption.','Check the date and measurement behind each number.']},

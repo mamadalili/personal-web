@@ -1,3 +1,4 @@
+import { renderPostCover } from './blog-covers.mjs';
 import { posts } from './blog-data.mjs';
 import { escapeHTML as esc, internalHref, publishedPosts } from './blog-core.mjs';
 
@@ -52,7 +53,7 @@ export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
   root.classList.add('home-blog-mount');
   root.innerHTML = `<div class="home-blog-track" id="${trackId}" tabindex="0" role="region" aria-label="${t.region}" aria-roledescription="${t.carousel}">${pages.map((page, index) => `<div class="home-blog-page" role="group" aria-label="${t.page(number(index + 1), number(pages.length))}">${page.map(post => {
     const a = post[lang], href = internalHref(`post:${post.slug}`, lang, items, location.href);
-    return `<a class="home-post-card" href="${esc(href)}"><div class="home-post-meta"><span>${esc(a.category || '')}</span>${date(post.date)}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${t.read}<span aria-hidden="true">↗</span></span></span></a>`;
+    return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover'})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date(post.date)}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${t.read}<span aria-hidden="true">↗</span></span></span></a>`;
   }).join('')}</div>`).join('')}</div><div class="home-blog-controls"><span class="home-blog-hint">${pages.length > 1 ? t.hint : t.latest}</span><span class="home-blog-position" aria-hidden="true"><i style="inline-size:${100 / pages.length}%"></i></span><div class="home-blog-buttons"><button type="button" data-home-step="-1" aria-controls="${trackId}" aria-label="${t.previous}">${arrow('previous')}</button><button type="button" data-home-step="1" aria-controls="${trackId}" aria-label="${t.next}">${arrow('next')}</button></div></div><p class="home-blog-status" role="status" aria-live="polite" aria-atomic="true"></p>`;
   const track = root.querySelector('.home-blog-track'), panels = [...track.children];
   const previous = root.querySelector('[data-home-step="-1"]'), next = root.querySelector('[data-home-step="1"]');

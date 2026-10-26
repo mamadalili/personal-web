@@ -1,6 +1,10 @@
 import { soloGroups, soloOpportunities } from './solo-opportunities.mjs';
 
 export const soloBusiness = {
+  cover: {
+    fa: { src: 'assets/blog/solo-business-fa.webp', alt: 'یک فرد با چند فضای کاری دیجیتال؛ یک نفر، چند نقش با کمک AI.', width: 1672, height: 940 },
+    en: { src: 'assets/blog/solo-business-en.webp', alt: 'One independent professional coordinating several digital roles with AI.', width: 1672, height: 941 }
+  },
   slug: 'solo-business', status: 'published', date: '2026-10-26', reviewed: '2026-10-25',
   fa: {
     title: 'یک نفر، چند نقش؛ کسب‌وکار با کمک AI',

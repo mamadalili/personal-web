@@ -20,6 +20,7 @@ The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresrya
 
 - `blog.html`: published-article list and search. With no posts, it links to the interactive example.
 - `home-blog.mjs`: the Home carousel reads the same published registry automatically, two articles per page. Publishing a bilingual article updates Home without a separate card edit; drafts and the template remain excluded.
+- `blog-covers.mjs`: validated local native fa/en cover selection and image markup; full banners on articles/lists, compact artwork-focused Home thumbnails beside native titles. Each post's `cover.fa` and `cover.en` contain `src`, descriptive `alt`, and actual integer `width`/`height`. Never fall back to an image with the other language's headline. [Banner prompts and provenance](blog-covers.md) accompany the six current exports.
 - `blog-template.html`: bilingual, explicitly labelled example. It has `noindex,follow` and is excluded from the article registry.
 - `article.html?post=slug&lang=fa`: a published article; `lang=en` opens its English version.
 - `blog-data.mjs`: `posts` registry and the separate `articleTemplate` example.
@@ -139,7 +140,7 @@ sources:[{
 }]
 ```
 
-`kind` is `reported`, `derived`, `company`, `estimate`, `research`, `guide` or `inspiration`. Optional localized `fa/en.sourceNote` supplies the source-ledger introduction for the article’s actual evidence type. The date can describe the disclosure or the covered period; explain which in the title/note. Explain derived sums, assumed shares, estimates and data boundaries next to the result. Do not combine overlapping revenues into a market total. Never treat revenue/capital raised as profitability.
+`kind` is `reported`, `derived`, `company`, `estimate`, `research`, `analysis`, `guide` or `inspiration`. Use `analysis` for an analytical opinion, distinct from a causal experiment. Optional localized `fa/en.sourceNote` supplies the source-ledger introduction for the article’s evidence type. A date may describe disclosure or the covered period; explain which in the note. If only a month is known, state it in text and omit the day-based `date`. Explain derived sums, assumed shares, estimates and data boundaries next to the result. Do not combine overlapping revenues into a market total. Never treat revenue/capital raised as profitability.
 
 Localized article metadata may include `credit` for a visible attribution line. Link external inspiration in `sources`; independently write text/code and verify figures against primary sources. Do not reproduce a third party's complete article or graphics without permission or a suitable licence. The first published article, `posts/ai-model-market.mjs`, is a worked example of this evidence-led structure.
 
