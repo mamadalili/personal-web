@@ -3,6 +3,7 @@ import { posts, articleTemplate } from './blog-data.mjs';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
 import { createSoloWidgets } from './blog-solo.mjs';
+import { mountMarketArticle } from './blog-market.mjs';
 
 const copy = {
   fa:{blog:'بلاگ',eyebrow:'یادداشت‌های من',heading:'ایده‌ها، تجربه‌ها و چیزهایی که یاد می‌گیرم.',intro:'دربارهٔ بازاریابی، تجارت الکترونیک و فناوری؛ با فرصتی برای کشف و تجربه.',empty:'هنوز مقاله‌ای منتشر نشده.',emptyBody:'تا اولین یادداشت، می‌توانید یک نمونهٔ تعاملی را امتحان کنید.',preview:'دیدن نمونهٔ تعاملی',template:'پیش‌نمایش قالب — مقالهٔ منتشرشده نیست؛ همهٔ اعداد آزمایشی‌اند.',toc:'در این مقاله',takeaways:'در این تجربه',back:'همهٔ نوشته‌ها',close:'بستن',metric:'شاخص',bars:'ستونی',lines:'خطی',view:'نوع نمودار',series:'سناریوهای نمایان',method:'روش محاسبه',table:'دیدن جدول داده‌ها',period:'بازه',pointHint:'برای دیدن جزئیات، روی مقدار هر بازه کلیک کنید.',visits:'تعداد بازدید',rate:'نرخ تبدیل (%)',estimate:'سفارش تقریبی',reset:'بازنشانی',invalid:'بازدید باید بین ۰ تا ۱٬۰۰۰٬۰۰۰ و نرخ تبدیل بین ۰ تا ۱۰۰ باشد.',formula:'بازدید × نرخ تبدیل ÷ ۱۰۰',related:'ادامهٔ مسیر',search:'جست‌وجوی نوشته‌ها',noResults:'نوشته‌ای با این عبارت پیدا نشد.',notFound:'این مقاله پیدا نشد.',notFoundBody:'از فهرست بلاگ، یک مقالهٔ منتشرشده را انتخاب کنید.',atLeastOne:'حداقل یک سناریو باید نمایان بماند.',updated:'نمودار به‌روز شد',points:'جزئیات بازه‌ها',chartData:'دادهٔ نمودار',loading:'در حال آماده‌سازی مقاله…'},
@@ -12,6 +13,7 @@ let dispose = () => {};
 
 export function mountBlog(root, { language = 'fa', mode = 'index', template = false } = {}) {
   dispose();
+  root.classList.remove('market-story');
   const controller = new AbortController(), signal = controller.signal;
   dispose = () => controller.abort();
   const lang = language === 'en' ? 'en' : 'fa', t = {...copy[lang],...(lang==='fa'?{dots:'نقطه‌ای',linear:'خطی',log:'لگاریتمی',scale:'مقیاس محور',sources:'منابع و روش',reviewed:'بازبینی منابع',reading:'پیشرفت خواندن',logNote:'مقیاس لگاریتمی؛ صفر و مقدار منفی نمایش داده نمی‌شوند.'}:{dots:'Dots',linear:'Linear',log:'Logarithmic',scale:'Axis scale',sources:'Sources & methodology',reviewed:'Sources reviewed',reading:'Reading progress',logNote:'Log scale; zero and negative values are not plotted.'})};
@@ -61,6 +63,10 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   };
   const research=createResearchWidgets({lang,article,number,rich,openDialog:(...args)=>openDialog(...args),signal});
   const solo=createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
+  if (article.presentation === 'market-atlas') {
+    mountMarketArticle(root,{article,lang,href,sourceCard:research.sourceCard,sourceDetail:research.sourceDetail,signal});
+    return;
+  }
   const pointValue=(block,metric,value,index)=>{const qualifier=block.observations?.[index]?.qualifiers?.[metric.id]||'';return `${esc(qualifier)}${number(roundBound(value,qualifier,metric.format==='number'?0:1),metric.format)}`;};
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;

@@ -96,6 +96,11 @@ export function chartPosition(value,domain){
 }
 export function roundBound(value,qualifier,digits=1){
   if(!Number.isFinite(value))return null;
+  if(qualifier==='<'||qualifier==='>'){
+    if(!Number.isInteger(digits)||digits<0||digits>6)return null;
+    const factor=10**digits;
+    return (qualifier==='<'?Math.ceil(value*factor):Math.floor(value*factor))/factor;
+  }
   if(!['≤','≥'].includes(qualifier))return value;
   if(!Number.isInteger(digits)||digits<0||digits>6)return null;
   const factor=10**digits;
