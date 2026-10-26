@@ -26,3 +26,5 @@
 - The Blog index uses `blog-index.mjs` and `blog-library-model.mjs`: one real latest feature, a nonduplicated archive, native topic filters and bilingual keyword search. Keep article reading frames unchanged.
 
 - The sixteen-article 2026 collection completes the ice/emerald pair with Product Pages, then follows `posts/series-2026-manifest.mjs`. Housing Offer Terms starts `silver-lemon-pair`, position 1; the next new article must complete position 2 with native fa/en artwork before starting another palette. Cover chart traces are illustrative, not evidence.
+
+- Keep CV copy natural and concise. Do not add a calendar-system badge or explanatory label such as “تاریخ‌ها: هجری شمسی” / “Solar Hijri dates (SH)”. Preserve the actual résumé dates.
