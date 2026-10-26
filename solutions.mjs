@@ -1,7 +1,7 @@
 import { solutions, solutionsCopy } from './solutions-data.mjs';
 import { escapeHTML as esc } from './blog-core.mjs';
 
-export function mountSolutions(root,{language='fa',solution='',url,icon,collaboration}) {
+export function mountSolutions(root,{language='fa',solution='',url,icon,motion=()=>'',collaboration}) {
   const lang=language==='en'?'en':'fa',t=solutionsCopy[lang];
   const current=solution?solutions.find(item=>item.id===solution):solutions[0];
   const href=(target,params={})=>{
@@ -28,7 +28,7 @@ export function mountSolutions(root,{language='fa',solution='',url,icon,collabor
 
   root.innerHTML=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="solutions-subnav" aria-label="${esc(t.label)}">${solutions.map(item=>`<a href="${esc(href(item.id))}" ${item.id===current.id?'aria-current="page"':''}>${icon(item.icon)}<span>${esc(item[lang].label)}</span></a>`).join('')}</nav></header>
     <nav class="solution-breadcrumb" aria-label="${lang==='fa'?'مسیر صفحه':'Breadcrumb'}"><span>${esc(t.label)}</span><span aria-hidden="true">/</span><span aria-current="page">${esc(content.label)}</span></nav>
-    <section class="solution-detail-hero"><div class="page-hero"><div class="eyebrow">${esc(content.label)}</div><h1>${heading(content.headline)}</h1><p>${esc(content.intro)}</p>${cta('contact',t.conversation)}</div><aside class="solution-lens"><span class="solution-icon">${icon(current.icon)}</span><span class="small-label">${esc(t.lens)}</span><h2>${esc(content.lensTitle)}</h2><p>${esc(content.lensText)}</p><ul class="solution-tags">${content.tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul></aside></section>
+    <section class="solution-detail-hero"><div class="page-hero"><div class="eyebrow">${esc(content.label)}</div><h1>${heading(content.headline)}</h1><p>${esc(content.intro)}</p>${cta('contact',t.conversation)}</div><aside class="solution-lens">${motion(current.id)}<span class="small-label">${esc(t.lens)}</span><h2>${esc(content.lensTitle)}</h2><p>${esc(content.lensText)}</p><ul class="solution-tags">${content.tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul></aside></section>
     <section class="solution-fit" aria-labelledby="fit-heading"><h2 id="fit-heading">${esc(t.fit)}</h2><ul>${content.fit.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></section>
     <section class="solution-output-section" aria-labelledby="outputs-heading"><div class="home-section-heading"><h2 id="outputs-heading">${esc(t.outputs)}</h2></div><div class="solution-outputs">${content.outputs.map(item=>`<article><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('')}</div></section>
     <section class="solution-process" aria-labelledby="process-heading"><h2 id="process-heading">${esc(t.process)}</h2><div>${content.process.map(item=>`<article><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('')}</div></section>

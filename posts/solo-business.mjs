@@ -69,7 +69,7 @@ export const soloBusiness = {
           fa: { eyebrow: 'پیشنهادهایی برای آزمایش', title: 'چه چیزی می‌توانی تحویل بدهی؟', note: 'یک نقطهٔ شروع انتخاب کن یا جست‌وجو کن. جزئیات هر کارت، خریدار پیشنهادی، شاهد کیفیت، نقش AI و اولین آزمایش را نشان می‌دهد. این‌ها ایده‌های تدوین‌شده‌اند و تقاضای اثبات‌شده یا درآمد تضمینی نیستند.' },
           en: { eyebrow: 'OFFERS TO TEST', title: 'What could you deliver?', note: 'Choose a starting point or search. Each card explains a proposed buyer, quality evidence, AI’s role and a first experiment. These are editorial offer ideas, not established demand or promised earnings.' }
         },
-        { type: 'paragraph', fa: 'اگر هنوز تخصص مشخصی نداری، یک کار کوچک با خروجی قابل بررسی انتخاب کن و برای یادگیری و بازخورد وقت بگذار. برای دیدن پیوند این نگاه با کار واقعی من، [مهارت‌ها](@skills) و [تجربه‌های کاری](@cv) را ببین.', en: 'If you do not yet have a specialist skill, choose a small task with a checkable output and allow time for learning and feedback. Explore [my capabilities](@skills) and [work experience](@cv) to see how this approach connects to my own practice.' }
+        { type: 'paragraph', fa: 'اگر هنوز تخصص مشخصی نداری، یک کار کوچک با خروجی قابل بررسی انتخاب کن و برای یادگیری و بازخورد وقت بگذار. برای دیدن پیوند این نگاه با کار واقعی من، [مسیر کاری من](@cv) را ببین.', en: 'If you do not yet have a specialist skill, choose a small task with a checkable output and allow time for learning and feedback. Explore [my work experience](@cv) to see how this approach connects to my own practice.' }
       ]
     },
     {

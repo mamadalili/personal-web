@@ -29,12 +29,13 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 - **Second article:** “One person, many roles: building a business with AI” offers six starting points, twelve original offer experiments, searchable detail cards, engagement comparisons and a comprehension check. Open `article.html?post=solo-business&lang=fa` or use `lang=en` for native English.
 - **Third article:** “AI: More Work. Where’s the Return?” separates task speed, work intensity and business outcomes, with an evidence explorer, dated historical chart and follow-up, operational choices and an interpretation quiz. Open `article.html?post=ai-payoff-workload&lang=fa` or use `lang=en`.
 - **Localized cover banners:** all three articles have original image covers with Persian and English headlines. Six optimized WebP files are selected by the native language switch and appear on articles, the Blog list and compact Home previews. [Prompts and provenance](docs/blog-covers.md) document the artwork.
-- **Homepage blog carousel:** a wide blog area shows two real published posts per view, with compact CV and Contact cards beside it. Posts are side by side on desktop and stacked on phones. Buttons, keyboard arrows, horizontal swipe/scroll and vertical wheel gestures browse additional groups. Boundary wheel gestures return to normal page scrolling; a single group has disabled arrows. The shared top glass bar is about 20% shorter with 44px or larger touch targets.
+- **Homepage blog carousel:** a full-width blog stage shows up to six real posts per desktop view (three columns, two rows), four on tablets and two stacked on phones. CV and Contact follow in a later scroll stage. Buttons, keyboard arrows, horizontal swipe/scroll and vertical wheel gestures browse additional groups. Boundary wheel gestures return to normal page scrolling; a single group has disabled arrows. The compact glass bar stays at the top centre on desktop/tablet and bottom centre on phones, with 44px or larger touch targets.
 - **Article conversion prompt:** a ready-to-use Persian prompt turns supplied writing into appropriate interactions while preserving claims and sources.
 - **Content-led interactions:** choose each interaction to explain the article’s subject. The pinned Anatomy skill is available when useful; no figure or physical metaphor is required.
-- **Collaboration invitation:** Skills and Solutions share a bilingual closing section with a clear contact action, practical prompts for starting a conversation and a secondary CV link. The Solutions version keeps a link to the supporting Skills page.
-- **Sitemap:** `sitemap.xml` covers the six main sections, four solution pages and published articles in both languages, with reciprocal language alternatives. `robots.txt` points to the configured sitemap.
-- **Contact page:** direct email and GitHub links, plus a link back to the professional CV.
+- **Motion:** Home and Solutions use a shared native SVG/CSS scene with four capability nodes, moving lime routes and the monogram. Motion pauses in hidden tabs and respects reduced-motion preferences.
+- **Collaboration invitation:** The four Solutions pages share a bilingual closing section with a clear contact action, practical prompts for starting a conversation and a secondary CV link. The supporting work-experience link opens the CV experience tab.
+- **Sitemap:** `sitemap.xml` covers the canonical pages and published articles in both languages, excluding retired Skills and duplicate Solutions URLs, with reciprocal language alternatives. `robots.txt` points to the configured sitemap.
+- **Contact page:** call, WhatsApp, Telegram, email and GitHub, plus a link back to the professional CV.
 - **Local assets:** a WebP portrait and a self-hosted Vazirmatn font.
 - **No build step:** plain HTML, CSS and JavaScript; no package installation or runtime framework required.
 - **Keyboard support:** tab semantics, arrow-key navigation, Home/End, visible focus and reduced-motion support.
@@ -64,7 +65,7 @@ personal-web/
 ├── docs/anatomy-source.json      # Pinned upstream revision and file hashes
 ├── tests/blog-core.test.mjs      # Node tests for links and calculations
 ├── contact.html         # Dedicated contact page
-├── skills.html          # Supporting skills and work experience
+├── skills.html          # Retired route; redirects to CV experience
 ├── solutions.html       # Compatibility redirect to the selectable Solutions entry
 ├── strategy.html        # Strategy solution
 ├── execution.html       # Execution solution
@@ -108,7 +109,7 @@ On systems where Python 3 is named `python3`, use `python3 -m http.server 8080` 
 
 ## Pages and navigation
 
-The glass navigation at the top centre links to Home, Solutions, Blog, CV and Contact, in that order. Each link keeps the selected language. Solutions stays active on its four detail pages and the supporting Skills page. The homepage hero opens the hub, with four capability tiles linking directly to the detail pages.
+The glass navigation (top centre on desktop/tablet, bottom centre on phones) links to Home, Solutions, Blog, CV and Contact, in that order. Each link keeps the selected language. Solutions stays active on its four detail pages. The homepage hero opens the hub, with four capability tiles linking directly to the detail pages.
 
 | Page | File | Content |
 | --- | --- | --- |
@@ -117,8 +118,8 @@ The glass navigation at the top centre links to Home, Solutions, Blog, CV and Co
 | Strategy / Execution / Technology / AI Tools | `strategy.html`, `execution.html`, `technology.html`, `ai-tools.html` | Dedicated solution pages with scope, outputs, approach and related experience |
 | Blog | `blog.html` | Published posts and search; preview link while empty |
 | CV | `profile.html` | Original professional profile, experience, projects, About and Contact tabs |
-| Contact | `contact.html` | Email, GitHub and professional-profile links |
-| Skills | `skills.html` | Capability areas and links to relevant work experience |
+| Contact | `contact.html` | Call, WhatsApp, Telegram, email, GitHub and professional CV |
+| Legacy Skills URL | `skills.html` | Noindex compatibility redirect to the CV experience tab |
 
 `landing.html` is an alternative entry point for Home. Previously shared homepage URLs containing `tab` or `role` continue to open the CV.
 

@@ -5,11 +5,11 @@ import { buildSitemapEntries, renderSitemap, renderRobots } from '../sitemap-cor
 const published={slug:'first-article',status:'published',fa:{title:'مقاله'},en:{title:'Article'}};
 const solutions=['strategy','execution','technology','ai-tools'].map(id=>({id}));
 
-test('sitemap covers the six main sections, solution details and published articles in both languages',()=>{
+test('sitemap covers canonical sections and excludes the retired skills page',()=>{
   const entries=buildSitemapEntries('https://site.test',{posts:[published],solutions});
-  assert.equal(entries.length,20);
-  assert.equal(new Set(entries.map(entry=>entry.loc)).size,20);
-  for(const path of ['/','/skills.html','/blog.html','/profile.html','/contact.html','/strategy.html','/execution.html','/technology.html','/ai-tools.html']){
+  assert.equal(entries.length,18);
+  assert.equal(new Set(entries.map(entry=>entry.loc)).size,18);
+  for(const path of ['/','/blog.html','/profile.html','/contact.html','/strategy.html','/execution.html','/technology.html','/ai-tools.html']){
     for(const language of ['fa','en'])assert.ok(entries.some(entry=>new URL(entry.loc).pathname===path&&new URL(entry.loc).searchParams.get('lang')===language));
   }
 });
@@ -26,8 +26,8 @@ test('every language URL lists matching reciprocal fa, en and fallback alternati
 test('drafts, templates and duplicate UI views stay out of the sitemap',()=>{
   const entries=buildSitemapEntries('https://site.test',{posts:[published,{...published,slug:'draft',status:'draft'},{...published,slug:'sample',template:true}]});
   const all=entries.map(entry=>entry.loc).join('\n');
-  assert.equal(entries.length,12);
-  for(const excluded of ['solutions.html','draft','sample','landing.html','index.html','blog-template.html','tab=','role=','#'])assert.ok(!all.includes(excluded),excluded);
+  assert.equal(entries.length,10);
+  for(const excluded of ['solutions.html','skills.html','draft','sample','landing.html','index.html','blog-template.html','tab=','role=','#'])assert.ok(!all.includes(excluded),excluded);
 });
 test('article URLs are encoded once and XML-escaped, with no invented modification dates',()=>{
   const xml=renderSitemap(buildSitemapEntries('https://site.test',{posts:[published]}));

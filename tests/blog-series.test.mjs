@@ -77,5 +77,5 @@ test('32 native WebP assets are local and banner families form continuous pairs'
  assert.equal(assets.size,32);
  for(let i=0;i<pairs.length-1;i+=2){assert.equal(pairs[i].position,1);assert.equal(pairs[i+1].position,2);assert.equal(pairs[i].id,pairs[i+1].id);}
  assert.deepEqual(pairs.at(-1),{id:'silver-lemon-pair',position:1});
- const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,56);
+ const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,54);
 });

@@ -72,7 +72,7 @@ Click [[term-id|the visible term]] for a definition.
 Explore [selected projects](@cv:projects) or [a section](#stable-section-id).
 ```
 
-Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology`, `@ai-tools`, `@blog`, `@cv`, `@cv:projects`, `@contact`, `@skills`, and `@post:published-slug`. Solutions is the category hub; the four paths have dedicated bilingual pages. Related cards use the same target strings without `@`. Unknown/draft/template article targets are not linked. Internal links preserve the current language and work under a static-hosting subdirectory. Explicit `http://` and `https://` source URLs are allowed. Other schemes, protocol-relative URLs, raw HTML and executable URLs are not supported.
+Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology`, `@ai-tools`, `@blog`, `@cv`, `@cv:projects`, `@contact`, and `@post:published-slug`. The legacy `@skills` alias resolves to CV experience; new articles should use `@cv`. Solutions is the category hub; the four paths have dedicated bilingual pages. Related cards use the same target strings without `@`. Unknown/draft/template article targets are not linked. Internal links preserve the current language and work under a static-hosting subdirectory. Explicit `http://` and `https://` source URLs are allowed. Other schemes, protocol-relative URLs, raw HTML and executable URLs are not supported.
 
 ## Block types
 

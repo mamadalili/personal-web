@@ -47,3 +47,13 @@ test('blog listings omit drafts and template previews and sort published dates',
   const posts = [{slug:'older',status:'published',date:'2025-01-01'}, {slug:'draft',status:'draft'}, {slug:'demo',status:'published',template:true}, {slug:'newer',status:'published',date:'2026-01-01'}];
   assert.deepEqual(publishedPosts(posts).map(post=>post.slug),['newer','older']);
 });
+
+
+test('retired skills destinations resolve to native CV experience links',()=>{
+ for(const lang of ['fa','en']){
+  const url=new URL(internalHref('skills',lang,[],'https://site.test/portfolio/blog.html'));
+  assert.equal(url.pathname,'/portfolio/profile.html');
+  assert.equal(url.searchParams.get('lang'),lang);
+  assert.equal(url.searchParams.get('tab'),'experience');
+ }
+});

@@ -22,7 +22,7 @@ const copy = {
 const tabIds=['experience','projects','about','contact'];
 const params=new URLSearchParams(location.search);
 const pageFiles={home:'index.html',solutions:'strategy.html',blog:'blog.html',cv:'profile.html',contact:'contact.html'};
-const extraPageFiles={skills:'skills.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',article:'article.html'};
+const extraPageFiles={skills:'profile.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',article:'article.html'};
 const requestedPage=document.body.dataset.page||'cv';
 // Keep previously shared profile links working after introducing the homepage.
 const page=requestedPage==='home'&&(params.has('tab')||params.has('role'))?'cv':requestedPage;
@@ -118,6 +118,18 @@ function renderCV(){
   $('content').innerHTML=tabIds.map(id=>`<section role="tabpanel" id="panel-${id}" aria-labelledby="tab-${id}" tabindex="0" ${id===activeTab?'':'hidden'}></section>`).join('');
   renderContent();
 }
+let motionSceneSerial=0;
+function renderMotionScene(placement='home',active=''){
+ const id=`motion-scene-${++motionSceneSerial}`;
+ const nodes=[
+  {id:'strategy',x:20,y:24,fa:'استراتژی',en:'Strategy',path:'<path d="M3 18h18M5 14l5-5 4 3 6-8M16 4h4v4"/>'},
+  {id:'execution',x:236,y:24,fa:'اجرا',en:'Execution',path:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 12 3 3 5-6"/>'},
+  {id:'technology',x:20,y:166,fa:'فناوری',en:'Technology',path:'<rect x="2" y="4" width="20" height="16" rx="3"/><path d="m9 10-3 2 3 2m6-4 3 2-3 2"/>'},
+  {id:'ai-tools',x:236,y:166,fa:'ابزارهای AI',en:'AI tools',path:'<circle cx="5" cy="12" r="3"/><circle cx="18" cy="5" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8 10 7-4M8 14l7 4"/>'}
+ ];
+ const routes=['M144 57C180 57 160 98 180 108','M236 57C200 57 220 98 200 108','M144 199C180 199 160 164 180 152','M236 199C200 199 220 164 200 152'];
+ return `<div class="motion-scene motion-scene--${placement}" aria-hidden="true"><svg viewBox="0 0 380 260" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${id}-glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".98"/><stop offset="1" stop-color="#eef0ff" stop-opacity=".88"/></linearGradient><radialGradient id="${id}-halo"><stop stop-color="#ccff00" stop-opacity=".32"/><stop offset="1" stop-color="#ccff00" stop-opacity="0"/></radialGradient></defs><ellipse class="scene-halo" cx="190" cy="130" rx="145" ry="112" fill="url(#${id}-halo)"/><g class="scene-orbit"><ellipse cx="190" cy="130" rx="100" ry="76" fill="none" stroke="#1c09981c" stroke-width="1"/><circle cx="90" cy="130" r="4" fill="#ccff00"/><circle cx="290" cy="130" r="2.5" fill="#1c0998"/></g>${routes.map((d,index)=>`<path d="${d}" fill="none" stroke="#d5d9eb" stroke-width="2"/><path class="scene-flow" style="--flow-delay:-${index*1.7}s" d="${d}" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-dasharray="7 15"/>`).join('')}<g class="scene-core"><rect x="151" y="91" width="78" height="78" rx="25" fill="#fff" stroke="#dce3c4"/><image href="assets/brand/monogram.svg" x="159" y="99" width="62" height="62"/></g>${nodes.map((node,index)=>`<g transform="translate(${node.x} ${node.y})"><g class="scene-node${active===node.id?' is-selected':''}" style="--float-delay:-${index*1.4}s"><rect class="scene-node-surface" width="124" height="66" rx="18" fill="url(#${id}-glass)" stroke="${active===node.id?'#ccff00':'#d9dfec'}" stroke-width="${active===node.id?2:1}"/><svg x="51" y="10" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1c0998" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${node.path}</svg><text x="62" y="50" text-anchor="middle" fill="#172144" font-size="13" font-weight="750">${escapeHTML(node[lang])}</text><path class="scene-node-glint" d="M16 1h30" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round"/></g></g>`).join('')}<g class="scene-sparkles" fill="none" stroke="#ccff00" stroke-width="1.5" stroke-linecap="round"><path d="M187 15v10m-5-5h10M187 235v10m-5-5h10M7 125v10m-5-5h10M373 125v10m-5-5h10"/></g></svg></div>`;
+}
 function ensureAmbient(){
  if(document.querySelector('.ambient-field'))return;
  const field=document.createElement('div');field.className='ambient-field';field.setAttribute('aria-hidden','true');
@@ -132,7 +144,7 @@ function renderHome(){
  const t=copy[lang],s=siteCopy[lang],k=skillsCopy[lang];
  const homeLanguage=lang;
  const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
- $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view" aria-labelledby="explore-title"><div class="page-hero home-hero"><div class="eyebrow">${s.homeEyebrow}</div><h1>${s.homeTitle}</h1><p>${s.homeIntro}</p><span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span></div>
+ $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view" aria-labelledby="explore-title"><div class="page-hero home-hero"><div class="eyebrow">${s.homeEyebrow}</div><h1>${s.homeTitle}</h1><p>${s.homeIntro}</p>${renderMotionScene('home')}</div>
  <div class="home-section-heading"><h2 id="explore-title">${s.explore}</h2><p>${s.exploreNote}</p></div>
  <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><div class="card-top"><span class="card-icon">${skillIcon('market')}</span><span class="card-label">${k.heroLabel}</span></div><h3 id="skills-hero-title">${k.cardTitle}</h3><p>${k.cardBody}</p>${homeCardCTA('solutions',k.cardAction)}</div><div class="skills-card-side"><div class="skills-capability-grid">${k.pillars.map(pillar=>`<a class="capability-tile" href="${pageURL(pillar.page)}"><span class="capability-icon">${skillIcon(pillar.icon)}</span><h4>${pillar.title}</h4><p>${pillar.text}</p></a>`).join('')}</div></div></article>
  </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
@@ -150,18 +162,14 @@ function renderHome(){
  $('main').querySelectorAll('.skills-hero-card a').forEach(link=>link.addEventListener('focus',revealSkills));
 }
 const collaborationCopy={
- fa:{eyebrow:'شروع همکاری',title:'از مسئلهٔ کسب‌وکار شما،',accent:'تا یک مسیر روشن برای اجرا.',body:'استراتژی، اجرا، فناوری و ابزارهای AI را به هم وصل می‌کنم تا از تعریف مسئله، به خروجی‌ای برسیم که در کار واقعی قابل استفاده و قابل سنجش باشد.',prepare:'برای شروع گفت‌وگو، از این‌ها بگویید:',prompts:['هدف کسب‌وکار','وضعیت فعلی','چالش اصلی'],actionLabel:'قدم بعدی را با هم مشخص کنیم',action:'دربارهٔ پروژه‌تان بگویید',note:'یک توضیح کوتاه دربارهٔ هدف و مسئله برای شروع کافی است.',experience:'دیدن مسیر کاری من',background:'پشتوانهٔ این مسیر:',skills:'مهارت‌ها و رویکرد کاری من'},
- en:{eyebrow:'LET’S WORK TOGETHER',title:'Your next business challenge.',accent:'A clear path to move it forward.',body:'I connect strategy, execution, technology and AI tools to turn a defined business problem into work that is useful in practice and can be measured.',prepare:'To start the conversation, share:',prompts:['Your business goal','Where things stand','The main challenge'],actionLabel:'Let’s define the next step',action:'Tell me about your project',note:'A short description of your goal and challenge is enough to begin.',experience:'Explore my work experience',background:'Behind this approach:',skills:'My skills & working approach'}
+ fa:{eyebrow:'شروع همکاری',title:'از مسئلهٔ کسب‌وکار شما،',accent:'تا یک مسیر روشن برای اجرا.',body:'استراتژی، اجرا، فناوری و ابزارهای AI را به هم وصل می‌کنم تا از تعریف مسئله، به خروجی‌ای برسیم که در کار واقعی قابل استفاده و قابل سنجش باشد.',prepare:'برای شروع گفت‌وگو، از این‌ها بگویید:',prompts:['هدف کسب‌وکار','وضعیت فعلی','چالش اصلی'],actionLabel:'قدم بعدی را با هم مشخص کنیم',action:'دربارهٔ پروژه‌تان بگویید',note:'یک توضیح کوتاه دربارهٔ هدف و مسئله برای شروع کافی است.',experience:'دیدن مسیر کاری من',background:'پشتوانهٔ این مسیر:',backgroundLink:'سوابق و تجربه‌های کاری من'},
+ en:{eyebrow:'LET’S WORK TOGETHER',title:'Your next business challenge.',accent:'A clear path to move it forward.',body:'I connect strategy, execution, technology and AI tools to turn a defined business problem into work that is useful in practice and can be measured.',prepare:'To start the conversation, share:',prompts:['Your business goal','Where things stand','The main challenge'],actionLabel:'Let’s define the next step',action:'Tell me about your project',note:'A short description of your goal and challenge is enough to begin.',experience:'Explore my work experience',background:'Behind this approach:',backgroundLink:'My work experience'}
 };
-function renderCollaborationCTA({showSkills=false}={}){
+function renderCollaborationCTA({showExperience=false}={}){
  const c=collaborationCopy[lang];
- return `<section class="collaboration-cta" aria-labelledby="collaboration-title"><div class="collaboration-copy"><div class="collaboration-eyebrow">${escapeHTML(c.eyebrow)}</div><h2 id="collaboration-title"><span>${escapeHTML(c.title)}</span> <em>${escapeHTML(c.accent)}</em></h2><p>${escapeHTML(c.body)}</p><div class="collaboration-prepare"><span>${escapeHTML(c.prepare)}</span><ul>${c.prompts.map(prompt=>`<li>${escapeHTML(prompt)}</li>`).join('')}</ul></div>${showSkills?`<p class="collaboration-background">${escapeHTML(c.background)} <a href="${pageURL('skills')}">${escapeHTML(c.skills)}</a></p>`:''}</div><div class="collaboration-actions"><p class="collaboration-action-label">${escapeHTML(c.actionLabel)}</p><a class="collaboration-primary" href="${pageURL('contact')}"><span>${escapeHTML(c.action)}</span><span class="collaboration-arrow">${icon('arrow')}</span></a><p class="collaboration-action-note">${escapeHTML(c.note)}</p><a class="collaboration-secondary" href="${pageURL('cv')}&tab=experience"><span>${escapeHTML(c.experience)}</span>${icon('arrow')}</a></div></section>`;
+ return `<section class="collaboration-cta" aria-labelledby="collaboration-title"><div class="collaboration-copy"><div class="collaboration-eyebrow">${escapeHTML(c.eyebrow)}</div><h2 id="collaboration-title"><span>${escapeHTML(c.title)}</span> <em>${escapeHTML(c.accent)}</em></h2><p>${escapeHTML(c.body)}</p><div class="collaboration-prepare"><span>${escapeHTML(c.prepare)}</span><ul>${c.prompts.map(prompt=>`<li>${escapeHTML(prompt)}</li>`).join('')}</ul></div>${showExperience?`<p class="collaboration-background">${escapeHTML(c.background)} <a href="${pageURL('cv')}&tab=experience">${escapeHTML(c.backgroundLink)}</a></p>`:''}</div><div class="collaboration-actions"><p class="collaboration-action-label">${escapeHTML(c.actionLabel)}</p><a class="collaboration-primary" href="${pageURL('contact')}"><span>${escapeHTML(c.action)}</span><span class="collaboration-arrow">${icon('arrow')}</span></a><p class="collaboration-action-note">${escapeHTML(c.note)}</p><a class="collaboration-secondary" href="${pageURL('cv')}&tab=experience"><span>${escapeHTML(c.experience)}</span>${icon('arrow')}</a></div></section>`;
 }
-function renderSkills(){
- const k=skillsCopy[lang];
- $('main').innerHTML=`<section class="page-hero skills-hero"><div class="eyebrow">${k.eyebrow}</div><h1>${k.headline}</h1><p>${k.intro}</p></section><section aria-labelledby="skills-heading"><div class="home-section-heading"><h2 id="skills-heading">${k.focus}</h2><p>${k.focusNote}</p></div><div class="skills-grid">${k.areas.map(area=>`<article id="skill-${area.icon}" class="skill-detail-card${area.icon==='ai'?' skill-ai':''}"><span class="skill-detail-icon">${skillIcon(area.icon)}</span><h3>${area.title}</h3><p>${area.text}</p><ul>${area.points.map(point=>`<li>${point}</li>`).join('')}</ul><a class="skill-evidence" href="${pageURL('cv')}&tab=${area.tab||'experience'}${area.role?`&role=${area.role}`:''}">${area.linkLabel||`${k.related}: ${area.company}`}<span aria-hidden="true">↗</span></a></article>`).join('')}</div></section>${renderCollaborationCTA()}`;
- const target=document.getElementById(location.hash.slice(1));if(target&&(target.classList.contains('skill-detail-card')||target.id==='collaboration-title'))target.scrollIntoView({block:'start'});
-}
+function renderSkills(){location.replace(pageURL('cv')+'&tab=experience');}
 function renderBlog(mode='index'){
  const version=++blogMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
@@ -180,7 +188,7 @@ function renderSolutions(){
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
  import('./solutions.mjs').then(({mountSolutions})=>{
   if(version!==solutionsMountVersion||language!==lang)return;
-  mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,collaboration:()=>renderCollaborationCTA({showSkills:true})});
+  mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,motion:active=>renderMotionScene('solution',active),collaboration:()=>renderCollaborationCTA({showExperience:true})});
   if(location.hash==='#collaboration-title')$('collaboration-title')?.scrollIntoView({block:'start'});
  }).catch(error=>{
   if(version!==solutionsMountVersion)return;
