@@ -68,6 +68,13 @@ verifyAnatomy(join(skills, 'anatomy'), 'Project skill');
 verifyBridge(join(skills, 'interactive-blog-anatomy'));
 console.log('Project interactive-blog workflow is present.');
 
+for (const [asset, source] of [['iso-kit.mjs', 'kit/iso-kit.mjs'], ['iso.css', 'kit/iso.css'], ['LICENSE', 'LICENSE']]) {
+  const expected = manifest.files.find(file => file.path === source);
+  const actual = readFileSync(join(root, 'assets', 'anatomy', asset));
+  if (createHash('sha256').update(actual).digest('hex') !== expected.sha256) throw new Error(`Public Anatomy runtime differs from the pinned source: ${asset}`);
+}
+console.log('Selected public runtime assets and MIT license match the pinned source.');
+
 if (args.includes('--global')) {
   const installed = resolve(process.env.CODEX_HOME || join(homedir(), '.codex'), 'skills');
   verifyAnatomy(join(installed, 'anatomy'), 'Installed Codex skill');

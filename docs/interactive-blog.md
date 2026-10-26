@@ -15,7 +15,7 @@ Anatomy turns a concept into a recognisable physical mechanism, with crafted iso
 
 Do not invent facts or imply that an explanatory mechanism is a real device or business result. If the text cannot support a truthful mechanism, identify that content problem and propose a concrete treatment. Reading the skill or adding a decorative drawing does not complete the requirement.
 
-Keep the framework-free HTML/CSS/JavaScript stack. The complete upstream package is vendored, unmodified, at `.agents/skills/anatomy`; it is authoring material, not a visitor bundle. Put new figure source, models and selected runtime assets outside that folder, with the article's own files. Add any reusable block/mount/dispose behavior to the shared renderer rather than duplicating the blog engine. Extend the documented block schema when that integration is implemented; no Anatomy block is implemented merely by installing the skill.
+Keep the framework-free HTML/CSS/JavaScript stack. The complete upstream package is vendored, unmodified, at `.agents/skills/anatomy`; it is authoring material, not a visitor bundle. Put new figure source, models and selected runtime assets outside that folder, with the article's own files. Add reusable block/mount/dispose behavior to the shared renderer rather than duplicating the blog engine. The Solo article and template now demonstrate the `capacity-rig` block; new concepts require their own appropriate mechanisms and models.
 
 Provide native Persian and English titles, hints, captions, control labels, units, glossary text and live readouts. Mirror the surrounding layout and keep words outside the drawing where Anatomy requires it. Use `#1c0998`, light surfaces and bold black action labels. The site's unnumbered design overrides Anatomy's decorative `Fig n` label; do not add leading-zero card labels.
 
@@ -32,6 +32,9 @@ The pinned source is [wheresryan22/anatomy](https://github.com/wheresryan22/anat
 - `posts/*.mjs`: individual bilingual article data, imported into the registry.
 - `blog.mjs`: article/list renderer and local interaction handlers.
 - `blog-widgets.mjs`: reusable application explorers, treemaps, calculators, quizzes and source cards.
+- `blog-solo.mjs` and `blog-solo.css`: reusable offer filtering/dialogs and the capacity-workbench block.
+- `figures/solo-model.mjs`, `solo-workbench.mjs`, `solo-order.mjs`: pure model, Anatomy geometry and generated depth order.
+- `assets/anatomy/`: only the pinned SVG core, scoped CSS and MIT license used by the visitor page.
 - `blog-core.mjs`: safe link resolution, publication filtering and numerical helpers.
 - `blog.css`: scoped article and widget styles. The shared liquid-glass footer remains in `portfolio.css`.
 
@@ -89,10 +92,21 @@ Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology
 | `treemap` | Localized `title,note`; `items:[{id,name,value,source}]`, optional `share` | Proportional reported-revenue areas, source dialogs, explicit attribution scenario |
 | `calculator` | `formula`, localized `title,note`, input definitions, optional `source` | Tested compound-cost or revenue/cost/capital learning labs |
 | `quiz` | Localized `question`, choices with `correct,fa,en`, `faExplanation,enExplanation` | A reader-selected interpretation check with immediate feedback |
+| `opportunities` | Localized `eyebrow,title,note`; `groups`, bilingual `items` | Group filtering, Persian/English search, focused dialogs and contextual links |
+| `capacity-rig` | `model:'solo-capacity'`, `defaults:{hours,orders,automation}`, localized `title,note` | Anatomy workbench showing human-time capacity; fixed educational assumptions |
 
 Widget `id` values in the example are author-facing references; the renderer generates unique DOM IDs. A glossary definition should be self-contained plain text. Native dialog behavior provides focus containment, Escape and return focus. Dialogs open only after reader action. The outline tracks the active section and reading progress; it starts collapsed on mobile. Sources remain readable in a visible ledger, outside dialogs.
 
+### Opportunity browser and Anatomy workbench
+
+See `posts/solo-opportunities.mjs` for complete bilingual data. Groups use `{id,fa,en}`; items have a stable `id`, matching `group`, optional internal `target` and `fa/en:{title,buyer,outcome,proof,ai,human,experiment,boundary}`. Search covers localized fields and normalizes Persian/Arabic yeh and kaf. Filters are keyboard-accessible buttons; dialogs return focus to the triggering card.
+
+`capacity-rig` implements **only** `solo-capacity`: 75 preparation minutes reduced by 0–90% delegation, plus 25 review and 20 client-communication minutes per order. Hours range from 0–40; orders are integers from 0–16. Capacity is floor(available minutes / human minutes per order). Figure and readout use the same pure model. Zero hours and invalid inputs do not produce infinite results. All assumptions are visibly educational.
+
+Do not relabel this rig as another formula or insert it into unrelated articles to satisfy Anatomy. Design the appropriate mechanism and model. The workbench uses short input-driven easing, offscreen/reduced-motion settling and abort-based disposal. [Its figure brief](figures/solo-workbench.md) records the analogy, parts and audit. Run `node scripts/build-solo-figure.mjs --check` after geometry changes; regenerate without `--check` when depth constraints change.
+
 ### Charts
+
 
 ```js
 {
@@ -134,7 +148,7 @@ sources:[{
 }]
 ```
 
-`kind` is `reported`, `derived`, `company`, `estimate`, `research` or `inspiration`. The date can describe the disclosure or the covered period; explain which in the title/note. Explain derived sums, assumed shares, estimates and data boundaries next to the result. Do not combine overlapping revenues into a market total. Never treat revenue/capital raised as profitability.
+`kind` is `reported`, `derived`, `company`, `estimate`, `research`, `guide` or `inspiration`. Optional localized `fa/en.sourceNote` supplies the source-ledger introduction for the article’s actual evidence type. The date can describe the disclosure or the covered period; explain which in the title/note. Explain derived sums, assumed shares, estimates and data boundaries next to the result. Do not combine overlapping revenues into a market total. Never treat revenue/capital raised as profitability.
 
 Localized article metadata may include `credit` for a visible attribution line. Link external inspiration in `sources`; independently write text/code and verify figures against primary sources. Do not reproduce a third party's complete article or graphics without permission or a suitable licence. The first published article, `posts/ai-model-market.mjs`, is a worked example of this evidence-led structure.
 

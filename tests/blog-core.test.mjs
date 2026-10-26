@@ -2,6 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { safeHref, internalHref, chartValues, estimateOrders, publishedPosts } from '../blog-core.mjs';
 
+test('optional or malformed internal targets have no link instead of breaking an offer dialog', () => {
+  for (const target of [undefined, null, 12, {}, [], '']) {
+    assert.equal(internalHref(target, 'fa', [], 'https://site.test/article.html'), null);
+  }
+});
+
 test('article links cannot execute scripts or embed documents', () => {
   for (const href of ['javascript:alert(1)', 'data:text/html,test', 'vbscript:msgbox(1)', 'file:///private', '//unknown.test']) {
     assert.equal(safeHref(href, 'fa', [], 'https://site.test/personal-web/blog.html'), null);

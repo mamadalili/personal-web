@@ -1,6 +1,8 @@
 import { aiModelMarket } from './posts/ai-model-market.mjs';
+import { soloBusiness } from './posts/solo-business.mjs';
+import { soloGroups, soloOpportunities } from './posts/solo-opportunities.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [aiModelMarket];
+export const posts = [aiModelMarket, soloBusiness];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',
@@ -16,13 +18,19 @@ export const articleTemplate = {
       {type:'paragraph',fa:'برای مثال، روی [[conversion-rate|نرخ تبدیل]] کلیک کنید. بعد به [شبیه‌ساز همین مقاله](#simulator) بروید یا [پروژه‌های من](@cv:projects) را ببینید؛ این‌ها نمونهٔ لینک‌سازی درون مقاله و بین صفحه‌های سایت هستند.',en:'For example, select [[conversion-rate|conversion rate]]. Then jump to [this article’s simulator](#simulator) or explore [my projects](@cv:projects): examples of links within an article and across the site.'},
       {type:'callout',fa:'این یک محیط آزمایشی است. [[sample-data|داده‌های نمونه]] را با دادهٔ واقعی و منبع‌دار مقالهٔ خودتان جایگزین کنید.',en:'This is a demonstration. Replace the [[sample-data|sample data]] with sourced data from your own article.'}
     ]},
+    {id:'anatomy-workbench',fa:{title:'یک رابطه را روی میز امتحان کنید'},en:{title:'Try a relationship on the workbench'},blocks:[
+      {type:'capacity-rig',model:'solo-capacity',defaults:{hours:12,orders:12,automation:60},fa:{title:'میز کار و ظرفیت تحویل',note:'نمونهٔ Anatomy با فرض‌های آموزشی: زمان و سهم واگذاری را تغییر دهید و اثر را روی دستگاه و خروجی ببینید.'},en:{title:'A workbench for delivery capacity',note:'An Anatomy example with educational assumptions: change time and delegation to see their effect on the mechanism and result.'}}
+    ]},
+    {id:'opportunity-example',fa:{title:'از فهرست به جزئیات برسید'},en:{title:'Explore a list through focused details'},blocks:[
+      {type:'opportunities',groups:soloGroups.slice(0,2),items:soloOpportunities.slice(0,4),fa:{eyebrow:'نمونهٔ الگوی مسیرها',title:'فیلتر، جست‌وجو و جزئیات',note:'این پیشنهادها نمونهٔ تدوین‌شده برای بررسی‌اند؛ دسته را عوض کنید و نقش AI، مسئولیت انسانی و اولین آزمایش را باز کنید.'},en:{eyebrow:'PATH-BROWSER EXAMPLE',title:'Filter, search and inspect',note:'These are editorial examples to investigate. Change the group and open the AI contribution, human responsibility and first experiment.'}}
+    ]},
     {id:'compare',fa:{title:'دو مسیر را کنار هم ببینید'},en:{title:'Compare two approaches'},blocks:[
       {type:'paragraph',fa:'روی هر تب کلیک کنید تا تمرکز آن مسیر و یک پرسش راهنما را ببینید. در مقالهٔ واقعی، این تب‌ها می‌توانند دو راهکار، دو محصول یا دو سناریو را مقایسه کنند.',en:'Select a tab to explore its focus and a guiding question. In a real article, these tabs could compare two approaches, products or scenarios.'},
       {type:'tabs',id:'approaches',items:[
         {fa:{label:'افزایش ورودی',title:'افراد بیشتری به سایت برسند',text:'این مسیر روی رسیدن مخاطبان مرتبط به سایت تمرکز دارد. پرسش راهنما: آیا ورودی بیشتر به اقدام ارزشمند هم منجر می‌شود؟'},en:{label:'More traffic',title:'Reach more people',text:'This approach focuses on bringing relevant visitors to the site. Guiding question: does more traffic also lead to valuable actions?'}},
         {fa:{label:'بهبود تبدیل',title:'از ورودی موجود بهتر استفاده کنیم',text:'این مسیر روی تجربهٔ بازدیدکنندگان فعلی و تکمیل اقدام هدف تمرکز دارد. پرسش راهنما: کدام اصطکاک در مسیر کاربر قابل کاهش است؟'},en:{label:'Better conversion',title:'Make more of existing traffic',text:'This approach focuses on the current visitor experience and completion of a target action. Guiding question: which friction in the journey could be reduced?'}}
       ]},
-      {type:'details',fa:{title:'چرا قالب همهٔ تعامل‌ها را به هر مقاله اضافه نمی‌کند؟',text:'برای مقالهٔ مفهومی، یک مقایسه یا واژه‌نامه ممکن است کافی باشد. نمودار زمانی مفید است که داده یا رابطهٔ مشخصی برای نشان دادن وجود داشته باشد. تعداد تعامل‌ها باید تابع محتوا باشد.'},en:{title:'Why not add every interaction to every article?',text:'A conceptual article might need only a comparison or glossary. A chart is useful when there is data or a relationship to show. The content should determine which interactions belong.'}}
+      {type:'details',fa:{title:'چرا قالب همهٔ تعامل‌ها را به هر مقاله اضافه نمی‌کند؟',text:'هر مقالهٔ تعاملی تازه یک تصویر توضیحی مرتبط با Anatomy دارد. ابزارهای دیگر بر اساس محتوا انتخاب می‌شوند: نمودار برای داده یا رابطهٔ مشخص، واژه‌نامه برای اصطلاح و مقایسه برای انتخاب‌های واقعی. تعداد ابزارها را هدف خواندن تعیین می‌کند.'},en:{title:'Why not add every interaction to every article?',text:'Every new interactive article includes a meaningful Anatomy figure. Choose the remaining tools for the content: a chart for specific data or a relationship, a glossary for terms, and comparisons for real choices. The reading goal determines which tools belong.'}}
     ]},
     {id:'chart',fa:{title:'یک داده، چند زاویهٔ دید'},en:{title:'One dataset, different views'},blocks:[
       {type:'paragraph',fa:'شاخص را عوض کنید، بین نمودار خطی و ستونی جابه‌جا شوید و روی مقدار هر هفته کلیک کنید. این [[sample-data|مثال ساختگی]] فقط رفتار نمودار را نشان می‌دهد.',en:'Change the metric, switch between bars and lines, and select a weekly value. This [[sample-data|illustrative example]] only demonstrates the chart interactions.'},

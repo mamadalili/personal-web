@@ -1,2 +1,3 @@
 # Keep the portable authoring workflow identical across checkouts and installs.
 .agents/skills/interactive-blog-anatomy/** text eol=lf
+assets/anatomy/** text=auto eol=lf
