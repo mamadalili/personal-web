@@ -5,7 +5,7 @@ export const post = {
     excerpt: 'کار دستی تکراری، انتظار و دوباره‌کاری ممکن است دیگر دیده نشوند. یک تحویل واقعی را دنبال کن تا مسئله‌ای قابل اصلاح پیدا شود.',
     category: "اجرا و بهبود کار", readTime: '۴ دقیقه + مقایسه',
     credit: 'نقطهٔ شروع: محتوای حمایت‌شدهٔ Retail Dive؛ با رجوع به ASQ و تمرین‌های مستقل این مقاله.',
-    sourceNote: 'متن منبع Retail Dive از نتایج عمومی جست‌وجو بررسی شد. این محتوای حمایت‌شدهٔ D-Wave است؛ نمونهٔ مشتری، روایت فروشنده است و تأیید مستقلِ بازده پروژهٔ دیگر نیست.',
+    sourceNote: 'این مطلب محتوای حمایت‌شدهٔ D-Wave است؛ نمونهٔ مشتری، روایت فروشنده است و تأیید مستقلِ بازده پروژهٔ دیگر نیست.',
     takeaways: ['عادت‌کردن به یک مشکل، هزینه‌اش را حذف نمی‌کند.', 'مسیر واقعی کار را ببین، از جمله انتظار و برگشت.', 'یک تحویل را اصلاح کن و اثرش را در ادامهٔ مسیر بررسی کن.']
   },
   en: {
@@ -13,11 +13,11 @@ export const post = {
     excerpt: 'Repeated manual work, waiting and rework can disappear from view. Follow one real handoff to find a problem that can be changed.',
     category: "EXECUTION & IMPROVEMENT", readTime: '4 minutes + comparison',
     credit: 'Prompted by sponsored Retail Dive content, with ASQ guidance and independently proposed exercises.',
-    sourceNote: 'The Retail Dive article was reviewed through its public search listing. It is D-Wave sponsored content; the customer case is the vendor’s account, not independent evidence of another project’s return.',
+    sourceNote: 'This is D-Wave sponsored content; the customer case is the vendor’s account, not independent evidence of another project’s return.',
     takeaways: ['Getting used to a problem does not remove its cost.', 'Observe the actual route, including waits and returns.', 'Change one handoff and inspect what happens downstream.']
   },
   sources: [
-    { id: 'retail-sponsored', url: 'https://www.retaildive.com/spons/the-most-expensive-problems-are-the-ones-youve-learned-to-live-with/833681/', publisher: 'Retail Dive · Sponsored', kind: 'sponsored', fa: { title: 'محتوای حمایت‌شده: مشکلاتی که به آن‌ها عادت کرده‌ایم', note: 'متن عمومی از فهرست جست‌وجو بررسی شد. نمونهٔ برنامه‌ریزی راننده و ادعای کاهش زمان، روایت تجاری D-Wave است؛ نه ارزیابی مستقل.' }, en: { title: 'Sponsored: Problems we have learned to live with', note: 'Public text reviewed through the search listing. The driver-scheduling case and claimed time saving are D-Wave’s commercial account, not an independent evaluation.' } },
+    { id: 'retail-sponsored', url: 'https://www.retaildive.com/spons/the-most-expensive-problems-are-the-ones-youve-learned-to-live-with/833681/', publisher: 'Retail Dive · Sponsored', kind: 'sponsored', fa: { title: 'محتوای حمایت‌شده: مشکلاتی که به آن‌ها عادت کرده‌ایم', note: 'نمونهٔ برنامه‌ریزی راننده و ادعای کاهش زمان، روایت تجاری D-Wave است؛ نه ارزیابی مستقل.' }, en: { title: 'Sponsored: Problems we have learned to live with', note: 'The driver-scheduling case and claimed time saving are D-Wave’s commercial account, not an independent evaluation.' } },
     { id: 'asq-vsm', url: 'https://asq.org/quality-resources/value-stream-mapping', publisher: 'ASQ', kind: 'guide', fa: { title: 'نقشه‌برداری جریان ارزش', note: 'مرجع روش برای دیدن جریان اطلاعات، کار و انتظار؛ نه وعدهٔ صرفه‌جویی برای این تمرین.' }, en: { title: 'Value Stream Mapping', note: 'Method reference for information, work and waiting; not a savings promise for this exercise.' } }
   ],
   sections: [
