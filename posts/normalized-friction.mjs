@@ -5,7 +5,7 @@ export const post = {
     excerpt: 'کار دستی تکراری، انتظار و دوباره‌کاری ممکن است دیگر دیده نشوند. یک تحویل واقعی را دنبال کن تا مسئله‌ای قابل اصلاح پیدا شود.',
     category: "اجرا و بهبود کار", readTime: '۴ دقیقه + مقایسه',
     credit: 'نقطهٔ شروع: محتوای حمایت‌شدهٔ Retail Dive؛ با رجوع به ASQ و تمرین‌های مستقل این مقاله.',
-    sourceNote: 'منبع Retail Dive محتوای تجاریِ حمایت‌شده است. متن کامل آن در زمان بررسی در دسترس نبود؛ هیچ ادعای فروشنده یا نتیجهٔ مشتری از آن نقل نشده است.',
+    sourceNote: 'متن منبع Retail Dive از نتایج عمومی جست‌وجو بررسی شد. این محتوای حمایت‌شدهٔ D-Wave است؛ نمونهٔ مشتری، روایت فروشنده است و تأیید مستقلِ بازده پروژهٔ دیگر نیست.',
     takeaways: ['عادت‌کردن به یک مشکل، هزینه‌اش را حذف نمی‌کند.', 'مسیر واقعی کار را ببین، از جمله انتظار و برگشت.', 'یک تحویل را اصلاح کن و اثرش را در ادامهٔ مسیر بررسی کن.']
   },
   en: {
@@ -13,17 +13,17 @@ export const post = {
     excerpt: 'Repeated manual work, waiting and rework can disappear from view. Follow one real handoff to find a problem that can be changed.',
     category: "EXECUTION & IMPROVEMENT", readTime: '4 minutes + comparison',
     credit: 'Prompted by sponsored Retail Dive content, with ASQ guidance and independently proposed exercises.',
-    sourceNote: 'The Retail Dive source is sponsored commercial content. Its full text was unavailable at review; no vendor claims or customer results are reproduced.',
+    sourceNote: 'The Retail Dive article was reviewed through its public search listing. It is D-Wave sponsored content; the customer case is the vendor’s account, not independent evidence of another project’s return.',
     takeaways: ['Getting used to a problem does not remove its cost.', 'Observe the actual route, including waits and returns.', 'Change one handoff and inspect what happens downstream.']
   },
   sources: [
-    { id: 'retail-sponsored', url: 'https://www.retaildive.com/spons/the-most-expensive-problems-are-the-ones-youve-learned-to-live-with/833681/', publisher: 'Retail Dive · Sponsored', kind: 'sponsored', fa: { title: 'محتوای حمایت‌شده: مشکلاتی که به آن‌ها عادت کرده‌ایم', note: 'منبع تجاری؛ متن کامل قابل دسترسی نبود. صرفاً نقطهٔ شروع موضوع.' }, en: { title: 'Sponsored: Problems we have learned to live with', note: 'Commercial source; full text unavailable. Used only as a topic prompt.' } },
+    { id: 'retail-sponsored', url: 'https://www.retaildive.com/spons/the-most-expensive-problems-are-the-ones-youve-learned-to-live-with/833681/', publisher: 'Retail Dive · Sponsored', kind: 'sponsored', fa: { title: 'محتوای حمایت‌شده: مشکلاتی که به آن‌ها عادت کرده‌ایم', note: 'متن عمومی از فهرست جست‌وجو بررسی شد. نمونهٔ برنامه‌ریزی راننده و ادعای کاهش زمان، روایت تجاری D-Wave است؛ نه ارزیابی مستقل.' }, en: { title: 'Sponsored: Problems we have learned to live with', note: 'Public text reviewed through the search listing. The driver-scheduling case and claimed time saving are D-Wave’s commercial account, not an independent evaluation.' } },
     { id: 'asq-vsm', url: 'https://asq.org/quality-resources/value-stream-mapping', publisher: 'ASQ', kind: 'guide', fa: { title: 'نقشه‌برداری جریان ارزش', note: 'مرجع روش برای دیدن جریان اطلاعات، کار و انتظار؛ نه وعدهٔ صرفه‌جویی برای این تمرین.' }, en: { title: 'Value Stream Mapping', note: 'Method reference for information, work and waiting; not a savings promise for this exercise.' } }
   ],
   sections: [
     { id: 'name-the-repetition', fa: { title: 'از جملهٔ «همیشه همین است» عبور کن' }, en: { title: 'Look past “that always happens”' }, blocks: [
       { type: 'paragraph', fa: 'پیشنهاد عملی: کاری را انتخاب کن که برایش راه میان‌بر ساخته‌اند. ورود دوبارهٔ سفارش، پیگیری تأیید یا جست‌وجوی فایل، مثال‌های فرضی‌اند. بپرس: این کار چه خروجی‌ای می‌دهد و نفر بعد چه چیزی لازم دارد؟', en: 'This article proposes starting with a task around which the team has built a workaround. Rekeying order details, chasing approval in messages or finding the latest file are hypothetical examples. Before choosing a tool, ask what the task produces and exactly what the next person needs to proceed.' },
-      { type: 'callout', fa: 'عنوان منبع اولیه، موضوع را مطرح می‌کند؛ محتوای حمایت‌شدهٔ Retail Dive شاهد مستقلی برای هزینه یا نتیجهٔ اصلاح نیست و متن کاملش در دسترس نبود. تمرین‌های زیر پیشنهادهای مستقل‌اند.', en: 'The initial source raises the topic. Sponsored Retail Dive content is not independent evidence of cost or improvement, and its full text was unavailable. The exercises below are independently proposed.' }
+      { type: 'callout', fa: 'مطلب Retail Dive محتوای حمایت‌شدهٔ D-Wave است. نمونهٔ مشتری و نتیجهٔ آن از طرف فروشنده گزارش شده‌اند؛ آن‌ها را تضمین نتیجهٔ پروژهٔ خودت ندان. تمرین‌های این مقاله پیشنهادهای مستقل‌اند.', en: 'The Retail Dive piece is sponsored by D-Wave. Its customer case and results are vendor-reported; they do not guarantee results for your project. The exercises here are independent proposals.' }
     ] },
     { id: 'follow-one-case', fa: { title: 'یک مورد را تا پایان دنبال کن' }, en: { title: 'Follow one case through' }, blocks: [
       { type: 'paragraph', fa: 'راهنمای ASQ برای نقشهٔ جریان ارزش، مشاهدهٔ وضعیت موجود و ثبت جریان اطلاعات، پردازش و انتظار را توضیح می‌دهد. [مرجع روش](https://asq.org/quality-resources/value-stream-mapping). برداشت اجرایی این مقاله: یک درخواست واقعی را از ورود تا پذیرش خروجی دنبال کن؛ نقشهٔ آرمانیِ جلسه را جای واقعیت ننشان.', en: 'ASQ’s value-stream guidance describes observing the current state and recording information flow, processing and waiting. [Method reference](https://asq.org/quality-resources/value-stream-mapping). This article’s operational proposal is to follow one real request from arrival to accepted output, rather than substitute an ideal meeting-room process for what happens.' },

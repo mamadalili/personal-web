@@ -34,7 +34,7 @@ test('all sixteen supplied sources map to one distinct published bilingual artic
   assert.equal(post.slug,series2026[index].slug);
   assert.equal(post.status,'published');assert.equal(post.template,undefined);
   assert.ok(post.sources.some(source=>canonical(source.url)===supplied[index]),post.slug);
-  assert.ok(post.sections.length>=4,post.slug);
+  assert.ok(post.sections.length>=6,post.slug);
   assert.equal(new Set(post.sections.map(s=>s.id)).size,post.sections.length);
   for(const lang of ['fa','en']){
    assert.equal(post[lang].title,series2026[index][lang]);
@@ -42,6 +42,21 @@ test('all sixteen supplied sources map to one distinct published bilingual artic
    assert.ok(post[lang].takeaways.length>=3);
    for(const source of post.sources){assert.ok(source[lang]?.title&&source[lang]?.note);assert.equal(new URL(source.url).protocol,'https:');}
    for(const section of post.sections)assert.ok(section[lang]?.title&&section.blocks.length);
+  }
+ }
+});
+
+test('the sixteen source essays retain substantial native prose in both languages',()=>{
+ for(const post of seriesPosts){
+  const blocks=post.sections.flatMap(section=>section.blocks);
+  for(const [lang,minimum] of [['fa',650],['en',575]]){
+   const prose=[];
+   for(const block of blocks){
+    if(typeof block[lang]==='string')prose.push(block[lang]);
+    else if(block[lang]?.text)prose.push(block[lang].text);
+    for(const item of block.items||[]){if(item[lang]?.text)prose.push(item[lang].text);if(item[lang]?.detail)prose.push(item[lang].detail);}
+   }
+   assert.ok(prose.join(' ').trim().split(/\s+/).length>=minimum,`${post.slug}: ${lang} essay is too brief`);
   }
  }
 });
