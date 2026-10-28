@@ -15,3 +15,10 @@ export function capitalPoints(rows) {
     return [{ id: row.id, ...round, x: logFraction(round.amount, 0.1, 200), y: logFraction(round.revenue, 0.1, 200) }];
   });
 }
+
+// Equirectangular world locator: bubbles encode country affiliation counts, not model sites.
+export function geographyMarker(row) {
+  const {lon,lat,value}=row;
+  if (![lon,lat,value].every(Number.isFinite) || lon < -180 || lon > 180 || lat < -90 || lat > 90 || value <= 0) return null;
+  return {x:(lon+180)/360*1000,y:(90-lat)/180*500,r:8+Math.sqrt(value)*2.2};
+}

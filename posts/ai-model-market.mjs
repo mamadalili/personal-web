@@ -67,14 +67,14 @@ const training = [
  {id:'grok3',name:'Grok-3',year:2025,cost:507476933.25548834}
 ].map(row=>({...row,sources:['epoch-data','epoch']}));
 const geography = [
- {id:'us',value:59,fa:'آمریکا',en:'United States',color:'#7967bc'},
- {id:'china',value:35,fa:'چین',en:'China',color:'#c87c61'},
- {id:'korea',value:8,fa:'کرهٔ جنوبی',en:'South Korea',color:'#639d9a'},
- {id:'canada',value:1,fa:'کانادا',en:'Canada',color:'#9fa888'},
- {id:'france',value:1,fa:'فرانسه',en:'France',color:'#849bbe'},
- {id:'hongkong',value:1,fa:'هنگ‌کنگ',en:'Hong Kong',color:'#bca073'},
- {id:'singapore',value:1,fa:'سنگاپور',en:'Singapore',color:'#ad87a7'},
- {id:'uk',value:1,fa:'بریتانیا',en:'United Kingdom',color:'#a0a0ac'}
+ {id:'us',value:59,fa:'آمریکا',en:'United States',color:'#7967bc',lon:-100,lat:39},
+ {id:'china',value:35,fa:'چین',en:'China',color:'#c87c61',lon:104,lat:35},
+ {id:'korea',value:8,fa:'کرهٔ جنوبی',en:'South Korea',color:'#639d9a',lon:127,lat:37},
+ {id:'canada',value:1,fa:'کانادا',en:'Canada',color:'#9fa888',lon:-106,lat:56},
+ {id:'france',value:1,fa:'فرانسه',en:'France',color:'#849bbe',lon:2,lat:47},
+ {id:'hongkong',value:1,fa:'هنگ‌کنگ',en:'Hong Kong',color:'#bca073',lon:114,lat:22},
+ {id:'singapore',value:1,fa:'سنگاپور',en:'Singapore',color:'#ad87a7',lon:104,lat:1},
+ {id:'uk',value:1,fa:'بریتانیا',en:'United Kingdom',color:'#a0a0ac',lon:-2,lat:54}
 ].map(row=>({...row,sources:['stanford2026']}));
 const chapter = (id,visual,fa,en,aliases=[]) => ({id,visual,fa:{title:fa[0],nav:fa[1],text:fa[2],stat:fa[3],takeaway:fa[4],foot:fa[5]},en:{title:en[0],nav:en[1],text:en[2],stat:en[3],takeaway:en[4],foot:en[5]},aliases,blocks:[{type:'paragraph',fa:fa[2],en:en[2]}]});
 export const aiModelMarket = {
@@ -83,8 +83,8 @@ export const aiModelMarket = {
   fa:{src:'assets/blog/ai-model-market-fa-v2.webp',alt:'نمودارهای شیشه‌ای سبز و فیروزه‌ای و کلیدواژه‌های محو درآمد، ارزش‌گذاری و هزینهٔ آموزش در پس‌زمینه.',width:1672,height:941},
   en:{src:'assets/blog/ai-model-market-en-v2.webp',alt:'Emerald and turquoise glass charts with softly faded revenue, valuation and training-cost keywords.',width:1672,height:941}
  },
- fa:{takeaways:['کاربردها و بازیگران اصلی بازار را بشناسید.','درآمد، ارزش‌گذاری و سرمایه را از هم جدا کنید.','هزینهٔ آموزش و جغرافیای ساخت مدل‌ها را ببینید.'],title:'بازار مدل‌های هوش مصنوعی',excerpt:'چه مدل‌هایی پول می‌سازند، چه شرکت‌هایی جلو هستند و این رقابت چقدر هزینه دارد؟ یک نقشهٔ تصویری در هشت بخش کوتاه.',category:'هوش مصنوعی و اقتصاد دیجیتال',readTime:'۸ دقیقه',credit:'با الهام و اقتباس ساختاری از The AI Model Market اثر Koosh + Claude؛ با متن و نمودارهای مستقل و منابع قابل بررسی.'},
- en:{takeaways:['Explore the major applications and players.','Separate revenue, valuation and financing.','Compare training costs and where models are built.'],title:'The AI Model Market',excerpt:'Which models make money, who builds them, and what does the race cost? A visual map in eight short chapters.',category:'AI & the digital economy',readTime:'8 min',credit:'Inspired by the structure of The AI Model Market by Koosh + Claude, with independently written prose, charts and inspectable sources.'},
+ fa:{takeaways:['کاربردها و بازیگران اصلی بازار را بشناسید.','درآمد، ارزش‌گذاری و سرمایه را از هم جدا کنید.','هزینهٔ آموزش و جغرافیای ساخت مدل‌ها را ببینید.'],title:'بازار مدل‌های هوش مصنوعی',excerpt:'چه مدل‌هایی پول می‌سازند، چه شرکت‌هایی جلو هستند و این رقابت چقدر هزینه دارد؟ یک روایت تصویری با داده‌ها و منابع قابل بررسی.',category:'هوش مصنوعی و اقتصاد دیجیتال',readTime:'۹ دقیقه',credit:'با الهام و اقتباس ساختاری از The AI Model Market اثر Koosh + Claude؛ با متن و نمودارهای مستقل و منابع قابل بررسی.'},
+ en:{takeaways:['Explore the major applications and players.','Separate revenue, valuation and financing.','Compare training costs and where models are built.'],title:'The AI Model Market',excerpt:'Which models make money, who builds them, and what does the race cost? A visual story with inspectable data and sources.',category:'AI & the digital economy',readTime:'9 min',credit:'Inspired by the structure of The AI Model Market by Koosh + Claude, with independently written prose, charts and inspectable sources.'},
  atlas:{categories,leaders,labs,tools,training,geography},
  sections:[
   chapter('ecosystem','applications',
@@ -110,7 +110,10 @@ export const aiModelMarket = {
    ['How many times sales is it worth?','Valuation','Divide valuation by annualised revenue to put companies on a common scale. A higher multiple means paying more for each dollar of sales, usually with greater growth expectations and greater risk.','Price ÷ sales','a valuation multiple, not profit or investment return','Calculated from the same dated snapshots; logarithmic axis. A disclosed revenue floor gives an upper bound, shown as <. Cursor’s transaction value is identified separately.']),
   chapter('geography','geography',
    ['مدل‌ها کجا ساخته می‌شوند؟','جغرافیا','در فهرست مدل‌های برجستهٔ سال ۲۰۲۵، آمریکا و چین با فاصله در جلو هستند. اما تعداد مدل، تمام داستان نیست؛ کیفیت، هزینه، دسترسی و کاربرد هم تعیین می‌کنند کدام مدل به کار ما می‌آید.','۵۹ در برابر ۳۵','مدل برجسته در آمریکا و چین؛ داده‌های ۲۰۲۵','Stanford AI Index 2026، شکل ۱٫۱٫۱؛ مناطق منتخب. هر مربع یک مدل است. وابستگی چندکشوری می‌تواند هم‌پوشانی بسازد؛ این تعداد همهٔ مدل‌های جهان نیست.'],
-   ['Where are the models built?','Geography','The US and China lead the list of notable models released in 2025 by a wide margin. Counts are only part of the story: quality, cost, access and the task still determine which model is useful.','59 versus 35','notable models from the US and China in 2025','Stanford AI Index 2026, figure 1.1.1; selected areas. Each square is one model. Multi-country affiliations can overlap; these are not all the world’s models.'],['business'])
+   ['Where are the models built?','Geography','The US and China lead the list of notable models released in 2025 by a wide margin. Counts are only part of the story: quality, cost, access and the task still determine which model is useful.','59 versus 35','notable models from the US and China in 2025','Stanford AI Index 2026, figure 1.1.1; selected areas. Each square is one model. Multi-country affiliations can overlap; these are not all the world’s models.'],['business']),
+  chapter('geography-map','geo-map',
+   ['تمرکز مدل‌ها روی نقشه','نقشهٔ داده','یک کشور را انتخاب کن تا جایگاه تقریبی‌اش و شمار مدل‌های شاخصِ منسوب به آن را ببینی. این نقشه محل ساخت مدل یا نشانی مؤسسه‌ها را نشان نمی‌دهد؛ فقط دادهٔ کشورِ وابستگی را در فضا قرار می‌دهد.','نقشهٔ منتخب','بزرگی دایره با شمار مدل‌ها تغییر می‌کند','Stanford AI Index 2026، شکل ۱٫۱٫۱؛ داده‌های ۲۰۲۵ برای مناطق منتخب. وابستگی چندکشوری می‌تواند هم‌پوشانی بسازد؛ شمار کشورها را جمع نکنید. مکان نشانگرها تقریبی است. زمینهٔ نقشه: Natural Earth، دادهٔ عمومی ۱:۱۱۰ میلیون.'],
+   ['Map the concentration','Data map','Choose a country to see its approximate position and its count of affiliated notable models. The map does not locate model development or institutions; it places country-affiliation data in space.','Selected places','Circle area follows the model count','Stanford AI Index 2026, figure 1.1.1; 2025 data for selected areas. Multi-country affiliations may overlap, so do not sum country counts. Marker positions are approximate. Basemap: Natural Earth public-domain 1:110m land data.'])
  ],
  related:[
   {target:'post:ai-payoff-workload',fa:{title:'هوش مصنوعی؛ کار بیشتر، بازده کجاست؟',description:'از اندازهٔ بازار به اثر واقعی AI بر کار، تیم و بازده برسیم.'},en:{title:'AI: more work, where is the return?',description:'Move from market size to AI’s real effect on work, teams and returns.'}},

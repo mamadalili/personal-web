@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { logFraction, valuationMultiple, capitalPoints } from '../blog-market-model.mjs';
+import { logFraction, valuationMultiple, capitalPoints, geographyMarker } from '../blog-market-model.mjs';
 import { aiModelMarket } from '../posts/ai-model-market.mjs';
 import { roundBound } from '../blog-core.mjs';
 import { posts } from '../blog-data.mjs';
@@ -56,6 +56,24 @@ test('published market charts bind every observation to inspectable sources and 
   const advertising=atlas.categories.find(row=>row.id==='ads');
   assert.equal(advertising.parts.reduce((sum,row)=>sum+row.value,0),advertising.value);
   assert.ok(atlas.labs.some(row => row.valuation === null));
-  assert.equal(aiModelMarket.sections.length, 8);
+  assert.equal(aiModelMarket.sections.length, 9);
   assert.ok(atlas.training.every(row => row.cost > 0 && Number.isInteger(row.year)));
+});
+
+test('the world map plots only sourced selected affiliations, with area tracking count', () => {
+  const rows=aiModelMarket.atlas.geography;
+  assert.equal(new Set(rows.map(row=>row.id)).size,rows.length);
+  assert.ok(rows.every(row=>row.sources.includes('stanford2026')));
+  for(const row of rows){
+    const marker=geographyMarker(row);
+    assert.ok(marker,`${row.id}: valid marker`);
+    assert.ok(marker.x>=0&&marker.x<=1000&&marker.y>=0&&marker.y<=500,`${row.id}: on map`);
+  }
+  const us=geographyMarker(rows.find(row=>row.id==='us'));
+  const china=geographyMarker(rows.find(row=>row.id==='china'));
+  const uk=geographyMarker(rows.find(row=>row.id==='uk'));
+  assert.ok(us.x<china.x);
+  assert.ok(Math.PI*us.r**2>Math.PI*china.r**2&&Math.PI*china.r**2>Math.PI*uk.r**2);
+  assert.equal(geographyMarker({lon:200,lat:0,value:1}),null);
+  assert.equal(geographyMarker({lon:0,lat:0,value:0}),null);
 });
