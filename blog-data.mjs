@@ -3,8 +3,11 @@ import { aiModelMarket } from './posts/ai-model-market.mjs';
 import { soloBusiness } from './posts/solo-business.mjs';
 import { soloGroups, soloOpportunities } from './posts/solo-opportunities.mjs';
 import { seriesPosts } from './posts/series-2026.mjs';
+import { post as smallBusinessWebsite } from './posts/small-business-website.mjs';
+import { post as teamCapacity } from './posts/team-capacity.mjs';
+import { post as capitalOneAI } from './posts/capital-one-ai.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
+export const posts = [smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',

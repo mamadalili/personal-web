@@ -28,8 +28,8 @@ const supplied=[
 const canonical=url=>{const u=new URL(url);return u.hostname+u.pathname;};
 
 test('all sixteen supplied sources map to one distinct published bilingual article',()=>{
- assert.equal(seriesPosts.length,16);assert.equal(posts.length,19);
- assert.equal(new Set(posts.map(p=>p.slug)).size,19);
+ assert.equal(seriesPosts.length,16);assert.ok(posts.length>=seriesPosts.length+6);
+ assert.equal(new Set(posts.map(p=>p.slug)).size,posts.length);
  for(const [index,post] of seriesPosts.entries()){
   assert.equal(post.slug,series2026[index].slug);
   assert.equal(post.status,'published');assert.equal(post.template,undefined);
@@ -64,7 +64,7 @@ test('the sixteen source essays retain substantial native prose in both language
 });
 
 test('article interactions use supported native data contracts and valid continuations',()=>{
- const interactive=new Set(['decision-audit','tabs','explorer','quiz','details']);
+ const interactive=new Set(['decision-audit','tabs','explorer','quiz','details','chart']);
  for(const post of seriesPosts){
   let count=0;
   for(const block of post.sections.flatMap(s=>s.blocks)){
@@ -77,6 +77,12 @@ test('article interactions use supported native data contracts and valid continu
     if(block.type==='explorer')for(const item of block.items)assert.ok(item[lang].title&&item[lang].text&&item[lang].detail);
     if(block.type==='quiz'){assert.ok(block[lang].question&&block[`${lang}Explanation`]);assert.equal(block.choices.filter(c=>c.correct).length,1);for(const choice of block.choices)assert.ok(choice[lang]);}
     if(block.type==='decision-audit'){assert.ok(block[lang].title&&block[lang].complete);for(const item of block.items)assert.ok(item[lang].label&&item[lang].next);}
+    if(block.type==='chart'){
+     assert.ok(block[lang].title&&block[lang].source&&block[lang].method);
+     assert.equal(block.labels[lang].length,block.labels.fa.length);
+     for(const metric of block.metrics)assert.ok(metric[lang]);
+     for(const series of block.series)for(const values of Object.values(series.values))assert.equal(values.length,block.labels.fa.length);
+    }
    }
   }
   assert.ok(count>0,post.slug);assert.ok(post.related.length>=2);
@@ -84,15 +90,17 @@ test('article interactions use supported native data contracts and valid continu
  }
 });
 
-test('32 native WebP assets are local and banner families form continuous pairs',()=>{
- const assets=new Set(),pairs=[{id:'ice-emerald-pair',position:1},...seriesPosts.map(p=>p.bannerPair)];
- for(const post of seriesPosts)for(const lang of ['fa','en']){
+test('native WebP assets are local and new banner families complete their pairs',()=>{
+ const fresh=['small-business-website','team-capacity','capital-one-ai'].map(slug=>posts.find(p=>p.slug===slug));
+ assert.ok(fresh.every(Boolean));
+ const assets=new Set(),pairs=[{id:'ice-emerald-pair',position:1},...seriesPosts.map(p=>p.bannerPair),...fresh.map(p=>p.bannerPair)];
+ for(const post of [...seriesPosts,...fresh])for(const lang of ['fa','en']){
   const cover=post.cover[lang];assets.add(cover.src);assert.ok(existsSync(new URL(`../${cover.src}`,import.meta.url)));
   const bytes=readFileSync(new URL(`../${cover.src}`,import.meta.url));assert.equal(bytes.toString('ascii',8,12),'WEBP');
   assert.ok(cover.width>=1600&&cover.height>=900);assert.ok(cover.alt);
  }
- assert.equal(assets.size,32);
+ assert.equal(assets.size,32+fresh.length*2);
  for(let i=0;i<pairs.length-1;i+=2){assert.equal(pairs[i].position,1);assert.equal(pairs[i+1].position,2);assert.equal(pairs[i].id,pairs[i+1].id);}
- assert.deepEqual(pairs.at(-1),{id:'silver-lemon-pair',position:1});
- const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,54);
+ assert.deepEqual(pairs.at(-1),{id:'ink-copper-pair',position:2});
+ const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,16+posts.length*2);
 });

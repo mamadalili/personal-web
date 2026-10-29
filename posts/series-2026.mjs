@@ -28,10 +28,10 @@ const expandedReadTime=(value,lang)=>lang==='fa'
 // Keep each published article's identity and native cover; expand its body before the closing action.
 export const seriesPosts=[p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15].map((post,index)=>({
  ...post,
- reviewed:'2026-10-27',
- fa:{...post.fa,readTime:expandedReadTime(post.fa.readTime,'fa')},
- en:{...post.en,readTime:expandedReadTime(post.en.readTime,'en')},
- sections:[...post.sections.slice(0,-1),...depth[post.slug],post.sections.at(-1)],
+ reviewed:post.slug==='normalized-friction'?'2026-10-29':'2026-10-27',
+ fa:{...post.fa,readTime:post.slug==='normalized-friction'?post.fa.readTime:expandedReadTime(post.fa.readTime,'fa')},
+ en:{...post.en,readTime:post.slug==='normalized-friction'?post.en.readTime:expandedReadTime(post.en.readTime,'en')},
+ sections:post.slug==='normalized-friction'?post.sections:[...post.sections.slice(0,-1),...depth[post.slug],post.sections.at(-1)],
  cover:seriesCovers[post.slug],
  bannerPair:{id:series2026[index].pair,position:series2026[index].position}
 }));

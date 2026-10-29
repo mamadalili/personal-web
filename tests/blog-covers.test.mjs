@@ -51,7 +51,8 @@ test('published articles have real native cover files and the native covers appe
     assert.notEqual(article.cover.fa.src, article.cover.en.src);
   }
   const pages=homePostPages(posts);
-  assert.deepEqual(pages.map(page=>page.length),[6,6,6,1]);
+  assert.equal(pages.length,Math.ceil(posts.length/6));
+  assert.ok(pages.every(page=>page.length>0&&page.length<=6));
   assert.equal(new Set(pages.flat().map(item=>item.slug)).size,posts.length);
   assert.deepEqual(pages.flat().map(item=>item.slug),posts.map(item=>item.slug));
 });

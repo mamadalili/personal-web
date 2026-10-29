@@ -54,3 +54,15 @@ Text verbatim: "AI: More Work. Where’s the Return?".
 ## Sixteen-article collection
 
 The 32 additional native assets, exact prompts and built-in generation mode are documented in [blog-series-cover-prompts.md](blog-series-cover-prompts.md). Pair order is authoritative in `posts/series-2026-manifest.mjs`. All selected files are local WebP exports; decorative chart traces are not data.
+
+## Four-source update · 29 October 2026
+
+All six new covers were made with the built-in image generator and exported as local WebP at quality 90. Each language was generated separately; the words on the image are native Persian or English, never browser-translated. Conceptual diagrams and faint keywords are decorative, not measured data.
+
+| Visual pair | Article | Cover files | Exact on-image headline | Faint background words |
+| --- | --- | --- | --- | --- |
+| Silver, sky and lemon | Small-business website (paired with Housing Offer Terms) | `small-business-website-fa.webp`, `small-business-website-en.webp` | «سایت کسب‌وکار قرار است چه کاری انجام دهد؟» / “What Should a Small Business Website Do?” | اعتماد، پیدا شدن، درخواست / TRUST, DISCOVERY, ENQUIRY |
+| Deep teal, copper and pearl | Team capacity, position 1 | `team-capacity-fa.webp`, `team-capacity-en.webp` | «وقتی کار از توان تیم بیشتر است» / “When Work Outgrows Team Capacity” | ظرفیت، اولویت، اختیار / CAPACITY, PRIORITY, AUTHORITY |
+| Deep teal, copper and pearl | Capital One AI, position 2 | `capital-one-ai-fa.webp`, `capital-one-ai-en.webp` | «AI در Capital One؛ از داده تا کار روزمره» / “AI at Capital One: From Data to Daily Work” | داده، خدمت، بازبینی / DATA, SERVICE, REVIEW |
+
+Reusable prompt direction: create a finished editorial landscape cover with one scene that explains the article question, a large exact headline legible as a blog thumbnail, generous safe margins, and a few nearly faded topical words integrated into the background. Use a paired palette and comparable photographic treatment for neighboring articles, while changing the subject and composition. Keep Persian right-aligned and English left-aligned, with correct native lettering. Do not add fabricated metrics, logos, UI screenshots, generic robots, or irrelevant physical machinery. Review each export at thumbnail and mobile crop size before publishing. The Retail Dive article reuses its existing crimson-and-silver bilingual pair because this update revised its body rather than adding a duplicate post.
