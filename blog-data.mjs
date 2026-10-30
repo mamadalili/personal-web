@@ -8,8 +8,9 @@ import { post as teamCapacity } from './posts/team-capacity.mjs';
 import { post as capitalOneAI } from './posts/capital-one-ai.mjs';
 import { post as oneDayRethink } from './posts/one-day-rethink.mjs';
 import { post as buildingWealthBeyondLuck } from './posts/building-wealth-beyond-luck.mjs';
+import { post as makeExpertiseUnderstandable } from './posts/make-expertise-understandable.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
+export const posts = [makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',

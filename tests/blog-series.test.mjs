@@ -91,7 +91,7 @@ test('article interactions use supported native data contracts and valid continu
 });
 
 test('native WebP assets are local and earlier banner families are paired',()=>{
- const fresh=['small-business-website','team-capacity','capital-one-ai','one-day-rethink','building-wealth-beyond-luck'].map(slug=>posts.find(p=>p.slug===slug));
+ const fresh=['small-business-website','team-capacity','capital-one-ai','one-day-rethink','building-wealth-beyond-luck','make-expertise-understandable'].map(slug=>posts.find(p=>p.slug===slug));
  assert.ok(fresh.every(Boolean));
  const assets=new Set(),pairs=[{id:'ice-emerald-pair',position:1},...seriesPosts.map(p=>p.bannerPair),...fresh.map(p=>p.bannerPair)];
  for(const post of [...seriesPosts,...fresh])for(const lang of ['fa','en']){
@@ -100,8 +100,7 @@ test('native WebP assets are local and earlier banner families are paired',()=>{
   assert.ok(cover.width>=1600&&cover.height>=900);assert.ok(cover.alt);
  }
  assert.equal(assets.size,32+fresh.length*2);
- assert.equal(pairs.length%2,0);
- for(let i=0;i<pairs.length;i+=2){assert.equal(pairs[i].position,1);assert.equal(pairs[i+1].position,2);assert.equal(pairs[i].id,pairs[i+1].id);}
- assert.deepEqual(pairs.at(-1),{id:'stone-vermilion-pair',position:2});
+ for(let i=0;i<pairs.length-1;i+=2){assert.equal(pairs[i].position,1);assert.equal(pairs[i+1].position,2);assert.equal(pairs[i].id,pairs[i+1].id);}
+ assert.deepEqual(pairs.at(-1),{id:'cobalt-citron-pair',position:1});
  const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,16+posts.length*2);
 });
