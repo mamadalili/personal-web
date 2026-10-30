@@ -8,6 +8,8 @@ Start with [interactive-blog-anatomy](../.agents/skills/interactive-blog-anatomy
 
 When the article has dated, categorical, geographic or scheduled observations, consult [interactive-data-visuals](../.agents/skills/interactive-data-visuals/SKILL.md). A Persian date picker, RTL slicer, SVG map or Gantt chart needs data at the right precision and a specific reader question. Do not fill gaps with invented dates, places, durations or totals.
 
+For source-led articles, inventory source objects before drawing: which observations have links, which are the source author's proposals, which are the site's interpretation, what fields are missing, and what the reader can meaningfully select. A process article can use a categorical dependency map even without measured outcomes. Do not turn proposed cadence into dated Gantt bars or draft counts into ROI. When a concept benefits from a visual pause, place an original image inside the relevant section and write native alt/caption; it should clarify an example or decision rather than fill space.
+
 **Anatomy is optional.** Use it when a recognisable mechanism genuinely makes the subject easier to understand. Omit it when it adds visual distraction, an unrelated physical metaphor or extra work for the reader. Do not add a device to satisfy a skill requirement. The Solo article now focuses on real offer choices, AI/human responsibilities and first experiments; the rejected workbench and its artificial timing exercise are removed from the article and template.
 
 When a figure is useful, load the complete [Anatomy skill](../.agents/skills/anatomy/SKILL.md), its `references/craft.md` and the closest relevant example. Record the reader’s question, what the reader controls, what changes and why that change explains the subject. State any formula, unit, source/date, assumption and limitation; keep reported data separate from illustrative models. Do not invent facts to make an analogy work.
@@ -23,6 +25,8 @@ The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresrya
 - `blog.html`, `blog-index.mjs` and `blog-library-model.mjs`: editorial feature, nonduplicated archive, topic selection and keyword search. With no posts, it links to the interactive example.
 - `home-blog.mjs`: the Home carousel reads the same published registry automatically, up to six articles per desktop page (three columns, two rows), four on tablets and two on phones. Publishing a bilingual article updates Home without a separate card edit; drafts and the template remain excluded.
 - `blog-covers.mjs`: validated local native fa/en cover selection and image markup; full banners on articles/lists, compact artwork-focused Home thumbnails beside native titles. Each post's `cover.fa` and `cover.en` contain `src`, descriptive `alt`, and actual integer `width`/`height`. Never fall back to an image with the other language's headline. [Banner prompts and provenance](blog-covers.md) accompany the six current exports.
+- `blog-inline-image.mjs`: validated local WebP article figures with both languages' alt and captions. A language-neutral bitmap can serve both languages if the visible image itself has no words.
+- `blog-workflow-model.mjs` and `blog-workflow.mjs`: source-modelled categorical workflows with stage filters, job inputs/outputs, dependencies, cadence and human review. They do not invent dates or outcome measures.
 - `blog-template.html`: bilingual, explicitly labelled example. It has `noindex,follow` and is excluded from the article registry.
 - `article.html?post=slug&lang=fa`: a published article; `lang=en` opens its English version.
 - `blog-data.mjs`: `posts` registry and the separate `articleTemplate` example.
@@ -81,10 +85,12 @@ Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology
 | Type | Data | Use |
 | --- | --- | --- |
 | `paragraph` | `{type:'paragraph',fa:'…',en:'…'}` | Main text; supports the inline forms above |
+| `image` | Local `src,width,height`; `fa/en:{alt,caption}` | An original in-body WebP that explains the adjacent passage |
 | `callout` | Same text fields | A supplementary note; supports inline forms |
 | `details` | `fa/en:{title,text}` | An expandable explanation or FAQ |
 | `tabs` | `items:[{fa/en:{label,title,text}}]` | Comparable approaches; keyboard arrows and Home/End |
 | `chart` | Localized `title,source,method`; labels, metrics, series | Metric/view/series switching, period dialogs, accessible table |
+| `workflow` | Localized `title,hint,source`; stages and jobs with `dependsOn`, input/output/check/cadence | Filter and inspect sourced or clearly proposed categorical dependencies without fake metrics |
 | `simulator` | `visits`, `rate`, localized `title,note` | **Specifically** estimated orders = visits × rate ÷ 100 |
 | `explorer` | Localized `title,hint`; `items` with `id` and localized `title,text,detail` | Select a concept to reveal a focused explanation; equal tiles are not market shares |
 | `treemap` | Localized `title,note`; `items:[{id,name,value,source}]`, optional `share` | Proportional reported-revenue areas, source dialogs, explicit attribution scenario |
@@ -93,6 +99,8 @@ Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology
 | `opportunities` | Localized `eyebrow,title,note`; `groups`, bilingual `items` | Group filtering, Persian/English search, focused dialogs and contextual links |
 
 Widget `id` values in the example are author-facing references; the renderer generates unique DOM IDs. A glossary definition should be self-contained plain text. Native dialog behavior provides focus containment, Escape and return focus. Dialogs open only after reader action. The outline tracks the active section and reading progress; it starts collapsed on mobile. Sources remain readable in a visible ledger, outside dialogs.
+
+`image.src` must match `assets/blog/kebab-case.webp`, with actual positive integer dimensions and both languages' nonempty alt and caption. Keep it next to the paragraph it clarifies. For `workflow`, `stages` use unique `{id,fa,en}` entries. Each job has a stable ID, matching `stage`, `dependsOn` IDs, author-facing `cadence`, `gate:'human'|'none'` and native `{title,input,output,check,cadence}`. The model rejects missing dependencies and cycles. `fa/en.source` must state the evidence type and limits. The workflow view uses native buttons and makes dependencies, review criteria and data limits visible; it is not a measured performance chart.
 
 ### Opportunity browser
 

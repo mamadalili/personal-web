@@ -173,7 +173,7 @@ function renderSkills(){location.replace(pageURL('cv')+'&tab=experience');}
 function renderBlog(mode='index'){
  const version=++blogMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
- import('./blog.mjs').then(({mountBlog})=>{
+ import('./blog.mjs?v=20261030-ai-marketing').then(({mountBlog})=>{
   if(version!==blogMountVersion||language!==lang)return;
   mountBlog($('main'),{language,mode,template:document.body.dataset.template==='true'});
  }).catch(error=>{

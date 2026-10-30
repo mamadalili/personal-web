@@ -6,6 +6,8 @@ import { createResearchWidgets } from './blog-widgets.mjs';
 import { createSoloWidgets } from './blog-solo.mjs';
 import { mountMarketArticle } from './blog-market.mjs';
 import { createDecisionAudits } from './blog-decision-audit.mjs';
+import { createWorkflowWidgets } from './blog-workflow.mjs';
+import { renderArticleImage } from './blog-inline-image.mjs';
 
 const copy = {
   fa:{blog:'بلاگ',eyebrow:'یادداشت‌های من',heading:'ایده‌ها، تجربه‌ها و چیزهایی که یاد می‌گیرم.',intro:'دربارهٔ بازاریابی، تجارت الکترونیک و فناوری؛ با فرصتی برای کشف و تجربه.',empty:'هنوز مقاله‌ای منتشر نشده.',emptyBody:'تا اولین یادداشت، می‌توانید یک نمونهٔ تعاملی را امتحان کنید.',preview:'دیدن نمونهٔ تعاملی',template:'پیش‌نمایش قالب — مقالهٔ منتشرشده نیست؛ همهٔ اعداد آزمایشی‌اند.',toc:'در این مقاله',takeaways:'در این تجربه',back:'همهٔ نوشته‌ها',close:'بستن',metric:'شاخص',bars:'ستونی',lines:'خطی',view:'نوع نمودار',series:'سناریوهای نمایان',method:'روش محاسبه',table:'دیدن جدول داده‌ها',period:'بازه',pointHint:'برای دیدن جزئیات، روی مقدار هر بازه کلیک کنید.',visits:'تعداد بازدید',rate:'نرخ تبدیل (%)',estimate:'سفارش تقریبی',reset:'بازنشانی',invalid:'بازدید باید بین ۰ تا ۱٬۰۰۰٬۰۰۰ و نرخ تبدیل بین ۰ تا ۱۰۰ باشد.',formula:'بازدید × نرخ تبدیل ÷ ۱۰۰',related:'ادامهٔ مسیر',search:'جست‌وجوی نوشته‌ها',noResults:'نوشته‌ای با این عبارت پیدا نشد.',notFound:'این مقاله پیدا نشد.',notFoundBody:'از فهرست بلاگ، یک مقالهٔ منتشرشده را انتخاب کنید.',atLeastOne:'حداقل یک سناریو باید نمایان بماند.',updated:'نمودار به‌روز شد',points:'جزئیات بازه‌ها',chartData:'دادهٔ نمودار',loading:'در حال آماده‌سازی مقاله…'},
@@ -53,11 +55,14 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   const research=createResearchWidgets({lang,article,number,rich,openDialog:(...args)=>openDialog(...args),signal});
   const solo=createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
   const audits=createDecisionAudits({lang,signal});
+  const workflow=createWorkflowWidgets({lang,signal});
   const pointValue=(block,metric,value,index)=>{const qualifier=block.observations?.[index]?.qualifiers?.[metric.id]||'';return `${esc(qualifier)}${number(roundBound(value,qualifier,metric.format==='number'?0:1),metric.format)}`;};
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;
     blocks.set(id,block);
     if(block.type==='decision-audit')return audits.render(block,id);
+    if(block.type==='workflow')return workflow.render(block,id);
+    if(block.type==='image')return renderArticleImage(block,lang);
     if (block.type==='paragraph') return `<p>${rich(block[lang])}</p>`;
     if (block.type==='callout') return `<aside class="article-callout">${rich(block[lang])}</aside>`;
     if (block.type==='details') return `<details class="article-disclosure"><summary>${esc(block[lang].title)}</summary><p>${rich(block[lang].text)}</p></details>`;
@@ -102,6 +107,7 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   research.mount(root);
   solo.mount(root);
   audits.mount(root);
+  workflow.mount(root);
 
   function updateChart(id, announce = false) {
     const block = blocks.get(id), state = states.get(id), figure = root.querySelector(`[data-chart="${id}"]`);
