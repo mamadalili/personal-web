@@ -54,3 +54,7 @@ Resolve usage mode following the core, reusing any existing explicit choice. Ins
 
 All six skills are pinned to one release in `docs/anti-slop-source.json`. Run `node scripts/check-design-skills.mjs` to verify the project copy; `--global` also checks the local Codex installation. Do not edit the upstream files or auto-update them. Keep the MIT license with the package. This package is authoring guidance and is not loaded by the website at runtime.
 <!-- antislop:end -->
+
+## Reviewed coding reference
+
+For relevant application structure, URL input, HTTP routing/responses, HTML composition or asset-serving work, consult `docs/lets-go-sample-reference.md`. The author requested using only Alex Edwards' public Let's Go sample, reviewed through section 2.10. Use its transferable principles within this site's existing architecture; its Go-specific examples do not justify changing the stack or adding a server. Later chapters listed in the sample contents were not reviewed. This is a coding reference, separate from the site's design and interactive-blog skills.
