@@ -3,8 +3,8 @@
 .work-stories-hero h1{font-size:clamp(32px,4vw,51px);line-height:1.5;letter-spacing:-1.3px;color:#172144;margin:10px 0 15px;font-weight:800}
 .work-stories-hero p{max-width:650px;font-size:15px;line-height:2.1;color:#686877;margin:0}
 .work-stories-back{display:inline-flex;align-items:center;justify-content:center;gap:12px;flex:none;min-height:44px;padding:11px 15px;border:1px solid #ccff00;border-radius:12px;background:#fff;font-size:12px;font-weight:700;color:#000;text-decoration:none}
-.work-stories-back svg,.work-cv-link svg,.work-story-arrow svg{height:18px;width:18px;flex:none}
-html[dir=rtl] .work-stories-back svg,html[dir=rtl] .work-cv-link svg,html[dir=rtl] .work-story-arrow svg{transform:scaleX(-1)}
+.work-stories-back svg,.work-story-arrow svg{height:18px;width:18px;flex:none}
+html[dir=rtl] .work-stories-back svg,html[dir=rtl] .work-story-arrow svg{transform:scaleX(-1)}
 .work-stories-layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:42px;align-items:start;padding-top:36px}
 .work-roles{position:sticky;top:112px;min-width:0}
 .work-roles h2{font-size:15px;color:#252541;font-weight:750;margin:0 0 8px}
@@ -28,7 +28,6 @@ html[dir=ltr] .work-role[aria-current=true]{box-shadow:inset 3px 0 #1c0998,0 4px
 .work-role-rule{width:54px;height:3px;background:#ccff00;margin:23px 0}
 .work-scope-title{font-size:12px;color:#6e6587;font-weight:700;margin:0 0 11px}
 .work-role-summary p{font-size:13px;line-height:2.05;color:#646273;margin:5px 0}
-.work-cv-link{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#000;font-weight:700;font-size:12px;text-decoration:none;margin-top:12px;padding:7px 12px;border:1px solid #e3deef;border-radius:9px;background:#fbfaff}
 .work-story-collection{border-top:1px solid #e9e5ef;margin-top:29px;padding-top:27px}
 .work-story-heading{display:flex;align-items:center;gap:9px}
 .work-story-dot{height:7px;width:7px;flex:none;background:#1c0998;border-radius:50%}
@@ -48,7 +47,7 @@ html[dir=ltr] .work-role[aria-current=true]{box-shadow:inset 3px 0 #1c0998,0 4px
 .work-story-note{margin-top:27px;padding:18px 20px;border-inline-start:3px solid #ccff00;background:#f8f9f3;border-radius:5px 11px 11px 5px}
 .work-story-note h3{margin:0 0 5px;font-size:12px;color:#4f5143;font-weight:700}
 .work-story-note p{font-size:11px;line-height:1.95;color:#696d58;margin:0}
-.work-role:focus-visible,.work-story--published:focus-visible,.work-cv-link:focus-visible,.work-stories-back:focus-visible{outline:2px solid #1c0998;outline-offset:4px}
+.work-role:focus-visible,.work-story--published:focus-visible,.work-stories-back:focus-visible{outline:2px solid #1c0998;outline-offset:4px}
 html[lang=en] .work-stories-hero h1{letter-spacing:-1.7px;line-height:1.12}
 html[lang=en] .work-role-header h2{line-height:1.22;letter-spacing:-.9px;margin:20px 0 12px}
 html[lang=en] .work-role-summary p{line-height:1.8}
