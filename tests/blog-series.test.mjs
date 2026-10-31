@@ -104,5 +104,5 @@ test('native WebP assets are local and earlier banner families are paired',()=>{
  assert.deepEqual(pairs.at(-3),{id:'cobalt-citron-pair',position:1});
  assert.deepEqual(pairs.at(-2),{id:'cobalt-citron-pair',position:2});
  assert.deepEqual(pairs.at(-1),{id:'graphite-seafoam-papaya-pair',position:1});
- const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,16+posts.length*2);
+ const entries=buildSitemapEntries('https://site.test',{posts,solutions:['strategy','execution','technology','ai-tools'].map(id=>({id}))});assert.equal(entries.length,18+posts.length*2);
 });

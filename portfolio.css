@@ -265,3 +265,5 @@ html[dir=rtl] .collaboration-arrow svg,html[dir=rtl] .collaboration-secondary sv
 @media(min-width:1000px) and (max-height:760px){.home-hero .motion-scene{inline-size:250px;top:0}}
 @media(max-width:760px){.home-hero .motion-scene{inline-size:min(100%,330px);margin:18px auto 0}.solution-lens .motion-scene{max-inline-size:300px}}
 @media(prefers-reduced-motion:reduce){.motion-scene *{animation:none!important}.scene-halo{opacity:.7}.scene-sparkles{opacity:.5}}
+.career-story-link{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:9px 13px;margin-top:19px;border:1px solid #ddd7ec;border-radius:10px;background:#fff;color:#000;text-decoration:none;font-size:12px;font-weight:700}.career-story-link svg{width:18px;height:18px}html[dir=rtl] .career-story-link svg{transform:scaleX(-1)}.career-story-link:focus-visible,.home-story-link:focus-visible{outline:2px solid #1c0998;outline-offset:4px}
+.home-story-link{position:relative;z-index:1;display:inline-flex;align-items:center;min-height:28px;color:#000;font-weight:700;text-decoration:underline;text-underline-offset:4px}

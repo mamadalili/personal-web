@@ -1,6 +1,6 @@
 import { publishedPosts } from './blog-core.mjs';
 
-const mainPages=['','blog.html','profile.html','contact.html'];
+const mainPages=['','blog.html','profile.html','work-stories.html','contact.html'];
 const escapeXML=value=>String(value).replace(/[&<>"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[character]));
 
 function siteBase(value){

@@ -37,6 +37,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.com/profile.html?lang=fa"/>
   </url>
   <url>
+    <loc>https://mrdalili.com/work-stories.html?lang=fa</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.com/work-stories.html?lang=fa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.com/work-stories.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.com/work-stories.html?lang=fa"/>
+  </url>
+  <url>
+    <loc>https://mrdalili.com/work-stories.html?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.com/work-stories.html?lang=fa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.com/work-stories.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.com/work-stories.html?lang=fa"/>
+  </url>
+  <url>
     <loc>https://mrdalili.com/contact.html?lang=fa</loc>
     <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.com/contact.html?lang=fa"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.com/contact.html?lang=en"/>

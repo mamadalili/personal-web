@@ -22,13 +22,15 @@ const copy = {
 const tabIds=['experience','projects','about','contact'];
 const params=new URLSearchParams(location.search);
 const pageFiles={home:'index.html',solutions:'strategy.html',blog:'blog.html',cv:'profile.html',contact:'contact.html'};
-const extraPageFiles={skills:'profile.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',article:'article.html'};
+const extraPageFiles={skills:'profile.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',article:'article.html','work-stories':'work-stories.html'};
 const requestedPage=document.body.dataset.page||'cv';
 // Keep previously shared profile links working after introducing the homepage.
 const page=requestedPage==='home'&&(params.has('tab')||params.has('role'))?'cv':requestedPage;
-const navPage=page==='article'?'blog':page==='skills'?'solutions':page;
+const navPage=page==='article'?'blog':page==='skills'?'solutions':page==='work-stories'?'cv':page;
 let blogMountVersion=0;
 let solutionsMountVersion=0;
+let workStoriesMountVersion=0;
+let disposeWorkStories=()=>{};
 const siteCopy={
  fa:{nav:['خانه','راهکارها','بلاگ','CV','تماس'],navLabel:'منوی اصلی',homeLabel:'خانهٔ شخصی',homeEyebrow:'به خانهٔ دیجیتال من خوش آمدید',homeTitle:'مسیر کاری، ایده‌ها<br>و <em>گفت‌وگوهای تازه.</em>',homeIntro:"من محمدرضا دلیلی هستم؛ در نقطهٔ تلاقی بازاریابی، تجارت الکترونیک و فناوری کار می‌کنم.",explore:'از اینجا شروع کنید',exploreNote:'هر کارت، دری به یک بخش از این خانه.',cvLabel:'پروفایل کاری',cvTitle:'مسیر کاری، پروژه‌ها و تجربه‌ها.',cvBody:'سوابق کاری، پروژه‌ها، مهارت‌ها و تحصیلات من؛ با جزئیات هر تجربه.',cvAction:'دیدن پروفایل کاری',blogLabel:'بلاگ',blogTitle:'ایده‌ها را بخوانید؛ تجربه‌شان کنید.',blogBody:"یادداشت‌های تعاملی و تجربه‌هایی دربارهٔ بازاریابی، تجارت الکترونیک و فناوری.",blogAction:'رفتن به بلاگ',contactLabel:'تماس',contactTitle:'یک گفت‌وگوی تازه شروع کنیم.',contactBody:"اگر دربارهٔ بازاریابی، فروش یا کار با AI مسئله‌ای دارید، از همین‌جا گفت‌وگو را شروع کنیم.",contactAction:'راه‌های ارتباط',blogEyebrow:'یادداشت‌های من',blogHeading:'ایده‌ها، تجربه‌ها<br>و <em>چیزهایی که یاد می‌گیرم.</em>',blogIntro:'جایی برای نوشتن دربارهٔ بازاریابی، رشد کسب‌وکار آنلاین و فناوری.',emptyTitle:'هنوز نوشته‌ای منتشر نشده.',emptyBody:'وقتی اولین یادداشت منتشر شود، همین‌جا می‌توانید آن را بخوانید.',backHome:'بازگشت به خانه',contactEyebrow:'در ارتباط باشیم',contactHeading:'از یک سلام<br>تا <em>یک همکاری تازه.</em>',contactIntro:'برای صحبت دربارهٔ بازاریابی، کار با هوش‌مصنوعی و پروژه‌های دیجیتال، در ارتباط باشیم.',cvLink:'آشنایی با مسیر کاری من',copyright:'محمدرضا دلیلی'},
  en:{nav:['Home','Solutions','Blog','CV','Contact'],navLabel:'Main navigation',homeLabel:'Personal space',homeEyebrow:'WELCOME TO MY DIGITAL HOME',homeTitle:'Work, ideas &<br><em>new conversations.</em>',homeIntro:"I am Mohamad Reza Dalili. I work where marketing, e-commerce and technology meet.",explore:'Find your way around',exploreNote:'A few doors into my world.',cvLabel:'Professional profile',cvTitle:'My work, projects & experience.',cvBody:'Explore my work experience, projects, skills and education, with the details behind each role.',cvAction:'Explore my CV',blogLabel:'Blog',blogTitle:'Ideas to read. Experiences to explore.',blogBody:"Interactive notes and practical observations on marketing, e-commerce and technology.",blogAction:'Visit the blog',contactLabel:'Contact',contactTitle:'Start a new conversation.',contactBody:"If you have a marketing, sales or AI workflow challenge, start the conversation here.",contactAction:'Get in touch',blogEyebrow:'MY NOTES',blogHeading:'Ideas, experiences &<br><em>things I’m learning.</em>',blogIntro:'A space to write about marketing, online business growth and technology.',emptyTitle:'No posts published yet.',emptyBody:'When the first note is published, you’ll find it here.',backHome:'Back to home',contactEyebrow:'LET’S CONNECT',contactHeading:'From a hello<br>to <em>something new.</em>',contactIntro:'Let’s talk about marketing, AI workflows and digital projects.',cvLink:'Explore my professional journey',copyright:'Mohamad Reza Dalili'}
@@ -83,12 +85,12 @@ const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 const chips=items=>`<div class="chips">${items.map(s=>`<span class="chip">${escapeHTML(s)}</span>`).join('')}</div>`;
 const years=value=>lang==='fa'?value.replace(/\d/g,n=>'۰۱۲۳۴۵۶۷۸۹'[n]):`${value} SH`;
 function pageURL(id){const file=pageFiles[id]||extraPageFiles[id];return file?`${file}?lang=${lang}`:null;}
-function updateURL(){const url=new URL(location.href);url.searchParams.set('lang',lang);if(page==='cv'){url.searchParams.set('tab',activeTab);url.searchParams.set('role',activeCareer);}else{url.searchParams.delete('tab');url.searchParams.delete('role');}history.replaceState(null,'',url);}
+function updateURL(){const url=new URL(location.href);url.searchParams.set('lang',lang);if(page==='cv'){url.searchParams.set('tab',activeTab);url.searchParams.set('role',activeCareer);}else{url.searchParams.delete('tab');if(page!=='work-stories')url.searchParams.delete('role');}history.replaceState(null,'',url);}
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 function render(){
   ensureAmbient();
-  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${pageLabel} — ${t.name}`;
-  document.querySelector('meta[name="description"]').content=page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
+  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${pageLabel} — ${t.name}`;
+  document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از فناوری و تحقیقات بازار تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from technology and market research to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=titleMarkup();$('header-label').textContent=page==='home'?s.homeLabel:pageLabel;
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
@@ -105,6 +107,7 @@ function render(){
   else if(page==='skills')renderSkills();
   else if(page==='blog')renderBlog();
   else if(page==='article')renderBlog('article');
+  else if(page==='work-stories')renderWorkStories();
   else renderContactPage();
   updateURL();
 }
@@ -149,7 +152,7 @@ function renderHome(){
  <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><div class="card-top"><span class="card-icon">${skillIcon('market')}</span><span class="card-label">${k.heroLabel}</span></div><h3 id="skills-hero-title">${k.cardTitle}</h3><p>${k.cardBody}</p>${homeCardCTA('solutions',k.cardAction)}</div><div class="skills-card-side"><div class="skills-capability-grid">${k.pillars.map(pillar=>`<a class="capability-tile" href="${pageURL(pillar.page)}"><span class="capability-icon">${skillIcon(pillar.icon)}</span><h4>${pillar.title}</h4><p>${pillar.text}</p></a>`).join('')}</div></div></article>
  </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
  <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h3 id="home-blog-title">${lang==='fa'?'تازه‌های بلاگ':'Latest from the blog'}</h3><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><p>${s.blogBody}</p><div data-home-blog>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…','home-blog-loading')}</div></article>
- <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody}</p>${homeCardCTA('cv',s.cvAction)}</article>
+ <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h3>${s.cvTitle}</h3><p>${s.cvBody} <a class="home-story-link" href="${pageURL('work-stories')}">${lang==='fa'?'روایت‌های کاری من':'Stories from my work'}</a></p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
  </div></section></div><div class="page-signoff">${brandMark()}<p>© ${new Date().getFullYear()} ${s.copyright}</p></div>`;
  const blogRoot=$('main').querySelector('[data-home-blog]');
@@ -196,6 +199,15 @@ function renderSolutions(){
   console.error('Solutions could not be loaded',error);
  });
 }
+function renderWorkStories(){
+ disposeWorkStories();disposeWorkStories=()=>{};
+ const version=++workStoriesMountVersion,language=lang;
+ $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی روایت‌های کاری…':'Preparing the work stories…');
+ import('./work-stories.mjs?v=20261031-work-stories-3').then(({mountWorkStories})=>{
+  if(version!==workStoriesMountVersion||language!==lang)return;
+  disposeWorkStories=mountWorkStories($('main'),{language,roles:career,formatYears:years});
+ }).catch(()=>{if(version!==workStoriesMountVersion||language!==lang)return;$('main').innerHTML=`<section class="page-hero"><h1>${lang==='fa'?'روایت‌های کاری':'Work stories'}</h1><a class="blog-button" href="${pageURL('cv')}">${lang==='fa'?'دیدن سوابق کاری':'Explore my CV'}</a></section>`;});
+}
 function contactLinks(){
  return `<div class="contact-methods">${contactChannels.map(channel=>`<a class="contact-card contact-method" data-contact="${channel.id}" href="${channel.href}" ${channel.href.startsWith('https:')?'target="_blank" rel="noopener noreferrer"':''}><span class="contact-method-icon">${icon(channel.icon)}</span><span class="contact-method-copy"><strong>${channel[lang]}</strong><span dir="ltr">${channel.value}</span></span><span class="contact-method-arrow">${icon('arrow')}</span></a>`).join('')}</div>`;
 }
@@ -205,7 +217,7 @@ function renderContactPage(){
 }
 function renderContent(){
  const t=copy[lang];
- $('panel-experience').innerHTML=heading(t.experience,t.experienceSub)+`<div class="experience-grid"><div class="companies" role="tablist" aria-orientation="vertical" aria-label="${t.careerLabel}">${career.map(c=>`<button type="button" class="company" id="role-${c.id}" role="tab" aria-controls="detail-${c.id}" aria-selected="${activeCareer===c.id}" tabindex="${activeCareer===c.id?0:-1}" data-career="${c.id}"><span class="company-mark" aria-hidden="true">${c.mark}</span><span class="company-copy"><strong>${c[lang].company}</strong><small dir="${lang==='fa'?'rtl':'ltr'}">${years(c.years)}</small></span></button>`).join('')}</div><div>${career.map(c=>`<article class="experience-detail" id="detail-${c.id}" role="tabpanel" aria-labelledby="role-${c.id}" tabindex="0" ${activeCareer===c.id?'':'hidden'}><div class="detail-kicker">${c[lang].company}</div><h3>${c[lang].role}</h3><div class="meta"><span>${years(c.years)}</span><span>${c[lang].sector}</span></div><div class="detail-rule"></div><h4>${t.scope}</h4><ul class="responsibilities">${c[lang].points.map(p=>`<li>${p}</li>`).join('')}</ul><div class="detail-tags">${chips(c[lang].tags)}</div></article>`).join('')}</div></div>`;
+ $('panel-experience').innerHTML=heading(t.experience,t.experienceSub)+`<div class="experience-grid"><div class="companies" role="tablist" aria-orientation="vertical" aria-label="${t.careerLabel}">${career.map(c=>`<button type="button" class="company" id="role-${c.id}" role="tab" aria-controls="detail-${c.id}" aria-selected="${activeCareer===c.id}" tabindex="${activeCareer===c.id?0:-1}" data-career="${c.id}"><span class="company-mark" aria-hidden="true">${c.mark}</span><span class="company-copy"><strong>${c[lang].company}</strong><small dir="${lang==='fa'?'rtl':'ltr'}">${years(c.years)}</small></span></button>`).join('')}</div><div>${career.map(c=>`<article class="experience-detail" id="detail-${c.id}" role="tabpanel" aria-labelledby="role-${c.id}" tabindex="0" ${activeCareer===c.id?'':'hidden'}><div class="detail-kicker">${c[lang].company}</div><h3>${c[lang].role}</h3><div class="meta"><span>${years(c.years)}</span><span>${c[lang].sector}</span></div><div class="detail-rule"></div><h4>${t.scope}</h4><ul class="responsibilities">${c[lang].points.map(p=>`<li>${p}</li>`).join('')}</ul><div class="detail-tags">${chips(c[lang].tags)}</div><a class="career-story-link" href="${pageURL('work-stories')}&role=${c.id}">${lang==='fa'?'روایت‌های این تجربه':'Stories from this role'}${icon('arrow')}</a></article>`).join('')}</div></div>`;
  $('panel-projects').innerHTML=heading(t.projectHeading,t.projectSub)+`<div class="project-list">${projects.map((p,i)=>`<details class="project" ${i===0?'open':''}><summary><span class="project-icon" aria-hidden="true">${p.icon}</span><span><span class="project-title">${p[lang].title}</span><span class="project-subtitle" style="display:block">${p[lang].sub}</span></span></summary><div class="project-body"><p>${p[lang].body}</p>${chips(p[lang].tags)}${p.url?`<a class="text-link" href="${p.url}" target="_blank" rel="noopener noreferrer">${t.repo}</a>`:''}</div></details>`).join('')}</div>`;
  $('panel-about').innerHTML=heading(t.aboutHeading,t.aboutSub)+`<div class="about"><p>${t.longBio}</p><h4>${t.capabilities}</h4><div class="capability-grid">${t.capabilityItems.map(([a,b])=>`<div><strong>${a}</strong><p>${b}</p></div>`).join('')}</div><h4>${t.education}</h4>${t.degrees.map(([a,b,c])=>`<div class="education"><div><strong>${a}</strong><p>${b}</p></div><time>${c}</time></div>`).join('')}<h4>${t.results}</h4><p>${t.resultsText}</p><h4>${t.interests}</h4><p>${t.interestsText}</p></div>`;
  $('panel-contact').innerHTML=heading(t.contactHeading,t.contactSub)+`<div class="contact"><p>${t.contactText}</p>${contactLinks()}</div>`;

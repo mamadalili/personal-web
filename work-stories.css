@@ -1,0 +1,60 @@
+.work-stories-page{padding-bottom:55px}
+.work-stories-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:35px;padding:50px 0 43px;border-bottom:1px solid #dedee9}
+.work-stories-hero h1{font-size:clamp(32px,4vw,51px);line-height:1.5;letter-spacing:-1.3px;color:#172144;margin:10px 0 15px;font-weight:800}
+.work-stories-hero p{max-width:650px;font-size:15px;line-height:2.1;color:#686877;margin:0}
+.work-stories-back{display:inline-flex;align-items:center;justify-content:center;gap:12px;flex:none;min-height:44px;padding:11px 15px;border:1px solid #ccff00;border-radius:12px;background:#fff;font-size:12px;font-weight:700;color:#000;text-decoration:none}
+.work-stories-back svg,.work-cv-link svg,.work-story-arrow svg{height:18px;width:18px;flex:none}
+html[dir=rtl] .work-stories-back svg,html[dir=rtl] .work-cv-link svg,html[dir=rtl] .work-story-arrow svg{transform:scaleX(-1)}
+.work-stories-layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:42px;align-items:start;padding-top:36px}
+.work-roles{position:sticky;top:112px;min-width:0}
+.work-roles h2{font-size:15px;color:#252541;font-weight:750;margin:0 0 8px}
+.work-roles>p{font-size:11px;line-height:1.9;color:#737381;margin:0 0 19px}
+.work-role-list{display:grid;gap:6px;max-height:calc(100dvh - 220px);overflow-y:auto;scrollbar-width:thin;padding:4px;scroll-padding:5px}
+.work-role{display:flex;gap:12px;padding:12px 11px;text-decoration:none;color:#555566;border:1px solid transparent;border-radius:13px;min-width:0;background:#ffffff66}
+.work-role:hover{border-color:#d9d8e5;background:#fff}
+.work-role[aria-current=true]{background:#fff;border-color:#d0cbe7;box-shadow:inset -3px 0 #1c0998,0 4px 20px #21125907}
+html[dir=ltr] .work-role[aria-current=true]{box-shadow:inset 3px 0 #1c0998,0 4px 20px #21125907}
+.work-role-mark{display:grid;place-items:center;width:34px;height:34px;flex:none;font:700 15px/1 system-ui,sans-serif;background:#eae7f5;border-radius:10px;color:#322465;margin-top:2px}
+.work-role[aria-current=true] .work-role-mark{background:#ccff00;color:#172144}
+.work-role-copy{display:grid;gap:4px;min-width:0}
+.work-role-copy strong{font-size:12px;font-weight:750;color:#292b42}
+.work-role-copy>span{font-size:10px;line-height:1.65;color:#757582}
+.work-role-copy small{font-size:10px;color:#746e7c}
+.work-stories-detail{min-width:0;padding:30px 34px 28px;background:#fff;border:1px solid #e0deea;border-radius:22px;scroll-margin-top:110px}
+.work-role-meta{display:flex;align-items:center;justify-content:space-between;gap:20px;color:#776b9a;font-size:12px;font-weight:650}
+.work-role-meta time{font-size:11px;color:#756d80;font-weight:400;flex:none}
+.work-role-header h2{font-size:clamp(23px,2.5vw,32px);line-height:1.65;color:#172144;font-weight:800;margin:15px 0 7px;letter-spacing:-.6px}
+.work-sector{font-size:12px;color:#746b81;margin:0;line-height:1.8}
+.work-role-rule{width:54px;height:3px;background:#ccff00;margin:23px 0}
+.work-scope-title{font-size:12px;color:#6e6587;font-weight:700;margin:0 0 11px}
+.work-role-summary p{font-size:13px;line-height:2.05;color:#646273;margin:5px 0}
+.work-cv-link{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#000;font-weight:700;font-size:12px;text-decoration:none;margin-top:12px;padding:7px 12px;border:1px solid #e3deef;border-radius:9px;background:#fbfaff}
+.work-story-collection{border-top:1px solid #e9e5ef;margin-top:29px;padding-top:27px}
+.work-story-heading{display:flex;align-items:center;gap:9px}
+.work-story-dot{height:7px;width:7px;flex:none;background:#1c0998;border-radius:50%}
+.work-story-heading h3{margin:0;font-size:17px;font-weight:750;color:#26283e}
+.work-story-intro{font-size:11px;line-height:1.95;color:#746b81;margin:11px 0 18px;max-width:60ch}
+.work-story-list{display:grid}
+.work-story{display:flex;align-items:center;gap:15px;min-height:90px;padding:18px 3px;border-bottom:1px solid #eeebf3;text-decoration:none}
+.work-story:last-child{border-bottom:0}
+.work-story-icon{width:37px;height:43px;display:grid;place-items:center;flex:none;color:#b2a7ce;background:#f5f2fb;border:1px solid #ece7f5;border-radius:9px}
+.work-story-icon svg{width:22px;height:22px}
+.work-story h4{margin:4px 0 0;font-size:15px;line-height:1.85;font-weight:700;color:#35334d}
+.work-story-state{font-size:10px;color:#766b85}
+.work-story--published .work-story-state{color:#43326f;font-weight:700}
+.work-story--published .work-story-icon{background:#f1f8d8;color:#2a2a32;border-color:#ddecaa}
+.work-story--published:hover h4{text-decoration:underline;text-underline-offset:5px}
+.work-story-arrow{margin-inline-start:auto;color:#1c0998}
+.work-story-note{margin-top:27px;padding:18px 20px;border-inline-start:3px solid #ccff00;background:#f8f9f3;border-radius:5px 11px 11px 5px}
+.work-story-note h3{margin:0 0 5px;font-size:12px;color:#4f5143;font-weight:700}
+.work-story-note p{font-size:11px;line-height:1.95;color:#696d58;margin:0}
+.work-role:focus-visible,.work-story--published:focus-visible,.work-cv-link:focus-visible,.work-stories-back:focus-visible{outline:2px solid #1c0998;outline-offset:4px}
+html[lang=en] .work-stories-hero h1{letter-spacing:-1.7px;line-height:1.12}
+html[lang=en] .work-role-header h2{line-height:1.22;letter-spacing:-.9px;margin:20px 0 12px}
+html[lang=en] .work-role-summary p{line-height:1.8}
+html[lang=en] .work-story h4{line-height:1.5}
+@media(max-width:1000px){.work-stories-layout{grid-template-columns:245px minmax(0,1fr);gap:24px}.work-stories-detail{padding:26px}.work-stories-hero{align-items:flex-start}.work-stories-hero p{max-width:520px}}
+@media(max-width:760px){
+ .work-stories-page{padding-bottom:30px}.work-stories-hero{display:block;padding:24px 0 25px}.work-stories-hero h1{font-size:32px}.work-stories-hero p{font-size:13px;line-height:2}.work-stories-back{margin-top:19px;font-size:11px}
+ .work-stories-layout{display:block;padding-top:25px}.work-roles{position:static;margin-bottom:22px}.work-roles>p{font-size:11px;margin-bottom:13px}.work-role-list{display:grid;grid-auto-flow:column;grid-auto-columns:215px;grid-template-rows:1fr;gap:7px;overflow-x:auto;overflow-y:hidden;max-height:none;padding:5px 4px 13px;scroll-snap-type:x mandatory;scroll-padding:5px}.work-role{scroll-snap-align:start;min-height:105px;padding:13px 10px;background:#ffffffb8}.work-role-copy>span{font-size:10px}.work-stories-detail{padding:23px 19px;border-radius:17px;scroll-margin-top:18px}.work-role-header h2{font-size:24px}.work-role-meta{font-size:11px;gap:10px}.work-role-summary p{font-size:12px}.work-story{gap:11px;padding:17px 0;min-height:91px}.work-story h4{font-size:14px}.work-story-note{padding:15px}.work-story-intro{font-size:11px}
+}
