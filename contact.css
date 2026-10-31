@@ -1,0 +1,74 @@
+/* Editorial portrait composition, scoped to Contact. */
+.contact-editorial{position:relative;isolation:isolate;min-height:510px;margin-top:52px;padding:55px 52px;display:flex;align-items:center;overflow:visible}
+.contact-editorial:before{content:'';position:absolute;inset:0;z-index:-2;border:1px solid #e3e5ed;border-radius:28px;background:radial-gradient(ellipse at 12% 30%,#dce0ec,transparent 64%),linear-gradient(120deg,#eef0f5,#fafbfc);box-shadow:0 25px 65px -45px #17214460}
+.contact-editorial-copy{position:relative;z-index:3;width:52%;padding-inline-end:30px}
+.contact-editorial .eyebrow{font-size:11px;letter-spacing:.5px;margin-bottom:20px}
+.contact-editorial h1{font-size:clamp(34px,3.5vw,48px);line-height:1.5;letter-spacing:-1.5px;font-weight:850;color:#172144;text-wrap:balance}
+.contact-editorial h1 em{font-style:normal;color:#1c0998}
+.contact-editorial-copy>p{max-width:450px;margin-top:18px;font-size:14px;line-height:2;color:#60677a;text-wrap:pretty}
+.contact-editorial-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+.contact-editorial-actions a{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;min-height:47px;padding:10px 16px;background:#fff;border:2px solid #ccff00;border-radius:10px;font-size:12px;font-weight:700;color:#000;transition:transform .25s ease,background .25s ease}
+.contact-editorial-actions a:last-child{border:1px solid #d3d7e1;background:#ffffff70}
+.contact-editorial-actions a:hover{transform:translateY(-3px);background:#f6ffda}
+.contact-editorial-actions svg{width:18px;height:18px;flex:none}
+html[dir=rtl] .contact-editorial-actions svg,html[dir=rtl] .contact-glass-arrow svg{transform:scaleX(-1)}
+.contact-signature{margin-top:30px;padding-top:18px;border-top:1px solid #d6dae5;max-width:380px}
+.contact-signature>strong{display:block;font-size:19px;color:#172144;font-weight:800}
+.contact-signature .professional-title{font-size:14px;margin-top:3px}
+.contact-portrait-stage{position:absolute;z-index:1;inset-inline-end:0;bottom:0;width:49%;height:calc(100% + 68px);margin:0;pointer-events:none}
+.contact-portrait-stage:before{content:'';position:absolute;inset:18% 8% 12%;border:1px solid #1c09981f;border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 90px #ccff0038;animation:contact-halo 10s ease-in-out infinite alternate}
+.contact-author-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:grayscale(1) contrast(1.04);border-radius:0 0 26px 26px}
+.contact-monogram{position:absolute;top:14%;inset-inline-end:4%;width:210px;opacity:.065;transform:rotate(-12deg)}
+.contact-monogram img{display:block;width:100%;height:auto}
+.contact-glass{position:absolute;z-index:4;inset-inline-end:26px;bottom:27px;display:flex;align-items:center;gap:16px;width:340px;max-width:43%;padding:22px;border:1px solid #ffffffd9;border-radius:18px;background:linear-gradient(120deg,#ffffffdb,#e7ecf2bd);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 18px 40px #0b132e2b;color:#172144;transition:transform .3s ease,border-color .3s ease}
+.contact-glass:hover{transform:translateY(-4px);border-color:#ccff00}
+.contact-glass-copy{min-width:0;flex:1}
+.contact-glass small{display:flex;align-items:center;gap:8px;font-size:10px;color:#4b5367;margin-bottom:7px}
+.contact-glass small:before{content:'';width:6px;height:6px;background:#ccff00;border-radius:50%;box-shadow:0 0 12px #ccff00}
+.contact-glass strong{display:block;font-size:17px;font-weight:700;line-height:1.6;color:#000}
+.contact-glass p{font-size:11px;line-height:1.9;color:#4b5367;margin-top:5px}
+.contact-glass-arrow{display:grid;place-items:center;flex:none;width:39px;height:39px;border-radius:11px;background:#ccff00;color:#000}
+.contact-glass-arrow svg{width:20px;height:20px}
+.contact-light-trace{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:28px}
+.contact-light-trace:after{content:'';position:absolute;inset:-60% -30%;background:linear-gradient(118deg,transparent 45%,#ccff0000 48%,#ccff004d 50%,transparent 52%);transform:translateX(-35%);animation:contact-light 14s ease-in-out infinite}
+.contact-channels-section{margin:44px 0 24px;scroll-margin-top:115px}
+.contact-channels-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}
+.contact-channels-header h2{font-size:20px;font-weight:800;color:#172144}
+.contact-channels-header .brand-logo{width:38px;height:38px}
+.contact-channels-section .contact-methods{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.contact-channels-section .contact-methods .contact-method{min-height:86px;background:#ffffffc9;border-radius:15px;border-color:#e0e4eb;padding:16px}
+.contact-channels-section .contact-methods [data-contact=email]{grid-column:span 2}
+.contact-channels-section .contact-methods .contact-method:hover{background:#faffeb;border-color:#b9cb6f}
+.contact-channels-section .contact-method-copy>strong{font-size:14px}
+.contact-channels-section .contact-method-copy>span{font-size:12px}
+.contact-channels-section .contact-method-icon{background:#f0f2f9;border-color:#e3e5ef;color:#1c0998}
+html[lang=en] .contact-editorial h1{font-size:clamp(36px,3.8vw,51px);line-height:1.13;letter-spacing:-1.6px}
+.motion-paused .contact-editorial *,.motion-paused .contact-editorial *:before,.motion-paused .contact-editorial *:after{animation-play-state:paused!important}
+@keyframes contact-halo{from{transform:rotate(-24deg) scale(.96);opacity:.55}to{transform:rotate(-16deg) scale(1.04);opacity:1}}
+@keyframes contact-light{0%,40%{transform:translateX(-35%)}75%,100%{transform:translateX(35%)}}
+@media(max-width:1000px){.contact-editorial{padding:38px 30px;min-height:490px}.contact-editorial-copy{width:54%;padding-inline-end:15px}.contact-editorial h1{font-size:36px}.contact-glass{inset-inline-end:16px;padding:18px;max-width:43%}.contact-glass strong{font-size:15px}}
+@media(max-width:760px){
+ .contact-editorial{display:flex;flex-direction:column;align-items:stretch;padding:28px 24px 0;margin-top:15px;min-height:0}
+ .contact-editorial-copy{width:100%;padding:0}
+ .contact-editorial .eyebrow{margin-bottom:12px}
+ .contact-editorial h1{font-size:35px;line-height:1.5}
+ html[lang=en] .contact-editorial h1{font-size:39px;line-height:1.13}
+ .contact-editorial-copy>p{font-size:13px;line-height:2;margin-top:14px}
+ .contact-editorial-actions{margin-top:20px;gap:8px}
+ .contact-editorial-actions a{font-size:11px;padding:10px 12px;gap:12px;flex:1}
+ .contact-signature{margin-top:23px;padding-top:16px}
+ .contact-signature>strong{font-size:18px}.contact-signature .professional-title{font-size:13px}
+ .contact-portrait-stage{position:relative;inset:auto;width:calc(100% + 48px);height:370px;margin:18px -24px 0}
+ .contact-monogram{width:155px}
+ .contact-author-photo{border-radius:0 0 26px 26px}
+ .contact-glass{inset-inline:16px;bottom:18px;width:auto;max-width:none;padding:17px;gap:12px}
+ .contact-glass strong{font-size:15px}.contact-glass p{font-size:11px}.contact-glass small{font-size:9px}
+ .contact-channels-section{margin-top:30px;scroll-margin-top:25px}
+ .contact-channels-header{margin-bottom:14px}.contact-channels-header h2{font-size:19px}
+ .contact-channels-section .contact-methods{grid-template-columns:1fr;gap:10px}
+ .contact-channels-section .contact-methods [data-contact=email]{grid-column:auto}
+ .contact-channels-section .contact-methods .contact-method{padding:14px;min-height:78px}
+ .contact-channels-section .contact-method-copy>span{font-size:11px}
+}
+@media(max-width:360px){.contact-editorial{padding-inline:20px}.contact-editorial h1{font-size:30px}html[lang=en] .contact-editorial h1{font-size:34px}.contact-portrait-stage{width:calc(100% + 40px);margin-inline:-20px;height:330px}.contact-editorial-actions a{font-size:10px;gap:8px;padding-inline:9px}}
+@media(prefers-reduced-motion:reduce){.contact-editorial *,.contact-editorial *:before,.contact-editorial *:after{animation:none!important;transition:none!important}}
