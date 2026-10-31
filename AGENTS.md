@@ -38,3 +38,19 @@
 - Contact uses the author's editorial portrait reference: a large transparent WebP portrait with reversible grayscale styling, mirrored copy, a light glass invitation anchored to the five real channels, indigo/lime lighting and the shared monogram. Use the scoped `contact.css`; keep the original portrait intact and preserve reduced-motion/hidden-page handling. No invented client logos, statistics or availability claims. Phones use ordinary flow and stacked contact links.
 
 - Home and Solutions include the shared CSS/SVG motion scene (four capability nodes, moving lime routes and monogram). Keep it decorative, responsive, paused in hidden tabs and static under reduced motion.
+
+<!-- antislop:start -->
+## anti-slop design workflow
+
+The author explicitly requested `miqdadbadjuber/anti-slop` for this site's design work. Before future UI work, read `DESIGN.md` for the author's existing direction, then `.agents/skills/antislop/SKILL.md` as the quality filter. Load only the relevant companion skills:
+
+- Visual design: `.agents/skills/antislop-ui/SKILL.md`.
+- Text: `.agents/skills/antislop-copywriting/SKILL.md`, alongside `docs/content-voice.fa.md`.
+- Accessibility: `.agents/skills/antislop-human/SKILL.md`.
+- Responsive layout: `.agents/skills/antislop-layoutmobile/SKILL.md`.
+- Code comments only: `.agents/skills/antislop-code/SKILL.md`.
+
+Resolve usage mode following the core, reusing any existing explicit choice. Installing the package is not a request to audit or redesign the entire site. Existing author instructions and approvals take precedence over package defaults: preserve the approved palette, glass navigation, four Home capsules, portrait identity, bilingual layouts and requested motion. Do not re-request approval for an already authorized asset or change. Record the purpose of a visual technique and apply the Delivery Gate to the actual change; do not claim untouched pages were audited.
+
+All six skills are pinned to one release in `docs/anti-slop-source.json`. Run `node scripts/check-design-skills.mjs` to verify the project copy; `--global` also checks the local Codex installation. Do not edit the upstream files or auto-update them. Keep the MIT license with the package. This package is authoring guidance and is not loaded by the website at runtime.
+<!-- antislop:end -->

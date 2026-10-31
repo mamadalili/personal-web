@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "https://github.com/miqdadbadjuber/anti-slop",
+    "revision": "3005235d030b4793146ad9afe8d01045efd90e1d"
+  },
+  "version": "3.2.24",
+  "skills": [
+    {
+      "name": "antislop",
+      "files": [
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "bytes": 1084,
+          "sha256": "34e896596d05ea55c798b9fce7d680db990a5935de115be5a8ac8d0863bb0fa8"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/antislop/SKILL.md",
+          "bytes": 61019,
+          "sha256": "f41b30da1602e936f88ac62c13193a52dac6db1c92c77eb68ce7af42857f1280"
+        },
+        {
+          "path": "VERSION",
+          "upstreamPath": "skills/antislop/VERSION",
+          "bytes": 7,
+          "sha256": "ad6ec83aba730d26aa31a30f607c1ef43809974e6ed17c9191d80304da10b950"
+        }
+      ]
+    },
+    {
+      "name": "antislop-ui",
+      "files": [
+        {
+          "path": "LICENSE-web-quality-skills",
+          "upstreamPath": "skills/antislop-ui/LICENSE-web-quality-skills",
+          "bytes": 1068,
+          "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+        },
+        {
+          "path": "references/CORE-WEB-VITALS.md",
+          "upstreamPath": "skills/antislop-ui/references/CORE-WEB-VITALS.md",
+          "bytes": 8428,
+          "sha256": "782bc99ba1fc68e25aabb396967468ec8cb7ea33cd681bccf4b7b04a679acf23"
+        },
+        {
+          "path": "references/WEB-BASELINE.md",
+          "upstreamPath": "skills/antislop-ui/references/WEB-BASELINE.md",
+          "bytes": 1469,
+          "sha256": "f9a4c8d71a6e2ddf5ad0e46a11553eb188617c36f0bfb331e3d3930aecf772a2"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/antislop-ui/SKILL.md",
+          "bytes": 29121,
+          "sha256": "e8cb54f3d436de9253e0e66e0a31b18be80b6054d67b3ad50a4f61fb9f4557f2"
+        }
+      ]
+    },
+    {
+      "name": "antislop-copywriting",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/antislop-copywriting/SKILL.md",
+          "bytes": 25419,
+          "sha256": "2434a6fb0603dea1e62d4c1968382def47af779bd0e43b2130edd49df41ba444"
+        }
+      ]
+    },
+    {
+      "name": "antislop-human",
+      "files": [
+        {
+          "path": "contrast-check.py",
+          "upstreamPath": "skills/antislop-human/contrast-check.py",
+          "bytes": 5773,
+          "sha256": "393e6433d120632aa11184792a16cd7b325924dbc9993477825d9aa67fdbfe6e"
+        },
+        {
+          "path": "contrast-mcp.py",
+          "upstreamPath": "skills/antislop-human/contrast-mcp.py",
+          "bytes": 3886,
+          "sha256": "66e990a84e90e87f17f0591ea211d93cbe2a4edbfbdc00460948704aca585653"
+        },
+        {
+          "path": "LICENSE-web-quality-skills",
+          "upstreamPath": "skills/antislop-human/LICENSE-web-quality-skills",
+          "bytes": 1068,
+          "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+        },
+        {
+          "path": "references/A11Y-PATTERNS.md",
+          "upstreamPath": "skills/antislop-human/references/A11Y-PATTERNS.md",
+          "bytes": 7209,
+          "sha256": "4cb6276a237fbe05616b53688075461732454365eb7674d732f7197dddb14fff"
+        },
+        {
+          "path": "references/WCAG.md",
+          "upstreamPath": "skills/antislop-human/references/WCAG.md",
+          "bytes": 8149,
+          "sha256": "409ac9e24007f09f3704f890585c880cdd66780e9f14274b1a0e0c4557672330"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/antislop-human/SKILL.md",
+          "bytes": 15915,
+          "sha256": "49421878e0c014fa03deea8dcfbfcfae526a8423a43bb517ebfa3ef2cb4a80ef"
+        }
+      ]
+    },
+    {
+      "name": "antislop-layoutmobile",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/antislop-layoutmobile/SKILL.md",
+          "bytes": 16378,
+          "sha256": "8613395a5109f637837f5c24f0ce5e58a96df1c2567a9f7666fcaecc47ff39cd"
+        }
+      ]
+    },
+    {
+      "name": "antislop-code",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/antislop-code/SKILL.md",
+          "bytes": 8944,
+          "sha256": "004933009d352710dcbea7817101d5c188474a442e3ece26a6e0c18d3223898f"
+        }
+      ]
+    }
+  ]
+}
