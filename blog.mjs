@@ -1,10 +1,10 @@
 import { mountBlogIndex } from './blog-index.mjs';
 import { renderPostCover } from './blog-covers.mjs';
-import { posts, articleTemplate } from './blog-data.mjs';
+import { posts, articleTemplate } from './blog-data.mjs?v=20261031-original-visuals';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
 import { createSoloWidgets } from './blog-solo.mjs';
-import { mountMarketArticle } from './blog-market.mjs';
+import { mountMarketArticle } from './blog-market.mjs?v=20261031-original-visuals';
 import { createDecisionAudits } from './blog-decision-audit.mjs';
 import { createWorkflowWidgets } from './blog-workflow.mjs';
 import { renderArticleImage } from './blog-inline-image.mjs';

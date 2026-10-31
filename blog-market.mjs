@@ -34,9 +34,11 @@ export function mountMarketArticle(root, { article, lang, sourceDetail, openDial
  root.querySelector('.article-body').classList.add('market-article-body');
  for(const section of article.sections){
   const node=root.querySelector('#'+section.id),s=section[lang];
+  const inlineImages=[...node.querySelectorAll(':scope > .article-inline-image')];
   node.classList.add('market-chapter');
   node.setAttribute('aria-labelledby','market-title-'+section.id);
   node.innerHTML=section.aliases.map(alias=>'<span class="market-anchor" id="'+alias+'" aria-hidden="true"></span>').join('')+'<div class="market-chapter-copy"><span class="market-kicker">'+esc(s.nav)+'</span><h2 id="market-title-'+section.id+'">'+esc(s.title)+'</h2><p>'+esc(s.text)+'</p><div class="market-takeaway"><strong>'+esc(s.stat)+'</strong><span>'+esc(s.takeaway)+'</span></div></div><figure class="market-figure" aria-label="'+esc(s.title)+'">'+visuals[section.visual]()+'<figcaption>'+esc(s.foot)+'</figcaption></figure>';
+  node.append(...inlineImages);
  }
  // Keep the shared source section, with the long ledger available on demand.
  const ledger=root.querySelector('.source-ledger');

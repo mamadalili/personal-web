@@ -1,6 +1,6 @@
-import { aiPayoffWorkload } from './posts/ai-payoff-workload.mjs';
-import { aiModelMarket } from './posts/ai-model-market.mjs';
-import { soloBusiness } from './posts/solo-business.mjs';
+import { aiPayoffWorkload } from './posts/ai-payoff-workload.mjs?v=20261031-original-visuals';
+import { aiModelMarket } from './posts/ai-model-market.mjs?v=20261031-original-visuals';
+import { soloBusiness } from './posts/solo-business.mjs?v=20261031-original-visuals';
 import { soloGroups, soloOpportunities } from './posts/solo-opportunities.mjs';
 import { seriesPosts } from './posts/series-2026.mjs';
 import { post as smallBusinessWebsite } from './posts/small-business-website.mjs';
