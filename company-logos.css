@@ -1,0 +1,21 @@
+/* Supplied employer artwork stays in its original colors and proportions. */
+.company-logo{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.company-mark.has-company-logo,.work-role-mark.has-company-logo,.work-role[aria-current=true] .work-role-mark.has-company-logo{width:66px;height:46px;flex:none;padding:6px;background:#fff;border:1px solid #e3e5eb;border-radius:10px;overflow:hidden;box-shadow:none}
+.company[aria-selected=true] .company-mark.has-company-logo{background:#fff}
+.employer-detail-brand{display:flex;align-items:center;gap:14px;min-width:0}
+.employer-detail-logo{display:grid;place-items:center;width:112px;height:62px;flex:none;padding:7px 10px;background:#fff;border:1px solid #e7e8ee;border-radius:11px}
+.employer-rail{margin:40px 0 30px;padding-top:26px;border-top:1px solid #e0e3ec}
+.employer-rail>header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}
+.employer-rail h2{font-size:19px;font-weight:800;color:#172144}
+.employer-rail>header a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:11px;font-weight:700;color:#000}
+.employer-rail>header a svg{width:18px;height:18px}html[dir=rtl] .employer-rail>header a svg{transform:scaleX(-1)}
+.employer-logo-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.employer-logo-card{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;padding:16px 12px;background:#fff;border:1px solid #e5e7ed;border-radius:14px;min-width:0;transition:border-color .2s ease,transform .2s ease}
+.employer-logo-card>span{display:block;width:100%;height:70px;padding:5px 0}
+.employer-logo-card strong{font-size:11px;font-weight:650;text-align:center;line-height:1.8;color:#4d5364}
+.employer-logo-card:hover{border-color:#becb84;transform:translateY(-3px)}
+.employer-logo-card:focus-visible{outline:3px solid #1c0998;outline-offset:3px}
+@media(max-width:1000px){.employer-logo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.company-mark.has-company-logo,.work-role-mark.has-company-logo{width:58px;height:43px}}
+@media(max-width:760px){.employer-rail{margin-top:30px;padding-top:22px}.employer-rail h2{font-size:17px}.employer-rail>header{align-items:flex-start;gap:12px}.employer-rail>header a{font-size:10px;flex:none}.employer-detail-logo{width:88px;height:54px}.employer-detail-brand{gap:10px}.work-role-meta{align-items:flex-start}.company-mark.has-company-logo,.work-role-mark.has-company-logo{width:58px;height:43px}}
+@media(max-width:420px){.employer-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.employer-logo-card{padding:14px 12px}.employer-rail>header{display:block}.employer-rail>header a{margin-top:4px}.employer-detail-logo{width:74px;height:48px}.employer-detail-brand{gap:8px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.employer-logo-card{transition:none}.employer-logo-card:hover{transform:none}}
