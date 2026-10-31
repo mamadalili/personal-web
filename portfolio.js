@@ -153,7 +153,7 @@ function renderHome(){
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h3>${s.contactTitle}</h3><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
  </div></section></div><div class="page-signoff">${brandMark()}<p>© ${new Date().getFullYear()} ${s.copyright}</p></div>`;
  const blogRoot=$('main').querySelector('[data-home-blog]');
- import('./home-blog.mjs').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
+ import('./home-blog.mjs?v=20261031-ai-marketing').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
  // Restore visibility when keyboard navigation returns to the pinned skills link.
  const revealSkills=()=>{
   const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),tiles=$('main').querySelector('.skills-capability-grid'),deck=$('main').querySelector('.home-card-deck');
@@ -173,7 +173,7 @@ function renderSkills(){location.replace(pageURL('cv')+'&tab=experience');}
 function renderBlog(mode='index'){
  const version=++blogMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
- import('./blog.mjs?v=20261030-ai-marketing').then(({mountBlog})=>{
+ import('./blog.mjs?v=20261031-ai-marketing').then(({mountBlog})=>{
   if(version!==blogMountVersion||language!==lang)return;
   mountBlog($('main'),{language,mode,template:document.body.dataset.template==='true'});
  }).catch(error=>{

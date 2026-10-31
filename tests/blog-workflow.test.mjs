@@ -38,6 +38,8 @@ test('inline images require local WebP, dimensions and native alt/caption',()=>{
 
 test('published marketing article gives sourced, bilingual depth and in-body visuals',()=>{
   assert.equal(post.status,'published');
+  assert.equal(post.fa.title,'تیم بازاریابی AI؛ فول خودکار در خدمت ما');
+  assert.equal(post.en.title,'AI Marketing Team: Fully Automated, Working for Us');
   assert.equal(post.sources[0].url,'https://x.com/everestchris6/status/2115850129693688001');
   const blocks=post.sections.flatMap(section=>section.blocks);
   const map=blocks.find(block=>block.type==='workflow');
