@@ -41,6 +41,12 @@
 .data-motion .dm-controls button:hover { background: #e9edfa; }
 .data-motion .dm-controls button:active { transform: translateY(1px); background: #dce2f5; }
 .data-motion .dm-controls button:disabled { border-color: #6b7490; background: #e8ebf1; color: #46506b; cursor: not-allowed; transform: none; }
+.data-motion .dm-controls .dm-replay { display: inline-grid; place-items: center; width: 44px; min-width: 44px; height: 44px; padding: 0; border-radius: 50%; }
+.dm-replay svg { display: block; }
+.dm-replay svg[hidden] { display: none; }
+.dm-auto { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--dm-muted); font-size: 12px; cursor: pointer; }
+.dm-auto input { width: 18px; height: 18px; accent-color: #1c0998; cursor: pointer; }
+.dm-auto:has(input:disabled), .dm-auto input:disabled { cursor: not-allowed; }
 .dm-controls label { display: grid; flex: 1 1 170px; gap: 4px; color: var(--dm-muted); font-size: 12px; cursor: pointer; }
 .dm-controls input { width: 100%; min-height: 44px; margin: 0; direction: ltr; accent-color: #1c0998; cursor: pointer; }
 .data-motion :is(button, a, input):focus-visible { outline: 3px solid #1c0998; outline-offset: 4px; }

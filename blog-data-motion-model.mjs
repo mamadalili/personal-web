@@ -142,3 +142,29 @@ export function createMotionClock({ duration, onFrame, onState = () => {}, reque
     state
   };
 }
+
+export function createReplayTimer({ onReplay, setTimer = setTimeout, clearTimer = clearTimeout }) {
+  let timer = null, disposed = false, enabled = true;
+  let environment = { visible: false, hidden: false, reduced: false };
+  const eligible = () => !disposed && enabled && environment.visible && !environment.hidden && !environment.reduced;
+  const stop = () => { if (timer !== null) clearTimer(timer); timer = null; };
+  const arm = () => {
+    stop();
+    if (eligible()) timer = setTimer(() => {
+      timer = null;
+      if (!eligible()) return;
+      onReplay();
+      arm();
+    }, 60000);
+  };
+  return {
+    restart: arm,
+    setEnabled(value) { enabled = Boolean(value); arm(); },
+    setEnvironment(next) {
+      const changed = Object.keys(next).some(key => environment[key] !== next[key]);
+      environment = { ...environment, ...next };
+      if (changed) arm();
+    },
+    dispose() { disposed = true; stop(); }
+  };
+}

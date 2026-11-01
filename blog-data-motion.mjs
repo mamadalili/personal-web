@@ -1,5 +1,5 @@
 import { escapeHTML as esc } from './blog-core.mjs';
-import { validateMotion, valuePosition, comparisonChange, createMotionClock } from './blog-data-motion-model.mjs';
+import { validateMotion, valuePosition, comparisonChange, createMotionClock, createReplayTimer } from './blog-data-motion-model.mjs?v=20261101-minute-replay';
 
 const copy = {
   fa: { play: 'حرکت را ببین', pause: 'مکث', replay: 'دوباره ببین', scrub: 'حرکت را جلو و عقب ببر', select: 'انتخاب داده یا مرحله', sources: 'منبع', detail: 'جزئیات انتخاب', input: 'چه چیزی می‌گیرد؟', output: 'چه چیزی تحویل می‌دهد؟', check: 'پیش از تحویل بررسی کن', more: 'بیشتر', less: 'کمتر', difference: 'اختلافِ دو مقدار', same: 'بدون اختلاف', log: 'هر فاصله، ده برابر', playing: 'در حال نمایش؛ عددها همان مقدارهای ثبت‌شده‌اند.', paused: 'نمایش متوقف است؛ داده‌ها قابل انتخاب‌اند.', done: 'نمایش تمام شد. هر مورد را جداگانه هم می‌توانی انتخاب کنی.', reduced: 'کاهش حرکت فعال است؛ داده‌ها ثابت‌اند و انتخاب مرحله همچنان کار می‌کند.', static: 'نمایش ثابت', motionOnly: 'این نوار فقط حرکت را کنترل می‌کند؛ محور زمانِ داده نیست.' },
@@ -28,7 +28,7 @@ export function renderDataMotion(model, id, lang, sources) {
   const headline = model.kind === 'comparison' ? `<div class="dm-difference"><strong>${difference === 0 ? t.same : `${differenceLabel} <span>${difference > 0 ? t.more : t.less}</span>`}</strong><span>${t.difference}</span></div>` : model.kind === 'magnitude' ? `<div class="dm-log-key"><strong dir="ltr">×${num(10, lang, 0)}</strong><span>${t.log}</span></div>` : '';
   const choices = `<div class="dm-records" role="group" aria-label="${t.select}">${model.rows.map((row, i) => `<button type="button" class="dm-record" data-dm-step="${i}" aria-pressed="${i === selected}" aria-controls="${id}-detail"><span class="dm-record-heading"><span>${esc(row[lang].label)}${row.year ? `<small>${new Intl.NumberFormat(lang, { useGrouping: false }).format(row.year)}</small>` : ''}</span>${model.kind !== 'handoff' ? `<strong dir="auto">${esc(rowValue(model, row, lang))}</strong>` : ''}</span>${model.kind !== 'handoff' ? `<span class="dm-track" aria-hidden="true"><i data-dm-bar="${i}" style="width:${valuePosition(row.value, model) * 100}%"></i></span>` : ''}</button>`).join('')}</div>`;
   const row = model.rows[selected][lang];
-  const controls = `<div class="dm-controls"><button type="button" data-dm-play><span data-dm-play-label>${t.play}</span></button><label for="${id}-scrub">${t.scrub}<input id="${id}-scrub" type="range" min="0" max="100" step="1" value="100" data-dm-scrub aria-describedby="${id}-motion-note"></label></div><p class="dm-playback-note" id="${id}-motion-note">${t.motionOnly}</p>`;
+  const controls = `<div class="dm-controls"><button type="button" class="dm-replay" data-dm-play aria-label="${t.replay}" title="${t.replay}"><svg data-dm-refresh viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M19.3 12a7.5 7.5 0 1 0-1.8 5"/></svg><svg data-dm-pause hidden viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg></button><label for="${id}-scrub">${t.scrub}<input id="${id}-scrub" type="range" min="0" max="100" step="1" value="100" data-dm-scrub aria-describedby="${id}-motion-note"></label></div><label class="dm-auto"><input type="checkbox" data-dm-auto checked>${lang === 'fa' ? 'تکرار هر دقیقه' : 'Replay every minute'}</label><p class="dm-playback-note" id="${id}-motion-note">${t.motionOnly}</p>`;
   const detail = model.kind !== 'handoff' ? `<strong class="dm-selected-value" data-dm-value>${esc(rowValue(model, model.rows[selected], lang))}</strong><p data-dm-description>${esc(row.detail)}</p>` : `<dl><div><dt>${t.input}</dt><dd data-dm-input>${esc(row.input)}</dd></div><div><dt>${t.output}</dt><dd data-dm-output>${esc(row.output)}</dd></div></dl><p class="dm-check"><strong>${t.check}</strong><span data-dm-check>${esc(row.check)}</span></p>`;
   const sourceLinks = sourceIds.map(sourceId => {
     const source = sources.find(s => s.id === sourceId);
@@ -60,7 +60,7 @@ export function createDataMotionWidgets({ lang, article, signal }) {
         const t = copy[lang], media = matchMedia('(prefers-reduced-motion: reduce)');
         const buttons = [...figure.querySelectorAll('[data-dm-step]')];
         const bars = [...figure.querySelectorAll('[data-dm-bar]')];
-        const play = figure.querySelector('[data-dm-play]'), scrub = figure.querySelector('[data-dm-scrub]');
+        const play = figure.querySelector('[data-dm-play]'), scrub = figure.querySelector('[data-dm-scrub]'), automatic = figure.querySelector('[data-dm-auto]');
         let selected = model.rows.length - 1, touched = false, autoPlayed = false;
         const choose = index => {
           selected = index;
@@ -95,13 +95,23 @@ export function createDataMotionWidgets({ lang, article, signal }) {
           onState(state) {
             play.disabled = state.reduced;
             figure.dataset.playing = String(state.running);
-            figure.querySelector('[data-dm-play-label]').textContent = state.reduced ? t.static : state.wanted ? t.pause : state.progress >= 1 ? t.replay : t.play;
+            const label = state.reduced ? t.static : state.wanted ? t.pause : state.progress >= 1 ? t.replay : t.play;
+            play.setAttribute('aria-label', label); play.title = label;
+            play.querySelector('[data-dm-refresh]').toggleAttribute('hidden', state.wanted);
+            play.querySelector('[data-dm-pause]').toggleAttribute('hidden', !state.wanted);
+            automatic.disabled = state.reduced;
             figure.querySelector('[data-dm-state]').textContent = state.reduced ? t.reduced : state.running ? t.playing : state.progress >= 1 ? t.done : t.paused;
           }
         });
+        const repeat = createReplayTimer({ onReplay: () => { clock.seek(0); clock.play(); } });
         const announce = () => { figure.querySelector('[data-dm-announcement]').textContent = `${model.rows[selected][lang].label}. ${rowValue(model, model.rows[selected], lang)}. ${model.rows[selected][lang].detail}`; };
-        play.addEventListener('click', () => { touched = true; if (clock.state().wanted) clock.pause(); else clock.play(); }, { signal });
-        scrub.addEventListener('input', () => { touched = true; clock.seek(Number(scrub.value) / 100); }, { signal });
+        play.addEventListener('click', () => {
+          touched = true;
+          if (clock.state().wanted) { clock.pause(); automatic.checked = false; repeat.setEnabled(false); }
+          else { clock.play(); repeat.restart(); }
+        }, { signal });
+        automatic.addEventListener('change', () => { touched = true; repeat.setEnabled(automatic.checked); }, { signal });
+        scrub.addEventListener('input', () => { touched = true; clock.seek(Number(scrub.value) / 100); repeat.restart(); }, { signal });
         scrub.addEventListener('change', announce, { signal });
         buttons.forEach((button, i) => button.addEventListener('click', () => {
           touched = true;
@@ -109,24 +119,27 @@ export function createDataMotionWidgets({ lang, article, signal }) {
           choose(i);
           bars.forEach(bar => { bar.style.transform = 'scaleX(1)'; });
           moveParcel(i / (model.rows.length - 1));
+          repeat.restart();
           announce();
         }, { signal }));
-        const updateEnvironment = () => clock.setEnvironment({ hidden: document.hidden, reduced: media.matches });
+        const updateEnvironment = () => { const environment = { hidden: document.hidden, reduced: media.matches }; clock.setEnvironment(environment); repeat.setEnvironment(environment); };
         document.addEventListener('visibilitychange', updateEnvironment, { signal });
         media.addEventListener('change', updateEnvironment, { signal });
         clock.seek(1);
         clock.setEnvironment({ visible: false, hidden: document.hidden, reduced: media.matches });
+        repeat.setEnvironment({ hidden: document.hidden, reduced: media.matches });
         choose(selected);
         let observer;
         if (typeof IntersectionObserver !== 'undefined') {
           observer = new IntersectionObserver(entries => {
             const visible = entries[0].isIntersecting;
             clock.setEnvironment({ visible });
+            repeat.setEnvironment({ visible });
             if (visible && !autoPlayed) { autoPlayed = true; if (!touched && !media.matches) clock.play(); }
           }, { threshold: 0.15 });
           observer.observe(figure.querySelector('.dm-stage'));
-        } else clock.setEnvironment({ visible: true });
-        signal.addEventListener('abort', () => { clock.dispose(); observer?.disconnect(); }, { once: true });
+        } else { clock.setEnvironment({ visible: true }); repeat.setEnvironment({ visible: true }); }
+        signal.addEventListener('abort', () => { clock.dispose(); repeat.dispose(); observer?.disconnect(); }, { once: true });
       }
     }
   };

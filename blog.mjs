@@ -8,8 +8,8 @@ import { mountMarketArticle } from './blog-market.mjs?v=20261101-data-motion';
 import { createDecisionAudits } from './blog-decision-audit.mjs';
 import { createWorkflowWidgets } from './blog-workflow.mjs';
 import { renderArticleImage } from './blog-inline-image.mjs';
-import { withDataMotion } from './blog-data-motion-model.mjs';
-import { createDataMotionWidgets } from './blog-data-motion.mjs';
+import { withDataMotion } from './blog-data-motion-model.mjs?v=20261101-minute-replay';
+import { createDataMotionWidgets } from './blog-data-motion.mjs?v=20261101-minute-replay';
 
 const copy = {
   fa:{blog:'بلاگ',eyebrow:'یادداشت‌های من',heading:'ایده‌ها، تجربه‌ها و چیزهایی که یاد می‌گیرم.',intro:'دربارهٔ بازاریابی، تجارت الکترونیک و فناوری؛ با فرصتی برای کشف و تجربه.',empty:'هنوز مقاله‌ای منتشر نشده.',emptyBody:'تا اولین یادداشت، می‌توانید یک نمونهٔ تعاملی را امتحان کنید.',preview:'دیدن نمونهٔ تعاملی',template:'پیش‌نمایش قالب — مقالهٔ منتشرشده نیست؛ همهٔ اعداد آزمایشی‌اند.',toc:'در این مقاله',takeaways:'در این تجربه',back:'همهٔ نوشته‌ها',close:'بستن',metric:'شاخص',bars:'ستونی',lines:'خطی',view:'نوع نمودار',series:'سناریوهای نمایان',method:'روش محاسبه',table:'دیدن جدول داده‌ها',period:'بازه',pointHint:'برای دیدن جزئیات، روی مقدار هر بازه کلیک کنید.',visits:'تعداد بازدید',rate:'نرخ تبدیل (%)',estimate:'سفارش تقریبی',reset:'بازنشانی',invalid:'بازدید باید بین ۰ تا ۱٬۰۰۰٬۰۰۰ و نرخ تبدیل بین ۰ تا ۱۰۰ باشد.',formula:'بازدید × نرخ تبدیل ÷ ۱۰۰',related:'ادامهٔ مسیر',search:'جست‌وجوی نوشته‌ها',noResults:'نوشته‌ای با این عبارت پیدا نشد.',notFound:'این مقاله پیدا نشد.',notFoundBody:'از فهرست بلاگ، یک مقالهٔ منتشرشده را انتخاب کنید.',atLeastOne:'حداقل یک سناریو باید نمایان بماند.',updated:'نمودار به‌روز شد',points:'جزئیات بازه‌ها',chartData:'دادهٔ نمودار',loading:'در حال آماده‌سازی مقاله…'},

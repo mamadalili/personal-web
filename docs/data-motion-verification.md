@@ -42,3 +42,16 @@ Direction: evidence-led interactive article figures, ENERGY 2 / RHYTHM 2 / MOTIO
 | Independent review | Read-only review inspected model, renderer, styles, integration and targeted tests; no Critical, Important or Minor findings. It did not claim video fidelity or independently recheck prior publisher observations. |
 
 Manual screen-reader use, field Web Vitals and a Lighthouse score were not measured. Native semantics, keyboard behavior and computed contrast were checked within the stated scope.
+
+## Requested follow-up — PASS
+
+The author subsequently requested a refresh icon, minute replay, revised Home copy, removal of the extra Home heading, Online Tahrir's corrected name and organisation links.
+
+- The replay control now contains only a minimal SVG refresh icon, retains a localized accessible name/tooltip, and shows a pause icon during playback. Its actual mobile target measured 44 × 44px. A labeled native checkbox controls automatic repetition.
+- A separate 60-second timer repeats only the figure. Unit coverage verifies the deadline, restart, visibility/hidden/reduced-motion gates, opt-out and disposal. Pausing opts out; selecting or scrubbing resets the interval. No page reload or evidence refresh is implied.
+- A live browser check left the visible AI-marketing figure on its first selected stage at progress 0. With no intervening interaction, it reached the final stage at progress 100 by the 106-second observation, with the same page URL. Replay/pause icon changes and automatic opt-out were then exercised. Waiting for the media-change event confirmed both playback and repeat controls disabled under reduced motion.
+- Home uses the author's supplied Persian wording, with native English, a linked professional title and bold digital-home phrase. The old extra heading is removed. The capability, Blog, CV and Contact sections have the appropriate `h2` hierarchy; the four capability labels are `h3`. Existing capsule artwork, motion and navigation remain.
+- The visible company name is Online Tahrir / آنلاین تحریر; the existing `turbin` role ID remains stable. Six author-supplied HTTPS destinations are shared across CV and Work Stories, including both Safir roles. Browser checks inspected all fourteen localized role/link combinations, new-tab targets, and the seven links in CV. These checks establish the authored destinations, not continuous uptime of external websites.
+- Home and Work Stories were inspected in both languages at phone width, with no horizontal overflow; the linked title measured 44px high. The four Home portals were confirmed visible on desktop.
+- Fresh verification: all 70 scoped site tests pass, changed JavaScript syntax passes, pinned source packages match, and the sitemap still verifies 72 localized URLs.
+- Independent read-only follow-up review found no Critical or Important issue. Its minor Home heading-hierarchy recommendation was applied and inspected in the rendered page.

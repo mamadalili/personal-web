@@ -12,7 +12,7 @@ const paper='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 
 const roleLogo=role=>role.logo?`<img class="company-logo" src="${esc(role.logo.src)}" width="${role.logo.width}" height="${role.logo.height}" alt="" loading="lazy" decoding="async">`:esc(role.mark);
 
-export function mountWorkStories(root,{language='fa',roles,formatYears=value=>value}){
+export function mountWorkStories(root,{language='fa',roles,formatYears=value=>value,renderWebsite=()=>''}){
   const lang=language==='en'?'en':'fa',t=copy[lang],controller=new AbortController(),signal=controller.signal;
   let selected=selectWorkRole(roles,new URLSearchParams(location.search).get('role'));
   if(!selected)return ()=>controller.abort();
@@ -33,7 +33,7 @@ export function mountWorkStories(root,{language='fa',roles,formatYears=value=>va
     const role=selected,c=role[lang],topics=workStoryTopics[role.id]||[];
     const linked=topics.map(story=>({story,url:workStoryHref(story,lang,posts,location.href)}));
     root.querySelectorAll('[data-work-role]').forEach(link=>{if(link.dataset.workRole===role.id)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});
-    root.querySelector('.work-stories-detail').innerHTML=`<header class="work-role-header"><div class="work-role-meta"><span class="employer-detail-brand">${role.logo?`<span class="employer-detail-logo">${roleLogo(role)}</span>`:''}<span>${esc(c.company)}</span></span><time>${esc(formatYears(role.years))}</time></div><h2 id="work-role-title">${esc(c.role)}</h2><p class="work-sector">${esc(c.sector)}</p><div class="work-role-rule"></div><h3 class="work-scope-title">${t.scope}</h3><div class="work-role-summary">${c.points.map(point=>`<p>${esc(point)}</p>`).join('')}</div></header>
+    root.querySelector('.work-stories-detail').innerHTML=`<header class="work-role-header"><div class="work-role-meta"><span class="employer-detail-brand">${role.logo?`<span class="employer-detail-logo">${roleLogo(role)}</span>`:''}<span>${esc(c.company)}</span></span><time>${esc(formatYears(role.years))}</time></div><h2 id="work-role-title">${esc(c.role)}</h2><p class="work-sector">${esc(c.sector)}</p>${renderWebsite(role)}<div class="work-role-rule"></div><h3 class="work-scope-title">${t.scope}</h3><div class="work-role-summary">${c.points.map(point=>`<p>${esc(point)}</p>`).join('')}</div></header>
       <section class="work-story-collection" aria-labelledby="work-story-heading"><div class="work-story-heading"><span class="work-story-dot" aria-hidden="true"></span><h3 id="work-story-heading">${t.stories}</h3></div><p class="work-story-intro">${linked.some(row=>row.url)?t.mixedIntro:t.plannedIntro}</p><div class="work-story-list">${linked.map(({story,url})=>url?`<a class="work-story work-story--published" href="${esc(url)}"><span class="work-story-icon">${paper}</span><div><h4>${esc(story[lang].title)}</h4><span class="work-story-state">${t.read}</span></div><span class="work-story-arrow">${arrow}</span></a>`:`<article class="work-story work-story--planned"><span class="work-story-icon">${paper}</span><div><span class="work-story-state">${t.plan}</span><h4>${esc(story[lang].title)}</h4></div></article>`).join('')}</div></section>
       <aside class="work-story-note"><h3>${t.upNext}</h3><p>${t.upNextText}</p></aside>`;
     revealSelectedLink();

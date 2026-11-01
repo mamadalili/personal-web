@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { posts } from '../blog-data.mjs';
-import { dataMotionFor, withDataMotion, validateMotion, valuePosition, comparisonChange, createMotionClock } from '../blog-data-motion-model.mjs';
+import { dataMotionFor, withDataMotion, validateMotion, valuePosition, comparisonChange, createMotionClock, createReplayTimer } from '../blog-data-motion-model.mjs';
 import { renderDataMotion } from '../blog-data-motion.mjs';
 
 test('motion is selective, bilingual, sourced and leaves original articles intact', () => {
@@ -80,4 +80,23 @@ test('motion rendering escapes authored text and uses the requested native langu
   assert.ok(en.includes('Minutes for one specific task'));
   assert.ok(!en.includes(model.fa.unit));
   assert.equal(renderDataMotion(model, 'motion-test', 'fa', []), '');
+});
+
+test('minute replay runs only while visible, respects opt-out and cleans up on disposal', () => {
+  let now = 0, next = 0, replays = 0;
+  const timers = new Map();
+  const repeat = createReplayTimer({ onReplay: () => replays++, setTimer: (fn, delay) => { timers.set(++next, { fn, at: now + delay }); return next; }, clearTimer: id => timers.delete(id) });
+  const advance = ms => { now += ms; for (const [id, timer] of [...timers]) if (timer.at <= now) { timers.delete(id); timer.fn(); } };
+  assert.equal(timers.size, 0);
+  repeat.setEnvironment({ visible: true });
+  advance(59999); assert.equal(replays, 0);
+  advance(1); assert.equal(replays, 1);
+  repeat.restart(); advance(59000); assert.equal(replays, 1);
+  repeat.setEnvironment({ hidden: true }); advance(120000); assert.equal(replays, 1); assert.equal(timers.size, 0);
+  repeat.setEnvironment({ hidden: false }); advance(60000); assert.equal(replays, 2);
+  repeat.setEnvironment({ visible: false }); assert.equal(timers.size, 0);
+  repeat.setEnvironment({ visible: true, reduced: true }); advance(60000); assert.equal(replays, 2);
+  repeat.setEnvironment({ reduced: false }); repeat.setEnabled(false); advance(60000); assert.equal(replays, 2);
+  repeat.setEnabled(true); advance(60000); assert.equal(replays, 3);
+  repeat.dispose(); advance(120000); repeat.setEnabled(true); assert.equal(replays, 3); assert.equal(timers.size, 0);
 });

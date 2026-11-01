@@ -45,7 +45,8 @@ The visual grammar varies by the content: paired time bars and a derived differe
 
 ## Playback and lifecycle
 
-- One one-shot clock per figure: 3.4 seconds for a comparison, 4.8 for magnitudes, 4.6 for a handoff. A figure plays once on first entry, then rests; replay and pause remain available.
+- One finite playback clock per figure: 3.4 seconds for a comparison, 4.8 for magnitudes, 4.6 for a handoff. A figure plays on first entry and repeats every 60 seconds while visible. The minimal refresh icon replays it manually and changes to pause during playback. A native checkbox lets readers turn recurring replay off; pausing also turns it off.
+- The separate replay timer cancels while offscreen, hidden or reduced-motion, and on disposal. Returning to view starts a fresh 60-second interval, with no queued replay burst. Selecting or scrubbing restarts that interval. This restarts only the figure, never reloads a page or fetches new evidence.
 - Growth eases out. Handoffs ease between stops with a short dwell, and the highlighted stop follows the document's position. No loop reset, layout motion or per-frame randomization.
 - Exact labels remain exact while geometry moves. Do not count up a reported observation as though intermediate values were new data.
 - The scrubber is explicitly playback progress, not a timeline or a performance metric. It works with native keyboard input. Selecting a record reveals its own evidence or handoff criteria.
