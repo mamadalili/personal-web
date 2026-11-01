@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Production"
+  short_description: "Evidence-led drafts, scoped edits, and useful visuals"
+  default_prompt: "Use $content-production to turn my notes and sources into clear content in my voice, with supported claims and a useful next action."

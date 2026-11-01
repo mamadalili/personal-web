@@ -7,6 +7,8 @@ description: Create or revise interactive blog articles with content-led interac
 
 Choose interactions for the article’s teaching goal and the reader’s question. The user’s current preference is relevance over a mandatory illustration: Anatomy is optional, and an article may need no diagram. Do not force a physical device, animation or arbitrary calculator into an article to satisfy this skill.
 
+For content creation or substantive revision, use [content-production](../content-production/SKILL.md) alongside this guide: establish the reader question, supported claims and reviewed voice before choosing the interaction. Keep reusable corrections scoped to the kind of content that prompted them. Do not turn every article into a content-system tutorial or require every example widget.
+
 ## Choose the useful interaction
 
 Identify what the reader should understand or decide, and what an action reveals. Use the simplest relevant form: a searchable set of offers, focused details, comparison tabs, sourced data, a glossary or a calculation with meaningful inputs. Keep prose where interaction adds no value. Do not invent facts, timing assumptions or business outcomes to make a widget fit.

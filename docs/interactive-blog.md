@@ -1,5 +1,7 @@
 # Interactive blog authoring
 
+The authoring method also uses `.agents/skills/content-production/SKILL.md`: audience and reader question, supported source material, reviewed Persian voice, native English, a useful draft, scoped corrections and proportionate outcome review. Its reusable examples are authoring references, not required article sections. This skill and its optional references are not loaded by the public website.
+
 The site uses its existing static HTML/CSS/JavaScript stack. There is no CMS, AI API, tracking or build dependency. The reusable authoring prompt is [interactive-blog.fa.md](../prompts/interactive-blog.fa.md).
 
 ## Choose interactions for the article

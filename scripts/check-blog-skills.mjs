@@ -51,6 +51,19 @@ function verifyBridge(directory, reference) {
   }
 }
 
+function verifyContentProduction(directory, reference) {
+  const files = inventory(directory).sort();
+  const expected = ['SKILL.md', 'agents/openai.yaml', 'references/personal-web.md', 'references/worked-example.md'];
+  if (JSON.stringify(files) !== JSON.stringify(expected)) throw new Error('Content-production skill files are missing or unexpected.');
+  if (reference) {
+    for (const file of files) {
+      if (!readFileSync(join(directory, file)).equals(readFileSync(join(reference, file)))) {
+        throw new Error(`Installed content-production skill differs from the project: ${file}`);
+      }
+    }
+  }
+}
+
 if (manifest.schemaVersion !== 1 || !/^[a-f0-9]{40}$/.test(manifest.source.revision)) throw new Error('Invalid source manifest.');
 const paths = new Set();
 for (const file of manifest.files) {
@@ -67,6 +80,8 @@ for (const required of ['SKILL.md', 'LICENSE', 'agents/openai.yaml', 'references
 verifyAnatomy(join(skills, 'anatomy'), 'Project skill');
 verifyBridge(join(skills, 'interactive-blog-anatomy'));
 console.log('Project interactive-blog workflow is present.');
+verifyContentProduction(join(skills, 'content-production'));
+console.log('Project content-production skill and references are present.');
 
 for (const [asset, source] of [['iso-kit.mjs', 'kit/iso-kit.mjs'], ['iso.css', 'kit/iso.css'], ['LICENSE', 'LICENSE']]) {
   const expected = manifest.files.find(file => file.path === source);
@@ -80,4 +95,6 @@ if (args.includes('--global')) {
   verifyAnatomy(join(installed, 'anatomy'), 'Installed Codex skill');
   verifyBridge(join(installed, 'interactive-blog-anatomy'), join(skills, 'interactive-blog-anatomy'));
   console.log('Installed Codex interactive-blog workflow matches the project.');
+  verifyContentProduction(join(installed, 'content-production'), join(skills, 'content-production'));
+  console.log('Installed Codex content-production skill matches the project.');
 }
