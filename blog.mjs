@@ -4,10 +4,12 @@ import { posts, articleTemplate } from './blog-data.mjs?v=20261031-original-visu
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
 import { createSoloWidgets } from './blog-solo.mjs';
-import { mountMarketArticle } from './blog-market.mjs?v=20261031-original-visuals';
+import { mountMarketArticle } from './blog-market.mjs?v=20261101-data-motion';
 import { createDecisionAudits } from './blog-decision-audit.mjs';
 import { createWorkflowWidgets } from './blog-workflow.mjs';
 import { renderArticleImage } from './blog-inline-image.mjs';
+import { withDataMotion } from './blog-data-motion-model.mjs';
+import { createDataMotionWidgets } from './blog-data-motion.mjs';
 
 const copy = {
   fa:{blog:'بلاگ',eyebrow:'یادداشت‌های من',heading:'ایده‌ها، تجربه‌ها و چیزهایی که یاد می‌گیرم.',intro:'دربارهٔ بازاریابی، تجارت الکترونیک و فناوری؛ با فرصتی برای کشف و تجربه.',empty:'هنوز مقاله‌ای منتشر نشده.',emptyBody:'تا اولین یادداشت، می‌توانید یک نمونهٔ تعاملی را امتحان کنید.',preview:'دیدن نمونهٔ تعاملی',template:'پیش‌نمایش قالب — مقالهٔ منتشرشده نیست؛ همهٔ اعداد آزمایشی‌اند.',toc:'در این مقاله',takeaways:'در این تجربه',back:'همهٔ نوشته‌ها',close:'بستن',metric:'شاخص',bars:'ستونی',lines:'خطی',view:'نوع نمودار',series:'سناریوهای نمایان',method:'روش محاسبه',table:'دیدن جدول داده‌ها',period:'بازه',pointHint:'برای دیدن جزئیات، روی مقدار هر بازه کلیک کنید.',visits:'تعداد بازدید',rate:'نرخ تبدیل (%)',estimate:'سفارش تقریبی',reset:'بازنشانی',invalid:'بازدید باید بین ۰ تا ۱٬۰۰۰٬۰۰۰ و نرخ تبدیل بین ۰ تا ۱۰۰ باشد.',formula:'بازدید × نرخ تبدیل ÷ ۱۰۰',related:'ادامهٔ مسیر',search:'جست‌وجوی نوشته‌ها',noResults:'نوشته‌ای با این عبارت پیدا نشد.',notFound:'این مقاله پیدا نشد.',notFoundBody:'از فهرست بلاگ، یک مقالهٔ منتشرشده را انتخاب کنید.',atLeastOne:'حداقل یک سناریو باید نمایان بماند.',updated:'نمودار به‌روز شد',points:'جزئیات بازه‌ها',chartData:'دادهٔ نمودار',loading:'در حال آماده‌سازی مقاله…'},
@@ -28,7 +30,8 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   if(mode==='index'){mountBlogIndex(root,{lang,items:posts,href,signal});return;}
 
   const slug = new URLSearchParams(location.search).get('post');
-  const article = template ? articleTemplate : livePosts.find(post => post.slug === slug);
+  const originalArticle = template ? articleTemplate : livePosts.find(post => post.slug === slug);
+  const article = originalArticle ? withDataMotion(originalArticle) : originalArticle;
   if (!article || !article[lang]) {
     root.innerHTML = `<section class="page-hero"><div class="eyebrow">${t.blog}</div><h1>${t.notFound}</h1><p>${t.notFoundBody}</p><a class="blog-button" href="${href('blog')}">${t.back}</a></section>`;
     return;
@@ -56,10 +59,12 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   const solo=createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
   const audits=createDecisionAudits({lang,signal});
   const workflow=createWorkflowWidgets({lang,signal});
+  const dataMotion=createDataMotionWidgets({lang,article,signal});
   const pointValue=(block,metric,value,index)=>{const qualifier=block.observations?.[index]?.qualifiers?.[metric.id]||'';return `${esc(qualifier)}${number(roundBound(value,qualifier,metric.format==='number'?0:1),metric.format)}`;};
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;
     blocks.set(id,block);
+    if(block.type==='data-motion')return dataMotion.render(block,id);
     if(block.type==='decision-audit')return audits.render(block,id);
     if(block.type==='workflow')return workflow.render(block,id);
     if(block.type==='image')return renderArticleImage(block,lang);
@@ -108,6 +113,7 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   solo.mount(root);
   audits.mount(root);
   workflow.mount(root);
+  dataMotion.mount(root);
 
   function updateChart(id, announce = false) {
     const block = blocks.get(id), state = states.get(id), figure = root.querySelector(`[data-chart="${id}"]`);

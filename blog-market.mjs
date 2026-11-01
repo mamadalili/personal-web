@@ -32,7 +32,7 @@ export function mountMarketArticle(root, { article, lang, sourceDetail, openDial
  const visuals={applications:()=>'<div class="market-area"></div><div class="market-unscaled">'+data.categories.filter(row=>row.value===null).map(row=>'<button type="button" data-market-category="'+row.id+'" aria-haspopup="dialog"><i style="background:'+row.color+'"></i>'+esc(row[lang].label)+'<span>↗</span></button>').join('')+'</div><p class="market-chart-hint">'+t.select+' · '+t.billion+'</p>',leaders:players,labs:()=>finance(data.labs),tools:()=>finance(data.tools),training,capital,multiples,geography,'geo-map':geographyMap};
  root.classList.add('market-story');
  root.querySelector('.article-body').classList.add('market-article-body');
- for(const section of article.sections){
+ for(const section of article.sections.filter(section=>Object.hasOwn(visuals,section.visual))){
   const node=root.querySelector('#'+section.id),s=section[lang];
   const inlineImages=[...node.querySelectorAll(':scope > .article-inline-image')];
   node.classList.add('market-chapter');
@@ -135,8 +135,8 @@ export function mountMarketArticle(root, { article, lang, sourceDetail, openDial
  observer.observe(root.querySelector('.market-capital'));
  drawArea();drawCapital();
  // Source controls live in dialogs too; a single delegated listener covers both.
- root.querySelectorAll('.market-figure').forEach((figure,index)=>{
-  const section=article.sections[index],ids=section.visual==='training'?['epoch-data','epoch']:['geography','geo-map'].includes(section.visual)?['stanford2026']:['inspiration'];
+ root.querySelectorAll('.market-figure').forEach(figure=>{
+  const section=article.sections.find(section=>section.id===figure.closest('.article-section').id),ids=section.visual==='training'?['epoch-data','epoch']:['geography','geo-map'].includes(section.visual)?['stanford2026']:['inspiration'];
   figure.insertAdjacentHTML('beforeend','<div class="market-figure-sources">'+sourceButtons(ids)+'</div>');
  });
  // The shared shell imports articles asynchronously, after fragment navigation.

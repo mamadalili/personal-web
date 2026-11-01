@@ -22,6 +22,8 @@ The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresrya
 
 ## Files and entry points
 
+- `MOTION.md`, `blog-data-motion-model.mjs`, `blog-data-motion.mjs` and `blog-data-motion.css`: selective evidence-led motion figures. The shared renderer inserts a bilingual section for six suitable articles, without changing their original content or covers. Reported figures retain units and sources; editorial handoff paths contain no invented metrics. The one-shot player pauses offscreen/hidden and shows a static final view under reduced motion. The playback scrubber is not a data time axis. Consult the motion notes before extending this to another article.
+
 - `blog.html`, `blog-index.mjs` and `blog-library-model.mjs`: editorial feature, nonduplicated archive, topic selection and keyword search. With no posts, it links to the interactive example.
 - `home-blog.mjs`: the Home carousel reads the same published registry automatically, up to six articles per desktop page (three columns, two rows), four on tablets and two on phones. Publishing a bilingual article updates Home without a separate card edit; drafts and the template remain excluded.
 - `blog-covers.mjs`: validated local native fa/en cover selection and image markup; full banners on articles/lists, compact artwork-focused Home thumbnails beside native titles. Each post's `cover.fa` and `cover.en` contain `src`, descriptive `alt`, and actual integer `width`/`height`. Never fall back to an image with the other language's headline. [Banner prompts and provenance](blog-covers.md) accompany the six current exports.
@@ -91,6 +93,7 @@ Internal targets: `@home`, `@solutions`, `@strategy`, `@execution`, `@technology
 | `tabs` | `items:[{fa/en:{label,title,text}}]` | Comparable approaches; keyboard arrows and Home/End |
 | `chart` | Localized `title,source,method`; labels, metrics, series | Metric/view/series switching, period dialogs, accessible table |
 | `workflow` | Localized `title,hint,source`; stages and jobs with `dependsOn`, input/output/check/cadence | Filter and inspect sourced or clearly proposed categorical dependencies without fake metrics |
+| `data-motion` | Validated model from `withDataMotion`; native copy, sourced rows and explicit units | One-shot comparisons, logarithmic magnitudes or editorial handoffs; consult `MOTION.md` |
 | `simulator` | `visits`, `rate`, localized `title,note` | **Specifically** estimated orders = visits × rate ÷ 100 |
 | `explorer` | Localized `title,hint`; `items` with `id` and localized `title,text,detail` | Select a concept to reveal a focused explanation; equal tiles are not market shares |
 | `treemap` | Localized `title,note`; `items:[{id,name,value,source}]`, optional `share` | Proportional reported-revenue areas, source dialogs, explicit attribution scenario |
