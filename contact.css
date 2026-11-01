@@ -3,7 +3,7 @@
 .contact-editorial:before{content:'';position:absolute;inset:0;z-index:-2;border:1px solid #e3e5ed;border-radius:28px;background:radial-gradient(ellipse at 12% 30%,#dce0ec,transparent 64%),linear-gradient(120deg,#eef0f5,#fafbfc);box-shadow:0 25px 65px -45px #17214460}
 .contact-editorial-copy{position:relative;z-index:3;width:52%;padding-inline-end:30px}
 .contact-editorial .eyebrow{font-size:11px;letter-spacing:.5px;margin-bottom:20px}
-.contact-editorial h1{font-size:clamp(34px,3.5vw,48px);line-height:1.5;letter-spacing:-1.5px;font-weight:850;color:#172144;text-wrap:balance}
+.contact-editorial h1{font-size:clamp(26px,2.6vw,34px);line-height:1.65;letter-spacing:-.6px;font-weight:850;color:#172144;text-wrap:balance}
 .contact-editorial h1 em{font-style:normal;color:#1c0998}
 .contact-editorial-copy>p{max-width:450px;margin-top:18px;font-size:14px;line-height:2;color:#60677a;text-wrap:pretty}
 .contact-editorial-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
@@ -42,17 +42,17 @@ html[dir=rtl] .contact-editorial-actions svg,html[dir=rtl] .contact-glass-arrow 
 .contact-channels-section .contact-method-copy>strong{font-size:14px}
 .contact-channels-section .contact-method-copy>span{font-size:12px}
 .contact-channels-section .contact-method-icon{background:#f0f2f9;border-color:#e3e5ef;color:#1c0998}
-html[lang=en] .contact-editorial h1{font-size:clamp(36px,3.8vw,51px);line-height:1.13;letter-spacing:-1.6px}
+html[lang=en] .contact-editorial h1{font-size:clamp(27px,2.6vw,34px);line-height:1.4;letter-spacing:-.8px}
 .motion-paused .contact-editorial *,.motion-paused .contact-editorial *:before,.motion-paused .contact-editorial *:after{animation-play-state:paused!important}
 @keyframes contact-halo{from{transform:rotate(-24deg) scale(.96);opacity:.55}to{transform:rotate(-16deg) scale(1.04);opacity:1}}
 @keyframes contact-light{0%,40%{transform:translateX(-35%)}75%,100%{transform:translateX(35%)}}
-@media(max-width:1000px){.contact-editorial{padding:38px 30px;min-height:490px}.contact-editorial-copy{width:54%;padding-inline-end:15px}.contact-editorial h1{font-size:36px}.contact-glass{inset-inline-end:16px;padding:18px;max-width:43%}.contact-glass strong{font-size:15px}}
+@media(max-width:1000px){.contact-editorial{padding:38px 30px;min-height:490px}.contact-editorial-copy{width:54%;padding-inline-end:15px}.contact-editorial h1{font-size:30px}.contact-glass{inset-inline-end:16px;padding:18px;max-width:43%}.contact-glass strong{font-size:15px}}
 @media(max-width:760px){
  .contact-editorial{display:flex;flex-direction:column;align-items:stretch;padding:28px 24px 0;margin-top:15px;min-height:0}
  .contact-editorial-copy{width:100%;padding:0}
  .contact-editorial .eyebrow{margin-bottom:12px}
- .contact-editorial h1{font-size:35px;line-height:1.5}
- html[lang=en] .contact-editorial h1{font-size:39px;line-height:1.13}
+ .contact-editorial h1{font-size:26px;line-height:1.65}
+ html[lang=en] .contact-editorial h1{font-size:27px;line-height:1.4}
  .contact-editorial-copy>p{font-size:13px;line-height:2;margin-top:14px}
  .contact-editorial-actions{margin-top:20px;gap:8px}
  .contact-editorial-actions a{font-size:11px;padding:10px 12px;gap:12px;flex:1}
@@ -70,5 +70,5 @@ html[lang=en] .contact-editorial h1{font-size:clamp(36px,3.8vw,51px);line-height
  .contact-channels-section .contact-methods .contact-method{padding:14px;min-height:78px}
  .contact-channels-section .contact-method-copy>span{font-size:11px}
 }
-@media(max-width:360px){.contact-editorial{padding-inline:20px}.contact-editorial h1{font-size:30px}html[lang=en] .contact-editorial h1{font-size:34px}.contact-portrait-stage{width:calc(100% + 40px);margin-inline:-20px;height:330px}.contact-editorial-actions a{font-size:10px;gap:8px;padding-inline:9px}}
+@media(max-width:360px){.contact-editorial{padding-inline:20px}.contact-editorial h1{font-size:25px}html[lang=en] .contact-editorial h1{font-size:26px}.contact-portrait-stage{width:calc(100% + 40px);margin-inline:-20px;height:330px}.contact-editorial-actions a{font-size:10px;gap:8px;padding-inline:9px}}
 @media(prefers-reduced-motion:reduce){.contact-editorial *,.contact-editorial *:before,.contact-editorial *:after{animation:none!important;transition:none!important}}
