@@ -152,7 +152,7 @@ Keep real sources, units, formulas and claims intact. Do not reuse the demo numb
 
 ### Sitemap and public base URL
 
-The configured base is `https://mrdalili.com/`, retained from the public personal-domain link. Set the actual deployment base in `site-config.mjs` if hosting changes, then run:
+The public deployment base is `https://mrdalili.ir/`. Update `site-config.mjs` if the domain changes, then run:
 
 ```sh
 node scripts/generate-sitemap.mjs
