@@ -1,6 +1,6 @@
 'use strict';
 // Content is based on the supplied résumé. Dates remain in the Solar Hijri calendar.
-const employerWebsites={turbin:'https://onlinetahrir.com/',asiatech:'https://asiatech.ir/','safir-lead':'https://gosafir.com/','safir-field':'https://gosafir.com/',binici:'https://binicitradinggroup.com/',datis:'https://datisint.com/',can:'https://can.ir/'};
+const employerWebsites={boomerang:['https://www.boomerangkala.com/','https://www.boomerang-co.com/'],turbin:'https://onlinetahrir.com/',asiatech:'https://asiatech.ir/','safir-lead':'https://gosafir.com/','safir-field':'https://gosafir.com/',binici:'https://binicitradinggroup.com/',datis:'https://datisint.com/',can:'https://can.ir/'};
 const career = [
   {logo:{"src":"assets/companies/boomerang.webp","width":3621,"height":1148},id:'boomerang',mark:'B',years:'1405',fa:{company:'بومرنگ',role:'مسئول فروش آنلاین',sector:"تولید و بازرگانی روشویی و شیرآلات",points:["راه‌اندازی، مدیریت و توسعهٔ کانال‌های فروش آنلاین (E-Commerce).",'راه‌اندازی و مدیریت فروش آنلاین خارجی با سایت چهارزبانه.'],tags:['فروش آنلاین','توسعهٔ کانال فروش',"تجارت الکترونیک و اپراتوری هوش مصنوعی"]},en:{company:'Boomerang',role:'Online Sales Lead',sector:"Bathroom furniture and faucet manufacturing and trade",points:["Launching, managing and growing online sales channels (e-commerce).",'Launching and managing international online sales through a four-language website.'],tags:['Online sales','Channel development',"E-commerce and AI operations"]}},
   {id:'turbin',mark:'OT',years:'1404–1405',fa:{company:'آنلاین تحریر',role:'سرپرست دیجیتال مارکتینگ',sector:'دیجیتال مارکتینگ و فروش آنلاین',points:['راه‌اندازی و مدیریت فروش آنلاین و فعالیت‌های تجارت الکترونیک.','هدایت تیم پنج‌نفرهٔ دیجیتال، محتوا و پشتیبانی فروش آنلاین.'],tags:["مدیریت تیم و اپراتوری هوش مصنوعی",'دیجیتال مارکتینگ','E-Commerce']},en:{company:'Online Tahrir',role:'Digital Marketing Supervisor',sector:'Digital marketing & online sales',points:['Launching and managing e-commerce and online sales.','Leading a five-person team across digital, content and online sales support.'],tags:["Team leadership and AI operations",'Digital marketing','E-commerce']}},
@@ -12,6 +12,7 @@ const career = [
   {logo:{"src":"assets/companies/asiatech.webp","width":1036,"height":406},id:'asiatech',mark:'A',years:'1387–1390',fa:{company:'آسیاتک',role:'کارشناس نصب و پشتیبانی اینترنت',sector:'فناوری و پشتیبانی',points:['نصب و پشتیبانی خدمات اینترنت.'],tags:['پشتیبانی فنی','خدمات اینترنت']},en:{company:'Asiatech',role:'Internet Installation & Support Specialist',sector:'Technology & support',points:['Installing and supporting internet services.'],tags:['Technical support','Internet services']}}
 ].map(role=>({...role,website:employerWebsites[role.id]}));
 const projects = [
+  {icon:'⌘',url:'https://github.com/mamadalili/cpc-final-draft',fa:{title:'وب‌سایت صنعتی CPC',sub:'CPC Valve Industry',body:'ساخت وب‌سایت معرفی شیرآلات صنعتی با WordPress و PHP؛ صفحه‌های دسته‌بندی محصول، قالب‌های HTML اختصاصی و مسیر دسترسی به کاتالوگ‌ها، ساختار مرور محصولات را شکل می‌دهند.',tags:['WordPress','PHP','HTML / CSS / JavaScript','مرور دسته‌بندی محصولات']},en:{title:'CPC industrial website',sub:'CPC Valve Industry',body:'An industrial valve website built with WordPress and PHP. Product-category pages, custom HTML templates and catalogue access shape the browsing experience.',tags:['WordPress','PHP','HTML / CSS / JavaScript','Category-driven browsing']}},
   {icon:'↗',fa:{title:'توسعهٔ فروش آنلاین و بین‌المللی',sub:"بومرنگ",body:"راه‌اندازی، مدیریت و توسعهٔ کانال‌های فروش آنلاین؛ همراه با راه‌اندازی سایت فروشگاهی داخلی و سایت چهارزبانه برای فروش خارجی.",tags:['فروش آنلاین','سایت چهارزبانه']},en:{title:'Online & international sales',sub:"Boomerang",body:"Launching, managing and growing online sales channels, including a domestic online store and a four-language site for international sales.",tags:['Online sales','Four-language website']}},
   {icon:'◎',fa:{title:"راه‌اندازی و مدیریت فروش آنلاین",sub:"آنلاین تحریر",body:"راه‌اندازی و مدیریت فروش آنلاین با هدایت تیمی پنج‌نفره در مدیریت کانال‌ها و مارکت‌پلیس‌ها، شبکه‌های اجتماعی، تأمین و خدمات پس از فروش.",tags:["فروش آنلاین، حضور دیجیتال و اپراتوری AI",'عملیات فروش']},en:{title:"Launching and managing online sales",sub:"Online Tahrir",body:"Launching and managing online sales while leading a five-person team across sales channels and marketplaces, social media, supply and after-sales service.",tags:["Online sales, digital presence and AI operations",'Sales operations']}},
   {icon:'⌘',fa:{title:"وب‌سایت شخصی",sub:'Personal Web / طراحی و توسعه وب',body:"خانهٔ دیجیتال من برای معرفی مسیر حرفه‌ای، تجربه‌ها و پروژه‌ها؛ در دو زبان فارسی و انگلیسی.",tags:['HTML / CSS / JavaScript','دو‌زبانه']},en:{title:"Personal website",sub:'Personal Web / Web development',body:"My digital home for my professional journey, experience and projects, in Persian and English.",tags:['HTML / CSS / JavaScript','Bilingual']} ,url:'https://github.com/mamadalili/personal-web'}
@@ -219,10 +220,14 @@ function contactLinks(){
 function companyLogo(role){return role.logo?`<img class="company-logo" src="${escapeHTML(role.logo.src)}" width="${role.logo.width}" height="${role.logo.height}" alt="" loading="lazy" decoding="async">`:escapeHTML(role.mark);}
 function companyWebsite(role){
  if(!role.website)return '';
- const url=new URL(role.website);
- if(url.protocol!=='https:'||url.username||url.password)return '';
  const label=lang==='fa'?'وب‌سایت سازمان':'Organisation website',name=role[lang].company;
- return `<a class="employer-website" href="${escapeHTML(url.href)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML(`${label}: ${name} (${lang==='fa'?'تب تازه':'new tab'})`)}"><span>${label}</span><bdi>${escapeHTML(url.hostname)}</bdi></a>`;
+ const sites=Array.isArray(role.website)?role.website:[role.website];
+ const links=sites.map(site=>{
+  let url;try{url=new URL(site);}catch{return '';}
+  if(url.protocol!=='https:'||url.username||url.password)return '';
+  return `<a class="employer-website" href="${escapeHTML(url.href)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML(`${label}: ${name} — ${url.hostname} (${lang==='fa'?'تب تازه':'new tab'})`)}"><span>${label}</span><bdi>${escapeHTML(url.hostname)}</bdi></a>`;
+ }).join('');
+ return links?`<div class="employer-websites">${links}</div>`:'';
 }
 function renderEmployerRail(){
  const seen=new Set(),employers=career.filter(role=>role.logo&&!seen.has(role.logo.src)&&seen.add(role.logo.src));
