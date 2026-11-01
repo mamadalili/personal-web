@@ -1,4 +1,4 @@
-import { mountBlogIndex } from './blog-index.mjs';
+import { mountBlogIndex } from './blog-index.mjs?v=20261101-header-library';
 import { renderPostCover } from './blog-covers.mjs';
 import { posts, articleTemplate } from './blog-data.mjs?v=20261031-original-visuals';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
