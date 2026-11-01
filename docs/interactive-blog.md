@@ -169,6 +169,10 @@ Calculator inputs use `{key,value,min,max,step,fa,en}`. Supported formulas are d
 
 Keep the hypothetical badge and formulas visible. Range and numeric inputs stay in sync; invalid values display a message and no result. A new formula requires a new numerical helper, meaningful tests and corresponding rendering; changing labels is insufficient.
 
+### Content starter
+
+`type:'content-studio'` accepts native `fa/en:{title,hint}` and uses `blog-content-studio.mjs` with the shared AbortSignal. Its pure composer in `blog-content-model.mjs` selects ChatGPT Project or Claude Code guidance and a trust, enquiry or learning objective. The reader can edit an audience and note, review/copy a prompt or download a Markdown starter. It makes no model call, stores no input and publishes nothing. See [the complete example and evidence boundaries](ai-content-system.md). Keep unsupported inputs invalid and preserve literal user material; do not convert this local exercise into an account connection by changing its labels.
+
 ### Financial examples
 
 `type:'finance'` uses `blog-finance.mjs` with the shared AbortSignal lifecycle. Supported modes are `compound`, `doubling`, `present`, `returns` and `real`; supply native `fa/en` title, hint and assumptions. Pure calculations and bounds live in `blog-finance-model.mjs`, with model tests in `tests/blog-finance.test.mjs`. The example contract, timing, money units and source checks are recorded in [Five Formulas for Understanding Money](five-money-formulas.md). Never substitute actual market claims for the explicitly hypothetical inputs without matching sourced observations and dates.

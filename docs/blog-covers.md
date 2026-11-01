@@ -93,6 +93,8 @@ Shared prompt direction: premium 16:9 tactile editorial photograph using the com
 
 ## AI marketing workflow · 30 October 2026
 
+The later AI Content System article opens a separate `blueprint-saffron-pair`. See [the final three assets, generation prompts and reference-access limitation](ai-content-system.md). Both discussed product marks appear as editorial identifiers on its native-language covers.
+
 Pair update, 1 November 2026: Five Formulas for Understanding Money now completes this palette at position 2. See [its artwork, final prompts and source checks](five-money-formulas.md). The next article starts a new pair.
 
 For the later in-body additions to the three original articles, see [assets, placement and final prompts](initial-article-images.md). These do not replace their paired native-language covers.

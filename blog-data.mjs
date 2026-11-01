@@ -12,8 +12,9 @@ import { post as makeExpertiseUnderstandable } from './posts/make-expertise-unde
 import { post as learnSkillsByDoing } from './posts/learn-skills-by-doing.mjs';
 import { post as aiMarketingWorkflow } from './posts/ai-marketing-workflow.mjs';
 import { post as fiveMoneyFormulas } from './posts/five-money-formulas.mjs';
+import { post as aiContentSystem } from './posts/ai-content-system.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [fiveMoneyFormulas, aiMarketingWorkflow, learnSkillsByDoing, makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
+export const posts = [aiContentSystem, fiveMoneyFormulas, aiMarketingWorkflow, learnSkillsByDoing, makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',
