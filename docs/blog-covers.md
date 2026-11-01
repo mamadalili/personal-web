@@ -93,6 +93,8 @@ Shared prompt direction: premium 16:9 tactile editorial photograph using the com
 
 ## AI marketing workflow · 30 October 2026
 
+Pair update, 1 November 2026: Five Formulas for Understanding Money now completes this palette at position 2. See [its artwork, final prompts and source checks](five-money-formulas.md). The next article starts a new pair.
+
 For the later in-body additions to the three original articles, see [assets, placement and final prompts](initial-article-images.md). These do not replace their paired native-language covers.
 
 This article opens `graphite-seafoam-papaya-pair` at position 1. The next article should use the same graphite `#17242a`, seafoam `#a9ded0`, papaya `#ff9e76` and warm off-white family, with its own subject. Revised native covers: `assets/blog/ai-marketing-workflow-fa-v2.webp` and `assets/blog/ai-marketing-workflow-en-v2.webp` (1672 × 941). Two language-neutral explanatory images appear in the body: `assets/blog/ai-marketing-evidence.webp` and `assets/blog/ai-marketing-approval.webp` (1536 × 1024). All four were created with the built-in image tool and converted to local WebP at quality 90. They are conceptual, not photographs of the site author's work or evidence of campaign results.

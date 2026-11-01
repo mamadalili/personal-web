@@ -1,5 +1,5 @@
 import { renderPostCover } from './blog-covers.mjs';
-import { posts } from './blog-data.mjs';
+import { posts } from './blog-data.mjs?v=20261101-five-money';
 import { escapeHTML as esc, internalHref, publishedPosts } from './blog-core.mjs';
 
 export function homePostPages(items, pageSize=6) {

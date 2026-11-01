@@ -169,7 +169,11 @@ Calculator inputs use `{key,value,min,max,step,fa,en}`. Supported formulas are d
 
 Keep the hypothetical badge and formulas visible. Range and numeric inputs stay in sync; invalid values display a message and no result. A new formula requires a new numerical helper, meaningful tests and corresponding rendering; changing labels is insufficient.
 
-### Simulator
+### Financial examples
+
+`type:'finance'` uses `blog-finance.mjs` with the shared AbortSignal lifecycle. Supported modes are `compound`, `doubling`, `present`, `returns` and `real`; supply native `fa/en` title, hint and assumptions. Pure calculations and bounds live in `blog-finance-model.mjs`, with model tests in `tests/blog-finance.test.mjs`. The example contract, timing, money units and source checks are recorded in [Five Formulas for Understanding Money](five-money-formulas.md). Never substitute actual market claims for the explicitly hypothetical inputs without matching sourced observations and dates.
+
+### Conversion simulator
 
 The included simulator is a mathematical demonstration, not a forecast. Visits must be 0–1,000,000; the slider ranges from 0–10% in 0.1-point steps. The core formula accepts valid percentages through 100 and rounds estimated orders to a whole number. Invalid inputs show a message and `—`. Do not repurpose this widget for revenue, ROI or unrelated formulas by changing its labels: implement and test an appropriate calculator block instead.
 
