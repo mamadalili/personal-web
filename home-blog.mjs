@@ -36,9 +36,13 @@ export function wheelPageVisible({top,bottom,viewportHeight,topInset=110,bottomI
 const copy = {
   fa: { region: 'آخرین نوشته‌های بلاگ', carousel: 'کاروسل', previous: 'نوشته‌های جدیدتر', next: 'نوشته‌های قدیمی‌تر',
     read: 'خواندن مقاله', hint: 'کشیدن، اسکرول افقی یا دکمه‌ها', latest: 'تازه‌ترین نوشته‌ها', empty: 'نوشته‌های منتشرشده از اینجا در دسترس خواهند بود.',
+    swipeHint: 'برای دیدن نوشته‌های دیگر، به چپ یا راست بکشید. با کیبورد از کلیدهای چپ و راست استفاده کنید.',
+    item: (index, total) => `نوشتهٔ ${index} از ${total}`,
     page: (index, total) => `مجموعهٔ ${index} از ${total} نوشته‌ها` },
   en: { region: 'Latest blog posts', carousel: 'carousel', previous: 'Newer posts', next: 'Older posts',
     read: 'Read article', hint: 'Swipe, scroll sideways or use the arrows', latest: 'Latest posts', empty: 'Published articles will appear here.',
+    swipeHint: 'Swipe left or right to browse posts. With a keyboard, use the left and right arrow keys.',
+    item: (index, total) => `Post ${index} of ${total}`,
     page: (index, total) => `Post group ${index} of ${total}` }
 };
 let carouselSerial = 0;
@@ -53,7 +57,7 @@ export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
     const restoreHref=(focusedCard||visible)?.href;
     const focusKind=!inside?null:focusedCard?'card':active.hasAttribute('data-home-step')?'step:'+active.dataset.homeStep:'track';
     dispose();
-    dispose=mountHomeCarousel(root,{language,items,pageSize:wide.matches?6:medium.matches?4:2,restoreHref,focusKind});
+    dispose=mountHomeCarousel(root,{language,items,pageSize:wide.matches?6:medium.matches?4:1,restoreHref,focusKind});
   };
   [wide,medium].forEach(media=>media.addEventListener('change',redraw,{signal:controller.signal}));
   redraw();
@@ -65,6 +69,8 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
   const controller = new AbortController(), signal = controller.signal;
   if (!pages.length) { root.innerHTML = `<p class="home-blog-empty">${t.empty}</p>`; return () => controller.abort(); }
   const number = value => new Intl.NumberFormat(lang).format(value);
+  const swipeOnly = pageSize === 1;
+  const pageLabel = (index, total) => (swipeOnly ? t.item : t.page)(number(index), number(total));
   const trackId = `home-blog-track-${++carouselSerial}`;
   const date = value => {
     if (!value) return '';
@@ -72,16 +78,19 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
     return Number.isNaN(parsed.getTime()) ? '' : `<time datetime="${esc(value)}">${new Intl.DateTimeFormat(lang, { dateStyle: 'medium' }).format(parsed)}</time>`;
   };
   root.classList.add('home-blog-mount');
-  root.innerHTML = `<div class="home-blog-track" id="${trackId}" tabindex="0" role="region" aria-label="${t.region}" aria-roledescription="${t.carousel}">${pages.map((page, index) => `<div class="home-blog-page" role="group" aria-label="${t.page(number(index + 1), number(pages.length))}">${page.map(post => {
+  root.innerHTML = `<div class="home-blog-track" id="${trackId}" tabindex="0" role="region" aria-label="${t.region}" aria-roledescription="${t.carousel}"${swipeOnly ? ` aria-describedby="${trackId}-hint"` : ''}>${pages.map((page, index) => `<div class="home-blog-page" role="group" aria-label="${pageLabel(index + 1, pages.length)}">${page.map(post => {
     const a = post[lang], href = internalHref(`post:${post.slug}`, lang, items, location.href);
     return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover'})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date(post.date)}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${t.read}<span aria-hidden="true">${lang==='fa'?'←':'→'}</span></span></span></a>`;
-  }).join('')}</div>`).join('')}</div><div class="home-blog-controls"><span class="home-blog-hint">${pages.length > 1 ? t.hint : t.latest}</span><span class="home-blog-position" aria-hidden="true"><i style="inline-size:${100 / pages.length}%"></i></span><div class="home-blog-buttons"><button type="button" data-home-step="-1" aria-controls="${trackId}" aria-label="${t.previous}">${arrow('previous')}</button><button type="button" data-home-step="1" aria-controls="${trackId}" aria-label="${t.next}">${arrow('next')}</button></div></div><p class="home-blog-status" role="status" aria-live="polite" aria-atomic="true"></p>`;
+  }).join('')}</div>`).join('')}</div>${swipeOnly ? `<p id="${trackId}-hint" class="home-blog-status">${t.swipeHint}</p>` : `<div class="home-blog-controls"><span class="home-blog-hint">${pages.length > 1 ? t.hint : t.latest}</span><span class="home-blog-position" aria-hidden="true"><i style="inline-size:${100 / pages.length}%"></i></span><div class="home-blog-buttons"><button type="button" data-home-step="-1" aria-controls="${trackId}" aria-label="${t.previous}">${arrow('previous')}</button><button type="button" data-home-step="1" aria-controls="${trackId}" aria-label="${t.next}">${arrow('next')}</button></div></div>`}<p class="home-blog-status" role="status" aria-live="polite" aria-atomic="true"></p>`;
   const track = root.querySelector('.home-blog-track'), panels = [...track.children];
   const previous = root.querySelector('[data-home-step="-1"]'), next = root.querySelector('[data-home-step="1"]');
+  const progress = root.querySelector('.home-blog-position i');
+  const surfaces = panels.map(panel => swipeOnly ? panel.querySelector('.home-post-card') : panel);
   let wheel = createWheelPager();
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let index = 0, scrollTimer = 0, width = track.clientWidth;
   function sizeActivePage(){
+    if(swipeOnly){root.style.removeProperty('--home-track-height');return;}
     const height=panels[index]?.scrollHeight;
     if(height>0)root.style.setProperty('--home-track-height',height+'px');
   }
@@ -94,15 +103,16 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
       panel.inert = position !== index;
       panel.setAttribute('aria-hidden', String(position !== index));
     });
-    previous.disabled = index === 0; next.disabled = index === pages.length - 1;
+    if(previous)previous.disabled = index === 0;
+    if(next)next.disabled = index === pages.length - 1;
     sizeActivePage();
-    root.querySelector('.home-blog-position i').style.transform = `translateX(${index * 100 * (lang === 'fa' ? -1 : 1)}%)`;
-    if (changed && announce) root.querySelector('.home-blog-status').textContent = t.page(number(index + 1), number(pages.length));
+    if(progress)progress.style.transform = `translateX(${index * 100 * (lang === 'fa' ? -1 : 1)}%)`;
+    if (changed && announce) root.querySelector('[role="status"]').textContent = pageLabel(index + 1, pages.length);
   }
   function goTo(page, smooth = true) {
     const target = Math.max(0, Math.min(pages.length - 1, page));
     select(target, smooth);
-    const outer = track.getBoundingClientRect(), inner = panels[target].getBoundingClientRect();
+    const outer = track.getBoundingClientRect(), inner = surfaces[target].getBoundingClientRect();
     const left = lang === 'fa' ? inner.right - outer.right : inner.left - outer.left;
     // An endpoint-only scroll may cross snap-stop:always panels (Home/End
     // and breakpoint restoration); scrollBy can stop at an intervening page.
@@ -123,7 +133,7 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
     else return;
     event.preventDefault(); goTo(target);
   }, { signal });
-  if (pages.length > 1) track.addEventListener('wheel', event => {
+  if (pages.length > 1 && !swipeOnly) track.addEventListener('wheel', event => {
     const bounds=track.getBoundingClientRect();
     const phone=innerWidth<=760,navigation=document.getElementById('footer')?.getBoundingClientRect();
     const topInset=phone?16:Math.max(110,(navigation?.bottom||0)+16);
@@ -142,7 +152,7 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
     scrollTimer = setTimeout(() => {
       if (signal.aborted || !root.isConnected) return;
       const outer = track.getBoundingClientRect();
-      const offsets = panels.map(panel => { const inner = panel.getBoundingClientRect(); return Math.abs(lang === 'fa' ? inner.right - outer.right : inner.left - outer.left); });
+      const offsets = surfaces.map(panel => { const inner = panel.getBoundingClientRect(); return Math.abs(lang === 'fa' ? inner.right - outer.right : inner.left - outer.left); });
       select(offsets.indexOf(Math.min(...offsets)), true);
     }, 160);
   }, { passive: true, signal });
@@ -152,7 +162,7 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
     else sizeActivePage();
   });
   observer.observe(track);
-  panels.forEach(panel=>observer.observe(panel));
+  surfaces.forEach(panel=>observer.observe(panel));
   if(restoreHref){
     const target=[...root.querySelectorAll('.home-post-card')].find(link=>link.href===restoreHref);
     const page=target?panels.indexOf(target.closest('.home-blog-page')):-1;

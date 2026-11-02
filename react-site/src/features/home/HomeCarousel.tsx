@@ -6,9 +6,9 @@ import {useHomeCarousel} from './useHomeCarousel';
 
 const copy = {
   fa: {region: 'آخرین نوشته‌های بلاگ', carousel: 'کاروسل', previous: 'نوشته‌های جدیدتر', next: 'نوشته‌های قدیمی‌تر',
-    read: 'خواندن مقاله', hint: 'کشیدن، اسکرول افقی یا دکمه‌ها', latest: 'تازه‌ترین نوشته‌ها', empty: 'نوشته‌های منتشرشده از اینجا در دسترس خواهند بود.'},
+    read: 'خواندن مقاله', hint: 'کشیدن، اسکرول افقی یا دکمه‌ها', latest: 'تازه‌ترین نوشته‌ها', empty: 'نوشته‌های منتشرشده از اینجا در دسترس خواهند بود.', swipeHint: 'برای دیدن نوشته‌های دیگر، به چپ یا راست بکشید. با کیبورد از کلیدهای چپ و راست استفاده کنید.'},
   en: {region: 'Latest blog posts', carousel: 'carousel', previous: 'Newer posts', next: 'Older posts',
-    read: 'Read article', hint: 'Swipe, scroll sideways or use the arrows', latest: 'Latest posts', empty: 'Published articles will appear here.'},
+    read: 'Read article', hint: 'Swipe, scroll sideways or use the arrows', latest: 'Latest posts', empty: 'Published articles will appear here.', swipeHint: 'Swipe left or right to browse posts. With a keyboard, use the left and right arrow keys.'},
 };
 
 function PagerArrow({previous = false}: {previous?: boolean}) {
@@ -19,12 +19,12 @@ function PagerArrow({previous = false}: {previous?: boolean}) {
 
 export function HomeCarousel({lang}: {lang: Language}) {
   const t = copy[lang], id = useId();
-  const {root, track, pages, index, ready, announcement, groupLabel, step} = useHomeCarousel(legacy.posts, lang);
+  const {root, track, pages, index, ready, announcement, groupLabel, step, swipeOnly} = useHomeCarousel(legacy.posts, lang);
   const date = (value: string) => new Intl.DateTimeFormat(lang, {dateStyle: 'medium', timeZone: 'UTC'}).format(new Date(`${value}T12:00:00Z`));
   if (!pages.length) return <p className="home-blog-empty">{t.empty}</p>;
   return <div ref={root} className="home-blog-mount" data-home-blog>
     <div ref={track} id={id} className="home-blog-track" tabIndex={0} role="region"
-      aria-label={t.region} aria-roledescription={t.carousel}>
+      aria-label={t.region} aria-roledescription={t.carousel} aria-describedby={swipeOnly ? `${id}-hint` : undefined}>
       {pages.map((page, position) => <div key={page[0].slug} className="home-blog-page" role="group"
         aria-label={groupLabel(position + 1, pages.length)} aria-hidden={ready ? position !== index : undefined}
         inert={ready && position !== index}>
@@ -41,8 +41,9 @@ export function HomeCarousel({lang}: {lang: Language}) {
         })}
       </div>)}
     </div>
+    {swipeOnly && <p id={`${id}-hint`} className="home-blog-status">{t.swipeHint}</p>}
     <div className="home-blog-controls">
-      {ready && <>
+      {ready && !swipeOnly && <>
       <span className="home-blog-hint">{pages.length > 1 ? t.hint : t.latest}</span>
       <span className="home-blog-position" aria-hidden="true">
         <i style={{inlineSize: `${100 / pages.length}%`, transform: `translateX(${index * 100 * (lang === 'fa' ? -1 : 1)}%)`}}/>

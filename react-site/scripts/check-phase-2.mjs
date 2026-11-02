@@ -78,7 +78,7 @@ test('Home summaries omit article bodies and trusted generated art keeps valid l
 test('carousel grouping and anchor restoration keep chronological articles once at every breakpoint',async()=>{
  const {groupPosts,pageContaining}=await import('../src/features/home/carousel-model.ts');
  const items=Array.from({length:29},(_,i)=>({slug:`post-${i}`}));
- for(const size of [6,4,2]){
+ for(const size of [6,4,2,1]){
   const groups=groupPosts(items,size);
   assert.deepEqual(groups.flat(),items);
   assert.ok(groups.every(group=>group.length<=size&&group.length>0));

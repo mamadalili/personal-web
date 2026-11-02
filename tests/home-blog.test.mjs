@@ -63,5 +63,6 @@ test('desktop uses six slots while smaller pages preserve chronological ordering
  assert.deepEqual(homePostPages(input).map(page=>page.length),[6,6,1]);
  assert.deepEqual(homePostPages(input,4).map(page=>page.length),[4,4,4,1]);
  assert.deepEqual(homePostPages(input,2).map(page=>page.length),[2,2,2,2,2,2,1]);
+ assert.deepEqual(homePostPages(input,1).map(page=>page.map(item=>item.slug)),input.map(item=>[item.slug]));
  for(const size of [0,-1,7,1.5])assert.throws(()=>homePostPages(input,size));
 });

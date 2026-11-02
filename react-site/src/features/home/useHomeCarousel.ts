@@ -20,8 +20,8 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
   const pages = useMemo(() => groupPosts(items, size), [items, size]);
   const number = (value: number) => new Intl.NumberFormat(lang).format(value);
   const groupLabel = (page: number, total: number) => lang === 'fa'
-    ? `مجموعهٔ ${number(page)} از ${number(total)} نوشته‌ها`
-    : `Post group ${number(page)} of ${number(total)}`;
+    ? size === 1 ? `نوشتهٔ ${number(page)} از ${number(total)}` : `مجموعهٔ ${number(page)} از ${number(total)} نوشته‌ها`
+    : size === 1 ? `Post ${number(page)} of ${number(total)}` : `Post group ${number(page)} of ${number(total)}`;
 
   useLayoutEffect(() => {
     const saved = pendingFocus.current, rail = track.current, container = root.current;
@@ -37,7 +37,7 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
   useEffect(() => {
     const wide = matchMedia('(min-width:1000px)'), medium = matchMedia('(min-width:761px)');
     const resize = () => {
-      const nextSize = wide.matches ? 6 : medium.matches ? 4 : 2;
+      const nextSize = wide.matches ? 6 : medium.matches ? 4 : 1;
       if (nextSize === currentSize.current) return;
       const active = document.activeElement;
       const inside = !!active && !!root.current?.contains(active);
@@ -62,11 +62,13 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
     const container = root.current, rail = track.current;
     if (!container || !rail || !pages.length) return;
     const panels = [...rail.querySelectorAll<HTMLElement>('.home-blog-page')];
+    const surfaces = panels.map(panel => size === 1 ? panel.querySelector<HTMLElement>('.home-post-card')! : panel);
     const controller = new AbortController(), {signal} = controller;
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let wheel = createWheelPager(), timer: ReturnType<typeof setTimeout> | undefined;
     let width = rail.clientWidth;
     const sizeActive = () => {
+      if (size === 1) { container.style.removeProperty('--home-track-height'); return; }
       const height = panels[current.current]?.scrollHeight;
       if (height) container.style.setProperty('--home-track-height', `${height}px`);
     };
@@ -81,7 +83,7 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
     };
     const goTo = (page: number, smooth = true) => {
       select(page, smooth);
-      const outer = rail.getBoundingClientRect(), inner = panels[current.current].getBoundingClientRect();
+      const outer = rail.getBoundingClientRect(), inner = surfaces[current.current].getBoundingClientRect();
       const left = lang === 'fa' ? inner.right - outer.right : inner.left - outer.left;
       rail.scrollTo({left: rail.scrollLeft + left, behavior: smooth && !motion.matches ? 'smooth' : 'instant'});
     };
@@ -96,7 +98,7 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
       event.preventDefault();
       goTo(target);
     }, {signal});
-    rail.addEventListener('wheel', event => {
+    if (size > 1) rail.addEventListener('wheel', event => {
       const bounds = rail.getBoundingClientRect(), nav = document.getElementById('footer')?.getBoundingClientRect();
       const phone = innerWidth <= 760;
       if (!wheelPageVisible({top: bounds.top, bottom: bounds.bottom, viewportHeight: innerHeight,
@@ -116,7 +118,7 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
       timer = setTimeout(() => {
         if (signal.aborted) return;
         const outer = rail.getBoundingClientRect();
-        const offsets = panels.map(panel => {
+        const offsets = surfaces.map(panel => {
           const inner = panel.getBoundingClientRect();
           return Math.abs(lang === 'fa' ? inner.right - outer.right : inner.left - outer.left);
         });
@@ -129,7 +131,7 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
       else sizeActive();
     });
     observer.observe(rail);
-    panels.forEach(panel => observer.observe(panel));
+    surfaces.forEach(panel => observer.observe(panel));
     const saved = restore.current;
     restore.current = null;
     goTo(saved ? pageContaining(pages, saved.slug) : current.current, false);
@@ -143,8 +145,8 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
       clearTimeout(timer);
       navigate.current = () => {};
     };
-  }, [pages, lang]);
+  }, [pages, lang, size]);
 
-  return {root, track, pages, index, ready, announcement, groupLabel,
+  return {root, track, pages, index, ready, announcement, groupLabel, swipeOnly: size === 1,
     step: (direction: number) => navigate.current(current.current + direction)};
 }
