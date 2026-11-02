@@ -25,6 +25,7 @@ The source remains pinned to [wheresryan22/anatomy](https://github.com/wheresrya
 ## Files and entry points
 
 - `MOTION.md`, `blog-data-motion-model.mjs`, `blog-data-motion.mjs` and `blog-data-motion.css`: selective evidence-led motion figures. The shared renderer inserts a bilingual section for six suitable articles, without changing their original content or covers. Reported figures retain units and sources; editorial handoff paths contain no invented metrics. The one-shot player pauses offscreen/hidden and shows a static final view under reduced motion. The playback scrubber is not a data time axis. Consult the motion notes before extending this to another article.
+- `blog-unit-objects.mjs`: an optional spatial unit-object representation inside the existing motion figure. Capital One's 300/3-minute comparison uses 300 persistent tiles and a 297-minute arithmetic difference. The animation preserves objects, not a recorded chronology. Exact figures and evidence remain outside the SVG; the same player owns replay, pause and disposal.
 
 - `blog.html`, `blog-index.mjs` and `blog-library-model.mjs`: editorial feature, nonduplicated archive, topic selection and keyword search. With no posts, it links to the interactive example.
 - `home-blog.mjs`: the Home carousel reads the same published registry automatically, up to six articles per desktop page (three columns, two rows), four on tablets and two on phones. Publishing a bilingual article updates Home without a separate card edit; drafts and the template remain excluded.

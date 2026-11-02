@@ -17,6 +17,7 @@ export function validateMotion(model, sources = []) {
   if (!model || !['comparison', 'magnitude', 'handoff'].includes(model.kind)) return false;
   if (!text(model.after) || !Array.isArray(model.rows) || model.rows.length < 2 || model.rows.length > 8) return false;
   if (model.kind === 'comparison' && model.rows.length !== 2) return false;
+  if (model.presentation !== undefined && (model.presentation !== 'unit-objects' || !unitObjectLayout(model).length)) return false;
   for (const lang of ['fa', 'en']) {
     if (!['title', 'intro', 'unit', 'note', 'evidence'].every(key => text(model[lang]?.[key]))) return false;
   }
@@ -63,7 +64,7 @@ export function dataMotionFor(article) {
     };
   } else if (article.slug === 'capital-one-ai') {
     model = {
-      kind: 'comparison', after: 'read-the-numbers', scale: 'linear', min: 0, max: 300,
+      kind: 'comparison', presentation: 'unit-objects', objectMeasure: 'minutes', objectUnit: 1, after: 'read-the-numbers', scale: 'linear', min: 0, max: 300,
       rows: [
         { id: 'before', value: 300, sourceIds: ['mitsmr-capital-one'], ...labels('پیش از تغییر', 'Before the change', 'پنج ساعت برای یک وظیفهٔ مشخص در روایت مدیر شرکت؛ ۵ × ۶۰ = ۳۰۰ دقیقه.', 'Five hours for one specific task in the executive’s account: 5 × 60 = 300 minutes.') },
         { id: 'after', value: 3, sourceIds: ['mitsmr-capital-one'], ...labels('پس از تغییر', 'After the change', 'سه دقیقه برای همان وظیفه، طبق مصاحبه؛ روش مستقل و خط مبنای کامل منتشر نشده است.', 'Three minutes for that task according to the interview; no independent method or complete baseline is published.') }
@@ -117,6 +118,34 @@ export function withDataMotion(article) {
   return { ...article, sections: article.sections.flatMap(s => s.id === model.after ? [s, section] : [s]) };
 }
 
+export function unitObjectLayout(model) {
+  if (model?.kind !== 'comparison' || model.scale !== 'linear' || model.rows?.length !== 2 || model.objectMeasure !== 'minutes' || model.objectUnit !== 1) return [];
+  const [before, after] = model.rows.map(row => row.value);
+  if (![before, after].every(Number.isSafeInteger) || before < 1 || before > 400 || after < 0 || after > before) return [];
+  return Array.from({ length: before }, (_, index) => ({
+    id: `unit-${index}`, index, group: index < after ? 'retained' : 'difference',
+    from: { x: 170 + ((index % 20) - Math.floor(index / 20) - 2.5) * 6.5, y: 103 + ((index % 20) + Math.floor(index / 20)) * 3.2 },
+    to: index < after
+      ? after <= 6 ? { x: 170 + (index - (after - 1) / 2) * 13, y: 165 }
+        : { x: 170 + ((index % 20) - Math.floor(index / 20) - 2.5) * 6.5, y: 103 + ((index % 20) + Math.floor(index / 20)) * 3.2 }
+      : { x: 460 + (((index - after) % 20) - Math.floor((index - after) / 20) - 2.5) * 6.5, y: 103 + (((index - after) % 20) + Math.floor((index - after) / 20)) * 3.2 }
+  }));
+}
+
+export function unitObjectFrame(objects, progress, { rtl = false, stacked = false } = {}) {
+  const p = Number.isFinite(progress) ? Math.max(0, Math.min(1, progress)) : 0;
+  return objects.map(object => {
+    const delay = object.index / Math.max(1, objects.length - 1) * 0.26;
+    const local = Math.max(0, Math.min(1, (p - 0.1 - delay) / 0.52));
+    const travel = local * local * (3 - 2 * local);
+    const to = stacked && object.group === 'difference' ? { x: object.to.x - 290, y: object.to.y + 190 } : object.to;
+    const x = object.from.x + (to.x - object.from.x) * travel;
+    return { id: object.id, group: object.group, x: rtl ? (stacked ? 340 : 640) - x : x,
+      y: object.from.y + (to.y - object.from.y) * travel - Math.sin(local * Math.PI) * 24,
+      settled: local === 1 };
+  });
+}
+
 export function createMotionClock({ duration, onFrame, onState = () => {}, requestFrame = requestAnimationFrame, cancelFrame = cancelAnimationFrame }) {
   let progress = 1, frame = null, last = null, wanted = false, disposed = false;
   let environment = { visible: true, hidden: false, reduced: false };
@@ -137,7 +166,7 @@ export function createMotionClock({ duration, onFrame, onState = () => {}, reque
     play() { if (disposed || environment.reduced) return; if (progress >= 1) progress = 0; wanted = true; onFrame(progress); sync(); },
     pause() { wanted = false; sync(); },
     seek(value) { if (disposed || !Number.isFinite(value)) return; wanted = false; progress = Math.max(0, Math.min(1, value)); onFrame(progress); sync(); },
-    setEnvironment(next) { if (disposed) return; environment = { ...environment, ...next }; if (environment.reduced) { wanted = false; progress = 1; onFrame(1); } sync(); },
+    setEnvironment(next) { if (disposed) return; const wasReduced = environment.reduced; environment = { ...environment, ...next }; if (environment.reduced && !wasReduced) { wanted = false; progress = 1; onFrame(1); } sync(); },
     dispose() { disposed = true; wanted = false; stop(); },
     state
   };

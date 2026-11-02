@@ -8,8 +8,8 @@ import { mountMarketArticle } from './blog-market.mjs?v=20261101-data-motion';
 import { createDecisionAudits } from './blog-decision-audit.mjs';
 import { createWorkflowWidgets } from './blog-workflow.mjs';
 import { renderArticleImage } from './blog-inline-image.mjs';
-import { withDataMotion } from './blog-data-motion-model.mjs?v=20261101-minute-replay';
-import { createDataMotionWidgets } from './blog-data-motion.mjs?v=20261101-minute-replay';
+import { withDataMotion } from './blog-data-motion-model.mjs?v=20261102-unit-objects';
+import { createDataMotionWidgets } from './blog-data-motion.mjs?v=20261102-unit-objects';
 import { createFinanceWidgets } from './blog-finance.mjs';
 import { createContentStudios } from './blog-content-studio.mjs';
 

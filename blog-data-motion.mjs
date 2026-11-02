@@ -1,5 +1,6 @@
 import { escapeHTML as esc } from './blog-core.mjs';
-import { validateMotion, valuePosition, comparisonChange, createMotionClock, createReplayTimer } from './blog-data-motion-model.mjs?v=20261101-minute-replay';
+import { validateMotion, valuePosition, comparisonChange, createMotionClock, createReplayTimer } from './blog-data-motion-model.mjs?v=20261102-unit-objects';
+import { renderUnitObjects, mountUnitObjects } from './blog-unit-objects.mjs?v=20261102-unit-objects';
 
 const copy = {
   fa: { play: 'حرکت را ببین', pause: 'مکث', replay: 'دوباره ببین', scrub: 'حرکت را جلو و عقب ببر', select: 'انتخاب داده یا مرحله', sources: 'منبع', detail: 'جزئیات انتخاب', input: 'چه چیزی می‌گیرد؟', output: 'چه چیزی تحویل می‌دهد؟', check: 'پیش از تحویل بررسی کن', more: 'بیشتر', less: 'کمتر', difference: 'اختلافِ دو مقدار', same: 'بدون اختلاف', log: 'هر فاصله، ده برابر', playing: 'در حال نمایش؛ عددها همان مقدارهای ثبت‌شده‌اند.', paused: 'نمایش متوقف است؛ داده‌ها قابل انتخاب‌اند.', done: 'نمایش تمام شد. هر مورد را جداگانه هم می‌توانی انتخاب کنی.', reduced: 'کاهش حرکت فعال است؛ داده‌ها ثابت‌اند و انتخاب مرحله همچنان کار می‌کند.', static: 'نمایش ثابت', motionOnly: 'این نوار فقط حرکت را کنترل می‌کند؛ محور زمانِ داده نیست.' },
@@ -17,6 +18,7 @@ const rowValue = (model, row, lang) => model.kind === 'handoff' ? '' : `${num(ro
 export function renderDataMotion(model, id, lang, sources) {
   if (!validateMotion(model, sources)) return '';
   const t = copy[lang], a = model[lang], selected = model.rows.length - 1;
+  const objectScene = model.presentation === 'unit-objects' ? renderUnitObjects(model, lang) : '';
   const difference = comparisonChange(model);
   const differenceLabel = difference === null ? '' : `${Number.isInteger(difference) ? '' : '≈'}${num(Math.abs(difference), lang, 0)}${lang === 'fa' ? '٪' : '%'}`;
   const sourceIds = [...new Set(model.rows.flatMap(row => row.sourceIds))];
@@ -25,7 +27,7 @@ export function renderDataMotion(model, id, lang, sources) {
     return `<span style="--at:${valuePosition(v, model) * 100}%">${label}</span>`;
   }).join('')}</div>` : '';
   const route = model.kind === 'handoff' ? `<svg class="dm-route" viewBox="0 0 660 200" width="660" height="200" aria-hidden="true"><path class="dm-route-rail" d="M60 114 H600"/><path class="dm-route-travel" data-dm-travel d="M60 114 H600" pathLength="1"/>${model.rows.map((row, i) => { const x = 60 + i * 540 / (model.rows.length - 1); return `<g data-dm-node="${i}"><circle cx="${x}" cy="114" r="22"/><rect x="${x - 4}" y="110" width="8" height="8" rx="1"/></g>`; }).join('')}<g data-dm-parcel transform="translate(600 44)"><rect x="-25" y="-31" width="50" height="62" rx="7"/><path d="M-13-13H13 M-13-3H13 M-13 7H4"/><circle cy="47" r="5"/></g></svg>` : '';
-  const headline = model.kind === 'comparison' ? `<div class="dm-difference"><strong>${difference === 0 ? t.same : `${differenceLabel} <span>${difference > 0 ? t.more : t.less}</span>`}</strong><span>${t.difference}</span></div>` : model.kind === 'magnitude' ? `<div class="dm-log-key"><strong dir="ltr">×${num(10, lang, 0)}</strong><span>${t.log}</span></div>` : '';
+  const headline = objectScene ? '' : model.kind === 'comparison' ? `<div class="dm-difference"><strong>${difference === 0 ? t.same : `${differenceLabel} <span>${difference > 0 ? t.more : t.less}</span>`}</strong><span>${t.difference}</span></div>` : model.kind === 'magnitude' ? `<div class="dm-log-key"><strong dir="ltr">×${num(10, lang, 0)}</strong><span>${t.log}</span></div>` : '';
   const choices = `<div class="dm-records" role="group" aria-label="${t.select}">${model.rows.map((row, i) => `<button type="button" class="dm-record" data-dm-step="${i}" aria-pressed="${i === selected}" aria-controls="${id}-detail"><span class="dm-record-heading"><span>${esc(row[lang].label)}${row.year ? `<small>${new Intl.NumberFormat(lang, { useGrouping: false }).format(row.year)}</small>` : ''}</span>${model.kind !== 'handoff' ? `<strong dir="auto">${esc(rowValue(model, row, lang))}</strong>` : ''}</span>${model.kind !== 'handoff' ? `<span class="dm-track" aria-hidden="true"><i data-dm-bar="${i}" style="width:${valuePosition(row.value, model) * 100}%"></i></span>` : ''}</button>`).join('')}</div>`;
   const row = model.rows[selected][lang];
   const controls = `<div class="dm-controls"><button type="button" class="dm-replay" data-dm-play aria-label="${t.replay}" title="${t.replay}"><svg data-dm-refresh viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M19.3 12a7.5 7.5 0 1 0-1.8 5"/></svg><svg data-dm-pause hidden viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg></button><label for="${id}-scrub">${t.scrub}<input id="${id}-scrub" type="range" min="0" max="100" step="1" value="100" data-dm-scrub aria-describedby="${id}-motion-note"></label></div><label class="dm-auto"><input type="checkbox" data-dm-auto checked>${lang === 'fa' ? 'تکرار هر دقیقه' : 'Replay every minute'}</label><p class="dm-playback-note" id="${id}-motion-note">${t.motionOnly}</p>`;
@@ -34,10 +36,10 @@ export function renderDataMotion(model, id, lang, sources) {
     const source = sources.find(s => s.id === sourceId);
     return `<a href="#source-${esc(sourceId)}">${t.sources}: ${esc(source[lang]?.title || source.publisher)}</a>`;
   }).join('');
-  return `<figure class="data-motion dm--${model.kind}" data-data-motion="${esc(id)}">
+  return `<figure class="data-motion dm--${model.kind}${objectScene ? ' dm--objects' : ''}" data-data-motion="${esc(id)}">
     <figcaption><p class="dm-intro">${esc(a.intro)}</p><p class="dm-evidence">${esc(a.evidence)}</p></figcaption>
     <div class="dm-composition">
-      <div class="dm-stage"><p class="dm-unit">${esc(a.unit)}</p>${headline}${route}${axis}${choices}${controls}</div>
+      <div class="dm-stage"><p class="dm-unit">${esc(a.unit)}</p>${headline}${objectScene}${route}${axis}${choices}${controls}</div>
       <div class="dm-detail" id="${id}-detail"><span class="dm-detail-label">${t.detail}</span><h3 data-dm-title>${esc(row.label)}</h3>${detail}</div>
     </div>
     <p class="dm-state" data-dm-state>${t.done}</p><p class="visually-hidden" data-dm-announcement role="status" aria-live="polite"></p>
@@ -61,6 +63,7 @@ export function createDataMotionWidgets({ lang, article, signal }) {
         const buttons = [...figure.querySelectorAll('[data-dm-step]')];
         const bars = [...figure.querySelectorAll('[data-dm-bar]')];
         const play = figure.querySelector('[data-dm-play]'), scrub = figure.querySelector('[data-dm-scrub]'), automatic = figure.querySelector('[data-dm-auto]');
+        const drawObjects = model.presentation === 'unit-objects' ? mountUnitObjects(figure, model, lang, signal) : null;
         let selected = model.rows.length - 1, touched = false, autoPlayed = false;
         const choose = index => {
           selected = index;
@@ -81,12 +84,13 @@ export function createDataMotionWidgets({ lang, article, signal }) {
           figure.querySelector('[data-dm-travel]').style.strokeDashoffset = 1 - position;
         };
         const clock = createMotionClock({
-          duration: model.kind === 'magnitude' ? 4800 : model.kind === 'handoff' ? 4600 : 3400,
+          duration: drawObjects ? 5200 : model.kind === 'magnitude' ? 4800 : model.kind === 'handoff' ? 4600 : 3400,
           onFrame(progress) {
             const position = model.kind === 'handoff' ? handoffPosition(progress, model.rows.length) : progress;
             const step = model.kind === 'handoff' ? Math.round(position * (model.rows.length - 1)) : Math.min(model.rows.length - 1, Math.floor(progress * model.rows.length));
             if (step !== selected) choose(step);
             const fixed = media.matches;
+            drawObjects?.(fixed ? selected / (model.rows.length - 1) : progress);
             bars.forEach((bar, i) => { bar.style.transform = `scaleX(${fixed ? 1 : ease((progress - i * 0.07) / 0.65)})`; });
             moveParcel(fixed ? selected / (model.rows.length - 1) : position);
             scrub.value = Math.round(progress * 100);
@@ -119,6 +123,7 @@ export function createDataMotionWidgets({ lang, article, signal }) {
           choose(i);
           bars.forEach(bar => { bar.style.transform = 'scaleX(1)'; });
           moveParcel(i / (model.rows.length - 1));
+          drawObjects?.(i / (model.rows.length - 1));
           repeat.restart();
           announce();
         }, { signal }));

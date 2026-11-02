@@ -25,6 +25,17 @@ The author supplied seventeen short motion references. They inform timing, conti
 | 15 | A sketch resolves into a finished interface | Explain an actual transformation, not a fake implementation result. |
 | 16 | Dragging resolves into a scheduled event | Needs real or explicitly planned dates; no invented schedule. |
 | 17 | Notifications consolidate into a readable summary | Do not simulate real customer orders or unsupported totals. |
+| Later spatial-group reference | Stable individual members travel continuously between groups while a readable aggregate explains the change | The reference's crowd, consensus percentages and psychology claims are not article data or evidence. |
+
+## Spatial object scenes
+
+The later crowd-motion reference was reviewed as a full overview and a 30 fps transition. Its transferable idea is object continuity: each visible member keeps an identity while grouping, position or emphasis changes. Staggered travel gives the eye a route to follow; a still readout carries the actual meaning. Do not copy its artwork, interface, psychological model or demonstration numbers.
+
+Before using this form, define what one object represents and whether it is an observed entity, an aggregate unit or an explicitly hypothetical agent. Keep IDs and the total represented amount stable. People are appropriate only for actual people or clearly labelled simulated agents. A minute, order or budget unit needs its own visual language. Aggregate-unit identities are illustrative and must not be described as tracked individual observations.
+
+For a sourced before/after comparison, use one common unit and distinguish the two observations from their arithmetic difference. A transfer animation does not demonstrate causation, elapsed process stages, a forecast or money saved. If a dataset cannot support counts or a meaningful grouping relationship, choose a simpler visual or omit motion. Never round a fraction away to fill a crowd; explain a weighted unit or use another form. Keep exact figures, sources and a readable alternative beside the scene.
+
+The Capital One example upgrades its existing comparison rather than adding a duplicate section. `blog-unit-objects.mjs` draws 300 small extruded minute tiles from the existing interview values: five hours × 60, then three minutes. The final arrangement separates three units from the 297-minute calculated difference. The tiles do not represent staff, 300 tasks, a recording of individual minutes or financial ROI. Its 5.2-second finite animation, record selection, refresh/pause, playback scrubber and optional minute replay share the current clock and lifecycle. Spatial coordinates mirror in Persian; labels remain native text. Narrow scenes stack the groups vertically with larger tiles instead of shrinking the desktop composition. A resize changes only projection and never the IDs, count or playback position; its observer disposes with the article. The static final arrangement and exact data remain available under reduced motion, and a chosen static record survives offscreen/hidden transitions.
 
 ## Current implementation
 

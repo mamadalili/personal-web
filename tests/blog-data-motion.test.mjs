@@ -3,6 +3,54 @@ import assert from 'node:assert/strict';
 import { posts } from '../blog-data.mjs';
 import { dataMotionFor, withDataMotion, validateMotion, valuePosition, comparisonChange, createMotionClock, createReplayTimer } from '../blog-data-motion-model.mjs';
 import { renderDataMotion } from '../blog-data-motion.mjs';
+import * as motionModel from '../blog-data-motion-model.mjs';
+
+test('Capital One uses conserved minute objects rather than a fictional crowd', () => {
+  const post = posts.find(p => p.slug === 'capital-one-ai');
+  const model = dataMotionFor(post);
+  assert.equal(model.presentation, 'unit-objects');
+  assert.equal(typeof motionModel.unitObjectLayout, 'function');
+  assert.equal(typeof motionModel.unitObjectFrame, 'function');
+  const objects = motionModel.unitObjectLayout(model);
+  assert.equal(objects.length, 300);
+  assert.equal(new Set(objects.map(o => o.id)).size, 300);
+  assert.equal(objects.filter(o => o.group === 'retained').length, 3);
+  assert.equal(objects.filter(o => o.group === 'difference').length, 297);
+  for (const progress of [0, 0.1, 0.35, 0.7, 1]) {
+    const frame = motionModel.unitObjectFrame(objects, progress);
+    assert.deepEqual(frame.map(o => o.id), objects.map(o => o.id));
+    assert.ok(frame.every(o => Number.isFinite(o.x) && Number.isFinite(o.y)));
+    assert.ok(frame.every(o => o.x >= 12 && o.x <= 628 && o.y >= 12 && o.y <= 308));
+    const rtl = motionModel.unitObjectFrame(objects, progress, { rtl: true });
+    frame.forEach((o, i) => assert.equal(rtl[i].x, 640 - o.x));
+  }
+  const fa = renderDataMotion(model, 'object-test', 'fa', post.sources);
+  const en = renderDataMotion(model, 'object-test', 'en', post.sources);
+  assert.equal((fa.match(/data-dm-object=/g) || []).length, 300);
+  assert.ok(fa.includes('هر قطعه = یک دقیقه'));
+  assert.ok(fa.includes('۲۹۷'));
+  assert.ok(en.includes('Each tile = one minute'));
+  assert.ok(en.includes('297'));
+  assert.ok(en.includes('source-mitsmr-capital-one'));
+  assert.ok(!en.includes('هر قطعه'));
+  assert.equal(validateMotion({ ...model, objectUnit: 7 }, post.sources), false);
+  assert.deepEqual(motionModel.unitObjectLayout({ ...model, rows: [{ ...model.rows[0], value: 300.5 }, model.rows[1]] }), []);
+});
+
+test('narrow scenes stack the two object groups instead of shrinking the desktop diagram', () => {
+  const model = dataMotionFor(posts.find(p => p.slug === 'capital-one-ai'));
+  const objects = motionModel.unitObjectLayout(model);
+  for (const progress of [0, 0.3, 0.6, 1]) {
+    const frame = motionModel.unitObjectFrame(objects, progress, { stacked: true });
+    assert.equal(frame.length, 300);
+    assert.ok(frame.every(o => o.x >= 12 && o.x <= 328 && o.y >= 65 && o.y <= 435));
+    const rtl = motionModel.unitObjectFrame(objects, progress, { stacked: true, rtl: true });
+    frame.forEach((o, i) => assert.equal(rtl[i].x, 340 - o.x));
+  }
+  const final = motionModel.unitObjectFrame(objects, 1, { stacked: true });
+  assert.ok(final.filter(o => o.group === 'retained').every(o => o.y < 230));
+  assert.ok(final.filter(o => o.group === 'difference').every(o => o.y > 270));
+});
 
 test('motion is selective, bilingual, sourced and leaves original articles intact', () => {
   const before = JSON.stringify(posts);
@@ -80,6 +128,23 @@ test('motion rendering escapes authored text and uses the requested native langu
   assert.ok(en.includes('Minutes for one specific task'));
   assert.ok(!en.includes(model.fa.unit));
   assert.equal(renderDataMotion(model, 'motion-test', 'fa', []), '');
+});
+
+test('a selected static record survives visibility changes while reduced motion stays enabled', () => {
+  const frames = new Map();
+  let next = 0;
+  const clock = createMotionClock({ duration: 1000, onFrame: () => {}, requestFrame: fn => { frames.set(++next, fn); return next; }, cancelFrame: id => frames.delete(id) });
+  clock.setEnvironment({ reduced: true });
+  clock.seek(0);
+  clock.setEnvironment({ visible: false });
+  clock.setEnvironment({ hidden: true });
+  clock.setEnvironment({ visible: true, hidden: false });
+  assert.equal(clock.state().progress, 0);
+  assert.equal(frames.size, 0);
+  clock.setEnvironment({ reduced: false });
+  clock.setEnvironment({ reduced: true });
+  assert.equal(clock.state().progress, 1);
+  clock.dispose();
 });
 
 test('minute replay runs only while visible, respects opt-out and cleans up on disposal', () => {

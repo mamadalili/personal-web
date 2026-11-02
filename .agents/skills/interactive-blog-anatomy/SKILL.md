@@ -23,6 +23,14 @@ For a selected figure, state the concept-to-mechanism relationship: what the rea
 
 ## Fit the host project
 
+### Spatial object motion
+
+When a source supports meaningful entities or common-unit quantities, consider a scene in which stable objects regroup or hand off visibly. Define one object's meaning before drawing: a person, an order, one minute or a weighted unit are different encodings. Keep IDs and the represented total stable through the motion; retain exact native-language values, source and an accessible static alternative outside the scene. Use continuous, staggered travel only when it explains the relationship.
+
+A crowd-style reference supplies visual grammar, not demographic evidence or a validated behavioral model. Do not copy its people, percentages or assumed contagion rules into an unrelated article. An animation between aggregate snapshots does not establish a causal process or intermediate measurements. Fractional or unsupported quantities need a different encoding, not invented members. Use this option selectively, without adding a second section that repeats an existing comparison.
+
+For personal-web, consult `MOTION.md` and `blog-unit-objects.mjs` for the existing minute-object example and shared player lifecycle. Preserve native fa/en, mirrored geometry without mirrored text, refresh/pause, reduced motion, offscreen/hidden suspension and cleanup. This is an optional explanation technique, not a required style for every blog.
+
 On personal-web, read `AGENTS.md`, `docs/interactive-blog.md` and `prompts/interactive-blog.fa.md`. Use its existing shared article renderer and lifecycle.
 
 - Keep the framework-free HTML/CSS/JavaScript stack and native `fa`/`en`, including controls, results, accessible labels and mirrored RTL/LTR.
