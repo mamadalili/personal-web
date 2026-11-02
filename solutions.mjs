@@ -1,7 +1,29 @@
 import { solutions, solutionsCopy } from './solutions-data.mjs';
 import { escapeHTML as esc } from './blog-core.mjs';
+import './home-hero-art.js?v=20261102-solutions-assets';
 
-export function mountSolutions(root,{language='fa',solution='',url,icon,art=()=>'',portals={},motion=()=>'',collaboration}) {
+const pendingStyles=new WeakMap();
+export function prepareSolutions(doc=document){
+ const href=new URL('./solution-portals.css?v=20261102-solution-portals',import.meta.url).href;
+ const existing=[...doc.querySelectorAll('link[rel="stylesheet"]')].find(link=>link.href===href);
+ if(existing?.sheet)return Promise.resolve();
+ if(pendingStyles.has(doc))return pendingStyles.get(doc);
+ // A previous link may have failed before we could observe its error event.
+ const link=doc.createElement('link');
+ link.rel='stylesheet';link.href=href;
+ const ready=new Promise((resolve,reject)=>{
+  link.addEventListener('load',()=>{existing?.remove();resolve();},{once:true});
+  link.addEventListener('error',()=>{link.remove();pendingStyles.delete(doc);reject(new Error('Solutions stylesheet could not be loaded'));},{once:true});
+ });
+ pendingStyles.set(doc,ready);
+ doc.head.append(link);
+ return ready;
+}
+
+// Older cached entry pages do not declare the new selector assets.
+if(typeof document!=='undefined')await prepareSolutions();
+
+export function mountSolutions(root,{language='fa',solution='',url,icon,art=globalThis.renderHomeCapabilityArt,portals={},motion=()=>'',collaboration}) {
   const lang=language==='en'?'en':'fa',t=solutionsCopy[lang];
   const current=solution?solutions.find(item=>item.id===solution):solutions[0];
   const href=(target,params={})=>{

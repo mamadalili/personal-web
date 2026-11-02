@@ -8,3 +8,9 @@ AddDefaultCharset UTF-8
   AddType image/webp .webp
   AddType font/woff2 .woff2
 </IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js|mjs)$">
+    Header set Cache-Control "no-cache, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

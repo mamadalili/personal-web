@@ -55,3 +55,6 @@ const homePortalArt = (() => {
 })();
 
 function renderHomeCapabilityArt(kind){return homePortalArt(kind);}
+
+// Both the historical classic script and the Solutions module use this renderer.
+globalThis.renderHomeCapabilityArt=renderHomeCapabilityArt;

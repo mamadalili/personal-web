@@ -197,9 +197,9 @@ function renderSolutions(){
  if(!document.body.dataset.solution){location.replace(pageURL('strategy')+location.hash);return;}
  const version=++solutionsMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
- import('./solutions.mjs?v=20261102-solution-portals').then(({mountSolutions})=>{
+ import('./solutions.mjs?v=20261102-solutions-assets').then(({mountSolutions})=>{
   if(version!==solutionsMountVersion||language!==lang)return;
-  mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,art:renderHomeCapabilityArt,portals:homePortalCopy[language],motion:active=>renderMotionScene('solution',active),collaboration:()=>renderCollaborationCTA({showExperience:true})});
+  mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,portals:homePortalCopy[language],motion:active=>renderMotionScene('solution',active),collaboration:()=>renderCollaborationCTA({showExperience:true})});
   if(location.hash==='#collaboration-title')$('collaboration-title')?.scrollIntoView({block:'start'});
  }).catch(error=>{
   if(version!==solutionsMountVersion)return;
