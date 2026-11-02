@@ -45,6 +45,8 @@ The author requested React with prebuilt HTML and a staged transition. See `docs
 
 - Home and Solutions include the shared CSS/SVG motion scene (four capability nodes, moving lime routes and monogram). Keep it decorative, responsive, paused in hidden tabs and static under reduced motion.
 
+- Work Stories shows five topics for Boomerang, four each for Online Tahrir (`turbin`) and CAN, and three for each earlier role, including both Safir roles and Asiatech. Use `visibleWorkStories` in CV/story views; retain additional original plans for content/document compatibility. Show story cards directly beneath employer websites, before the work summary. CV cards deep-link to the matching role/topic. Unpublished outlines are labelled honestly; only the existing complete-publication guard may create an article reading link. Preserve native horizontal browsing and one page-level CV action.
+
 <!-- antislop:start -->
 ## anti-slop design workflow
 

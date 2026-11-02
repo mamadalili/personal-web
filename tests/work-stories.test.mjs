@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { workStoryTopics } from '../work-stories-data.mjs';
 import { selectWorkRole, workStoryHref } from '../work-stories-model.mjs';
 import { posts } from '../blog-data.mjs';
+import {readFileSync} from 'node:fs';
 
 const completeArticle={slug:'a-real-story',status:'published',fa:{title:'روایت',excerpt:'خلاصهٔ روایت'},en:{title:'Story',excerpt:'Story summary'},sections:[{id:'experience',fa:{title:'تجربه'},en:{title:'Experience'},blocks:[{type:'paragraph',fa:'متن تجربهٔ واقعی',en:'The actual experience.'}]}]};
 
@@ -53,4 +54,54 @@ test('translated titles cannot expose an empty or partially translated article b
 
 test('publication guard supports the existing complete article formats',()=>{
   for(const post of posts.filter(post=>post.status==='published'&&!post.template))for(const lang of ['fa','en'])assert.ok(workStoryHref({post:post.slug},lang,posts,'https://site.test/'),`${post.slug} ${lang}`);
+});
+
+test('visible story counts follow the author’s 5/4/4/3 selection without deleting original plans',async()=>{
+  const {visibleWorkStories}=await import('../work-stories-data.mjs');
+  const expected={boomerang:5,turbin:4,can:4,datis:3,binici:3,'safir-lead':3,'safir-field':3,asiatech:3};
+  let total=0;
+  for(const [id,count] of Object.entries(expected)){
+    const visible=visibleWorkStories(id);
+    assert.equal(visible.length,count,id);
+    assert.deepEqual(visible,workStoryTopics[id].slice(0,count));
+    assert.equal(workStoryTopics[id].length,5);
+    total+=visible.length;
+  }
+  assert.equal(total,28);
+  for(const id of ['missing','__proto__','constructor',null])assert.deepEqual(visibleWorkStories(id),[]);
+});
+
+test('CV cards use native titles and link to the actual role and outline without promising publication',async()=>{
+  const {renderCareerStoryCards}=await import('../work-story-cards.mjs');
+  for(const lang of ['fa','en']){
+    const html=renderCareerStoryCards('turbin',lang,'https://site.test/portfolio/profile.html');
+    assert.equal((html.match(/class="story-preview-card"/g)||[]).length,4);
+    for(const story of workStoryTopics.turbin.slice(0,4)){
+      assert.ok(html.includes(story[lang].title));
+      assert.ok(html.includes('role=turbin'));
+      assert.ok(html.includes(`story=${story.id}#${story.id}`));
+    }
+    assert.ok(html.includes(lang==='fa'?'طرح روایت':'Story outline'));
+    assert.ok(!html.includes('article.html'));
+    assert.ok(!html.includes('after-sales'));
+  }
+  assert.equal(renderCareerStoryCards('__proto__','fa','https://site.test/'),'');
+});
+
+test('a mapped story uses a neutral CV label instead of remaining an unpublished outline',async()=>{
+  const {renderCareerStoryCards}=await import('../work-story-cards.mjs');
+  const stories=workStoryTopics.turbin.slice(0,4).map((story,index)=>index===0?{...story,post:completeArticle.slug}:story);
+  for(const lang of ['fa','en']){
+    const html=renderCareerStoryCards('turbin',lang,'https://site.test/profile.html',stories);
+    assert.ok(html.includes(lang==='fa'?'>روایت کاری<':'>Work story<'));
+    assert.ok(!html.includes('article.html'));
+  }
+});
+
+test('new selector consumers and the historical CV entry use versioned release URLs',()=>{
+  for(const file of ['../work-stories.mjs','../work-story-cards.mjs']){
+    const text=readFileSync(new URL(file,import.meta.url),'utf8');
+    assert.ok(/from ['"]\.\/work-stories-data\.mjs\?v=[^'"]+['"]/.test(text),file);
+  }
+  assert.ok(readFileSync(new URL('../index.html',import.meta.url),'utf8').includes('portfolio.js?v=20261102-story-cards'));
 });

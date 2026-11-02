@@ -2,6 +2,11 @@
 // A post slug is added only after the author's independent story is published.
 const topics=(role,entries)=>entries.map(([id,fa,en])=>({id:`${role}-${id}`,post:null,fa:{title:fa},en:{title:en}}));
 
+const visibleCounts={boomerang:5,turbin:4,can:4,datis:3,binici:3,'safir-lead':3,'safir-field':3,asiatech:3};
+export function visibleWorkStories(roleId){
+  return Object.hasOwn(workStoryTopics,roleId)?workStoryTopics[roleId].slice(0,visibleCounts[roleId]??3):[];
+}
+
 export const workStoryTopics={
   boomerang:topics('boomerang',[
     ['online-sales','فروش آنلاین از کجا شروع شد؟','Where online sales began'],
