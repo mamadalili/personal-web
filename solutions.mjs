@@ -4,7 +4,7 @@ import './home-hero-art.js?v=20261102-solutions-assets';
 
 const pendingStyles=new WeakMap();
 export function prepareSolutions(doc=document){
- const href=new URL('./solution-portals.css?v=20261102-solution-portals',import.meta.url).href;
+ const href=new URL('./solution-portals.css?v=20261102-shared-cards',import.meta.url).href;
  const existing=[...doc.querySelectorAll('link[rel="stylesheet"]')].find(link=>link.href===href);
  if(existing?.sheet)return Promise.resolve();
  if(pendingStyles.has(doc))return pendingStyles.get(doc);
@@ -22,6 +22,15 @@ export function prepareSolutions(doc=document){
 
 // Older cached entry pages do not declare the new selector assets.
 if(typeof document!=='undefined')await prepareSolutions();
+
+export function renderCapabilityCards({language='fa',current='',url,icon,portals={},art=globalThis.renderHomeCapabilityArt}){
+ const lang=language==='en'?'en':'fa';
+ const arrow='<svg class="cta-direction" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>';
+ return solutions.map(item=>{
+  const portal=portals[item.id],selected=item.id===current;
+  return `<a class="capability-portal capability-portal--${item.id}" href="${esc(url(item.id))}" ${selected?'aria-current="page"':''}>${art(item.id)}${selected?`<span class="capability-current">${lang==='fa'?'در این صفحه':'Current page'}</span>`:''}<span class="capability-copy"><span class="capability-icon" aria-hidden="true">${icon(item.icon)}</span><span class="capability-title">${esc(portal?.title||item[lang].label)}</span><span class="capability-description">${esc(portal?.text||item[lang].summary)}</span></span><span class="capability-open" aria-hidden="true">${arrow}</span></a>`;
+ }).join('');
+}
 
 export function mountSolutions(root,{language='fa',solution='',url,icon,art=globalThis.renderHomeCapabilityArt,portals={},motion=()=>'',collaboration}) {
   const lang=language==='en'?'en':'fa',t=solutionsCopy[lang];
@@ -48,7 +57,7 @@ export function mountSolutions(root,{language='fa',solution='',url,icon,art=glob
   document.title=`${current?`${content.label} — `:''}${t.label} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
   document.querySelector('meta[name="description"]').content=content.intro;
 
-  root.innerHTML=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="solutions-subnav solution-portals" aria-label="${esc(t.label)}">${solutions.map(item=>{const portal=portals[item.id],selected=item.id===current.id;return `<a class="capability-portal capability-portal--${item.id}" href="${esc(href(item.id))}" ${selected?'aria-current="page"':''}>${art(item.id)}${selected?`<span class="capability-current">${lang==='fa'?'در این صفحه':'Current page'}</span>`:''}<span class="capability-copy"><span class="capability-icon" aria-hidden="true">${icon(item.icon)}</span><span class="capability-title">${esc(portal?.title||item[lang].label)}</span><span class="capability-description">${esc(portal?.text||item[lang].summary)}</span></span><span class="capability-open" aria-hidden="true">${arrow}</span></a>`;}).join('')}</nav></header>
+  root.innerHTML=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="solutions-subnav solution-portals" aria-label="${esc(t.label)}">${renderCapabilityCards({language:lang,current:current.id,url:href,icon,art,portals})}</nav></header>
     <nav class="solution-breadcrumb" aria-label="${lang==='fa'?'مسیر صفحه':'Breadcrumb'}"><span>${esc(t.label)}</span><span aria-hidden="true">/</span><span aria-current="page">${esc(content.label)}</span></nav>
     <section class="solution-detail-hero"><div class="page-hero"><div class="eyebrow">${esc(content.label)}</div><h1>${heading(content.headline)}</h1><p>${esc(content.intro)}</p>${cta('contact',t.conversation)}</div><aside class="solution-lens">${motion(current.id)}<span class="small-label">${esc(t.lens)}</span><h2>${esc(content.lensTitle)}</h2><p>${esc(content.lensText)}</p><ul class="solution-tags">${content.tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul></aside></section>
     <section class="solution-fit" aria-labelledby="fit-heading"><h2 id="fit-heading">${esc(t.fit)}</h2><ul>${content.fit.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></section>

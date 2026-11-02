@@ -17,8 +17,9 @@ for(const lang of ['fa','en']){
   for(const text of d.home[lang].homeTitle.split(/<[^>]+>/).filter(Boolean))assert.ok(html.includes(escape(text)));
   assert.ok(html.includes(escape(d.skills[lang].cardTitle)));
   assert.ok(html.includes('class="header-portrait"'));
-  assert.equal((html.match(/class="capability-tile /g)||[]).length,4);
-  assert.ok(!html.includes('class="capability-art"'),'Home uses compact links without the capsule art');
+  assert.equal((html.match(/class="capability-portal capability-portal--/g)||[]).length,4);
+  assert.equal((html.match(/class="capability-art"/g)||[]).length,4);
+  assert.ok(html.includes('/legacy/solution-portals.css'));
   for(const id of ['strategy','execution','technology','ai-tools'])assert.ok(html.includes(`href="/${lang}/solutions/${id}"`),id);
   assert.ok(d.posts.length>=29);
   assert.equal((html.match(/class="home-post-card /g)||[]).length,d.posts.length);
@@ -54,6 +55,17 @@ for(const lang of ['fa','en']){
   });
  }
 }
+
+test('Home and Solutions use identical native card content and artwork apart from current-page state',()=>{
+ const cards=html=>[...html.matchAll(/<a\b[^>]*class="capability-portal [^>]*>[\s\S]*?<\/a>/g)].map(([markup])=>markup
+  .replace(/ aria-current="page"/g,'')
+  .replace(/<span class="capability-current">[^<]*<\/span>/g,''));
+ for(const lang of ['fa','en']){
+  const home=cards(htmlAt(lang));
+  assert.equal(home.length,4);
+  assert.deepEqual(home,cards(htmlAt(`${lang}/solutions/strategy`)));
+ }
+});
 
 test('every local destination and asset in the migrated static documents exists',()=>{
  const paths=['','fa','en',...['fa','en'].flatMap(lang=>['contact',...['strategy','execution','technology','ai-tools'].map(id=>`solutions/${id}`)].map(page=>`${lang}/${page}`))];

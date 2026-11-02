@@ -1,6 +1,8 @@
-/* The author's original Home capsules now select the four Solutions. */
+/* One card treatment for Home and the four Solutions pages. */
 .solutions-selector{gap:18px;padding-bottom:22px}
-.solutions-subnav.solution-portals{--portal-ease:cubic-bezier(.22,1,.36,1);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:940px;align-items:stretch}
+.solutions-subnav.solution-portals{--portal-ease:cubic-bezier(.22,1,.36,1);display:grid;width:100%;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:none;gap:16px;max-width:940px;align-items:stretch}
+.solution-portals>.site-loader,.solution-portals>.solution-cards-fallback{grid-column:1/-1;display:grid;place-items:center;min-height:300px}
+.solution-cards-fallback{color:#172144;font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .solution-portals .capability-portal{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;min-width:0;min-height:300px;padding:0;gap:0;overflow:hidden;border:2px solid #ccff00;border-radius:999px;background:#11152d;color:#fff;box-shadow:0 18px 28px -22px #17214475;transform:translateZ(0);transition:transform 300ms var(--portal-ease),box-shadow 300ms ease;animation:portal-enter 650ms var(--portal-ease) backwards}
 .solution-portals .capability-portal:nth-child(2){--portal-phase:-5s;animation-delay:65ms}
 .solution-portals .capability-portal:nth-child(3){--portal-phase:-10s;animation-delay:130ms}
@@ -27,6 +29,7 @@
 .capability-current{position:absolute;z-index:2;top:20px;inset-inline:16px;margin-inline:auto;width:fit-content;padding:4px 11px;border-radius:7px;background:#ccff00;color:#172144;font-size:11px;line-height:1.6;font-weight:800}
 .capability-open{position:absolute;z-index:2;inset-inline-start:calc(50% - 17px);bottom:19px;display:grid;place-items:center;width:34px;height:34px;border:1px solid #ffffff54;border-radius:50%;background:#fffffff0;color:#000;transition:background 180ms ease}
 .solution-portals .capability-open svg{width:17px;height:17px}
+html[dir=rtl] .solution-portals .cta-direction{transform:scaleX(-1)}
 .capability-portal:hover .capability-open,.capability-portal:focus-visible .capability-open{background:#ccff00}
 .motion-paused .solution-portals *,.motion-paused .solution-portals *:before,.motion-paused .solution-portals *:after{animation-play-state:paused!important}
 @keyframes portal-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -35,4 +38,6 @@
 @media(min-width:761px) and (max-width:1000px){.solutions-subnav.solution-portals{gap:12px}.capability-portal .capability-copy{padding-inline:14px}.capability-title{font-size:17px}}
 @media(max-width:760px){.solutions-selector{padding-bottom:22px}.solutions-subnav.solution-portals{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;max-width:460px}.solution-portals .capability-portal{min-height:258px}.capability-portal .capability-copy{min-height:186px;padding:10px 16px 60px}.capability-title{font-size:17px}.capability-description{font-size:11px}.capability-current{top:16px;font-size:10px;padding-inline:9px}}
 @media(max-width:360px){.solution-portals .capability-portal{min-height:270px}.capability-portal .capability-copy{min-height:204px;padding-inline:10px}.capability-title{font-size:15px}.capability-description{font-size:10.5px}}
+@media(max-width:760px){.solution-portals>.site-loader,.solution-portals>.solution-cards-fallback{min-height:532px}}
+@media(max-width:360px){.solution-portals>.site-loader,.solution-portals>.solution-cards-fallback{min-height:556px}}
 @media(prefers-reduced-motion:reduce){.solution-portals *,.solution-portals *:before,.solution-portals *:after{animation:none!important;transition:none!important}.solution-portals .capability-portal{transform:none}.portal-light{display:none}}

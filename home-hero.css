@@ -1,4 +1,4 @@
-/* Home keeps four compact routes; the original artwork lives on Solutions. */
+/* Home composition around the shared illustrated capability cards. */
 body[data-current-page=home]{background:#f8f9fc}
 .home-art-hero{--portal-ease:cubic-bezier(.22,1,.36,1);padding-bottom:30px}
 .home-art-hero .home-hero{padding:8px 0 12px;text-align:center}
@@ -26,13 +26,7 @@ body[data-current-page=home]{background:#f8f9fc}
 .home-art-hero .skills-card-copy .home-hero-actions .card-cta:last-child{border-color:#e1e3ec;background:#f0f1f6;box-shadow:none}
 .home-art-hero .skills-card-copy .home-hero-actions .card-cta:last-child:hover{background:#e8ebf4}
 .home-art-hero .skills-hero-card .skills-card-side{display:block;position:relative;align-self:stretch;block-size:auto;margin:0;z-index:1}
-.home-art-hero .skills-capability-grid{position:relative;inset:auto;transform:none;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:none;gap:16px;max-width:940px;margin-inline:auto}
-.home-art-hero .capability-shortcut{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:78px;padding:16px;border:2px solid #ccff00;border-radius:16px;background:#fff;color:#172144;font-size:16px;font-weight:800;line-height:1.6;text-align:start;box-shadow:none;transition:background 180ms ease,border-color 180ms ease,transform 180ms ease}
-.home-art-hero .capability-shortcut:hover{background:#f4f7e9;border-color:#172144;transform:translateY(-2px)}
-.home-art-hero .capability-shortcut:active{transform:translateY(0);background:#edf2d9}
-.home-art-hero .capability-shortcut:focus-visible{outline:3px solid #1c0998;outline-offset:4px}
-.home-art-hero .capability-icon{display:grid;place-items:center;flex:none;width:24px;height:24px;margin:0;background:none;border-radius:0;color:#1c0998}
-.home-art-hero .capability-icon svg{width:22px;height:22px}
+.home-art-hero .skills-capability-grid{position:relative;inset:auto;transform:none;grid-template-rows:none;margin-inline:auto}
 .home-art-hero+.home-card-deck{margin-top:34px}
 html[lang=en] .home-art-hero .home-hero h1{font-size:clamp(42px,4vw,56px);line-height:1.05;letter-spacing:-2px}
 html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.25}
@@ -52,13 +46,10 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
  html[lang=en] .home-art-hero .skills-card-copy h2{font-size:22px;line-height:1.3}
  .home-art-hero .skills-hero-card .skills-card-copy>p{font-size:11px;line-height:1.8;max-width:960px}
  .home-hero-actions{margin-top:8px}
- .home-art-hero .skills-capability-grid{max-width:860px}
 }
-@media(min-width:1000px) and (max-height:650px){.home-art-hero{position:relative;top:auto;min-height:0}}
+@media(min-width:1000px) and (max-height:700px){.home-art-hero{position:relative;top:auto;min-height:0}}
 @media(max-width:1100px) and (min-width:761px){
  .home-art-hero .home-welcome{max-width:660px}
- .home-art-hero .skills-capability-grid{gap:10px}
- .home-art-hero .capability-shortcut{font-size:14px;gap:9px}
 }
 @media(max-width:999px){
  .home-art-hero{position:relative;top:auto;min-height:0;padding-bottom:0}
@@ -80,18 +71,12 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
  .home-art-hero .skills-card-copy .home-hero-actions .card-cta{flex:1;min-width:0;gap:10px;min-height:47px;padding:9px 13px;font-size:11px}
  .home-art-hero .skills-card-copy .home-hero-actions .card-cta .card-arrow{width:17px;height:17px}
  .home-art-hero .skills-card-copy .home-hero-actions .card-cta .card-arrow svg{width:17px;height:17px}
- .home-art-hero .skills-capability-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 10px;grid-template-rows:none}
- .home-art-hero .capability-shortcut{justify-content:flex-start;min-height:74px;padding:13px 12px;gap:9px;font-size:14px}
- .home-art-hero .capability-icon{width:20px;height:20px}
- .home-art-hero .capability-icon svg{width:20px;height:20px}
  .home-art-hero+.home-card-deck{margin-top:38px}
 }
 @media(max-width:360px){
  .home-art-hero .home-hero h1{font-size:30px}
- .home-art-hero .capability-shortcut{padding:12px 9px;font-size:13px;gap:7px}
  .home-art-hero .skills-card-copy .home-hero-actions .card-cta{padding-inline:10px;font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){
  .home-art-hero *,.home-art-hero *:before,.home-art-hero *:after{animation:none!important;transition:none!important}
- .home-art-hero .capability-shortcut{transform:none}
 }

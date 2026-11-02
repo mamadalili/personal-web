@@ -1,9 +1,10 @@
 import type {FocusEvent} from 'react';
 import {legacy} from '../../content/legacy';
 import {pageURL} from '../../lib/routing';
-import type {Language, Page, SolutionId} from '../../lib/routing';
+import type {Language, Page} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {BrandMark, ProfessionalTitle} from '../../components/ui/BrandSignature';
+import {CapabilityCards} from '../../components/ui/CapabilityCards';
 import {Icon} from '../../components/ui/Icon';
 import {HomeCarousel} from './HomeCarousel';
 
@@ -37,14 +38,7 @@ export function HomePage({lang}: {lang: Language}) {
           <div className="skills-card-copy"><h2 id="skills-hero-title">{k.cardTitle}</h2><p>{k.cardBody}</p>
             <div className="home-hero-actions"><CardCTA page="solutions" lang={lang} label={k.cardAction}/><CardCTA page="contact" lang={lang} label={s.contactAction}/></div>
           </div>
-          <div className="skills-card-side"><nav className="skills-capability-grid" aria-label={lang === 'fa' ? 'راهکارها' : 'Solutions'}>
-            {k.pillars.map(pillar => {
-              const id = pillar.page as SolutionId, portal = legacy.portals[lang][id];
-              return <AppLink key={id} className="capability-tile capability-shortcut" href={pageURL(id, lang)}>
-                <span className="capability-icon" aria-hidden="true"><Icon name={pillar.icon}/></span><span>{portal.title}</span>
-              </AppLink>;
-            })}
-          </nav></div>
+          <div className="skills-card-side"><CapabilityCards lang={lang} className="skills-capability-grid"/></div>
         </article>
       </section>
       <section className="home-card-deck" aria-label={lang === 'fa' ? 'بلاگ، پروفایل کاری و تماس' : 'Blog, professional profile and contact'}>

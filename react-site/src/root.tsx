@@ -18,7 +18,7 @@ export function Layout({children}: {children: ReactNode}) {
   const description = page === 'home'
     ? s.homeIntro.replace('{role}', identity.role).replace('{home}', lang === 'fa' ? 'خانه دیجیتال' : 'digital home')
     : detail?.intro ?? legacy.contact[lang].intro;
-  const styles = ['portfolio.css', ...(page === 'home' ? ['home-blog.css', 'home-hero.css']
+  const styles = ['portfolio.css', ...(page === 'home' ? ['home-blog.css', 'home-hero.css', 'solution-portals.css']
     : page === 'solutions' ? ['solutions.css', 'solution-portals.css'] : ['contact.css', 'company-logos.css'])];
   return <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
     <head>

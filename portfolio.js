@@ -157,12 +157,17 @@ function renderHome(){
  const homeIntro=escapeHTML(s.homeIntro).replace('{role}',`<a class="home-intro-role" href="${pageURL('home')}">${professionalTitle('',lang==='fa'?'مارکتر و اپراتور هوش مصنوعی،':t.role)}</a>`).replace('{home}',`<strong>${lang==='fa'?'خانه دیجیتال':'digital home'}</strong>`);
  const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
  $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view home-art-hero" aria-labelledby="home-title"><div class="page-hero home-hero"><div class="home-welcome"><h1 id="home-title">${s.homeTitle}</h1><p>${homeIntro}</p></div></div>
- <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><h2 id="skills-hero-title">${k.cardTitle}</h2><p>${k.cardBody}</p><div class="home-hero-actions">${homeCardCTA('solutions',k.cardAction)}${homeCardCTA('contact',s.contactAction)}</div></div><div class="skills-card-side"><nav class="skills-capability-grid" aria-label="${lang==='fa'?'راهکارها':'Solutions'}">${k.pillars.map(pillar=>{const portal=homePortalCopy[lang][pillar.page];return `<a class="capability-tile capability-shortcut" href="${pageURL(pillar.page)}"><span class="capability-icon" aria-hidden="true">${skillIcon(pillar.icon)}</span><span>${escapeHTML(portal.title)}</span></a>`;}).join('')}</nav></div></article>
+ <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><h2 id="skills-hero-title">${k.cardTitle}</h2><p>${k.cardBody}</p><div class="home-hero-actions">${homeCardCTA('solutions',k.cardAction)}${homeCardCTA('contact',s.contactAction)}</div></div><div class="skills-card-side"><nav class="skills-capability-grid solutions-subnav solution-portals" aria-label="${lang==='fa'?'راهکارها':'Solutions'}" data-capability-cards>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…')}</nav></div></article>
  </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
  <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h2 id="home-blog-title" class="visually-hidden">${s.blogLabel}</h2><p>${s.blogBody}</p><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><div data-home-blog>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…','home-blog-loading')}</div></article>
  <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h2>${s.cvTitle}</h2><p>${s.cvBody} <a class="home-story-link" href="${pageURL('work-stories')}">${lang==='fa'?'روایت‌های کاری من':'Stories from my work'}</a></p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h2>${s.contactTitle}</h2><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
  </div></section></div><div class="page-signoff">${brandMark()}<p>© ${new Date().getFullYear()} ${s.copyright}</p></div>`;
+ const cardsRoot=$('main').querySelector('[data-capability-cards]');
+ import('./solutions.mjs?v=20261102-shared-cards').then(({renderCapabilityCards})=>{
+  if(!cardsRoot.isConnected||lang!==homeLanguage)return;
+  cardsRoot.innerHTML=renderCapabilityCards({language:homeLanguage,url:pageURL,icon:skillIcon,portals:homePortalCopy[homeLanguage]});
+ }).catch(()=>{if(cardsRoot.isConnected&&lang===homeLanguage)cardsRoot.innerHTML=`<a class="solution-cards-fallback" href="${pageURL('solutions')}">${lang==='fa'?'دیدن راهکارها':'View solutions'}</a>`;});
  const blogRoot=$('main').querySelector('[data-home-blog]');
  import('./home-blog.mjs?v=20261102-mobile-swipe').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
  // Restore visibility when keyboard navigation returns to the pinned skills link.
@@ -170,7 +175,7 @@ function renderHome(){
   const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),tiles=$('main').querySelector('.skills-capability-grid'),deck=$('main').querySelector('.home-card-deck');
   if(matchMedia('(min-width:1000px)').matches&&deck.getBoundingClientRect().top<Math.max(hero.getBoundingClientRect().bottom,tiles.getBoundingClientRect().bottom)){window.scrollTo(0,Math.max(0,stage.parentElement.getBoundingClientRect().top+scrollY-112));}
  };
- $('main').querySelectorAll('.skills-hero-card a').forEach(link=>link.addEventListener('focus',revealSkills));
+ $('main').querySelector('.skills-hero-card').addEventListener('focusin',revealSkills);
 }
 const collaborationCopy={
  fa:{eyebrow:'شروع همکاری',title:"از وضعیت امروز شروع کنیم؛",accent:"برای قدم بعدی تصمیم بگیریم.",body:"اگر بازاریابی، فروش، فناوری و کار با AI به هم وصل نیستند، از مسیر واقعی مشتری و تیم شروع می‌کنیم. بعد دامنهٔ یک اقدام قابل اجرا و معیار سنجش آن را مشخص می‌کنیم.",prepare:"برای شروع، همین سه چیز کافی است:",prompts:["نتیجه‌ای که می‌خواهید","کار امروز چطور پیش می‌رود","جایی که کار گیر می‌کند"],actionLabel:"گفت‌وگو را شروع کنیم",action:"دربارهٔ مسئله‌تان بگویید",note:"یک توضیح کوتاه از وضعیت فعلی کافی است؛ جزئیات را در گفت‌وگو روشن می‌کنیم.",experience:'دیدن مسیر کاری من',background:'پشتوانهٔ این مسیر:',backgroundLink:'سوابق و تجربه‌های کاری من'},
@@ -197,7 +202,7 @@ function renderSolutions(){
  if(!document.body.dataset.solution){location.replace(pageURL('strategy')+location.hash);return;}
  const version=++solutionsMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
- import('./solutions.mjs?v=20261102-solutions-assets').then(({mountSolutions})=>{
+ import('./solutions.mjs?v=20261102-shared-cards').then(({mountSolutions})=>{
   if(version!==solutionsMountVersion||language!==lang)return;
   mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,portals:homePortalCopy[language],motion:active=>renderMotionScene('solution',active),collaboration:()=>renderCollaborationCTA({showExperience:true})});
   if(location.hash==='#collaboration-title')$('collaboration-title')?.scrollIntoView({block:'start'});

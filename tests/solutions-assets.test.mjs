@@ -41,7 +41,7 @@ test('an old shell receives the selector stylesheet once and waits for its load'
 
 test('a stylesheet that already failed is replaced instead of waiting for its past event',async()=>{
  const {prepareSolutions}=await import('../solutions.mjs');
- const href=new URL('../solution-portals.css?v=20261102-solution-portals',import.meta.url).href;
+ const href=new URL('../solution-portals.css?v=20261102-shared-cards',import.meta.url).href;
  let added=0,oldRemoved=false;
  const events={};
  const old={href,sheet:null,addEventListener(){},remove(){oldRemoved=true;}};
