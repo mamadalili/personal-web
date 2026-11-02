@@ -98,7 +98,7 @@ function render(){
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=titleMarkup();$('header-label').textContent=page==='home'?'':pageLabel;$('header-label').hidden=page==='home';
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
-  const mark=document.querySelector('.brand-mark');mark.innerHTML=page==='home'?`<img class="header-portrait" src="images/myphoto.webp" width="59" height="59" alt="" fetchpriority="high">`:brandMark();
+  const mark=document.querySelector('.brand-mark');mark.innerHTML=page==='home'?`<img class="header-portrait" src="images/myphoto-avatar-v1.webp" width="59" height="59" alt="" fetchpriority="high">`:brandMark();
   $('language').innerHTML=languageButtonMarkup();$('language').dir=lang==='fa'?'ltr':'rtl';
   $('language').lang=lang==='fa'?'en':'fa';$('language').setAttribute('aria-label',lang==='fa'?'Switch to English':'تغییر زبان به فارسی');
   $('footer').innerHTML=`<nav aria-label="${s.navLabel}">${Object.keys(pageFiles).map((id,i)=>`<a href="${pageURL(id)}" ${navPage===id?'aria-current="page"':''}>${icon(id)}<span>${s.nav[i]}</span></a>`).join('')}</nav>`;
@@ -118,7 +118,7 @@ function render(){
 function renderCV(){
   const t=copy[lang];
   $('profile').setAttribute('aria-label',t.name);
-  $('profile').innerHTML=`<div class="profile-top"></div><img class="portrait" src="images/myphoto.webp" width="130" height="130" alt="${t.name}" fetchpriority="high"><div class="identity"><h1>${t.name}</h1>${professionalTitle('role')}<span class="location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>${t.location}</span></div><div class="profile-section"><h2 class="small-label">${t.aboutMe}</h2><p class="bio">${t.bio}</p></div><div class="profile-section"><h2 class="small-label">${t.focus}</h2>${chips(t.skills)}</div><div class="profile-contact"><a class="primary-link" href="mailto:Mohammadreza.dalili@live.com">${t.connect}<span aria-hidden="true">↗</span></a><div class="profile-links"><a href="https://github.com/mamadalili" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:Mohammadreza.dalili@live.com">${t.email} ↗</a></div></div>`;
+  $('profile').innerHTML=`<div class="profile-top"></div><img class="portrait" src="images/myphoto-profile-v1.webp" width="130" height="130" alt="${t.name}" fetchpriority="high"><div class="identity"><h1>${t.name}</h1>${professionalTitle('role')}<span class="location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>${t.location}</span></div><div class="profile-section"><h2 class="small-label">${t.aboutMe}</h2><p class="bio">${t.bio}</p></div><div class="profile-section"><h2 class="small-label">${t.focus}</h2>${chips(t.skills)}</div><div class="profile-contact"><a class="primary-link" href="mailto:Mohammadreza.dalili@live.com">${t.connect}<span aria-hidden="true">↗</span></a><div class="profile-links"><a href="https://github.com/mamadalili" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:Mohammadreza.dalili@live.com">${t.email} ↗</a></div></div>`;
   $('intro').innerHTML=`<div class="eyebrow">${t.eyebrow}</div><h2>${t.headline}</h2><p>${t.intro}</p><div class="stats">${t.stats.map(([n,label])=>`<div class="stat"><strong>${n}</strong><span>${label}</span></div>`).join('')}</div>`;
   $('main-tabs').setAttribute('aria-label',t.tabLabel);
   $('main-tabs').innerHTML=tabIds.map((id,i)=>`<button type="button" role="tab" id="tab-${id}" aria-controls="panel-${id}" aria-selected="${id===activeTab}" tabindex="${id===activeTab?0:-1}" data-tab="${id}">${t.tabs[i]}${i<2?`<span class="tab-count" aria-hidden="true">${new Intl.NumberFormat(lang).format(i===0?8:projects.length)}</span>`:''}</button>`).join('');
@@ -169,7 +169,7 @@ function renderHome(){
   cardsRoot.innerHTML=renderCapabilityCards({language:homeLanguage,url:pageURL,icon:skillIcon,portals:homePortalCopy[homeLanguage]});
  }).catch(()=>{if(cardsRoot.isConnected&&lang===homeLanguage)cardsRoot.innerHTML=`<a class="solution-cards-fallback" href="${pageURL('solutions')}">${lang==='fa'?'دیدن راهکارها':'View solutions'}</a>`;});
  const blogRoot=$('main').querySelector('[data-home-blog]');
- import('./home-blog.mjs?v=20261102-mobile-swipe').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
+ import('./home-blog.mjs?v=20261102-light-lists').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
  // Restore visibility when keyboard navigation returns to the pinned skills link.
  const revealSkills=()=>{
   const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),tiles=$('main').querySelector('.skills-capability-grid'),deck=$('main').querySelector('.home-card-deck');
@@ -186,12 +186,16 @@ function renderCollaborationCTA({showExperience=false}={}){
  return `<section class="collaboration-cta" aria-labelledby="collaboration-title"><div class="collaboration-copy"><div class="collaboration-eyebrow">${escapeHTML(c.eyebrow)}</div><h2 id="collaboration-title"><span>${escapeHTML(c.title)}</span> <em>${escapeHTML(c.accent)}</em></h2><p>${escapeHTML(c.body)}</p><div class="collaboration-prepare"><span>${escapeHTML(c.prepare)}</span><ul>${c.prompts.map(prompt=>`<li>${escapeHTML(prompt)}</li>`).join('')}</ul></div>${showExperience?`<p class="collaboration-background">${escapeHTML(c.background)} <a href="${pageURL('cv')}&tab=experience">${escapeHTML(c.backgroundLink)}</a></p>`:''}</div><div class="collaboration-actions"><p class="collaboration-action-label">${escapeHTML(c.actionLabel)}</p><a class="collaboration-primary" href="${pageURL('contact')}"><span>${escapeHTML(c.action)}</span><span class="collaboration-arrow">${icon('arrow')}</span></a><p class="collaboration-action-note">${escapeHTML(c.note)}</p><a class="collaboration-secondary" href="${pageURL('cv')}&tab=experience"><span>${escapeHTML(c.experience)}</span>${icon('arrow')}</a></div></section>`;
 }
 function renderSkills(){location.replace(pageURL('cv')+'&tab=experience');}
+let disposeBlog=()=>{};
 function renderBlog(mode='index'){
+ disposeBlog();disposeBlog=()=>{};
  const version=++blogMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
- import('./blog.mjs?v=20261102-unit-objects').then(({mountBlog})=>{
+ const module=mode==='index'?'./blog-list.mjs?v=20261102-light-lists':'./blog.mjs?v=20261102-light-lists';
+ import(module).then(({mountBlog,unmountBlog})=>{
   if(version!==blogMountVersion||language!==lang)return;
-  mountBlog($('main'),{language,mode,template:document.body.dataset.template==='true'});
+  disposeBlog=unmountBlog||(()=>{});
+  return mountBlog($('main'),{language,mode,template:document.body.dataset.template==='true'});
  }).catch(error=>{
   if(version!==blogMountVersion)return;
   $('main').innerHTML=`<p class="blog-loading">${lang==='fa'?'نمایش نوشته‌ها با مشکل روبه‌رو شد. صفحه را دوباره بارگذاری کنید.':'The posts could not be loaded. Please reload the page.'}</p>`;

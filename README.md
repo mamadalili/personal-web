@@ -16,6 +16,8 @@ A personal homepage, blog, interactive professional CV and contact page, focused
 
 ## Key features
 
+- **Production performance:** Home and the archive load a generated bilingual summary index, while article pages fetch only the selected article's complete data. Card-only WebP previews, small portrait exports and WOFF2 reduce transfer size without replacing the original artwork or article content. See [the generation and release workflow](docs/performance.md).
+
 - **Native Persian and English:** complete translations, a language switch and mirrored RTL/LTR layouts. No browser translation is required.
 - **Personal homepage:** a welcome introduction and “Find your way around” heading lead to a prominent Solutions hero. On desktop, the first view stays pinned as the lower Blog/CV/Contact cards scroll over it; those cards start below the first viewport. Blog is the large lower card, with equally sized small CV/Contact cards. Narrow screens use normal document flow. A portrait and name remain in the header; cards are unnumbered.
 - **Solutions / راهکارها:** complete bilingual pages for Strategy, Execution, Technology and AI Tools, with suitable problems, proposed outputs, the working process, related experience and ways to begin a conversation. Four animated art capsules on Home link directly to these pages in one desktop row and two mobile columns. The canonical entry is Strategy; the retired Skills page redirects to CV.

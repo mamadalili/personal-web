@@ -41,6 +41,17 @@ test('article covers retain localized alternatives while link thumbnails avoid d
   assert.equal(renderPostCover({}, 'fa'), '');
 });
 
+test('list previews use smaller native exports while article banners keep their originals', () => {
+  for (const article of posts) {
+    for (const lang of ['fa', 'en']) {
+      const preview = article.cover[lang].src.replace('assets/blog/', 'assets/blog/previews/');
+      assert.ok(existsSync(new URL(`../${preview}`, import.meta.url)), preview);
+      assert.ok(renderPostCover(article, lang, {preview: true}).includes(`src="${preview}"`));
+      assert.ok(renderPostCover(article, lang).includes(`src="${article.cover[lang].src}"`));
+    }
+  }
+});
+
 test('published articles have real native cover files and the native covers appear in the responsive Home groups', () => {
   for (const article of posts) {
     for (const language of ['fa', 'en']) {

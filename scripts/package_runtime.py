@@ -1,7 +1,8 @@
-"""Package explicitly named root runtime files with fresh dates and Unix 0644 modes."""
+"""Package explicit runtime files and generated public assets with fresh dates and Unix 0644 modes."""
 import argparse
 import hashlib
 import json
+import re
 import stat
 from datetime import datetime
 from pathlib import Path
@@ -19,10 +20,12 @@ def package_runtime(root, names, destination, released_at=None):
     files = []
     for name in names:
         relative = Path(name)
-        if relative.name != name or relative.suffix.lower() not in {'.html', '.css', '.js', '.mjs'}:
-            raise ValueError('Only explicitly named root runtime files may be packaged')
+        runtime = relative.name == name and relative.suffix.lower() in {'.html', '.css', '.js', '.mjs'}
+        asset = re.fullmatch(r'(?:assets/blog/previews/[a-z0-9]+(?:-[a-z0-9]+)*\.webp|assets/posts/[a-z0-9]+(?:-[a-z0-9]+)*-[a-f0-9]{16}\.json|images/myphoto-(?:avatar|profile)-v1\.webp|fonts/Vazirmatn\.woff2)', name)
+        if not runtime and not asset:
+            raise ValueError('Only explicit runtime files and supported generated public assets may be packaged')
         source = root / relative
-        if source.is_symlink() or source.resolve().parent != root or not source.is_file():
+        if not source.resolve().is_relative_to(root) or not source.is_file() or any(path.is_symlink() for path in [source, *source.parents] if path != root):
             raise ValueError('Runtime file must exist within the release root')
         if destination == source.resolve() or (destination.exists() and destination.samefile(source)):
             raise ValueError('Archive destination must not overwrite a runtime input')

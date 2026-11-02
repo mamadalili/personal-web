@@ -32,7 +32,7 @@ export function HomeCarousel({lang}: {lang: Language}) {
           const a = post[lang], cover = post.cover[lang];
           return <a key={post.slug} data-slug={post.slug} className={`home-post-card${cover ? ' has-cover' : ''}`}
             href={pageURL('article', lang, {post: post.slug})}>
-            {cover && <img className="home-post-cover" src={assetURL(cover.src)} width={cover.width} height={cover.height} alt="" loading="lazy" decoding="async"/>}
+            {cover && <img className="home-post-cover" src={assetURL(cover.src.replace('assets/blog/','assets/blog/previews/'))} width={cover.width} height={cover.height} alt="" loading="lazy" decoding="async"/>}
             <div className="home-post-meta"><span>{a.category}</span><time dateTime={post.date}>{date(post.date)}</time></div>
             <h4>{a.title}</h4><p>{a.excerpt}</p>
             <span className="home-post-foot"><small>{a.readTime}</small><span className="home-post-read">{t.read}

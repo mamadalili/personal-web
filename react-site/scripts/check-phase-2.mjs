@@ -26,7 +26,7 @@ for(const lang of ['fa','en']){
   for(const post of d.posts){
    assert.ok(html.includes(escape(post[lang].title)),post.slug);
    assert.ok(html.includes(escape(post[lang].excerpt)),post.slug);
-   assert.ok(html.includes(post.cover[lang].src),post.slug);
+   assert.ok(html.includes(post.cover[lang].src.replace('assets/blog/','assets/blog/previews/')),post.slug);
   }
   assert.ok(!html.includes('در حال آماده‌سازی'));
   assert.ok(!html.includes('/legacy/home-blog.mjs'));

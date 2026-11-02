@@ -1,6 +1,7 @@
 import { mountBlogIndex } from './blog-index.mjs?v=20261101-compact-archive';
 import { renderPostCover } from './blog-covers.mjs';
-import { posts, articleTemplate } from './blog-data.mjs?v=20261101-content-system';
+import { posts, templateSrc } from './blog-summaries.mjs';
+import { loadArticleData } from './blog-article-data.mjs';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
 import { createSoloWidgets } from './blog-solo.mjs';
@@ -18,8 +19,9 @@ const copy = {
   en:{blog:'Blog',eyebrow:'MY NOTES',heading:'Ideas, experiences & things I’m learning.',intro:'On marketing, e-commerce and technology, with room to explore and experiment.',empty:'No articles published yet.',emptyBody:'Until the first post, try an interactive example.',preview:'Explore the interactive example',template:'Template preview — not a published article. All numbers are illustrative.',toc:'IN THIS ARTICLE',takeaways:'IN THIS EXPERIENCE',back:'All posts',close:'Close',metric:'Metric',bars:'Bars',lines:'Lines',view:'Chart view',series:'Visible scenarios',method:'Calculation method',table:'View the data table',period:'Period',pointHint:'Select a period’s values to see the details.',visits:'Visits',rate:'Conversion rate (%)',estimate:'Estimated orders',reset:'Reset',invalid:'Visits must be between 0 and 1,000,000; conversion rate between 0 and 100.',formula:'Visits × conversion rate ÷ 100',related:'KEEP EXPLORING',search:'Search posts',noResults:'No posts match this search.',notFound:'This article was not found.',notFoundBody:'Choose a published article from the blog.',atLeastOne:'Keep at least one scenario visible.',updated:'Chart updated',points:'Period details',chartData:'Chart data',loading:'Preparing the article…'}
 };
 let dispose = () => {};
+export function unmountBlog() { dispose(); dispose = () => {}; }
 
-export function mountBlog(root, { language = 'fa', mode = 'index', template = false } = {}) {
+export async function mountBlog(root, { language = 'fa', mode = 'index', template = false } = {}) {
   dispose();
   root.classList.remove('market-story','blog-index');
   const controller = new AbortController(), signal = controller.signal;
@@ -32,7 +34,16 @@ export function mountBlog(root, { language = 'fa', mode = 'index', template = fa
   if(mode==='index'){mountBlogIndex(root,{lang,items:posts,href,signal});return;}
 
   const slug = new URLSearchParams(location.search).get('post');
-  const originalArticle = template ? articleTemplate : livePosts.find(post => post.slug === slug);
+  const summary = livePosts.find(post => post.slug === slug);
+  let originalArticle;
+  try {
+    originalArticle = template || summary ? await loadArticleData(template ? templateSrc : summary.dataSrc, {signal}) : null;
+  } catch (error) {
+    if (signal.aborted) return;
+    throw error;
+  }
+  if (signal.aborted || !root.isConnected) return;
+  if (!template && originalArticle && originalArticle.slug !== slug) throw new Error('Article data does not match its route');
   const article = originalArticle ? withDataMotion(originalArticle) : originalArticle;
   if (!article || !article[lang]) {
     root.innerHTML = `<section class="page-hero"><div class="eyebrow">${t.blog}</div><h1>${t.notFound}</h1><p>${t.notFoundBody}</p><a class="blog-button" href="${href('blog')}">${t.back}</a></section>`;

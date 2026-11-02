@@ -13,7 +13,7 @@ export function SiteHeader({lang, page, solution}: {lang: Language; page: NavPag
   return <header className="site-header">
     <AppLink className="brand" href={pageURL('home', lang)} aria-label={`${navigation.labels[0]} — ${identity.name}`}>
       <span className="brand-mark">{page === 'home'
-        ? <img className="header-portrait" src={assetURL('images/myphoto.webp')} width="59" height="59" alt="" fetchPriority="high"/>
+        ? <img className="header-portrait" src={assetURL('images/myphoto-avatar-v1.webp')} width="59" height="59" alt="" fetchPriority="high"/>
         : <BrandMark/>}</span>
       <span className="brand-identity"><span id="brand-name">{identity.name}</span><ProfessionalTitle lang={lang} header/></span>
     </AppLink>

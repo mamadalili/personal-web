@@ -9,8 +9,9 @@ export function coverFor(post, language) {
   return { src: cover.src, alt: cover.alt, width: cover.width, height: cover.height };
 }
 
-export function renderPostCover(post, language, { className = 'post-cover-image', eager = false, decorative = true } = {}) {
+export function renderPostCover(post, language, { className = 'post-cover-image', eager = false, decorative = true, preview = false } = {}) {
   const cover = coverFor(post, language);
   if (!cover) return '';
-  return `<img class="${esc(className)}" src="${esc(cover.src)}" alt="${decorative ? '' : esc(cover.alt)}" width="${cover.width}" height="${cover.height}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${eager ? ' fetchpriority="high"' : ''}>`;
+  const src = preview ? cover.src.replace('assets/blog/', 'assets/blog/previews/') : cover.src;
+  return `<img class="${esc(className)}" src="${esc(src)}" alt="${decorative ? '' : esc(cover.alt)}" width="${cover.width}" height="${cover.height}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${eager ? ' fetchpriority="high"' : ''}>`;
 }

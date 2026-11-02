@@ -32,6 +32,16 @@ class RuntimePackageTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 module.package_runtime(root, ['index.html'], root / 'index.html')
             self.assertEqual((root / 'index.html').read_bytes(), b'<main>Current Home</main>')
+            cover = root / 'assets/blog/previews/example-fa.webp'
+            cover.parent.mkdir(parents=True)
+            cover.write_bytes(b'public optimized image')
+            module.package_runtime(root, ['assets/blog/previews/example-fa.webp'], archive)
+            with ZipFile(archive) as bundle:
+                self.assertEqual(bundle.read('assets/blog/previews/example-fa.webp'), cover.read_bytes())
+                self.assertEqual(stat.S_IMODE(bundle.getinfo('assets/blog/previews/example-fa.webp').external_attr >> 16), 0o644)
+            for invalid in ['assets/../../private.js', 'assets/posts/private.json', 'assets/blog/previews/../../private.webp', 'images/private.webp', 'fonts/private.ttf']:
+                with self.assertRaises(ValueError):
+                    module.package_runtime(root, [invalid], archive)
 
 
 if __name__ == '__main__':
