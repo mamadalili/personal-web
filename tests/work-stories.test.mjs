@@ -103,5 +103,6 @@ test('new selector consumers and the historical CV entry use versioned release U
     const text=readFileSync(new URL(file,import.meta.url),'utf8');
     assert.ok(/from ['"]\.\/work-stories-data\.mjs\?v=[^'"]+['"]/.test(text),file);
   }
-  assert.ok(readFileSync(new URL('../index.html',import.meta.url),'utf8').includes('portfolio.js?v=20261102-story-cards'));
+  const entry=readFileSync(new URL('../index.html',import.meta.url),'utf8').match(/src="portfolio\.js\?v=(\d{8})-[^"]+"/);
+  assert.ok(entry&&Number(entry[1])>=20261102);
 });
