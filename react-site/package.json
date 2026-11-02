@@ -13,7 +13,7 @@
     "build": "react-router build",
     "pretypecheck": "npm run prepare:content",
     "typecheck": "react-router typegen && tsc --noEmit",
-    "test": "node --test scripts/check-static-output.mjs"
+    "test": "node --test scripts/check-static-output.mjs scripts/check-phase-2.mjs"
   },
   "dependencies": {
     "@react-router/node": "8.5.1",

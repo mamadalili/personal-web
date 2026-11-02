@@ -2,7 +2,7 @@
 
 ## Phased React migration
 
-The author requested React with prebuilt HTML and a staged transition. See `docs/react-migration.md`. New migration code belongs in `react-site/` (React, TypeScript, Vite and React Router with prerendering). The legacy framework-free instruction below applies to the existing root application; it does not prohibit the explicitly authorized migration package. Phase 1 ports Contact only. Preserve reviewed content/design, use the shared legacy data adapter and keep subsequent phases and production cutover explicit.
+The author requested React with prebuilt HTML and a staged transition. See `docs/react-migration.md`. New migration code belongs in `react-site/` (React, TypeScript, Vite and React Router with prerendering). The legacy framework-free instruction below applies to the existing root application; it does not prohibit the explicitly authorized migration package. Phases 1 and 2 cover Contact, Home and the four Solutions. Preserve reviewed content/design, use the shared legacy data adapter and keep subsequent phases and production cutover explicit. CV, Work Stories and articles remain legacy until their own migration phases.
 
 - Keep native Persian and English content and mirrored RTL/LTR layouts.
 - Homepage cards are **unnumbered**. Do not add decorative ordinal labels or zero-pad display integers. Preserve meaningful source data, decimal fractions and machine-readable date formats.

@@ -1,1 +1,1 @@
-export {default} from '../features/contact/ContactRoute';
+export {default, loader} from '../features/home/HomeRoute';
