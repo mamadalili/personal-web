@@ -1,0 +1,38 @@
+/* The author's original Home capsules now select the four Solutions. */
+.solutions-selector{gap:18px;padding-bottom:22px}
+.solutions-subnav.solution-portals{--portal-ease:cubic-bezier(.22,1,.36,1);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:940px;align-items:stretch}
+.solution-portals .capability-portal{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;min-width:0;min-height:300px;padding:0;gap:0;overflow:hidden;border:2px solid #ccff00;border-radius:999px;background:#11152d;color:#fff;box-shadow:0 18px 28px -22px #17214475;transform:translateZ(0);transition:transform 300ms var(--portal-ease),box-shadow 300ms ease;animation:portal-enter 650ms var(--portal-ease) backwards}
+.solution-portals .capability-portal:nth-child(2){--portal-phase:-5s;animation-delay:65ms}
+.solution-portals .capability-portal:nth-child(3){--portal-phase:-10s;animation-delay:130ms}
+.solution-portals .capability-portal:nth-child(4){--portal-phase:-15s;animation-delay:195ms}
+.capability-portal:before{content:'';position:absolute;z-index:1;inset:0;background:linear-gradient(180deg,transparent 8%,#090d1e18 27%,#090d1ebf 53%,#090d1ef2 78%,#090d1efc);pointer-events:none}
+.capability-portal:after{content:'';position:absolute;z-index:3;inset:2px;border:1px solid #ffffff2b;border-radius:inherit;pointer-events:none}
+.solution-portals .capability-portal:hover,.solution-portals .capability-portal:focus-visible{background:#11152d;transform:translateY(-5px);box-shadow:0 20px 30px -22px #1c0998aa,0 0 0 3px #ccff0033}
+.solution-portals .capability-portal:focus-visible{outline:3px solid #1c0998;outline-offset:5px}
+.solution-portals .capability-portal:active{transform:translateY(-1px)}
+.solution-portals .capability-portal[aria-current=page],.solution-portals .capability-portal[aria-current=page]:hover{background:#11152d;color:#fff;box-shadow:0 0 0 3px #172144,0 0 0 6px #ccff00}
+.capability-art{position:absolute;inset:0;z-index:0;display:block;overflow:hidden;border-radius:inherit;transform:scale(1.015);transition:transform 600ms var(--portal-ease)}
+.capability-art>svg{display:block;width:100%;height:100%;overflow:visible}
+.capability-art .portal-sculpture{transform-origin:150px 190px;animation:portal-material 20s ease-in-out var(--portal-phase,0s) infinite}
+.capability-art .portal-fine-lines{transform-origin:150px 190px;opacity:.8}
+.capability-art .portal-orb{filter:drop-shadow(0 0 8px #ccff00)}
+.portal-light{position:absolute;inset:-20%;pointer-events:none;background:linear-gradient(110deg,transparent 34%,#e4f4ff00 42%,#e4f4ff30 49%,#fff0 55%,transparent 65%);transform:translateX(-55%) rotate(-10deg);animation:portal-light 20s ease-in-out var(--portal-phase,0s) infinite;mix-blend-mode:screen}
+.portal-grain{position:absolute;inset:0;opacity:.07;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath filter='url(%23n)' opacity='.7' d='M0 0h180v180H0z'/%3E%3C/svg%3E")}
+.capability-portal:hover .capability-art,.capability-portal:focus-visible .capability-art{transform:scale(1.07)}
+.capability-portal .capability-copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;min-height:194px;padding:12px 23px 62px;text-align:center}
+.capability-portal .capability-icon{display:grid;place-items:center;flex:none;width:28px;height:28px;margin-bottom:7px;border:1px solid #ffffff3d;border-radius:50%;background:#11152d;color:#ccff00}
+.solution-portals .capability-icon svg{width:17px;height:17px}
+.capability-title{font-size:20px;font-weight:800;line-height:1.5;letter-spacing:-.4px;text-wrap:balance}
+.capability-description{font-size:12px;font-weight:400;line-height:1.85;color:#e0e4f1;margin-top:6px;text-wrap:pretty}
+.capability-current{position:absolute;z-index:2;top:20px;inset-inline:16px;margin-inline:auto;width:fit-content;padding:4px 11px;border-radius:7px;background:#ccff00;color:#172144;font-size:11px;line-height:1.6;font-weight:800}
+.capability-open{position:absolute;z-index:2;inset-inline-start:calc(50% - 17px);bottom:19px;display:grid;place-items:center;width:34px;height:34px;border:1px solid #ffffff54;border-radius:50%;background:#fffffff0;color:#000;transition:background 180ms ease}
+.solution-portals .capability-open svg{width:17px;height:17px}
+.capability-portal:hover .capability-open,.capability-portal:focus-visible .capability-open{background:#ccff00}
+.motion-paused .solution-portals *,.motion-paused .solution-portals *:before,.motion-paused .solution-portals *:after{animation-play-state:paused!important}
+@keyframes portal-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes portal-material{0%,25%,100%{transform:translate(0,0) rotate(0)}12.5%{transform:translate(3px,-7px) rotate(3deg)}}
+@keyframes portal-light{0%,25%,100%{transform:translateX(-55%) rotate(-10deg)}16%{transform:translateX(55%) rotate(-10deg)}}
+@media(min-width:761px) and (max-width:1000px){.solutions-subnav.solution-portals{gap:12px}.capability-portal .capability-copy{padding-inline:14px}.capability-title{font-size:17px}}
+@media(max-width:760px){.solutions-selector{padding-bottom:22px}.solutions-subnav.solution-portals{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;max-width:460px}.solution-portals .capability-portal{min-height:258px}.capability-portal .capability-copy{min-height:186px;padding:10px 16px 60px}.capability-title{font-size:17px}.capability-description{font-size:11px}.capability-current{top:16px;font-size:10px;padding-inline:9px}}
+@media(max-width:360px){.solution-portals .capability-portal{min-height:270px}.capability-portal .capability-copy{min-height:204px;padding-inline:10px}.capability-title{font-size:15px}.capability-description{font-size:10.5px}}
+@media(prefers-reduced-motion:reduce){.solution-portals *,.solution-portals *:before,.solution-portals *:after{animation:none!important;transition:none!important}.solution-portals .capability-portal{transform:none}.portal-light{display:none}}

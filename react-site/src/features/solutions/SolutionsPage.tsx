@@ -3,7 +3,7 @@ import {pageURL} from '../../lib/routing';
 import type {Language, Page, SolutionId} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {CollaborationCTA} from '../../components/ui/CollaborationCTA';
-import {MotionScene} from '../../components/ui/DecorativeArt';
+import {CapabilityArt, MotionScene} from '../../components/ui/DecorativeArt';
 import {Icon} from '../../components/ui/Icon';
 
 function CTA({page, label, lang}: {page: Page; label: string; lang: Language}) {
@@ -15,10 +15,16 @@ export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
   const c = current[lang], t = legacy.solutionsCopy[lang];
   return <>
     <header className="solutions-selector"><span className="eyebrow">{t.label}</span>
-      <nav className="solutions-subnav" aria-label={t.label}>{legacy.solutions.map(item =>
-        <AppLink key={item.id} href={pageURL(item.id as SolutionId, lang)} aria-current={item.id === id ? 'page' : undefined}>
-          <Icon name={item.icon}/><span>{item[lang].label}</span>
-        </AppLink>)}</nav>
+      <nav className="solutions-subnav solution-portals" aria-label={t.label}>{legacy.solutions.map(item => {
+        const kind = item.id as SolutionId, portal = legacy.portals[lang][kind];
+        return <AppLink key={kind} className={`capability-portal capability-portal--${kind}`} href={pageURL(kind, lang)} aria-current={kind === id ? 'page' : undefined}>
+          <CapabilityArt kind={kind}/>
+          {kind === id && <span className="capability-current">{lang === 'fa' ? 'در این صفحه' : 'Current page'}</span>}
+          <span className="capability-copy"><span className="capability-icon" aria-hidden="true"><Icon name={item.icon}/></span>
+            <span className="capability-title">{portal.title}</span><span className="capability-description">{portal.text}</span>
+          </span><span className="capability-open" aria-hidden="true"><Icon name="arrow" className="cta-direction"/></span>
+        </AppLink>;
+      })}</nav>
     </header>
     <nav className="solution-breadcrumb" aria-label={lang === 'fa' ? 'مسیر صفحه' : 'Breadcrumb'}>
       <span>{t.label}</span><span aria-hidden="true">/</span><span aria-current="page">{c.label}</span>

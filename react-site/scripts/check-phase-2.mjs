@@ -18,6 +18,7 @@ for(const lang of ['fa','en']){
   assert.ok(html.includes(escape(d.skills[lang].cardTitle)));
   assert.ok(html.includes('class="header-portrait"'));
   assert.equal((html.match(/class="capability-tile /g)||[]).length,4);
+  assert.ok(!html.includes('class="capability-art"'),'Home uses compact links without the capsule art');
   for(const id of ['strategy','execution','technology','ai-tools'])assert.ok(html.includes(`href="/${lang}/solutions/${id}"`),id);
   assert.ok(d.posts.length>=29);
   assert.equal((html.match(/class="home-post-card /g)||[]).length,d.posts.length);
@@ -40,6 +41,10 @@ for(const lang of ['fa','en']){
    assert.equal((html.match(/<details>/g)||[]).length,content.faq.length);
    const selected=[...html.matchAll(/<a\b[^>]*>/g)].some(([tag])=>tag.includes(`href="/${lang}/solutions/${id}"`)&&tag.includes('aria-current="page"'));
    assert.ok(selected,'The current solution is selected regardless of HTML attribute order');
+   assert.equal((html.match(/class="capability-portal capability-portal--/g)||[]).length,4);
+   assert.equal((html.match(/class="capability-art"/g)||[]).length,4);
+   assert.ok(html.includes('/legacy/solution-portals.css'));
+   assert.ok(html.includes(lang==='fa'?'در این صفحه':'Current page'));
    assert.ok(html.includes(`href="/${lang}/contact"`));
    assert.ok(html.includes(escape(d.collaboration[lang].body)));
    assert.ok(html.includes(`/legacy/profile.html?lang=${lang}&amp;tab=experience`));

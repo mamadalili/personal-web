@@ -19,7 +19,7 @@ export function Layout({children}: {children: ReactNode}) {
     ? s.homeIntro.replace('{role}', identity.role).replace('{home}', lang === 'fa' ? 'خانه دیجیتال' : 'digital home')
     : detail?.intro ?? legacy.contact[lang].intro;
   const styles = ['portfolio.css', ...(page === 'home' ? ['home-blog.css', 'home-hero.css']
-    : page === 'solutions' ? ['solutions.css'] : ['contact.css', 'company-logos.css'])];
+    : page === 'solutions' ? ['solutions.css', 'solution-portals.css'] : ['contact.css', 'company-logos.css'])];
   return <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
     <head>
       <meta charSet="utf-8"/>
