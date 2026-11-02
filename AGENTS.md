@@ -1,5 +1,9 @@
 # Portfolio design and content rules
 
+## Phased React migration
+
+The author requested React with prebuilt HTML and a staged transition. See `docs/react-migration.md`. New migration code belongs in `react-site/` (React, TypeScript, Vite and React Router with prerendering). The legacy framework-free instruction below applies to the existing root application; it does not prohibit the explicitly authorized migration package. Phase 1 ports Contact only. Preserve reviewed content/design, use the shared legacy data adapter and keep subsequent phases and production cutover explicit.
+
 - Keep native Persian and English content and mirrored RTL/LTR layouts.
 - Homepage cards are **unnumbered**. Do not add decorative ordinal labels or zero-pad display integers. Preserve meaningful source data, decimal fractions and machine-readable date formats.
 - On Home, keep the author's “نقطه تلاقی بازاریابی و فناوری” / “Where marketing and technology meet” heading, the approved introduction with its linked professional title and bold digital-home phrase, then the existing capability hero. Home has no welcome eyebrow, personal-space header label or visible latest-blog heading; keep the Blog section accessible with its visually hidden heading. The Home portrait is about one third larger (59px desktop, 53px phone). The author removed “از اینجا شروع کنید” / “Find your way around”; do not restore it. On desktop (1000px and above), the next scroll stage is Blog alone, full width over the pinned first view. CV and Contact belong to the later scroll stage. Use ordinary flow on phones.
