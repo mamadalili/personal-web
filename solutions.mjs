@@ -1,4 +1,4 @@
-import { solutions, solutionsCopy } from './solutions-data.mjs';
+import { solutions, solutionsCopy } from './solutions-data.mjs?v=20261103-cv-source';
 import { escapeHTML as esc } from './blog-core.mjs';
 import './home-hero-art.js?v=20261102-solutions-assets';
 

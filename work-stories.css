@@ -57,3 +57,15 @@ html[lang=en] .work-story h4{line-height:1.5}
  .work-stories-page{padding-bottom:30px}.work-stories-hero{display:block;padding:24px 0 25px}.work-stories-hero h1{font-size:32px}.work-stories-hero p{font-size:13px;line-height:2}.work-stories-back{margin-top:19px;font-size:11px}
  .work-stories-layout{display:block;padding-top:25px}.work-roles{position:static;margin-bottom:22px}.work-roles>p{font-size:11px;margin-bottom:13px}.work-role-list{display:grid;grid-auto-flow:column;grid-auto-columns:215px;grid-template-rows:1fr;gap:7px;overflow-x:auto;overflow-y:hidden;max-height:none;padding:5px 4px 13px;scroll-snap-type:x mandatory;scroll-padding:5px}.work-role{scroll-snap-align:start;min-height:105px;padding:13px 10px;background:#ffffffb8}.work-role-copy>span{font-size:10px}.work-stories-detail{padding:23px 19px;border-radius:17px;scroll-margin-top:18px}.work-role-header h2{font-size:24px}.work-role-meta{font-size:11px;gap:10px}.work-role-summary p{font-size:12px}.work-story{gap:11px;padding:17px 0;min-height:91px}.work-story h4{font-size:14px}.work-story-note{padding:15px}.work-story-intro{font-size:11px}
 }
+
+.work-role-narrative{margin-top:25px;padding-top:24px;border-top:1px solid #e9e5ef}
+.work-role-narrative>h3{margin:0 0 15px;font-size:12px;font-weight:750;color:#6e6587}
+.work-role-narrative-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.work-narrative-card{min-width:0;padding:16px 17px;border:1px solid #e3e0ea;border-radius:14px;background:#fcfcfe}
+.work-narrative-card--1,.work-narrative-card--3{grid-column:1/-1}
+.work-narrative-card h4{margin:0 0 8px;font-size:12px;color:#172144;font-weight:800}
+.work-narrative-card p,.work-narrative-card li{font-size:12px;line-height:1.95;color:#626173}
+.work-narrative-card p{margin:0}.work-narrative-card ul{margin:0;padding-inline-start:19px}
+.work-narrative-missing{display:inline-flex;padding:7px 10px!important;border:1px dashed #b9b4c9;border-radius:9px;color:#756d80!important;background:#faf9fc}
+.work-story--missing{border-style:dashed!important;background:#fcfbf8!important}
+@media(max-width:760px){.work-role-narrative-grid{grid-template-columns:1fr}.work-narrative-card--1,.work-narrative-card--3{grid-column:auto}.work-narrative-card{padding:14px}}

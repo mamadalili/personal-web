@@ -24,3 +24,6 @@ html[dir=rtl] .story-preview-arrow svg{transform:scaleX(-1)}
 .work-story-collection{margin-top:23px;padding-top:19px}
 .work-role-background{border-top:1px solid #e7e8ee;margin-top:28px;padding-top:24px}
 @media(max-width:760px){.story-preview-rail{grid-auto-columns:minmax(175px,80%)}.story-preview-head{align-items:center}.story-preview-head h4{font-size:13px}.story-preview-card{min-height:165px}.work-story-collection .work-story-list{grid-auto-columns:minmax(205px,85%)}.work-story-collection .work-story{min-height:200px;padding:19px;scroll-margin-block-start:20px}.work-story-collection .work-story h4{font-size:16px}}
+
+.story-preview-card--missing{border-style:dashed;background:#fcfbf8}
+.story-preview-card--missing .story-preview-state{color:#7b7285}
