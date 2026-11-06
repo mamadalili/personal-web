@@ -50,6 +50,13 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     return;
   }
   const a = article[lang];
+  let skillRoutes;
+  if (article.sections.some(section => section.blocks?.some(block => block.type === 'skill-route'))) {
+    const module = await import('./blog-skill-route.mjs?v=20261106');
+    await module.loadSkillRouteStyle();
+    if (signal.aborted || !root.isConnected) return;
+    skillRoutes = module.createSkillRoutes({lang,signal});
+  }
   document.title = `${a.title} — ${t.blog} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
   document.querySelector('meta[name="description"]').content = a.excerpt;
   const blocks = new Map(), states = new Map();
@@ -79,6 +86,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;
     blocks.set(id,block);
+    if(block.type==='skill-route')return skillRoutes?.render(block,id)||'';
     if(block.type==='finance')return finance.render(block,id);
     if(block.type==='content-studio')return contentStudio.render(block,id);
     if(block.type==='data-motion')return dataMotion.render(block,id);
@@ -133,6 +141,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   dataMotion.mount(root);
   finance.mount(root);
   contentStudio.mount(root);
+  skillRoutes?.mount(root);
 
   function updateChart(id, announce = false) {
     const block = blocks.get(id), state = states.get(id), figure = root.querySelector(`[data-chart="${id}"]`);

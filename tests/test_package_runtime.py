@@ -42,6 +42,15 @@ class RuntimePackageTests(unittest.TestCase):
             for invalid in ['assets/../../private.js', 'assets/posts/private.json', 'assets/blog/previews/../../private.webp', 'images/private.webp', 'fonts/private.ttf']:
                 with self.assertRaises(ValueError):
                     module.package_runtime(root, [invalid], archive)
+            (root / 'posts').mkdir()
+            (root / 'posts/example.mjs').write_bytes(b'export const post = {};')
+            (root / 'sitemap.xml').write_bytes(b'<urlset/>')
+            module.package_runtime(root, ['posts/example.mjs','sitemap.xml'], archive)
+            with ZipFile(archive) as bundle:
+                self.assertEqual(bundle.read('posts/example.mjs'), b'export const post = {};')
+            for invalid in ['private.xml','private.txt','posts/../private.mjs','posts/nested/private.mjs']:
+                with self.assertRaises(ValueError):
+                    module.package_runtime(root, [invalid], archive)
 
 
 if __name__ == '__main__':
