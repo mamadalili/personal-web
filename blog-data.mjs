@@ -1,3 +1,4 @@
+import { post as companyBrain } from './posts/company-brain.mjs';
 import { aiPayoffWorkload } from './posts/ai-payoff-workload.mjs?v=20261031-original-visuals';
 import { aiModelMarket } from './posts/ai-model-market.mjs?v=20261031-original-visuals';
 import { soloBusiness } from './posts/solo-business.mjs?v=20261031-original-visuals';
@@ -15,7 +16,7 @@ import { post as fiveMoneyFormulas } from './posts/five-money-formulas.mjs';
 import { post as specializedGeneralist } from './posts/specialized-generalist.mjs';
 import { post as aiContentSystem } from './posts/ai-content-system.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [specializedGeneralist, aiContentSystem, fiveMoneyFormulas, aiMarketingWorkflow, learnSkillsByDoing, makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
+export const posts = [companyBrain, specializedGeneralist, aiContentSystem, fiveMoneyFormulas, aiMarketingWorkflow, learnSkillsByDoing, makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',

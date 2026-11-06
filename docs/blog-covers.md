@@ -106,3 +106,7 @@ Cover prompt direction: an editorial marketing operations worktable, with source
 ## Specialized Generalist · 6 November 2026
 
 “How to Thrive in the Next Decade” completes `blueprint-saffron-pair` at position 2, paired with AI Content System. [Source limits, the native cover prompts and the explanatory in-body image](specialized-generalist.md) record this release. Original covers remain full size on articles; 768px card exports preserve list performance.
+
+## Company Brain · 6 November 2026
+
+“A Company Brain: Before You Buy Another Tool” opens `ink-vermilion-teal-pair` at position 1. Separate native covers use ice white, deep teal, ink and vermilion with an archive/source/version/access composition. [Editorial scope, original art prompts and reference boundaries](company-brain.md) record the release. The next cover should complete this palette with a new topic.
