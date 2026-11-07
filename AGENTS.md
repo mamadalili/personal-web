@@ -4,6 +4,14 @@
 
 The author requested React with prebuilt HTML and a staged transition. See `docs/react-migration.md`. New migration code belongs in `react-site/` (React, TypeScript, Vite and React Router with prerendering). The legacy framework-free instruction below applies to the existing root application; it does not prohibit the explicitly authorized migration package. Phases 1 and 2 cover Contact, Home and the four Solutions. Preserve reviewed content/design, use the shared legacy data adapter and keep subsequent phases and production cutover explicit. CV, Work Stories and articles remain legacy until their own migration phases.
 
+## Blog publication workflow
+
+For every new blog requested for this site, complete authoring, verification, Git commit/push to `main`, and publication of that same version on the existing production host in the same task. Do not wait for a separate request to update the web or ask again for routine commit/push/publication approval. An explicit draft-only, review-only or do-not-publish instruction overrides this default. This is the working procedure, not a configured GitHub-to-host deployment pipeline.
+
+Follow [the publication checklist](docs/deployment.md#publishing-a-new-blog). Publish both native languages, paired artwork, previews, complete article exports, the summary index and sitemap together. Include any previously unpublished dependencies referenced by the current index. Preserve the host's configuration and the production/React-preview boundary. Verify the actual public article, its interactions and assets, including cache revalidation, before reporting it live. If access, login or a required approval prevents publication, complete unaffected work, state precisely what is saved versus live and request only the missing action; never report Git push alone as publication or bypass an access restriction.
+
+## Site rules
+
 - Keep native Persian and English content and mirrored RTL/LTR layouts.
 - Homepage cards are **unnumbered**. Do not add decorative ordinal labels or zero-pad display integers. Preserve meaningful source data, decimal fractions and machine-readable date formats.
 - On Home, keep the author's “نقطه تلاقی بازاریابی و فناوری” / “Where marketing and technology meet” heading, the approved introduction with its linked professional title and bold digital-home phrase, then the existing capability hero. Home has no welcome eyebrow, personal-space header label or visible latest-blog heading; keep the Blog section accessible with its visually hidden heading. The Home portrait is about one third larger (59px desktop, 53px phone). The author removed “از اینجا شروع کنید” / “Find your way around”; do not restore it. On desktop (1000px and above), the next scroll stage is Blog alone, full width over the pinned first view. CV and Contact belong to the later scroll stage. Use ordinary flow on phones.
