@@ -52,6 +52,13 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   const a = article[lang];
   let skillRoutes;
   let companyBrains;
+  let shotReviews;
+  if (article.sections.some(section => section.blocks?.some(block => block.type === 'shot-review'))) {
+    const module = await import('./blog-shot-review.mjs?v=20261107');
+    await module.loadShotReviewStyle();
+    if (signal.aborted || !root.isConnected) return;
+    shotReviews = module.createShotReviews({lang,signal});
+  }
   if (article.sections.some(section => section.blocks?.some(block => ['context-lab','brain-check'].includes(block.type)))) {
     const module = await import('./blog-company-brain.mjs?v=20261106');
     await module.loadCompanyBrainStyle();
@@ -93,6 +100,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;
     blocks.set(id,block);
+    if(block.type==='shot-review')return shotReviews?.render(block,id)||'';
     if(['context-lab','brain-check'].includes(block.type))return companyBrains?.render(block,id)||'';
     if(block.type==='skill-route')return skillRoutes?.render(block,id)||'';
     if(block.type==='finance')return finance.render(block,id);
@@ -151,6 +159,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   contentStudio.mount(root);
   skillRoutes?.mount(root);
   companyBrains?.mount(root);
+  shotReviews?.mount(root);
 
   function updateChart(id, announce = false) {
     const block = blocks.get(id), state = states.get(id), figure = root.querySelector(`[data-chart="${id}"]`);

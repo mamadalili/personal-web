@@ -110,3 +110,7 @@ Cover prompt direction: an editorial marketing operations worktable, with source
 ## Company Brain · 6 November 2026
 
 “A Company Brain: Before You Buy Another Tool” opens `ink-vermilion-teal-pair` at position 1. Separate native covers use ice white, deep teal, ink and vermilion with an archive/source/version/access composition. [Editorial scope, original art prompts and reference boundaries](company-brain.md) record the release. The next cover should complete this palette with a new topic.
+
+## AI Video · 7 November 2026
+
+“AI Video: From Idea to Final Cut” completes `ink-vermilion-teal-pair` at position 2. A clapperboard and gift-box storyboard replace the archive composition while preserving its material/palette family. Separate native covers, one explanatory in-body image and their [full prompts and evidence boundaries](ai-video-production.md) are recorded. Optimised 768px previews keep list pages lightweight. The next new article starts a new palette family.
