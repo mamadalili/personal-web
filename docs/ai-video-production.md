@@ -16,6 +16,8 @@ Eian's 5 November 2026 [article](https://x.com/eianlu/status/2118317430665613741
 
 ## Artwork
 
+Voice revision, 7 November 2026: all 25 prose paragraphs, the nine section headings and both native excerpts were rewritten using the conversational, example-led guidance in `content-voice.fa.md`. The gift-box example now links the decisions more explicitly. The title, source ledger, covers, inline illustration, section IDs, tabs, manual checklist and frame exercise are preserved. Only prose/content exports change; no new artwork or interaction behavior was introduced.
+
 Built-in image generation, original illustrations, exported as WebP quality 88 / method 6. Cover previews are 768px wide at quality 84. `ink-vermilion-teal-pair`, position 2, completes Company Brain's family: ice white `#f4f8f8`, ink `#102a2e`, deep teal `#12645f`, vermilion `#db4637`. The existing Company Brain Persian cover was inspected and supplied as a material/palette reference, not as evidence for the new article. All three generated outputs were inspected for text, continuity, composition and irrelevant details before export.
 
 - `assets/blog/ai-video-production-fa.webp` — 1672 × 941.
