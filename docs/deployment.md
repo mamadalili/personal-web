@@ -38,3 +38,21 @@ A normal new-blog task includes both Git and live publication. Draft-only reques
 7. Report the live article link and verified Git commit. A successful upload or Git push alone is not sufficient evidence. If access is unavailable, report the blocker and the prepared release without claiming publication.
 
 For a manual upload of an already prepared release, steps 5 and 6 are the hosting actions. The ZIP already contains the directory structure; extract its contents into the web root rather than creating another nested release folder there.
+
+## Automatic publication setup
+
+The prepared workflow is `.github/workflows/deploy.yml`. It becomes operational when merged to `main`, the three Actions secrets below are configured and its first real deployment passes. Until then, use the manual procedure above; workflow source alone is not proof of a working connection.
+
+- `DEPLOY_FTPS_HOST`: the certificate-valid FTPS hostname supplied by the host.
+- `DEPLOY_FTPS_USER`: a separate deployment FTP account confined to the existing site's document root.
+- `DEPLOY_FTPS_PASSWORD`: that account's password. Store it only in GitHub Actions environment secrets, never source, a workflow literal or logs.
+
+Create a GitHub environment named `production`, with a custom deployment branch policy allowing only `main`, and store all three secrets there rather than at repository level. The workflow already targets this environment. Existing protection rules must be read and preserved before changing an environment; do not silently remove reviewer gates.
+
+Creating this account and storing its credentials in GitHub grants persistent write access to the FTP account's root **and its subdirectories**. Directory confinement does not isolate individual files inside that root. Do not reuse the main cPanel account. Obtain action-time approval for this credential grant before completing account creation or secret transmission.
+
+On a push to `main`, Actions checks the generated article data/sitemap, authoring package integrity, site tests and the deployment model tests. The transfer uses Python's standard-library FTP_TLS with validated control/data TLS; certificates are never bypassed. Official Actions are pinned to exact release commits, the repository token is read-only, and no pull-request trigger receives deployment credentials. Production runs are serialized without cancelling an in-flight transfer; a queued superseded commit is skipped.
+
+`scripts/deploy_site.py --dry-run` lists the tracked public runtime inventory without connecting or reading secrets. `.htaccess`, development/React-preview files, authoring skills and templates are excluded. The live script checks the existing site's identity before writing, promotes each file from a temporary name with `0644` permissions and verifies changed bytes over HTTPS. A successful `site-release.json` identifies the deployed commit and file hashes. Matching remote hash metadata, size and modification time allow unchanged files to be skipped; this metadata is an optimisation, not a security boundary. No remote files are deleted, including old cached article assets and unrelated directories.
+
+Promotion is per file, not an atomic switch of the entire site. Assets precede shared entry files, and the commit marker is written last. A failed run can leave a partial set of changed files; retry it in **GitHub → Actions → Publish production site**. For rollback, revert the relevant content commits on `main` while retaining the deployment workflow, then observe the resulting deployment. Always confirm the successful run and public marker before reporting the site updated.
