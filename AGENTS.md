@@ -78,3 +78,7 @@ All six skills are pinned to one release in `docs/anti-slop-source.json`. Run `n
 ## Reviewed coding reference
 
 For relevant application structure, URL input, HTTP routing/responses, HTML composition or asset-serving work, consult `docs/lets-go-sample-reference.md`. The author requested using only Alex Edwards' public Let's Go sample, reviewed through section 2.10. Use its transferable principles within this site's existing architecture; its Go-specific examples do not justify changing the stack or adding a server. Later chapters listed in the sample contents were not reviewed. This is a coding reference, separate from the site's design and interactive-blog skills.
+
+## Home folder selector
+
+The author later requested four macOS-inspired folders for Home specifically. Use renderHomeFolderCards and React HomeFolders for Home, with the shared native portal text and solution destinations. Keep the existing capsule selector on Solutions. Local folder SVG layers use focus/hover transforms, a readable static touch state and reduced-motion support. The later Home-specific instruction takes precedence over the historical identical-artwork requirement.

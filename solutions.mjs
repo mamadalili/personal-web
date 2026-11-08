@@ -32,6 +32,14 @@ export function renderCapabilityCards({language='fa',current='',url,icon,portals
  }).join('');
 }
 
+export function renderHomeFolderCards({language='fa',url,portals={}}){
+ const lang=language==='en'?'en':'fa';
+ return solutions.map(item=>{
+  const portal=portals[item.id]||{title:item[lang].label,text:item[lang].summary};
+  return `<a class="home-folder-link" href="${esc(url(item.id))}">${globalThis.renderHomeFolderArt(item.id)}<span class="home-folder-title">${esc(portal.title)}</span><span class="home-folder-description">${esc(portal.text)}</span></a>`;
+ }).join('');
+}
+
 export function mountSolutions(root,{language='fa',solution='',url,icon,art=globalThis.renderHomeCapabilityArt,portals={},motion=()=>'',collaboration}) {
   const lang=language==='en'?'en':'fa',t=solutionsCopy[lang];
   const current=solution?solutions.find(item=>item.id===solution):solutions[0];

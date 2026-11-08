@@ -77,6 +77,7 @@ data.year=new Date().getUTCFullYear();
 vm.runInContext(`let motionSceneSerial=0;let lang='fa';${motionFunction}`,context,{timeout:1000});
 vm.runInContext(readFileSync(join(sourceRoot,'home-hero-art.js'),'utf8'),context,{timeout:1000});
 const art=vm.runInContext(`JSON.stringify({
+ folders:Object.fromEntries(['strategy','execution','technology','ai-tools'].map(id=>[id,renderHomeFolderArt(id)])),
  capsules:Object.fromEntries(['strategy','execution','technology','ai-tools'].map(id=>[id,renderHomeCapabilityArt(id)])),
  scenes:Object.fromEntries(['fa','en'].map(language=>{lang=language;return [language,{
   home:renderMotionScene('home'),
@@ -84,7 +85,7 @@ const art=vm.runInContext(`JSON.stringify({
  }]}))
 })`,context,{timeout:1000});
 data.art=JSON.parse(art.replaceAll('href=\\"assets/','href=\\"/legacy/assets/'));
-for(const markup of [ ...Object.values(data.art.capsules),...Object.values(data.art.scenes).flatMap(scene=>[scene.home,...Object.values(scene.solutions)]) ]){
+for(const markup of [ ...Object.values(data.art.capsules),...Object.values(data.art.folders),...Object.values(data.art.scenes).flatMap(scene=>[scene.home,...Object.values(scene.solutions)]) ]){
  if(/<script|<foreignObject|\bon\w+=/i.test(markup))throw new Error('Unexpected decorative SVG markup');
  for(const [,href] of markup.matchAll(/\bhref="([^"]+)"/g))if(!href.startsWith('/legacy/assets/'))throw new Error('Unexpected decorative asset reference');
 }

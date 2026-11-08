@@ -68,3 +68,18 @@ test('a new stylesheet failure rejects and a later attempt makes a fresh request
  events.load();
  await retry;
 });
+
+test('Home folder links keep four native solutions and escaped labels with unique decorative IDs',async()=>{
+ const {renderHomeFolderCards}=await import('../solutions.mjs');
+ for(const language of ['fa','en']){
+  const markup=renderHomeFolderCards({language,url:id=>id+'.html?lang='+language,portals:{strategy:{title:'<Strategy>',text:'A & B'}}});
+  assert.equal((markup.match(/class="home-folder-link"/g)||[]).length,4);
+  for(const id of ['strategy','execution','technology','ai-tools'])assert.ok(markup.includes(id+'.html?lang='+language));
+  assert.ok(markup.includes('&lt;Strategy&gt;'));
+  assert.ok(markup.includes('A &amp; B'));
+  const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(new Set(ids).size,ids.length);
+  for(const [,id]of markup.matchAll(/url\(#([^)]+)\)/g))assert.ok(ids.includes(id));
+  assert.ok(!markup.includes('capability-portal--'));
+ }
+});

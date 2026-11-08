@@ -4,7 +4,7 @@ import {pageURL} from '../../lib/routing';
 import type {Language, Page} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {BrandMark, ProfessionalTitle} from '../../components/ui/BrandSignature';
-import {CapabilityCards} from '../../components/ui/CapabilityCards';
+import {HomeFolders} from '../../components/ui/HomeFolders';
 import {Icon} from '../../components/ui/Icon';
 import {HomeCarousel} from './HomeCarousel';
 
@@ -38,7 +38,7 @@ export function HomePage({lang}: {lang: Language}) {
           <div className="skills-card-copy"><h2 id="skills-hero-title">{k.cardTitle}</h2><p>{k.cardBody}</p>
             <div className="home-hero-actions"><CardCTA page="solutions" lang={lang} label={k.cardAction}/><CardCTA page="contact" lang={lang} label={s.contactAction}/></div>
           </div>
-          <div className="skills-card-side"><CapabilityCards lang={lang} className="skills-capability-grid"/></div>
+          <div className="skills-card-side"><HomeFolders lang={lang}/></div>
         </article>
       </section>
       <section className="home-card-deck" aria-label={lang === 'fa' ? 'بلاگ، پروفایل کاری و تماس' : 'Blog, professional profile and contact'}>

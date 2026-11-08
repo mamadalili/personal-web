@@ -17,8 +17,8 @@ for(const lang of ['fa','en']){
   for(const text of d.home[lang].homeTitle.split(/<[^>]+>/).filter(Boolean))assert.ok(html.includes(escape(text)));
   assert.ok(html.includes(escape(d.skills[lang].cardTitle)));
   assert.ok(html.includes('class="header-portrait"'));
-  assert.equal((html.match(/class="capability-portal capability-portal--/g)||[]).length,4);
-  assert.equal((html.match(/class="capability-art"/g)||[]).length,4);
+  assert.equal((html.match(/class="home-folder-link"/g)||[]).length,4);
+  assert.equal((html.match(/class="home-folder-art"/g)||[]).length,4);
   assert.ok(html.includes('/legacy/solution-portals.css'));
   for(const id of ['strategy','execution','technology','ai-tools'])assert.ok(html.includes(`href="/${lang}/solutions/${id}"`),id);
   assert.ok(d.posts.length>=29);
@@ -56,14 +56,16 @@ for(const lang of ['fa','en']){
  }
 }
 
-test('Home and Solutions use identical native card content and artwork apart from current-page state',()=>{
- const cards=html=>[...html.matchAll(/<a\b[^>]*class="capability-portal [^>]*>[\s\S]*?<\/a>/g)].map(([markup])=>markup
-  .replace(/ aria-current="page"/g,'')
-  .replace(/<span class="capability-current">[^<]*<\/span>/g,''));
+test('Home folders retain the same four native destinations and descriptions as Solutions',()=>{
  for(const lang of ['fa','en']){
-  const home=cards(htmlAt(lang));
-  assert.equal(home.length,4);
-  assert.deepEqual(home,cards(htmlAt(`${lang}/solutions/strategy`)));
+  const home=htmlAt(lang),d=data(),solutions=htmlAt(lang+'/solutions/strategy');
+  assert.equal((home.match(/class="home-folder-link"/g)||[]).length,4);
+  for(const id of ['strategy','execution','technology','ai-tools']){
+   for(const text of [d.portals[lang][id].title,d.portals[lang][id].text]){
+    assert.ok(home.includes(escape(text)));assert.ok(solutions.includes(escape(text)));
+   }
+   assert.ok(home.includes('href="/'+lang+'/solutions/'+id+'"'));
+  }
  }
 });
 
@@ -81,7 +83,7 @@ test('Home summaries omit article bodies and trusted generated art keeps valid l
   assert.deepEqual(Object.keys(post.fa).sort(),['category','excerpt','readTime','title']);
  }
  for(const lang of ['fa','en']){
-  const art=[d.art.scenes[lang].home,...Object.values(d.art.scenes[lang].solutions),...Object.values(d.art.capsules)];
+  const art=[d.art.scenes[lang].home,...Object.values(d.art.scenes[lang].solutions),...Object.values(d.art.capsules),...Object.values(d.art.folders)];
   for(const markup of art){
    assert.ok(!/<script|<foreignObject|\bon\w+=/i.test(markup));
    const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
