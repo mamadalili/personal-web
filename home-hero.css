@@ -80,3 +80,46 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
 @media(prefers-reduced-motion:reduce){
  .home-art-hero *,.home-art-hero *:before,.home-art-hero *:after{animation:none!important;transition:none!important}
 }
+
+/* Two light currents meet beneath the content, echoing the marketing/technology theme. */
+.home-art-hero{isolation:isolate;padding-bottom:48px}
+.home-atmosphere{position:absolute;z-index:-1;pointer-events:none;inset-block:-40px -28px;left:50%;transform:translateX(-50%);width:calc(100vw - 24px);max-width:1800px;overflow:hidden;contain:paint;mask-image:linear-gradient(transparent,#000 9%,#000 88%,transparent)}
+.home-atmosphere-surface{position:absolute;inset:0;background:url('assets/brand/home-horizon.webp') center bottom/100% auto no-repeat;opacity:.92}
+.home-atmosphere-beam{position:absolute;top:-30%;height:150%;width:25%;opacity:.35;background:linear-gradient(90deg,transparent 20%,#1c099815 49%,#ffffffc9 50%,transparent 72%);transform:rotate(-23deg);animation:home-beam-drift 18s ease-in-out infinite alternate;will-change:transform}
+.home-atmosphere-beam--one{left:-12%}
+.home-atmosphere-beam--two{right:-8%;animation-delay:-9s;background:linear-gradient(90deg,transparent 20%,#ccff0024 49%,#ffffffc9 50%,transparent 72%);opacity:.45}
+.home-atmosphere-paths{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.home-atmosphere-orbit{stroke:#1c0998;stroke-opacity:.075;stroke-width:.8;vector-effect:non-scaling-stroke}
+.home-atmosphere-orbit--second{stroke-opacity:.05}
+.home-atmosphere-trace{stroke:#1c0998;stroke-opacity:.38;stroke-width:1.5;stroke-dasharray:24 1400;stroke-linecap:round;animation:home-light-travel 20s linear infinite}
+.home-atmosphere-spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#1c0998;opacity:.25;animation:home-spark-drift var(--spark-duration) ease-in-out var(--spark-delay) infinite alternate;will-change:transform,opacity}
+.home-atmosphere-spark:nth-of-type(even){background:#74843b}
+.home-atmosphere-spark--glint{width:5px;height:5px;background:#b5d718}
+.home-atmosphere-spark--glint:before,.home-atmosphere-spark--glint:after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:currentColor;color:#a2b43f;border-radius:50%}
+.home-atmosphere-spark--glint:before{width:11px;height:1px}
+.home-atmosphere-spark--glint:after{height:11px;width:1px}
+.home-atmosphere.is-paused *,.motion-paused .home-atmosphere *{animation-play-state:paused!important}
+.home-atmosphere-control{position:absolute;bottom:0;inset-inline-end:0;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #d7dce8;border-radius:50%;background:#ffffffc9;color:#46506b;cursor:pointer}
+.home-atmosphere-control:focus-visible{outline:3px solid #1c0998;outline-offset:3px}
+.home-atmosphere-control:hover{background:#fff;color:#1c0998;border-color:#1c0998}
+.home-atmosphere-control span{display:block;width:10px;height:12px;border-inline:3px solid currentColor}
+.home-atmosphere-control[aria-pressed=true] span{width:0;height:0;border:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid currentColor}
+@keyframes home-beam-drift{from{transform:translate(-8px,-12px) rotate(-23deg)}to{transform:translate(18px,14px) rotate(-17deg)}}
+@keyframes home-light-travel{from{stroke-dashoffset:1424}to{stroke-dashoffset:0}}
+@keyframes home-spark-drift{from{transform:translate(0,10px) scale(.75);opacity:.14}to{transform:translate(7px,-14px) scale(1);opacity:.48}}
+@media(max-width:760px){
+ .home-art-hero{padding-bottom:48px}
+ .home-atmosphere{inset-block:-18px -25px;width:calc(100vw - 12px)}
+ .home-atmosphere-surface{background-image:url('assets/brand/home-horizon-mobile.webp');background-size:auto 44%;opacity:.85}
+ .home-atmosphere-paths{opacity:.7}
+ .home-atmosphere-spark:nth-of-type(n+10){display:none}
+ .home-atmosphere-beam{width:40%;opacity:.28}
+}
+@media(prefers-reduced-motion:reduce){
+ .home-atmosphere *{animation:none!important;will-change:auto}
+ .home-atmosphere-trace{stroke-dashoffset:0;opacity:.2}
+ .home-atmosphere-control{display:none}
+}
+
+body[data-current-page=home]>.ambient-field{display:none}
+.home-atmosphere-control[hidden]{display:none}

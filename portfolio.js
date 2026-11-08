@@ -92,6 +92,7 @@ function pageURL(id){const file=pageFiles[id]||extraPageFiles[id];return file?`$
 function updateURL(){const url=new URL(location.href);url.searchParams.set('lang',lang);if(page==='cv'){url.searchParams.set('tab',activeTab);url.searchParams.set('role',activeCareer);}else{url.searchParams.delete('tab');if(page!=='work-stories')url.searchParams.delete('role');}history.replaceState(null,'',url);}
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 function render(){
+  disposeHomeAtmosphere();disposeHomeAtmosphere=()=>{};
   ensureAmbient();
   const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${pageLabel} — ${t.name}`;
   document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
@@ -146,6 +147,7 @@ function ensureAmbient(){
 }
 function homeCardCTA(target,label){return `<a class="card-cta" href="${pageURL(target)}"><span>${label}</span><span class="card-arrow">${icon('arrow')}</span></a>`;}
 let disposeHomeBlog=()=>{};
+let disposeHomeAtmosphere=()=>{};
 const homePortalCopy={
  fa:{strategy:{title:'استراتژی',text:'اول برای کدوم مشتری و کدوم بازار وقت بذاریم؟'},execution:{title:'اجرا و فروش',text:'از دیدن تبلیغ تا ثبت سفارش چه کارهایی مونده؟'},technology:{title:'فناوری',text:'فروشگاه یا ابزار تیم کجا کار رو سخت کرده؟'},'ai-tools':{title:'ابزارهای AI',text:'کدوم کار رو به AI بسپاریم و کجا خودمون بررسی کنیم؟'}},
  en:{strategy:{title:'Strategy',text:'Which customers and markets deserve our time first?'},execution:{title:'Execution & sales',text:'What needs to happen between seeing an ad and placing an order?'},technology:{title:'Technology',text:'Where is the shop or a team tool making work harder?'},'ai-tools':{title:'AI workflows',text:'What can AI take on, and where should we check its work?'}}
@@ -156,13 +158,17 @@ function renderHome(){
  const homeLanguage=lang;
  const homeIntro=escapeHTML(s.homeIntro).replace('{role}',`<a class="home-intro-role" href="${pageURL('home')}">${professionalTitle('',lang==='fa'?'مارکتر و اپراتور هوش مصنوعی،':t.role)}</a>`).replace('{home}',`<strong>${lang==='fa'?'خانه دیجیتال':'digital home'}</strong>`);
  const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
- $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view home-art-hero" aria-labelledby="home-title"><div class="page-hero home-hero"><div class="home-welcome"><h1 id="home-title">${s.homeTitle}</h1><p>${homeIntro}</p></div></div>
+ $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view home-art-hero" aria-labelledby="home-title"><div class="home-atmosphere is-paused" data-home-atmosphere aria-hidden="true"></div><button class="home-atmosphere-control" data-home-motion type="button" aria-pressed="false" aria-label="${lang==='fa'?'توقف حرکت پس‌زمینه':'Pause background motion'}"><span aria-hidden="true"></span></button><div class="page-hero home-hero"><div class="home-welcome"><h1 id="home-title">${s.homeTitle}</h1><p>${homeIntro}</p></div></div>
  <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><h2 id="skills-hero-title">${k.cardTitle}</h2><p>${k.cardBody}</p><div class="home-hero-actions">${homeCardCTA('solutions',k.cardAction)}${homeCardCTA('contact',s.contactAction)}</div></div><div class="skills-card-side"><nav class="skills-capability-grid home-folder-grid" aria-label="${lang==='fa'?'راهکارها':'Solutions'}" data-capability-cards>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…')}</nav></div></article>
  </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
  <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h2 id="home-blog-title" class="visually-hidden">${s.blogLabel}</h2><p>${s.blogBody}</p><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><div data-home-blog>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…','home-blog-loading')}</div></article>
  <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h2>${s.cvTitle}</h2><p>${s.cvBody} <a class="home-story-link" href="${pageURL('work-stories')}">${lang==='fa'?'روایت‌های کاری من':'Stories from my work'}</a></p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h2>${s.contactTitle}</h2><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
  </div></section></div><div class="page-signoff">${brandMark()}<p>© ${new Date().getFullYear()} ${s.copyright}</p></div>`;
+ const atmosphere=$('main').querySelector('[data-home-atmosphere]');
+ import('./home-atmosphere.mjs').then(({mountHomeAtmosphere})=>{
+  if(atmosphere.isConnected&&lang===homeLanguage)disposeHomeAtmosphere=mountHomeAtmosphere(atmosphere,{button:$('main').querySelector('[data-home-motion]'),language:homeLanguage});
+ }).catch(()=>{if(atmosphere.isConnected)$('main').querySelector('[data-home-motion]')?.remove();});
  const cardsRoot=$('main').querySelector('[data-capability-cards]');
  import('./solutions.mjs?v=20261102-shared-cards').then(({renderHomeFolderCards})=>{
   if(!cardsRoot.isConnected||lang!==homeLanguage)return;

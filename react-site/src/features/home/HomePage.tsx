@@ -4,6 +4,7 @@ import {pageURL} from '../../lib/routing';
 import type {Language, Page} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {BrandMark, ProfessionalTitle} from '../../components/ui/BrandSignature';
+import {HomeAtmosphere} from '../../components/ui/HomeAtmosphere';
 import {HomeFolders} from '../../components/ui/HomeFolders';
 import {Icon} from '../../components/ui/Icon';
 import {HomeCarousel} from './HomeCarousel';
@@ -27,6 +28,7 @@ export function HomePage({lang}: {lang: Language}) {
   return <>
     <div className="home-scroll-story">
       <section className="home-first-view home-art-hero" aria-labelledby="home-title">
+        <HomeAtmosphere lang={lang}/>
         <div className="page-hero home-hero"><div className="home-welcome">
           <h1 id="home-title">{first}<br/><em>{second}</em></h1>
           <p>{s.homeIntro.split(/(\{role\}|\{home\})/).map((part, i) => part === '{role}'
