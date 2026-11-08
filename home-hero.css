@@ -83,8 +83,8 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
 
 /* Two light currents meet beneath the content, echoing the marketing/technology theme. */
 .home-art-hero{isolation:isolate;padding-bottom:48px}
-.home-atmosphere{position:absolute;z-index:-1;pointer-events:none;inset-block:-40px -28px;left:50%;transform:translateX(-50%);width:calc(100vw - 24px);max-width:1800px;overflow:hidden;contain:paint;mask-image:linear-gradient(transparent,#000 9%,#000 88%,transparent)}
-.home-atmosphere-surface{position:absolute;inset:0;background:url('assets/brand/home-horizon.webp') center bottom/100% auto no-repeat;opacity:.92}
+.home-atmosphere{position:absolute;z-index:-1;pointer-events:none;inset-block:-40px -28px;left:50%;transform:translateX(-50%);width:var(--home-viewport-width,100%);overflow:hidden;contain:paint;mask-image:linear-gradient(transparent,#000 9%,#000 88%,transparent)}
+.home-atmosphere-surface{position:absolute;inset:0;background:url('assets/brand/home-horizon.webp?v=20261108-hq') center bottom/100% auto no-repeat;opacity:1}
 .home-atmosphere-beam{position:absolute;top:-30%;height:150%;width:25%;opacity:.35;background:linear-gradient(90deg,transparent 20%,#1c099815 49%,#ffffffc9 50%,transparent 72%);transform:rotate(-23deg);animation:home-beam-drift 18s ease-in-out infinite alternate;will-change:transform}
 .home-atmosphere-beam--one{left:-12%}
 .home-atmosphere-beam--two{right:-8%;animation-delay:-9s;background:linear-gradient(90deg,transparent 20%,#ccff0024 49%,#ffffffc9 50%,transparent 72%);opacity:.45}
@@ -109,8 +109,8 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
 @keyframes home-spark-drift{from{transform:translate(0,10px) scale(.75);opacity:.14}to{transform:translate(7px,-14px) scale(1);opacity:.48}}
 @media(max-width:760px){
  .home-art-hero{padding-bottom:48px}
- .home-atmosphere{inset-block:-18px -25px;width:calc(100vw - 12px)}
- .home-atmosphere-surface{background-image:url('assets/brand/home-horizon-mobile.webp');background-size:auto 44%;opacity:.85}
+ .home-atmosphere{inset-block:-18px -25px}
+ .home-atmosphere-surface{background-image:url('assets/brand/home-horizon-mobile.webp?v=20261108-hq');background-size:auto 44%;opacity:1}
  .home-atmosphere-paths{opacity:.7}
  .home-atmosphere-spark:nth-of-type(n+10){display:none}
  .home-atmosphere-beam{width:40%;opacity:.28}

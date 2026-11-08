@@ -8,6 +8,13 @@ export function mountHomeAtmosphere(root,{button,language='fa'}){
  if(!root||!button)return()=>{};
  if(!root.innerHTML)root.innerHTML=renderHomeAtmosphere();
  const controller=new AbortController();
+ const resize=()=>{
+  const width=document.documentElement?.clientWidth;
+  if(width)root.style.setProperty('--home-viewport-width',width+'px');
+ };
+ resize();
+ if(typeof window!=='undefined')window.addEventListener('resize',resize,{signal:controller.signal});
+
  let visible=false,paused=false;
  const labels=language==='fa'?['توقف حرکت پس‌زمینه','پخش حرکت پس‌زمینه']:['Pause background motion','Play background motion'];
  const sync=()=>{
