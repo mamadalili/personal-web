@@ -21,7 +21,7 @@ def package_runtime(root, names, destination, released_at=None):
     for name in names:
         relative = Path(name)
         runtime = relative.name == name and (relative.suffix.lower() in {'.html', '.css', '.js', '.mjs'} or name in {'sitemap.xml','robots.txt'})
-        asset = re.fullmatch(r'(?:assets/brand/home-horizon(?:-mobile)?\.webp|assets/blog/(?:previews/)?[a-z0-9]+(?:-[a-z0-9]+)*\.webp|assets/posts/[a-z0-9]+(?:-[a-z0-9]+)*-[a-f0-9]{16}\.json|posts/[a-z0-9]+(?:-[a-z0-9]+)*\.mjs|images/myphoto-(?:avatar|profile)-v1\.webp|fonts/Vazirmatn\.woff2)', name)
+        asset = re.fullmatch(r'(?:assets/companies/online-tahrir\.webp|assets/brand/site-horizon\.svg|assets/brand/home-horizon(?:-mobile)?\.webp|assets/blog/(?:previews/)?[a-z0-9]+(?:-[a-z0-9]+)*\.webp|assets/posts/[a-z0-9]+(?:-[a-z0-9]+)*-[a-f0-9]{16}\.json|posts/[a-z0-9]+(?:-[a-z0-9]+)*\.mjs|images/myphoto-(?:avatar|profile)-v1\.webp|fonts/Vazirmatn\.woff2)', name)
         if not runtime and not asset:
             raise ValueError('Only explicit runtime files and supported generated public assets may be packaged')
         source = root / relative

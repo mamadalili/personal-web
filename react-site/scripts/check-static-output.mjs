@@ -16,7 +16,7 @@ for(const lang of ['fa','en']){
   assert.ok(html.includes(data.identity[lang].name));
   for(const channel of data.channels)assert.ok(html.includes(`href="${channel.href}"`),channel.id);
   assert.equal((html.match(/data-contact="/g)||[]).length,5);
-  assert.equal((html.match(/class="employer-logo-card"/g)||[]).length,6);
+  assert.equal((html.match(/class="employer-logo-card"/g)||[]).length,7);
   assert.ok(html.includes(`href="/${lang==='fa'?'en':'fa'}/contact"`));
   assert.ok(html.includes('aria-current="page"'));
   assert.ok(html.includes('name="robots" content="noindex, nofollow"'));

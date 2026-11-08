@@ -4,7 +4,7 @@ import {legacy} from './content/legacy';
 import {canonicalURL, languageFromPath, routeFromPath} from './lib/routing';
 import {SiteHeader} from './components/layout/SiteHeader';
 import {GlassNav} from './components/layout/GlassNav';
-import {AmbientField} from './components/layout/AmbientField';
+import {HomeAtmosphere} from './components/ui/HomeAtmosphere';
 import {usePageMotion} from './hooks/usePageMotion';
 import './styles/migration.css';
 
@@ -18,7 +18,7 @@ export function Layout({children}: {children: ReactNode}) {
   const description = page === 'home'
     ? s.homeIntro.replace('{role}', identity.role).replace('{home}', lang === 'fa' ? 'خانه دیجیتال' : 'digital home')
     : detail?.intro ?? legacy.contact[lang].intro;
-  const styles = ['portfolio.css', ...(page === 'home' ? ['home-blog.css', 'home-hero.css', 'solution-portals.css']
+  const styles = ['portfolio.css', 'site-theme.css', ...(page === 'home' ? ['home-blog.css', 'home-hero.css', 'solution-portals.css']
     : page === 'solutions' ? ['solutions.css', 'solution-portals.css'] : ['contact.css', 'company-logos.css'])];
   return <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
     <head>
@@ -35,7 +35,7 @@ export function Layout({children}: {children: ReactNode}) {
     </head>
     <body data-page={page} data-current-page={page} data-solution={solution}>
       <a href="#main" className="skip">{lang === 'fa' ? 'رفتن به محتوای اصلی' : 'Skip to content'}</a>
-      <AmbientField/>
+      <HomeAtmosphere/>
       <SiteHeader lang={lang} page={page} solution={solution}/>
       <main id="main" className={`page-layout${page === 'solutions' ? ' solutions-page' : ''}`} tabIndex={-1}>{children}</main>
       <GlassNav lang={lang} active={page}/>

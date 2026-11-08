@@ -64,7 +64,7 @@ const serialized=vm.runInContext(`JSON.stringify({
  collaboration:collaborationCopy
 })`,context,{timeout:1000});
 const data=JSON.parse(serialized);
-if(data.channels.length!==5||data.employers.length!==6)throw new Error('Review the supplied channel/employer inventory');
+if(data.channels.length!==5||data.employers.length!==7)throw new Error('Review the supplied channel/employer inventory');
 for(const markup of Object.values(data.icons))if(/<script|<foreignObject|\bon\w+=|href=/i.test(markup))throw new Error('Unexpected SVG markup');
 const contentDirectory=join(appRoot,'src/content/generated');
 mkdirSync(contentDirectory,{recursive:true});
