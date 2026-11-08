@@ -23,7 +23,7 @@ export function unmountBlog() { dispose(); dispose = () => {}; }
 
 export async function mountBlog(root, { language = 'fa', mode = 'index', template = false } = {}) {
   dispose();
-  root.classList.remove('market-story','blog-index');
+  root.classList.remove('market-story','blog-index','editorial-story');
   const controller = new AbortController(), signal = controller.signal;
   dispose = () => controller.abort();
   const lang = language === 'en' ? 'en' : 'fa', t = {...copy[lang],...(lang==='fa'?{dots:'نقطه‌ای',linear:'خطی',log:'لگاریتمی',scale:'مقیاس محور',sources:'منابع و روش',reviewed:'بازبینی منابع',reading:'پیشرفت خواندن',logNote:'مقیاس لگاریتمی؛ صفر و مقدار منفی نمایش داده نمی‌شوند.'}:{dots:'Dots',linear:'Linear',log:'Logarithmic',scale:'Axis scale',sources:'Sources & methodology',reviewed:'Sources reviewed',reading:'Reading progress',logNote:'Log scale; zero and negative values are not plotted.'})};
@@ -75,11 +75,12 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   document.querySelector('meta[name="description"]').content = a.excerpt;
   const blocks = new Map(), states = new Map();
   let blockNumber = 0, lastTrigger;
+  const emphasis = text => esc(text).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
   const rich = value => {
     const text = String(value ?? ''), pattern = /\[\[([a-z0-9-]+)\|([^\]]+)\]\]|\[([^\]]+)\]\(([^)]+)\)/g;
     let result = '', previous = 0;
     for (const match of text.matchAll(pattern)) {
-      result += esc(text.slice(previous,match.index));
+      result += emphasis(text.slice(previous,match.index));
       if (match[1]) result += article.glossary?.[match[1]]?.[lang] ? `<button class="blog-term" type="button" data-term="${esc(match[1])}" aria-haspopup="dialog">${esc(match[2])}</button>` : esc(match[2]);
       else {
         const url = safeHref(match[4],lang,posts,location.href);
@@ -87,7 +88,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
       }
       previous = match.index + match[0].length;
     }
-    return result + esc(text.slice(previous));
+    return result + emphasis(text.slice(previous));
   };
   const research=createResearchWidgets({lang,article,number,rich,openDialog:(...args)=>openDialog(...args),signal});
   const solo=createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
@@ -109,6 +110,14 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     if(block.type==='decision-audit')return audits.render(block,id);
     if(block.type==='workflow')return workflow.render(block,id);
     if(block.type==='image')return renderArticleImage(block,lang);
+    if (block.type === 'quote') return `<blockquote class="article-pullquote">${rich(block[lang])}</blockquote>`;
+    if (block.type === 'quiz') {
+      const options = block.options.map((option, index) => `
+        <label><input type="radio" name="${id}" data-quiz-choice="${id}" value="${index}">
+          <span>${esc(option[lang].label)}</span></label>`).join('');
+      return `<fieldset class="article-quiz"><legend>${esc(block[lang])}</legend>
+        ${options}<p class="quiz-feedback" role="status"></p></fieldset>`;
+    }
     if (block.type==='paragraph') return `<p>${rich(block[lang])}</p>`;
     if (block.type==='callout') return `<aside class="article-callout">${rich(block[lang])}</aside>`;
     if (block.type==='details') return `<details class="article-disclosure"><summary>${esc(block[lang].title)}</summary><p>${rich(block[lang].text)}</p></details>`;
@@ -126,8 +135,9 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
 
   const related = (article.related || []).map(item=>({item,url:href(item.target)})).filter(entry=>entry.url && entry.item[lang]);
   root.classList.add('article-page');
+  root.classList.toggle('editorial-story', Boolean(a.subtitle));
   root.innerHTML = `${article.template?`<div class="article-template-notice">${t.template}</div>`:''}
-    <header class="article-header"><a class="article-back" href="${href('blog')}">← ${t.back}</a><div class="eyebrow">${esc(a.category)}</div><h1>${esc(a.title)}</h1><p>${esc(a.excerpt)}</p>
+    <header class="article-header"><a class="article-back" href="${href('blog')}">← ${t.back}</a><div class="eyebrow">${esc(a.category)}</div><h1>${esc(a.title)}</h1>${a.subtitle ? `<p class="article-deck">${esc(a.subtitle)}</p>` : ''}<p>${esc(a.excerpt)}</p>
       <div class="article-byline"><img src="images/myphoto.webp" width="32" height="32" alt=""><span>${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}</span><span aria-hidden="true">·</span><span>${esc(a.readTime || '')}</span>${article.date?`<time datetime="${esc(article.date)}">${esc(research.date(article.date))}</time>`:''}</div>
       ${a.credit?`<p class="article-credit">${esc(a.credit)} <a href="#sources">${t.sources} ↗</a></p>`:''}${article.reviewed?`<p class="article-reviewed">${t.reviewed}: <time datetime="${esc(article.reviewed)}">${esc(research.date(article.reviewed))}</time></p>`:''}
       ${renderPostCover(article,lang,{className:'article-cover-image',eager:true,decorative:false})}
@@ -203,6 +213,12 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   }
   root.addEventListener('input',event=>{const simulator=event.target.closest('[data-simulator]');if(simulator)updateSimulator(simulator);},{signal});
   root.addEventListener('change',event=>{
+    const quizId = event.target.dataset.quizChoice;
+    if (quizId) {
+      const option = blocks.get(quizId).options[Number(event.target.value)];
+      event.target.closest('fieldset').querySelector('.quiz-feedback').textContent = option[lang].feedback;
+      return;
+    }
     const id=event.target.dataset.chartMetric;
     if(id){states.get(id).metric=event.target.value;updateChart(id,true);}
   },{signal});

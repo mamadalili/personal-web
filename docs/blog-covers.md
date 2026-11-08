@@ -114,3 +114,5 @@ Cover prompt direction: an editorial marketing operations worktable, with source
 ## AI Video · 7 November 2026
 
 “AI Video: From Idea to Final Cut” completes `ink-vermilion-teal-pair` at position 2. A clapperboard and gift-box storyboard replace the archive composition while preserving its material/palette family. Separate native covers, one explanatory in-body image and their [full prompts and evidence boundaries](ai-video-production.md) are recorded. Optimised 768px previews keep list pages lightweight. The next new article starts a new palette family.
+
+Search to Sale opens the plum / guava pair. Original commissioned-style AI illustration: an espresso technician at the point where a printed neighbourhood map meets her workbench. Both covers use localised typesetting on the dark paper; the interior still life illustrates a customer sending a photo of a leak.

@@ -138,3 +138,22 @@ html[lang=en] .library-feature h2{line-height:1.25}
 .content-studio .content-studio-hint{margin:.5rem 0;font-size:.75rem;line-height:1.9;color:#475b69}.content-studio .content-studio-error{min-height:1em;margin:.6rem 0;color:#9b2820;font-size:.82rem}.content-studio-result{border-top:1px solid #cbd5d9;padding-top:8px;margin-top:10px}.content-studio-result textarea{font-size:.86rem;background:#fff;line-height:2}
 .content-studio-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.content-studio-actions button{min-height:44px;max-width:100%;padding:9px 15px;border:1px solid #8996a4;border-radius:7px;background:#fff;color:#000;font:inherit;font-size:.8rem;font-weight:700;cursor:pointer}.content-studio-actions button:first-child{border-color:#1c0998;background:#efedff}.content-studio-actions button:disabled{opacity:.5;cursor:not-allowed}.content-studio .content-studio-status{min-height:1.9em;margin:.6rem 0;font-size:.8rem;color:#274a65;line-height:1.9}
 @media(max-width:600px){.content-studio-selects{grid-template-columns:1fr;gap:0}.content-studio-actions{display:grid;grid-template-columns:1fr}.content-studio{padding:17px}.content-studio-result textarea{font-size:.82rem}}
+
+.editorial-story .article-header { padding-block: 12px 18px; }
+.editorial-story .article-header h1 { margin-block-end: 2px; }
+.editorial-story .article-header .article-deck { color: #773650; font-size: clamp(1.15rem, 2.2vw, 1.55rem); font-weight: 700; margin-block: 0 8px; }
+.editorial-story .article-section { padding-block-end: 16px; margin-block-end: 16px; }
+.editorial-story .article-section > p { color: #443948; margin-block: 8px; text-align: start; }
+.article-pullquote { border-inline-start: 3px solid #bb577a; color: #70334f; font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.7; font-weight: 650; margin: 16px 0; padding-inline-start: 16px; }
+.article-quiz { min-inline-size: 0; border: 0; border-block-start: 1px solid #e3d2db; margin: 22px 0 14px; padding: 6px 0; }
+.article-quiz legend { color: #432638; font-size: 1.05rem; font-weight: 700; padding-inline-end: .65em; }
+.article-quiz label { display: flex; gap: .7em; align-items: baseline; min-height: 44px; padding: 8px 4px; cursor: pointer; line-height: 1.7; }
+.article-quiz input { accent-color: #853559; flex: none; }
+.article-quiz label:has(:focus-visible) { outline: 2px solid #853559; outline-offset: 1px; }
+.article-quiz label:has(:checked) { color: #75344f; font-weight: 700; }
+.quiz-feedback:not(:empty) { color: #592c46; background: #fbf3f6; padding: .7em 1em; margin-block: 4px; line-height: 1.85; }
+@media (max-width: 760px) {
+  .editorial-story .article-body { padding: 14px 12px; }
+  .editorial-story .article-section { padding-block-end: 12px; margin-block-end: 12px; }
+  .editorial-story .interactive-chart { padding: 14px 10px; }
+}
