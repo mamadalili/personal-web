@@ -81,4 +81,4 @@ For relevant application structure, URL input, HTTP routing/responses, HTML comp
 
 ## Home folder selector
 
-The author later requested four macOS-inspired folders for Home specifically. Use renderHomeFolderCards and React HomeFolders for Home, with the shared native portal text and solution destinations. Keep the existing capsule selector on Solutions. Local folder SVG layers use focus/hover transforms, a readable static touch state and reduced-motion support. The later Home-specific instruction takes precedence over the historical identical-artwork requirement.
+The author later requested four macOS-inspired folders for Home specifically. Use renderHomeFolderCards and React HomeFolders for Home, with the shared native portal text and solution destinations. The author subsequently requested the same folders on all four Solutions pages. Both pages now use the same SVG, native text, destinations and shared solution-portals.css motion, with aria-current on the selected solution. Local folder SVG layers use focus/hover transforms, a readable static touch state and reduced-motion support. This shared folder treatment supersedes the historical capsule requirement.

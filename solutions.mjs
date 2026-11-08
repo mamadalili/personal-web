@@ -32,11 +32,11 @@ export function renderCapabilityCards({language='fa',current='',url,icon,portals
  }).join('');
 }
 
-export function renderHomeFolderCards({language='fa',url,portals={}}){
+export function renderHomeFolderCards({language='fa',current='',url,portals={}}){
  const lang=language==='en'?'en':'fa';
  return solutions.map(item=>{
   const portal=portals[item.id]||{title:item[lang].label,text:item[lang].summary};
-  return `<a class="home-folder-link" href="${esc(url(item.id))}">${globalThis.renderHomeFolderArt(item.id)}<span class="home-folder-title">${esc(portal.title)}</span><span class="home-folder-description">${esc(portal.text)}</span></a>`;
+  return `<a class="home-folder-link" href="${esc(url(item.id))}" ${item.id===current?'aria-current="page"':''}>${globalThis.renderHomeFolderArt(item.id)}<span class="home-folder-title">${esc(portal.title)}</span><span class="home-folder-description">${esc(portal.text)}</span></a>`;
  }).join('');
 }
 
@@ -65,7 +65,7 @@ export function mountSolutions(root,{language='fa',solution='',url,icon,art=glob
   document.title=`${current?`${content.label} — `:''}${t.label} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
   document.querySelector('meta[name="description"]').content=content.intro;
 
-  root.innerHTML=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="solutions-subnav solution-portals" aria-label="${esc(t.label)}">${renderCapabilityCards({language:lang,current:current.id,url:href,icon,art,portals})}</nav></header>
+  root.innerHTML=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="home-folder-grid" aria-label="${esc(t.label)}">${renderHomeFolderCards({language:lang,current:current.id,url:href,portals})}</nav></header>
     <nav class="solution-breadcrumb" aria-label="${lang==='fa'?'مسیر صفحه':'Breadcrumb'}"><span>${esc(t.label)}</span><span aria-hidden="true">/</span><span aria-current="page">${esc(content.label)}</span></nav>
     <section class="solution-detail-hero"><div class="page-hero"><div class="eyebrow">${esc(content.label)}</div><h1>${heading(content.headline)}</h1><p>${esc(content.intro)}</p>${cta('contact',t.conversation)}</div><aside class="solution-lens">${motion(current.id)}<span class="small-label">${esc(t.lens)}</span><h2>${esc(content.lensTitle)}</h2><p>${esc(content.lensText)}</p><ul class="solution-tags">${content.tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul></aside></section>
     <section class="solution-fit" aria-labelledby="fit-heading"><h2 id="fit-heading">${esc(t.fit)}</h2><ul>${content.fit.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></section>

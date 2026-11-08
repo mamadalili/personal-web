@@ -80,39 +80,3 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
 @media(prefers-reduced-motion:reduce){
  .home-art-hero *,.home-art-hero *:before,.home-art-hero *:after{animation:none!important;transition:none!important}
 }
-
-/* The silver folders group the four solutions as contents the reader can open. */
-.home-art-hero .home-folder-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:820px;width:100%;margin:10px auto 0;align-items:start}
-.home-folder-link{display:flex;flex-direction:column;align-items:center;min-width:0;padding:8px 6px 14px;border-radius:14px;color:#172144;text-decoration:none;text-align:center;cursor:pointer;outline-offset:3px;-webkit-tap-highlight-color:#1c099819}
-.home-folder-link:focus-visible{outline:3px solid #1c0998;background:#f0f1f8}
-.home-folder-art{display:block;width:100%;max-width:220px;height:auto;overflow:visible}
-.home-folder-title{font-size:15px;line-height:1.8;font-weight:800;margin-top:-1px;color:#172144}
-.home-folder-description{font-size:11px;line-height:1.8;color:#525d76;max-width:175px;margin-top:3px;text-wrap:pretty}
-.folder-paper,.folder-front,.folder-ground{transform-box:view-box;transform-origin:120px 165px;transition:transform 340ms cubic-bezier(.22,1,.36,1),opacity 220ms ease}
-.folder-paper--left{transform:translate(-6px,4px) rotate(-9deg)}
-.folder-paper--right{transform:translate(9px,0) rotate(10deg)}
-.folder-paper--center{transform:translateY(5px)}
-.home-folder-link:focus-visible .folder-paper--left{transform:translate(-15px,-13px) rotate(-16deg)}
-.home-folder-link:focus-visible .folder-paper--right{transform:translate(18px,-19px) rotate(17deg)}
-.home-folder-link:focus-visible .folder-paper--center{transform:translateY(-15px)}
-.home-folder-link:focus-visible .folder-front{transform:translateY(5px) scaleY(.93)}
-@media(hover:hover) and (pointer:fine){
- .home-folder-link:hover .folder-paper--left{transform:translate(-15px,-13px) rotate(-16deg)}
- .home-folder-link:hover .folder-paper--right{transform:translate(18px,-19px) rotate(17deg)}
- .home-folder-link:hover .folder-paper--center{transform:translateY(-15px)}
- .home-folder-link:hover .folder-front{transform:translateY(5px) scaleY(.93)}
- .home-folder-link:hover .folder-ground{transform:scaleX(1.07);opacity:.06}
- .home-folder-link:hover .home-folder-title{color:#1c0998}
-}
-.home-folder-link:active .home-folder-art{transform:scale(.97)}
-@media(max-width:760px){
- .home-art-hero .home-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;max-width:440px;margin-top:0}
- .home-folder-link{padding:4px 2px 10px}
- .home-folder-art{max-width:185px}
- .home-folder-title{font-size:14px}
- .home-folder-description{font-size:11px;max-width:170px}
-}
-@media(prefers-reduced-motion:reduce){
- .home-folder-link .folder-paper,.home-folder-link .folder-front,.home-folder-link .folder-ground,.home-folder-link .home-folder-art{transition:none!important;transform:none!important}
-}
-.motion-paused .home-folder-grid *{transition:none!important}

@@ -10,9 +10,9 @@ test('Solutions renders its own artwork when an older HTML shell has no art scri
  try{
   const root={classList:{add(){}},innerHTML:''};
   mountSolutions(root,{language:'fa',solution:'strategy',url:id=>`${id}.html?lang=fa`,icon:()=>'',collaboration:()=>''});
-  assert.equal((root.innerHTML.match(/class="capability-art"/g)||[]).length,4);
+  assert.equal((root.innerHTML.match(/class="home-folder-art"/g)||[]).length,4);
   assert.match(root.innerHTML,/aria-current="page"/);
-  assert.match(root.innerHTML,/در این صفحه/);
+  assert.equal((root.innerHTML.match(/class="home-folder-link"/g)||[]).length,4);
  }finally{
   if(oldDocument===undefined)delete globalThis.document;else globalThis.document=oldDocument;
   if(oldLocation===undefined)delete globalThis.location;else globalThis.location=oldLocation;

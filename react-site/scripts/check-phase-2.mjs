@@ -42,10 +42,10 @@ for(const lang of ['fa','en']){
    assert.equal((html.match(/<details>/g)||[]).length,content.faq.length);
    const selected=[...html.matchAll(/<a\b[^>]*>/g)].some(([tag])=>tag.includes(`href="/${lang}/solutions/${id}"`)&&tag.includes('aria-current="page"'));
    assert.ok(selected,'The current solution is selected regardless of HTML attribute order');
-   assert.equal((html.match(/class="capability-portal capability-portal--/g)||[]).length,4);
-   assert.equal((html.match(/class="capability-art"/g)||[]).length,4);
+   assert.equal((html.match(/class="home-folder-link/g)||[]).length,4);
+   assert.equal((html.match(/class="home-folder-art"/g)||[]).length,4);
    assert.ok(html.includes('/legacy/solution-portals.css'));
-   assert.ok(html.includes(lang==='fa'?'در این صفحه':'Current page'));
+   assert.equal([...html.matchAll(/<a\b[^>]*class="home-folder-link"[^>]*>/g)].filter(m=>m[0].includes('aria-current="page"')).length,1);
    assert.ok(html.includes(`href="/${lang}/contact"`));
    assert.ok(html.includes(escape(d.collaboration[lang].body)));
    assert.ok(html.includes(`/legacy/profile.html?lang=${lang}&amp;tab=experience`));
@@ -60,6 +60,9 @@ test('Home folders retain the same four native destinations and descriptions as 
  for(const lang of ['fa','en']){
   const home=htmlAt(lang),d=data(),solutions=htmlAt(lang+'/solutions/strategy');
   assert.equal((home.match(/class="home-folder-link"/g)||[]).length,4);
+  const cards=markup=>[...markup.matchAll(/<a\b[^>]*class="home-folder-link"[^>]*>[\s\S]*?<\/a>/g)].map(m=>m[0].replace(/ aria-current="page"/g,''));
+  assert.deepEqual(cards(home),cards(solutions));
+
   for(const id of ['strategy','execution','technology','ai-tools']){
    for(const text of [d.portals[lang][id].title,d.portals[lang][id].text]){
     assert.ok(home.includes(escape(text)));assert.ok(solutions.includes(escape(text)));

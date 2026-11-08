@@ -4,7 +4,7 @@ import type {Language, Page, SolutionId} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {CollaborationCTA} from '../../components/ui/CollaborationCTA';
 import {MotionScene} from '../../components/ui/DecorativeArt';
-import {CapabilityCards} from '../../components/ui/CapabilityCards';
+import {HomeFolders} from '../../components/ui/HomeFolders';
 import {Icon} from '../../components/ui/Icon';
 
 function CTA({page, label, lang}: {page: Page; label: string; lang: Language}) {
@@ -16,7 +16,7 @@ export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
   const c = current[lang], t = legacy.solutionsCopy[lang];
   return <>
     <header className="solutions-selector"><span className="eyebrow">{t.label}</span>
-      <CapabilityCards lang={lang} current={id}/>
+      <HomeFolders lang={lang} current={id}/>
     </header>
     <nav className="solution-breadcrumb" aria-label={lang === 'fa' ? 'مسیر صفحه' : 'Breadcrumb'}>
       <span>{t.label}</span><span aria-hidden="true">/</span><span aria-current="page">{c.label}</span>
