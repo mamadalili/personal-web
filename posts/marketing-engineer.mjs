@@ -8,8 +8,8 @@ export const post = {
   slug: 'marketing-engineer', date: '2026-11-09', reviewed: '2026-11-09', status: 'published',
   bannerPair: { id: 'forest-citron-register', position: 1 },
   cover: {
-    fa: { src: 'assets/blog/marketing-engineer-fa.webp', width: 1600, height: 900, alt: 'چطور مهندس بازاریابی شویم؟ زنی دو لایهٔ شفاف یک طرح فنجان را روی میز چاپ با هم میزان می‌کند.' },
-    en: { src: 'assets/blog/marketing-engineer-en.webp', width: 1600, height: 900, alt: 'How to Become a Marketing Engineer. A woman aligns transparent prints of a ceramic cup at a registration table.' }
+    fa: { src: 'assets/blog/marketing-engineer-fa-v2.webp', width: 1600, height: 900, alt: 'چطور مهندس بازاریابی شویم؟ زنی دو لایهٔ شفاف یک طرح فنجان را روی میز چاپ با هم میزان می‌کند.' },
+    en: { src: 'assets/blog/marketing-engineer-en-v2.webp', width: 1600, height: 900, alt: 'How to Become a Marketing Engineer. A woman aligns transparent prints of a ceramic cup at a registration table.' }
   },
   fa: {
     title: 'چطور مهندس بازاریابی شویم؟', subtitle: 'اولین گردش کار را با یک کمپین واقعی بساز',

@@ -6,6 +6,8 @@ The Persian and English versions are separate image assets. The shared renderer 
 
 ## Paired palettes
 
+For new blog covers and cover revisions, depict women with uncovered hair and everyday clothing. Follow this art direction in both native-language editions and their card previews.
+
 Solo Business and AI Payoff keep their original indigo editorial pair. AI Model Market starts a new ice-white / turquoise / emerald / silver-graphite pair. The next new article must match this family as the second cover, with its own topic-specific imagery and keywords. The site accent does not dictate every banner palette.
 
 ## Prompt set

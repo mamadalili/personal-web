@@ -4,7 +4,6 @@ import { posts, templateSrc } from './blog-summaries.mjs';
 import { loadArticleData } from './blog-article-data.mjs';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
-import { createSoloWidgets } from './blog-solo.mjs';
 import { mountMarketArticle } from './blog-market.mjs?v=20261101-data-motion';
 import { createDecisionAudits } from './blog-decision-audit.mjs';
 import { createWorkflowWidgets } from './blog-workflow.mjs';
@@ -96,7 +95,12 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     return result + emphasis(text.slice(previous));
   };
   const research=createResearchWidgets({lang,article,number,rich,openDialog:(...args)=>openDialog(...args),signal});
-  const solo=createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
+  let solo;
+  if (article.sections.some(section => section.blocks?.some(block => block.type === 'opportunities'))) {
+    const { createSoloWidgets } = await import('./blog-solo.mjs');
+    if (signal.aborted || !root.isConnected) return;
+    solo = createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
+  }
   const audits=createDecisionAudits({lang,signal});
   const workflow=createWorkflowWidgets({lang,signal});
   const dataMotion=createDataMotionWidgets({lang,article,signal});
@@ -136,7 +140,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
       return `<figure class="interactive-chart" data-chart="${id}"><figcaption><h3>${esc(block[lang].title)}</h3><p>${esc(block[lang].source)}</p></figcaption><div class="chart-controls">${metricControl}${views.length>1?`<div class="chart-view" role="group" aria-label="${t.view}">${views.map((view,index)=>`<button type="button" data-chart-view="${esc(view)}" data-for="${id}" aria-pressed="${index===0}">${esc(t[view])}</button>`).join('')}</div>`:''}${block.allowLog?`<div class="chart-view" role="group" aria-label="${t.scale}">${['linear','log'].map(value=>`<button type="button" data-chart-scale="${value}" data-for="${id}" aria-pressed="${value===scale}">${t[value]}</button>`).join('')}</div>`:''}</div>${block.series.length>1?`<div class="chart-legend" role="group" aria-label="${t.series}">${block.series.map((series,index)=>`<button type="button" data-chart-series="${esc(series.id)}" data-for="${id}" aria-pressed="true"><span class="series-swatch series-${index%2}" aria-hidden="true"></span>${esc(series[lang])}</button>`).join('')}</div>`:''}<p class="chart-scale-note"></p><div class="chart-plot"></div><p class="chart-status" role="status"></p><p class="chart-hint">${t.pointHint}</p><div class="chart-points" aria-label="${t.points}"></div>${block.observations?`<ul class="chart-observations">${block.observations.map((observation,index)=>`<li><strong>${esc(block.labels[lang][index])}</strong> <time datetime="${esc(observation.date)}">${esc(research.date(observation.date))}</time><p>${esc(observation[lang])}</p><button type="button" class="blog-text-button" data-research-source="${esc(observation.source)}" aria-haspopup="dialog">${t.sources} ↗</button></li>`).join('')}</ul>`:''}<div class="chart-foot"><button class="blog-text-button" type="button" data-chart-method="${id}" aria-haspopup="dialog">${t.method}</button><details class="chart-table"><summary>${t.table}</summary><div class="chart-table-scroll"></div></details></div></figure>`;
     }
     if (block.type==='simulator') return `<section class="article-simulator" data-simulator="${id}"><div class="simulator-intro"><span class="small-label">${lang==='fa'?'ورودی‌ها را تغییر دهید':'CHANGE THE INPUTS'}</span><h3>${esc(block[lang].title)}</h3><p>${esc(block[lang].note)}</p></div><div class="simulator-inputs"><label>${t.visits}<input type="number" min="0" max="1000000" step="100" inputmode="numeric" data-visits aria-label="${t.visits}" value="${esc(block.visits)}"></label><label>${t.rate}<span class="range-value" data-rate-label>${number(block.rate,'percent')}</span><input type="range" min="0" max="10" step="0.1" value="${esc(block.rate)}" data-rate aria-label="${t.rate}"></label></div><div class="simulator-result" role="status" aria-live="polite"><span>${t.estimate}</span><strong data-orders>${number(estimateOrders(block.visits,block.rate))}</strong><small>${t.formula}</small></div><p class="simulator-validation" role="alert"></p><button type="button" class="blog-text-button" data-simulator-reset="${id}">${t.reset}</button></section>`;
-    return solo.render(block,id) || research.render(block,id);
+    return solo?.render(block,id) || research.render(block,id);
   }
 
   const related = (article.related || []).map(item=>({item,url:href(item.target)})).filter(entry=>entry.url && entry.item[lang]);
@@ -167,7 +171,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     mountMarketArticle(root,{article,lang,sourceDetail:research.sourceDetail,openDialog,signal});
   }
   research.mount(root);
-  solo.mount(root);
+  solo?.mount(root);
   audits.mount(root);
   workflow.mount(root);
   dataMotion.mount(root);
