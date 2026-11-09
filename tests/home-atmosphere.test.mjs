@@ -26,9 +26,6 @@ test('Shared site motion needs no controls and pauses in hidden tabs or when not
  }
 });
 
-test('Home background markup is decorative and has bounded independent particle positions',()=>{
- const markup=renderHomeAtmosphere();
- assert.ok(!/<script|foreignObject|href=|onload|onclick/i.test(markup));
- assert.equal((markup.match(/--spark-duration:/g)||[]).length,12);
- for(const [,position]of markup.matchAll(/(?:left|top):(\d+)%/g))assert.ok(+position>=0&&+position<=100);
+test('The shared landscape is a single decorative surface',()=>{
+ assert.equal(renderHomeAtmosphere(), '<span class="home-atmosphere-surface"></span>');
 });

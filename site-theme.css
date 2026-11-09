@@ -1,34 +1,83 @@
-/* Crisp glass waves are the shared visual foundation of the portfolio. */
-body[data-current-page]{background:#f8f9fc;isolation:isolate}
-.site-atmosphere{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;contain:paint}
-.home-atmosphere-surface{position:absolute;inset:0;background:url('assets/brand/site-horizon.svg') center bottom/100% 66% no-repeat}
-.home-atmosphere-beam{position:absolute;top:-30%;height:150%;width:25%;opacity:.35;background:linear-gradient(90deg,transparent 20%,#1c099815 49%,#ffffffc9 50%,transparent 72%);transform:rotate(-23deg);animation:home-beam-drift 18s ease-in-out infinite alternate;will-change:transform}
-.home-atmosphere-beam--one{left:-12%}
-.home-atmosphere-beam--two{right:-8%;animation-delay:-9s;background:linear-gradient(90deg,transparent 20%,#ccff0024 49%,#ffffffc9 50%,transparent 72%);opacity:.45}
-.home-atmosphere-paths{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.home-atmosphere-orbit{stroke:#1c0998;stroke-opacity:.075;stroke-width:.8;vector-effect:non-scaling-stroke}
-.home-atmosphere-orbit--second{stroke-opacity:.05}
-.home-atmosphere-trace{stroke:#1c0998;stroke-opacity:.38;stroke-width:1.5;stroke-dasharray:24 1400;stroke-linecap:round;animation:home-light-travel 20s linear infinite}
-.home-atmosphere-spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#1c0998;opacity:.25;animation:home-spark-drift var(--spark-duration) ease-in-out var(--spark-delay) infinite alternate;will-change:transform,opacity}
-.home-atmosphere-spark:nth-of-type(even){background:#74843b}
-.home-atmosphere-spark--glint{width:5px;height:5px;background:#b5d718}
-.home-atmosphere-spark--glint:before,.home-atmosphere-spark--glint:after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:currentColor;color:#a2b43f;border-radius:50%}
-.home-atmosphere-spark--glint:before{width:11px;height:1px}
-.home-atmosphere-spark--glint:after{height:11px;width:1px}
-.site-atmosphere.is-paused *,.motion-paused .site-atmosphere *{animation-play-state:paused!important}
-@keyframes home-beam-drift{from{transform:translate(-8px,-12px) rotate(-23deg)}to{transform:translate(18px,14px) rotate(-17deg)}}
-@keyframes home-light-travel{from{stroke-dashoffset:1424}to{stroke-dashoffset:0}}
-@keyframes home-spark-drift{from{transform:translate(0,10px) scale(.75);opacity:.14}to{transform:translate(7px,-14px) scale(1);opacity:.48}}
-
-.site-atmosphere.is-paused *{will-change:auto}
-.home-atmosphere-control{display:none!important}
-@media(max-width:760px){
- .home-atmosphere-surface{background-size:170% 50%}
- .home-atmosphere-paths{opacity:.6}
- .home-atmosphere-spark:nth-of-type(n+10){display:none}
- .home-atmosphere-beam{width:40%;opacity:.28}
+body[data-current-page] {
+  background: #faf8f4;
+  isolation: isolate;
 }
-@media(prefers-reduced-motion:reduce){
- .site-atmosphere *{animation:none!important;will-change:auto}
- .home-atmosphere-trace{stroke-dashoffset:0;opacity:.2}
+
+.site-atmosphere {
+  --alborz-photo: url("assets/brand/alborz-first-light.webp");
+  --landscape-opacity: .36;
+  --landscape-blur: 2.5px;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+  background: #faf8f4;
+}
+
+body:is([data-current-page="home"], [data-current-page="solutions"]) .site-atmosphere {
+  --landscape-opacity: .65;
+  --landscape-blur: 1.5px;
+}
+
+body:is([data-current-page="blog"], [data-current-page="article"], [data-current-page="cv"]) .site-atmosphere {
+  --landscape-opacity: .17;
+  --landscape-blur: 4px;
+}
+
+.home-atmosphere-surface {
+  position: absolute;
+  inset: -8px;
+  background: var(--alborz-photo) center / cover no-repeat;
+  opacity: var(--landscape-opacity);
+  filter: blur(var(--landscape-blur));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body:is([data-current-page="home"], [data-current-page="solutions"]) .home-atmosphere-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    mask-image: linear-gradient(#000 0 36%, transparent 59%);
+    animation: alborz-cloud-drift 34s ease-in-out infinite alternate;
+  }
+  .site-atmosphere.is-paused .home-atmosphere-surface::before,
+  .motion-paused .site-atmosphere .home-atmosphere-surface::before {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes alborz-cloud-drift {
+  from { transform: scale(1.012) translateX(-.32%); }
+  to { transform: scale(1.012) translateX(.32%); }
+}
+
+body:is([data-current-page="home"], [data-current-page="solutions"]) :is(.home-folder-title, .home-folder-description) {
+  color: #26364a;
+  text-shadow: 0 0 5px #fffaf2, 0 0 9px #fffaf2;
+}
+
+@media (max-width: 760px) and (orientation: portrait) {
+  .site-atmosphere { --alborz-photo: url("assets/brand/alborz-first-light-mobile.webp"); }
+}
+
+@media (max-width: 760px) {
+  body:is([data-current-page="home"], [data-current-page="solutions"]) :is(.home-folder-title, .home-folder-description) {
+    width: 100%;
+    max-width: 180px;
+    margin: 0;
+    background: rgb(255 252 244 / 88%);
+    text-shadow: none;
+  }
+  body:is([data-current-page="home"], [data-current-page="solutions"]) .home-folder-title {
+    padding: 4px 8px 0;
+    border-radius: 10px 10px 0 0;
+  }
+  body:is([data-current-page="home"], [data-current-page="solutions"]) .home-folder-description {
+    padding: 1px 8px 6px;
+    border-radius: 0 0 10px 10px;
+    font-size: 12px;
+  }
 }

@@ -279,3 +279,22 @@ html[dir=rtl] .collaboration-arrow svg,html[dir=rtl] .collaboration-secondary sv
 #language:focus-visible{outline:3px solid #1c0998;outline-offset:4px}
 #header-label[hidden]{display:none}
 @media(max-width:420px){.site-header{gap:10px;padding-inline:16px}.brand{gap:8px;min-width:0}.brand-identity{min-width:0}.header-role{white-space:normal}.header-end{flex:none}#language{gap:6px;padding-inline:9px}}
+.cv-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  margin: 14px auto 0;
+  padding: 6px 16px;
+  border: 1px solid #bcb4d6;
+  border-radius: 9px;
+  color: #291a61;
+  background: #faf9ff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.cv-download:hover { background: #eeebfa; border-color: currentColor; }
+.cv-download:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
