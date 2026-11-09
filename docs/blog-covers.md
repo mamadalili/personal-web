@@ -122,3 +122,5 @@ Search to Sale opens the plum / guava pair. Original commissioned-style AI illus
 YouTube for Buyers completes `plum-guava-pair`. Its revised editorial cover shows a seated presenter teaching directly to camera, a studio microphone and a red YouTube play sign. Plum and guava lighting links it to Search to Sale. Native titles are typeset on the dark wall. The interior diptych illustrates the article’s product demonstration with an apron on a dress form and a barista retrieving a cloth.
 
 Marketing Engineer opens `forest-citron-register`. The newly generated cover depicts a woman aligning two transparent plates of a cup at a print registration table, with pale citron linework against dark forest ink. The open left side holds native lettering. The independently generated interior still contrasts a ready-to-dispatch glaze sample with an unfinished batch on the workshop shelves. Both illustrate the original studio exercise.
+
+Strategic Next Move completes the forest-citron-register pair. The engraved chess player, carved knight and lettering take their cue from the concentrated pose and etched lines in the source cover. Each WebP carries its native title.

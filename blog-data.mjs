@@ -1,3 +1,4 @@
+import { post as strategicNextMove } from './posts/strategic-next-move.mjs';
 import { post as marketingEngineer } from './posts/marketing-engineer.mjs';
 import { post as youtubeForBuyers } from './posts/youtube-for-buyers.mjs';
 import { post as searchToSale } from './posts/search-to-sale.mjs';
@@ -20,7 +21,7 @@ import { post as fiveMoneyFormulas } from './posts/five-money-formulas.mjs';
 import { post as specializedGeneralist } from './posts/specialized-generalist.mjs';
 import { post as aiContentSystem } from './posts/ai-content-system.mjs';
 // Real bilingual articles. Template previews never appear as published posts.
-export const posts = [marketingEngineer, youtubeForBuyers, searchToSale, aiVideoProduction, companyBrain, specializedGeneralist, aiContentSystem, fiveMoneyFormulas, aiMarketingWorkflow, learnSkillsByDoing, makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
+export const posts = [strategicNextMove, marketingEngineer, youtubeForBuyers, searchToSale, aiVideoProduction, companyBrain, specializedGeneralist, aiContentSystem, fiveMoneyFormulas, aiMarketingWorkflow, learnSkillsByDoing, makeExpertiseUnderstandable, buildingWealthBeyondLuck, oneDayRethink, smallBusinessWebsite, teamCapacity, capitalOneAI, ...seriesPosts, aiPayoffWorkload, soloBusiness, aiModelMarket];
 
 export const articleTemplate = {
   slug:'interactive-article-template', template:true, status:'template',
