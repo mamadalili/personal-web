@@ -1,17 +1,18 @@
-import { mountBlogIndex } from './blog-index.mjs?v=20261101-compact-archive';
 import { renderPostCover } from './blog-covers.mjs';
 import { posts, templateSrc } from './blog-summaries.mjs';
 import { loadArticleData } from './blog-article-data.mjs';
 import { escapeHTML as esc, safeHref, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
-import { mountMarketArticle } from './blog-market.mjs?v=20261101-data-motion';
-import { createDecisionAudits } from './blog-decision-audit.mjs';
-import { createWorkflowWidgets } from './blog-workflow.mjs';
 import { renderArticleImage } from './blog-inline-image.mjs';
 import { withDataMotion } from './blog-data-motion-model.mjs?v=20261102-unit-objects';
-import { createDataMotionWidgets } from './blog-data-motion.mjs?v=20261102-unit-objects';
-import { createFinanceWidgets } from './blog-finance.mjs';
-import { createContentStudios } from './blog-content-studio.mjs';
+
+const widgetLoaders = new Map([
+  ['decision-audit', async () => (await import('./blog-decision-audit.mjs')).createDecisionAudits],
+  ['workflow', async () => (await import('./blog-workflow.mjs')).createWorkflowWidgets],
+  ['data-motion', async () => (await import('./blog-data-motion.mjs?v=20261102-unit-objects')).createDataMotionWidgets],
+  ['finance', async () => (await import('./blog-finance.mjs')).createFinanceWidgets],
+  ['content-studio', async () => (await import('./blog-content-studio.mjs')).createContentStudios]
+]);
 
 const copy = {
   fa:{blog:'بلاگ',eyebrow:'یادداشت‌های من',heading:'ایده‌ها، تجربه‌ها و چیزهایی که یاد می‌گیرم.',intro:'دربارهٔ بازاریابی، تجارت الکترونیک و فناوری؛ با فرصتی برای کشف و تجربه.',empty:'هنوز مقاله‌ای منتشر نشده.',emptyBody:'تا اولین یادداشت، می‌توانید یک نمونهٔ تعاملی را امتحان کنید.',preview:'دیدن نمونهٔ تعاملی',template:'پیش‌نمایش قالب — مقالهٔ منتشرشده نیست؛ همهٔ اعداد آزمایشی‌اند.',toc:'در این مقاله',takeaways:'در این تجربه',back:'همهٔ نوشته‌ها',close:'بستن',metric:'شاخص',bars:'ستونی',lines:'خطی',view:'نوع نمودار',series:'سناریوهای نمایان',method:'روش محاسبه',table:'دیدن جدول داده‌ها',period:'بازه',pointHint:'روی عدد هر بازه بزن تا جزئیاتش رو ببینی.',visits:'تعداد بازدید',rate:'نرخ تبدیل (%)',estimate:'سفارش تقریبی',reset:'بازنشانی',invalid:'بازدید باید بین ۰ تا ۱٬۰۰۰٬۰۰۰ و نرخ تبدیل بین ۰ تا ۱۰۰ باشد.',formula:'بازدید × نرخ تبدیل ÷ ۱۰۰',related:'ادامهٔ مسیر',search:'جست‌وجوی نوشته‌ها',noResults:'نوشته‌ای با این عبارت پیدا نشد.',notFound:'این مقاله پیدا نشد.',notFoundBody:'برگرد به فهرست بلاگ و نوشته‌ای رو که دنبالش بودی پیدا کن.',atLeastOne:'حداقل یک سناریو باید نمایان بماند.',updated:'نمودار به‌روز شد',points:'جزئیات بازه‌ها',chartData:'دادهٔ نمودار',loading:'در حال آماده‌سازی مقاله…'},
@@ -30,7 +31,11 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   const number = (value,format='number') => value === null || !Number.isFinite(value) ? '—' : new Intl.NumberFormat(lang,{maximumFractionDigits:format==='number'?0:1}).format(value) + (format==='percent'?(lang==='fa'?'٪':'%'):format==='multiple'?'×':'');
   const livePosts = publishedPosts(posts);
 
-  if(mode==='index'){mountBlogIndex(root,{lang,items:posts,href,signal});return;}
+  if (mode === 'index') {
+    const {mountBlogIndex} = await import('./blog-index.mjs?v=20261101-compact-archive');
+    if (!signal.aborted && root.isConnected) mountBlogIndex(root,{lang,items:posts,href,signal});
+    return;
+  }
 
   const slug = new URLSearchParams(location.search).get('post');
   const summary = livePosts.find(post => post.slug === slug);
@@ -49,27 +54,33 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     return;
   }
   const a = article[lang];
+  const blockTypes = new Set(article.sections.flatMap(section => section.blocks.map(block => block.type)));
+  let market;
+  if (article.presentation === 'market-atlas') {
+    market = await import('./blog-market.mjs?v=20261101-data-motion');
+    if (signal.aborted || !root.isConnected) return;
+  }
   let skillRoutes;
   let companyBrains;
   let shotReviews;
   let campaignTrace;
-  if (article.sections.some(section => section.blocks?.some(block => block.type === 'campaign-trace'))) {
+  if (blockTypes.has('campaign-trace')) {
     campaignTrace = await import('./blog-campaign-trace.mjs');
     if (signal.aborted || !root.isConnected) return;
   }
-  if (article.sections.some(section => section.blocks?.some(block => block.type === 'shot-review'))) {
+  if (blockTypes.has('shot-review')) {
     const module = await import('./blog-shot-review.mjs?v=20261107');
     await module.loadShotReviewStyle();
     if (signal.aborted || !root.isConnected) return;
     shotReviews = module.createShotReviews({lang,signal});
   }
-  if (article.sections.some(section => section.blocks?.some(block => ['context-lab','brain-check'].includes(block.type)))) {
+  if (blockTypes.has('context-lab') || blockTypes.has('brain-check')) {
     const module = await import('./blog-company-brain.mjs?v=20261106');
     await module.loadCompanyBrainStyle();
     if (signal.aborted || !root.isConnected) return;
     companyBrains = module.createCompanyBrains({lang,signal});
   }
-  if (article.sections.some(section => section.blocks?.some(block => block.type === 'skill-route'))) {
+  if (blockTypes.has('skill-route')) {
     const module = await import('./blog-skill-route.mjs?v=20261106');
     await module.loadSkillRouteStyle();
     if (signal.aborted || !root.isConnected) return;
@@ -96,16 +107,19 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   };
   const research=createResearchWidgets({lang,article,number,rich,openDialog:(...args)=>openDialog(...args),signal});
   let solo;
-  if (article.sections.some(section => section.blocks?.some(block => block.type === 'opportunities'))) {
+  if (blockTypes.has('opportunities')) {
     const { createSoloWidgets } = await import('./blog-solo.mjs');
     if (signal.aborted || !root.isConnected) return;
     solo = createSoloWidgets({lang,number,rich,href,openDialog:(...args)=>openDialog(...args),signal});
   }
-  const audits=createDecisionAudits({lang,signal});
-  const workflow=createWorkflowWidgets({lang,signal});
-  const dataMotion=createDataMotionWidgets({lang,article,signal});
-  const finance=createFinanceWidgets({lang,signal});
-  const contentStudio=createContentStudios({lang,signal});
+  const widgets = new Map();
+  for (const type of blockTypes) {
+    const load = widgetLoaders.get(type);
+    if (!load) continue;
+    const createWidget = await load();
+    if (signal.aborted || !root.isConnected) return;
+    widgets.set(type, createWidget({lang,article,signal}));
+  }
   const pointValue=(block,metric,value,index)=>{const qualifier=block.observations?.[index]?.qualifiers?.[metric.id]||'';return `${esc(qualifier)}${number(roundBound(value,qualifier,metric.format==='number'?0:1),metric.format)}`;};
   function renderBlock(block) {
     const id = `interactive-${++blockNumber}`;
@@ -114,14 +128,11 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     if(block.type==='shot-review')return shotReviews?.render(block,id)||'';
     if(['context-lab','brain-check'].includes(block.type))return companyBrains?.render(block,id)||'';
     if(block.type==='skill-route')return skillRoutes?.render(block,id)||'';
-    if(block.type==='finance')return finance.render(block,id);
-    if(block.type==='content-studio')return contentStudio.render(block,id);
-    if(block.type==='data-motion')return dataMotion.render(block,id);
-    if(block.type==='decision-audit')return audits.render(block,id);
-    if(block.type==='workflow')return workflow.render(block,id);
+    const widget = widgets.get(block.type);
+    if (widget) return widget.render(block,id);
     if(block.type==='image')return renderArticleImage(block,lang);
     if (block.type === 'quote') return `<blockquote class="article-pullquote">${rich(block[lang])}</blockquote>`;
-    if (block.type === 'quiz') {
+    if (block.type === 'quiz' && Array.isArray(block.options)) {
       const options = block.options.map((option, index) => `
         <label><input type="radio" name="${id}" data-quiz-choice="${id}" value="${index}">
           <span>${esc(option[lang].label)}</span></label>`).join('');
@@ -167,16 +178,10 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   };
   dialog.addEventListener('close',()=>{ if(lastTrigger?.isConnected) lastTrigger.focus(); },{signal});
   dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();},{signal});
-  if (article.presentation === 'market-atlas') {
-    mountMarketArticle(root,{article,lang,sourceDetail:research.sourceDetail,openDialog,signal});
-  }
+  market?.mountMarketArticle(root,{article,lang,sourceDetail:research.sourceDetail,openDialog,signal});
   research.mount(root);
   solo?.mount(root);
-  audits.mount(root);
-  workflow.mount(root);
-  dataMotion.mount(root);
-  finance.mount(root);
-  contentStudio.mount(root);
+  for (const widget of widgets.values()) widget.mount(root);
   skillRoutes?.mount(root);
   companyBrains?.mount(root);
   shotReviews?.mount(root);
