@@ -36,6 +36,10 @@ export function Layout({children}: {children: ReactNode}) {
       <a href="#main" className="skip">{lang === 'fa' ? 'رفتن به محتوای اصلی' : 'Skip to content'}</a>
       <SiteHeader lang={lang} page={page} solution={solution}/>
       <main id="main" className={`page-layout${page === 'solutions' ? ' solutions-page' : ''}`} tabIndex={-1}>{children}</main>
+      <picture className="page-coast" aria-hidden="true">
+        <source media="(max-width: 680px)" srcSet="/legacy/assets/brand/coastal-print-mobile.webp"/>
+        <img src="/legacy/assets/brand/coastal-print.webp" width="2172" height="724" alt="" loading="lazy" decoding="async"/>
+      </picture>
       <GlassNav lang={lang} active={page}/>
       <ScrollRestoration/><Scripts/>
     </body>

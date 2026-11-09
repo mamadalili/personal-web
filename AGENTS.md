@@ -85,6 +85,6 @@ The author later requested four macOS-inspired folders for Home specifically. Us
 
 ## Shared site theme
 
-Use a white page surface behind text, employer marks and folder links. Home and Solutions place the ridge-to-surf study in the introduction. The ridge, forest and breaking wave extend outside an indigo print, with fine survey marks and localized feature labels. Keep this artwork in flow on phones and respect reduced motion and tab visibility.
+Use a white page surface behind text, employer marks and folder links. Use the blue ink print in the Home introduction and the hand lifting blue paper in all Solutions introductions. Every page ends with the shared coastal print below content. On phones, use the approved 190% crop anchored at 78% of the remaining space, above the glass navigation.
 
 CV includes Tina nail atelier as the fifth project, after the four previously ordered projects.

@@ -140,7 +140,7 @@ function renderMotionScene(placement='home',active=''){
  return `<div class="motion-scene motion-scene--${placement}" aria-hidden="true"><svg viewBox="0 0 380 260" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${id}-glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".98"/><stop offset="1" stop-color="#eef0ff" stop-opacity=".88"/></linearGradient><radialGradient id="${id}-halo"><stop stop-color="#ccff00" stop-opacity=".32"/><stop offset="1" stop-color="#ccff00" stop-opacity="0"/></radialGradient></defs><ellipse class="scene-halo" cx="190" cy="130" rx="145" ry="112" fill="url(#${id}-halo)"/><g class="scene-orbit"><ellipse cx="190" cy="130" rx="100" ry="76" fill="none" stroke="#1c09981c" stroke-width="1"/><circle cx="90" cy="130" r="4" fill="#ccff00"/><circle cx="290" cy="130" r="2.5" fill="#1c0998"/></g>${routes.map((d,index)=>`<path d="${d}" fill="none" stroke="#d5d9eb" stroke-width="2"/><path class="scene-flow" style="--flow-delay:-${index*1.7}s" d="${d}" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-dasharray="7 15"/>`).join('')}<g class="scene-core"><rect x="151" y="91" width="78" height="78" rx="25" fill="#fff" stroke="#dce3c4"/><image href="assets/brand/monogram.svg" x="159" y="99" width="62" height="62"/></g>${nodes.map((node,index)=>`<g transform="translate(${node.x} ${node.y})"><g class="scene-node${active===node.id?' is-selected':''}" style="--float-delay:-${index*1.4}s"><rect class="scene-node-surface" width="124" height="66" rx="18" fill="url(#${id}-glass)" stroke="${active===node.id?'#ccff00':'#d9dfec'}" stroke-width="${active===node.id?2:1}"/><svg x="51" y="10" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1c0998" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${node.path}</svg><text x="62" y="50" text-anchor="middle" fill="#172144" font-size="13" font-weight="750">${escapeHTML(node[lang])}</text><path class="scene-node-glint" d="M16 1h30" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round"/></g></g>`).join('')}<g class="scene-sparkles" fill="none" stroke="#ccff00" stroke-width="1.5" stroke-linecap="round"><path d="M187 15v10m-5-5h10M187 235v10m-5-5h10M7 125v10m-5-5h10M373 125v10m-5-5h10"/></g></svg></div>`;
 }
 function ensureAmbient(){
- import('./home-atmosphere.mjs?v=20261109-coastal-study').then(({ensureSiteAtmosphere})=>ensureSiteAtmosphere()).catch(()=>{});
+ import('./home-atmosphere.mjs?v=20261109-studio-coast').then(({ensureSiteAtmosphere})=>ensureSiteAtmosphere()).catch(()=>{});
 }
 function homeCardCTA(target,label){return `<a class="card-cta" href="${pageURL(target)}"><span>${label}</span><span class="card-arrow">${icon('arrow')}</span></a>`;}
 let disposeHomeBlog=()=>{};
@@ -162,7 +162,7 @@ function renderHome(){
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h2>${s.contactTitle}</h2><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
  </div></section></div><div class="page-signoff">${brandMark()}<p>© ${new Date().getFullYear()} ${s.copyright}</p></div>`;
  const cardsRoot=$('main').querySelector('[data-capability-cards]');
- import('./solutions.mjs?v=20261109-coastal-study').then(({renderHomeFolderCards})=>{
+ import('./solutions.mjs?v=20261109-studio-coast').then(({renderHomeFolderCards})=>{
   if(!cardsRoot.isConnected||lang!==homeLanguage)return;
   cardsRoot.innerHTML=renderHomeFolderCards({language:homeLanguage,url:pageURL,icon:skillIcon,portals:homePortalCopy[homeLanguage]});
  }).catch(()=>{if(cardsRoot.isConnected&&lang===homeLanguage)cardsRoot.innerHTML=`<a class="solution-cards-fallback" href="${pageURL('solutions')}">${lang==='fa'?'دیدن راهکارها':'View solutions'}</a>`;});
@@ -204,7 +204,7 @@ function renderSolutions(){
  if(!document.body.dataset.solution){location.replace(pageURL('strategy')+location.hash);return;}
  const version=++solutionsMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
- import('./solutions.mjs?v=20261109-coastal-study').then(({mountSolutions})=>{
+ import('./solutions.mjs?v=20261109-studio-coast').then(({mountSolutions})=>{
   if(version!==solutionsMountVersion||language!==lang)return;
   mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,portals:homePortalCopy[language],motion:active=>renderMotionScene('solution',active),collaboration:()=>renderCollaborationCTA({showExperience:true})});
   ensureAmbient();

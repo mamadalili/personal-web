@@ -15,7 +15,12 @@ test('Every production page receives the shared landscape theme and the CV inclu
  assert.equal(tina.url,'https://github.com/mamadalili/tina-nail-atelier');
  for(const lang of ['fa','en'])assert.ok(tina[lang].title&&tina[lang].body);
  const css=readFileSync(new URL('../site-theme.css',import.meta.url),'utf8');
- for(const file of ['ridge-to-surf.webp','ridge-to-surf-small.webp'])
+ for(const file of ['studio-ink.webp','studio-ink-small.webp','studio-hand.webp','studio-hand-small.webp'])
   assert.ok(css.includes(file) && readFileSync(new URL('../assets/brand/'+file,import.meta.url)).length>0);
- assert.match(css,/prefers-reduced-motion: no-preference/);
+ for(const page of ['index','landing','solutions','strategy','execution','technology','ai-tools','blog','article','blog-template','profile','contact','work-stories']){
+  const html=readFileSync(new URL('../'+page+'.html',import.meta.url),'utf8');
+  assert.match(html,/<\/main>\s*<picture class="page-coast" aria-hidden="true">/);
+  for(const name of ['coastal-print.webp','coastal-print-mobile.webp'])
+   assert.ok(html.includes('assets/brand/'+name) && readFileSync(new URL('../assets/brand/'+name,import.meta.url)).length>0);
+ }
 });
