@@ -4,7 +4,6 @@ import {legacy} from './content/legacy';
 import {canonicalURL, languageFromPath, routeFromPath} from './lib/routing';
 import {SiteHeader} from './components/layout/SiteHeader';
 import {GlassNav} from './components/layout/GlassNav';
-import {HomeAtmosphere} from './components/ui/HomeAtmosphere';
 import {usePageMotion} from './hooks/usePageMotion';
 import './styles/migration.css';
 
@@ -35,7 +34,6 @@ export function Layout({children}: {children: ReactNode}) {
     </head>
     <body data-page={page} data-current-page={page} data-solution={solution}>
       <a href="#main" className="skip">{lang === 'fa' ? 'رفتن به محتوای اصلی' : 'Skip to content'}</a>
-      <HomeAtmosphere/>
       <SiteHeader lang={lang} page={page} solution={solution}/>
       <main id="main" className={`page-layout${page === 'solutions' ? ' solutions-page' : ''}`} tabIndex={-1}>{children}</main>
       <GlassNav lang={lang} active={page}/>

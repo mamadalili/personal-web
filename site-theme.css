@@ -1,83 +1,56 @@
-body[data-current-page] {
-  background: #faf8f4;
+body[data-current-page][data-page] {
+  background: #fff;
   isolation: isolate;
 }
 
+/* The drawing travels with its introduction. The reading surface stays white. */
 .site-atmosphere {
-  --alborz-photo: url("assets/brand/alborz-first-light.webp");
-  --landscape-opacity: .36;
-  --landscape-blur: 2.5px;
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  background: #fff url("assets/brand/ridge-to-surf.webp") center / contain no-repeat;
   pointer-events: none;
-  contain: paint;
-  background: #faf8f4;
 }
-
-body:is([data-current-page="home"], [data-current-page="solutions"]) .site-atmosphere {
-  --landscape-opacity: .65;
-  --landscape-blur: 1.5px;
+.site-atmosphere::before,
+.site-atmosphere::after {
+  position: absolute;
+  font-size: clamp(9px, .8vw, 11px);
+  font-weight: 600;
+  line-height: 1;
+  color: #26334c;
 }
-
-body:is([data-current-page="blog"], [data-current-page="article"], [data-current-page="cv"]) .site-atmosphere {
-  --landscape-opacity: .17;
-  --landscape-blur: 4px;
-}
+.site-atmosphere::before { content: "خط‌الرأس"; left: 57%; top: 7.6%; transform: translateY(-50%); }
+.site-atmosphere::after { content: "موج"; right: 1.5%; bottom: 33%; }
+html[lang="en"] .site-atmosphere::before { content: "Ridgeline"; }
+html[lang="en"] .site-atmosphere::after { content: "Surf"; }
 
 .home-atmosphere-surface {
   position: absolute;
-  inset: -8px;
-  background: var(--alborz-photo) center / cover no-repeat;
-  opacity: var(--landscape-opacity);
-  filter: blur(var(--landscape-blur));
+  left: 25.4%;
+  top: 11.5%;
+  width: 3%;
+  aspect-ratio: 1;
+  border: 1px solid #a6cc16;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
 }
-
 @media (prefers-reduced-motion: no-preference) {
-  body:is([data-current-page="home"], [data-current-page="solutions"]) .home-atmosphere-surface::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    mask-image: linear-gradient(#000 0 36%, transparent 59%);
-    animation: alborz-cloud-drift 34s ease-in-out infinite alternate;
+  .home-atmosphere-surface {
+    animation: survey-point 4.8s ease-out infinite;
   }
-  .site-atmosphere.is-paused .home-atmosphere-surface::before,
-  .motion-paused .site-atmosphere .home-atmosphere-surface::before {
-    animation-play-state: paused;
-  }
+  .site-atmosphere.is-paused .home-atmosphere-surface,
+  .motion-paused .home-atmosphere-surface { animation-play-state: paused; }
 }
-
-@keyframes alborz-cloud-drift {
-  from { transform: scale(1.012) translateX(-.32%); }
-  to { transform: scale(1.012) translateX(.32%); }
+@keyframes survey-point {
+  0%, 28% { transform: translate(-50%, -50%) scale(.65); opacity: 0; }
+  40% { opacity: .85; }
+  72%, 100% { transform: translate(-50%, -50%) scale(1.85); opacity: 0; }
 }
-
-body:is([data-current-page="home"], [data-current-page="solutions"]) :is(.home-folder-title, .home-folder-description) {
-  color: #26364a;
-  text-shadow: 0 0 5px #fffaf2, 0 0 9px #fffaf2;
-}
-
-@media (max-width: 760px) and (orientation: portrait) {
-  .site-atmosphere { --alborz-photo: url("assets/brand/alborz-first-light-mobile.webp"); }
-}
-
 @media (max-width: 760px) {
-  body:is([data-current-page="home"], [data-current-page="solutions"]) :is(.home-folder-title, .home-folder-description) {
-    width: 100%;
-    max-width: 180px;
-    margin: 0;
-    background: rgb(255 252 244 / 88%);
-    text-shadow: none;
-  }
-  body:is([data-current-page="home"], [data-current-page="solutions"]) .home-folder-title {
-    padding: 4px 8px 0;
-    border-radius: 10px 10px 0 0;
-  }
-  body:is([data-current-page="home"], [data-current-page="solutions"]) .home-folder-description {
-    padding: 1px 8px 6px;
-    border-radius: 0 0 10px 10px;
-    font-size: 12px;
-  }
+  .site-atmosphere { background-image: url("assets/brand/ridge-to-surf-small.webp"); }
+}
+.solution-detail-hero .page-hero .site-atmosphere {
+  width: min(74%, 258px);
+  margin-block: 18px 2px;
 }

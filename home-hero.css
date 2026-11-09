@@ -1,5 +1,5 @@
 /* Home composition around the shared illustrated capability cards. */
-body[data-current-page=home]{background:#f8f9fc}
+body[data-current-page=home]{background:#fff}
 .home-art-hero{--portal-ease:cubic-bezier(.22,1,.36,1);padding-bottom:30px}
 .home-art-hero .home-hero{padding:8px 0 12px;text-align:center}
 .home-art-hero .home-welcome{position:relative;z-index:1;max-width:850px;margin-inline:auto}
@@ -84,3 +84,30 @@ html[lang=en] .home-art-hero .skills-card-copy h2{font-size:26px;line-height:1.2
 .home-art-hero .home-hero h1 em::after { display: none; }
 .home-art-hero .home-welcome > p,
 .home-art-hero .skills-hero-card .skills-card-copy > p { color: #26364a; }
+
+.home-art-hero .page-hero.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .98fr);
+  align-items: center;
+  width: 100%;
+  max-width: 1060px;
+  gap: clamp(22px, 4vw, 60px);
+  margin-inline: auto;
+  padding-block: 5px 24px;
+  text-align: start;
+}
+.home-art-hero .home-hero .home-welcome { width: 100%; margin: 0; }
+.home-art-hero .home-hero h1 { margin-inline: 0; }
+.home-art-hero .home-hero .site-atmosphere { max-width: 490px; justify-self: center; }
+@media (min-width: 1000px) and (max-height: 780px) {
+  .home-art-hero .home-hero .site-atmosphere { max-width: 345px; }
+}
+@media (max-width: 680px) {
+  .home-art-hero .page-hero.home-hero {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 8px 0 18px;
+    text-align: center;
+  }
+  .home-art-hero .home-hero .site-atmosphere { width: min(87%, 320px); }
+}

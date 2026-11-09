@@ -15,7 +15,7 @@ test('Every production page receives the shared landscape theme and the CV inclu
  assert.equal(tina.url,'https://github.com/mamadalili/tina-nail-atelier');
  for(const lang of ['fa','en'])assert.ok(tina[lang].title&&tina[lang].body);
  const css=readFileSync(new URL('../site-theme.css',import.meta.url),'utf8');
- for(const file of ['alborz-first-light.webp','alborz-first-light-mobile.webp'])
+ for(const file of ['ridge-to-surf.webp','ridge-to-surf-small.webp'])
   assert.ok(css.includes(file) && readFileSync(new URL('../assets/brand/'+file,import.meta.url)).length>0);
  assert.match(css,/prefers-reduced-motion: no-preference/);
 });

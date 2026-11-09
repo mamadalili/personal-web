@@ -4,6 +4,7 @@ import {pageURL} from '../../lib/routing';
 import type {Language, Page} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {BrandMark, ProfessionalTitle} from '../../components/ui/BrandSignature';
+import {HomeAtmosphere} from '../../components/ui/HomeAtmosphere';
 import {HomeFolders} from '../../components/ui/HomeFolders';
 import {Icon} from '../../components/ui/Icon';
 import {HomeCarousel} from './HomeCarousel';
@@ -33,7 +34,7 @@ export function HomePage({lang}: {lang: Language}) {
             ? <AppLink key={i} className="home-intro-role" href={pageURL('home', lang)}>
               <ProfessionalTitle lang={lang} label={lang === 'fa' ? 'مارکتر و اپراتور هوش مصنوعی،' : undefined}/>
             </AppLink> : part === '{home}' ? <strong key={i}>{lang === 'fa' ? 'خانه دیجیتال' : 'digital home'}</strong> : part)}</p>
-        </div></div>
+        </div><HomeAtmosphere/></div>
         <article className="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title" onFocus={revealSkills}>
           <div className="skills-card-copy"><h2 id="skills-hero-title">{k.cardTitle}</h2><p>{k.cardBody}</p>
             <div className="home-hero-actions"><CardCTA page="solutions" lang={lang} label={k.cardAction}/><CardCTA page="contact" lang={lang} label={s.contactAction}/></div>

@@ -4,6 +4,7 @@ import type {Language, Page, SolutionId} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
 import {CollaborationCTA} from '../../components/ui/CollaborationCTA';
 import {MotionScene} from '../../components/ui/DecorativeArt';
+import {HomeAtmosphere} from '../../components/ui/HomeAtmosphere';
 import {HomeFolders} from '../../components/ui/HomeFolders';
 import {Icon} from '../../components/ui/Icon';
 
@@ -23,7 +24,7 @@ export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
     </nav>
     <section className="solution-detail-hero">
       <div className="page-hero"><div className="eyebrow">{c.label}</div><h1>{c.headline[0]}<br/><em>{c.headline[1]}</em></h1>
-        <p>{c.intro}</p><CTA page="contact" label={t.conversation} lang={lang}/>
+        <p>{c.intro}</p><CTA page="contact" label={t.conversation} lang={lang}/><HomeAtmosphere/>
       </div>
       <aside className="solution-lens"><MotionScene lang={lang} solution={id}/><span className="small-label">{t.lens}</span>
         <h2>{c.lensTitle}</h2><p>{c.lensText}</p><ul className="solution-tags">{c.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
