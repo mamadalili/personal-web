@@ -157,3 +157,20 @@ html[lang=en] .library-feature h2{line-height:1.25}
   .editorial-story .article-section { padding-block-end: 12px; margin-block-end: 12px; }
   .editorial-story .interactive-chart { padding: 14px 10px; }
 }
+
+.trace-desk { --ink: #193e32; color: var(--ink); border-block: 2px solid var(--ink); padding: clamp(14px, 3vw, 26px); margin-block: 18px; background: #f2f6ed; }
+.trace-desk h3, .trace-desk h4 { color: var(--ink); margin: 0 0 10px; }
+.trace-desk fieldset { min-inline-size: 0; display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 0; border: 0; margin: 0 0 12px; }
+.trace-desk legend { padding: 0; margin-block-end: 4px; }
+.trace-desk label { display: inline-flex; min-height: 44px; align-items: center; gap: 6px; font-weight: 700; cursor: pointer; }
+.trace-desk input { width: 18px; height: 18px; accent-color: var(--ink); }
+.trace-desk input:focus-visible { outline: 2px solid #1c0998; outline-offset: 3px; }
+.trace-ledger, .trace-totals ul { list-style: none; margin: 0; padding: 0; }
+.trace-ledger li { display: grid; grid-template-columns: 2em 1fr 1fr; align-items: center; gap: 8px; padding: 8px 0; border-block-start: 1px solid #9cb1a4; }
+.trace-ledger b { justify-self: start; padding: 2px 6px; color: white; background: var(--ink); }
+.trace-ledger [data-outcome="fit"] { font-weight: 750; text-decoration: underline; text-decoration-color: #91ac38; text-underline-offset: 3px; }
+.trace-totals { padding-block-start: 12px; border-block-start: 1px solid var(--ink); }
+.trace-totals li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) 2ch; align-items: center; gap: 8px; }
+.trace-totals meter { inline-size: 100%; accent-color: var(--ink); }
+.trace-result { margin-block: 12px 0; font-weight: 650; }
+.trace-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
