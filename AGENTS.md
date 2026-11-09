@@ -86,3 +86,5 @@ The author later requested four macOS-inspired folders for Home specifically. Us
 ## Shared site theme
 
 The author made the light glass atmosphere the main theme for every page and explicitly removed pause/play controls. Use the single fixed site-atmosphere layer, site-theme.css and the vector site-horizon.svg. Preserve reduced-motion and hidden-tab handling. CV now includes Tina nail atelier as the fifth project, after the four previously ordered projects.
+
+Home uses the selected Alborz “First Light” photograph in that shared layer. Keep the slow drift confined to the sky, the snowy summit in the mobile crop and a light backing behind each mobile folder caption.
