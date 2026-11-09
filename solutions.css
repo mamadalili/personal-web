@@ -22,3 +22,115 @@ html[lang=en] .solutions-page .page-hero h1{line-height:1.25;letter-spacing:-1.6
 html[dir=rtl] .cta-direction{transform:scaleX(-1)}
 .solution-cta>span{font-size:inherit;font-weight:700;line-height:1.8}
 @media(max-width:760px){.solutions-subnav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:480px;gap:8px}.solutions-subnav a{min-width:0;min-height:58px;padding:12px 9px;font-size:13px;gap:8px}.solutions-subnav svg{width:18px;height:18px}.solutions-selector{gap:12px;padding-top:0;padding-bottom:20px}.solution-process article{padding-inline-start:0;padding-top:15px}}
+
+/* The selected solution opens as one spread beneath the four folders. */
+.solution-spread {
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  border-block: 1px solid #bec2d0;
+  margin-block: 0 clamp(26px, 3vw, 44px);
+}
+.solution-spread .solution-opening {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 31%);
+  grid-template-areas: "crumb print" "title print" "intro print" "action print";
+  column-gap: clamp(16px, 2.2vw, 34px);
+  row-gap: 14px;
+  align-content: center;
+  align-items: center;
+  padding: clamp(22px, 3vw, 42px) 0;
+  padding-inline-end: clamp(18px, 2.8vw, 44px);
+  min-width: 0;
+}
+.solution-opening .solution-breadcrumb {
+  grid-area: crumb;
+  margin: 0;
+  color: #5b6277;
+  font-size: 12px;
+}
+.solution-opening .solution-breadcrumb [aria-current] { color: #1c0998; font-weight: 750; }
+.solution-opening #solution-title {
+  grid-area: title;
+  margin: 0;
+  color: #172144;
+  font-size: clamp(26px, 2.65vw, 42px);
+  font-weight: 780;
+  line-height: 1.5;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+html[lang=en] .solution-opening #solution-title { line-height: 1.13; }
+html[lang=en] .solution-opening #solution-title em { display: inline-block; text-wrap: balance; }
+.solution-detail-hero .solution-opening .site-atmosphere {
+  grid-area: print;
+  width: 100%;
+  max-height: 280px;
+  aspect-ratio: 3 / 4;
+  margin: 0;
+  background-size: cover;
+  background-position: 45% center;
+}
+.solution-spread .solution-opening > p {
+  grid-area: intro;
+  margin: 0;
+  font-size: 14px;
+  line-height: 2;
+  color: #454c60;
+}
+.solution-opening .solution-cta { grid-area: action; justify-self: start; margin: 3px 0 0; }
+.solution-spread .solution-lens {
+  display: grid;
+  align-content: center;
+  padding: clamp(18px, 2vw, 30px);
+  border: 0;
+  border-inline-start: 1px solid #d9dce5;
+  border-radius: 0;
+  background: #f7f8fa;
+}
+.solution-spread .solution-lens .motion-scene {
+  max-inline-size: 245px;
+  margin: 0 auto 14px;
+}
+.solution-lens-copy { border-block-start: 1px solid #d9dce5; padding-block-start: 13px; }
+.solution-lens-copy .small-label { font-size: 11px; color: #515a72; font-weight: 700; }
+.solution-lens-copy h2 { color: #172144; font-size: 20px; line-height: 1.55; margin: 4px 0 0; }
+.solution-lens-copy p { color: #495267; line-height: 1.85; margin: 6px 0 0; }
+.solution-lens-copy .solution-tags { margin: 12px 0 0; gap: 6px 12px; }
+.solution-lens-copy .solution-tags li {
+  border: 0;
+  border-inline-start: 2px solid #b9c48e;
+  border-radius: 0;
+  padding: 0;
+  padding-inline-start: 7px;
+  background: transparent;
+  color: #48516a;
+  font-size: 11px;
+}
+@media (max-width: 960px) {
+  .solution-spread .solution-opening {
+    grid-template-columns: minmax(0, 1fr) minmax(84px, 28%);
+    grid-template-areas: "crumb print" "title print" "intro intro" "action action";
+  }
+  .solution-detail-hero .solution-opening .site-atmosphere { aspect-ratio: 1; }
+}
+@media (max-width: 760px) {
+  .solution-spread { grid-template-columns: 1fr; }
+  .solution-spread .solution-opening { padding: 22px 0; gap: 10px 16px; }
+  .solution-spread .solution-lens {
+    grid-template-columns: minmax(130px, .85fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: 20px;
+    border-inline-start: 0;
+    border-block-start: 1px solid #d9dce5;
+  }
+  .solution-spread .solution-lens .motion-scene { margin: 0 auto; }
+  .solution-lens-copy { border: 0; padding: 0; }
+}
+@media (max-width: 520px) {
+  .solution-spread .solution-opening { grid-template-columns: minmax(0, 1fr) minmax(68px, 24%); }
+  .solution-spread .solution-lens { grid-template-columns: 1fr; gap: 12px; }
+  .solution-spread .solution-lens .motion-scene { max-inline-size: 215px; }
+  .solution-lens-copy { border-block-start: 1px solid #d9dce5; padding-block-start: 12px; }
+}
+

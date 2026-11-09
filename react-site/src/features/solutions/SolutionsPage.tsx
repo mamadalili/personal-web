@@ -19,15 +19,19 @@ export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
     <header className="solutions-selector"><span className="eyebrow">{t.label}</span>
       <HomeFolders lang={lang} current={id}/>
     </header>
-    <nav className="solution-breadcrumb" aria-label={lang === 'fa' ? 'مسیر صفحه' : 'Breadcrumb'}>
-      <span>{t.label}</span><span aria-hidden="true">/</span><span aria-current="page">{c.label}</span>
-    </nav>
-    <section className="solution-detail-hero">
-      <div className="page-hero"><div className="eyebrow">{c.label}</div><h1>{c.headline[0]}<br/><em>{c.headline[1]}</em></h1>
-        <p>{c.intro}</p><CTA page="contact" label={t.conversation} lang={lang}/><HomeAtmosphere/>
+    <section className="solution-detail-hero solution-spread" aria-labelledby="solution-title">
+      <div className="page-hero solution-opening">
+        <nav className="solution-breadcrumb" aria-label={lang === 'fa' ? 'مسیر صفحه' : 'Breadcrumb'}>
+          <span>{t.label}</span><span aria-hidden="true">/</span><span aria-current="page">{c.label}</span>
+        </nav>
+        <h1 id="solution-title">{c.headline[0]}<br/><em>{c.headline[1]}</em></h1>
+        <HomeAtmosphere/>
+        <p>{c.intro}</p><CTA page="contact" label={t.conversation} lang={lang}/>
       </div>
-      <aside className="solution-lens"><MotionScene lang={lang} solution={id}/><span className="small-label">{t.lens}</span>
-        <h2>{c.lensTitle}</h2><p>{c.lensText}</p><ul className="solution-tags">{c.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+      <aside className="solution-lens" aria-labelledby="solution-lens-title"><MotionScene lang={lang} solution={id}/>
+        <div className="solution-lens-copy"><span className="small-label">{t.lens}</span>
+          <h2 id="solution-lens-title">{c.lensTitle}</h2><p>{c.lensText}</p><ul className="solution-tags">{c.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+        </div>
       </aside>
     </section>
     <section className="solution-fit" aria-labelledby="fit-heading"><h2 id="fit-heading">{t.fit}</h2><ul>{c.fit.map(text => <li key={text}>{text}</li>)}</ul></section>
