@@ -72,3 +72,44 @@ html[lang=en] .contact-editorial h1{font-size:clamp(27px,2.6vw,34px);line-height
 }
 @media(max-width:360px){.contact-editorial{padding-inline:20px}.contact-editorial h1{font-size:25px}html[lang=en] .contact-editorial h1{font-size:26px}.contact-portrait-stage{width:calc(100% + 40px);margin-inline:-20px;height:330px}.contact-editorial-actions a{font-size:10px;gap:8px;padding-inline:9px}}
 @media(prefers-reduced-motion:reduce){.contact-editorial *,.contact-editorial *:before,.contact-editorial *:after{animation:none!important;transition:none!important}}
+
+/* Keep the seven supplied employer marks together in the contact footer. */
+body[data-page="contact"] .employer-logo-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+body[data-page="contact"] .employer-logo-card {
+  gap: 8px;
+  padding: 10px 8px;
+}
+body[data-page="contact"] .employer-logo-card > span {
+  height: 42px;
+  padding: 3px 0;
+}
+@media (max-width: 760px) {
+  body[data-page="contact"] .employer-logo-grid {
+    grid-template-columns: repeat(7, minmax(44px, 1fr));
+    gap: 4px;
+    overflow-x: auto;
+    padding: 4px 0 8px;
+  }
+  body[data-page="contact"] .employer-logo-card {
+    position: relative;
+    min-height: 54px;
+    padding: 6px 3px;
+    justify-content: center;
+  }
+  body[data-page="contact"] .employer-logo-card > span {
+    height: 32px;
+    padding: 2px 0;
+  }
+  body[data-page="contact"] .employer-logo-card strong {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
