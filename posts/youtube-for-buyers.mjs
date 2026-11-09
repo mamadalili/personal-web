@@ -29,11 +29,11 @@ export const post = {
   slug: 'youtube-for-buyers', status: 'published', date: '2026-11-08', reviewed: '2026-11-08',
   bannerPair: { id: 'plum-guava-pair', position: 2 },
   cover: {
-    fa: { src: 'assets/blog/youtube-for-buyers-fa.webp', width: 1600, height: 900, alt: 'ارزشمندترین بلاگ آموزشی بوتیوب. تصویرسازی صاحب یک کارگاه دوخت که از جیب پیش‌بند فیلم می‌گیرد.' },
-    en: { src: 'assets/blog/youtube-for-buyers-en.webp', width: 1600, height: 900, alt: 'The Most Valuable YouTube Guide. A textile studio founder films the detail of an apron pocket.' }
+    fa: { src: 'assets/blog/youtube-for-buyers-fa-v2.webp', width: 1600, height: 900, alt: 'ارزشمندترین بلاگ آموزشی یوتیوب. مجری پشت میز رو به دوربین صحبت می‌کند و نشان قرمز پخش یوتیوب در استودیو پیداست.' },
+    en: { src: 'assets/blog/youtube-for-buyers-en-v2.webp', width: 1600, height: 900, alt: 'The Most Valuable YouTube Guide. A presenter speaks to camera from her desk with a red YouTube play sign in the studio.' }
   },
   fa: {
-    title: 'ارزشمندترین بلاگ آموزشی بوتیوب', subtitle: 'به فارسی و انگلیسی',
+    title: 'ارزشمندترین بلاگ آموزشی یوتیوب', subtitle: 'به فارسی و انگلیسی',
     category: 'بازاریابی و فروش آنلاین', readTime: '۶ تا ۹ دقیقه با تمرین',
     excerpt: 'ویدیوی پشت‌صحنهٔ کارگاه رو کلی آدم دیده. ولی مدیر کافه قبل از سفارش هنوز می‌پرسه جیب پیش‌بند به درد باریستا می‌خوره یا نه. برای کانال این کارگاه، ویدیوی بعدی رو از همین سؤال می‌سازیم.',
     credit: 'با الهام از تجربهٔ پی‌یر فرانسوا در ساخت کانال یوتیوب برای کسب‌وکارها.',

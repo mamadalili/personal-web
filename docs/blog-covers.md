@@ -6,7 +6,7 @@ The Persian and English versions are separate image assets. The shared renderer 
 
 ## Paired palettes
 
-For new blog covers and cover revisions, depict women with uncovered hair and everyday clothing. Follow this art direction in both native-language editions and their card previews.
+Choose the cover subject from the article’s central question. A presenter fits a lesson about being on camera. A still life or an abstract print can illustrate a concept. Use a chart when the article has sourced data and the comparison is legible on a small card. People are optional. When a woman appears, depict her with uncovered hair. Pair consecutive covers through palette and print treatment while choosing each composition independently. Apply the same concept to the Persian and English editions.
 
 Solo Business and AI Payoff keep their original indigo editorial pair. AI Model Market starts a new ice-white / turquoise / emerald / silver-graphite pair. The next new article must match this family as the second cover, with its own topic-specific imagery and keywords. The site accent does not dictate every banner palette.
 
@@ -119,6 +119,6 @@ Cover prompt direction: an editorial marketing operations worktable, with source
 
 Search to Sale opens the plum / guava pair. Original commissioned-style AI illustration: an espresso technician at the point where a printed neighbourhood map meets her workbench. Both covers use localised typesetting on the dark paper; the interior still life illustrates a customer sending a photo of a leak.
 
-YouTube for Buyers completes `plum-guava-pair`. The original cover prompt placed a woman filming an apron pocket on the right of a cut-paper print, with a coral viewfinder and open plum paper for native lettering. The interior diptych prompt contrasted the apron on a dress form with a barista retrieving a cloth at the espresso machine. Both artworks were generated for this article. The images illustrate the fictional studio in the text.
+YouTube for Buyers completes `plum-guava-pair`. Its revised editorial cover shows a seated presenter teaching directly to camera, a studio microphone and a red YouTube play sign. Plum and guava lighting links it to Search to Sale. Native titles are typeset on the dark wall. The interior diptych illustrates the article’s product demonstration with an apron on a dress form and a barista retrieving a cloth.
 
 Marketing Engineer opens `forest-citron-register`. The newly generated cover depicts a woman aligning two transparent plates of a cup at a print registration table, with pale citron linework against dark forest ink. The open left side holds native lettering. The independently generated interior still contrasts a ready-to-dispatch glaze sample with an unfinished batch on the workshop shelves. Both illustrate the original studio exercise.
