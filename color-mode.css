@@ -67,6 +67,7 @@ day-night-switch::part(cloud-back) { transition-delay: 85ms; }
 }
 
 @media screen {
+  :root[data-theme=light] { color-scheme: only light; }
   :root[data-theme=dark] {
     color-scheme: dark;
     --bg: #10131c;
@@ -109,12 +110,6 @@ day-night-switch::part(cloud-back) { transition-delay: 85ms; }
   :root[data-theme=dark] .page-coast { background: var(--bg); }
   :root[data-theme=dark] .page-coast img,
   :root[data-theme=dark] .contact-author-photo { filter: none; }
-  :root[data-theme=dark] .site-atmosphere {
-    background: transparent var(--intro-print) center / contain no-repeat;
-    mix-blend-mode: normal;
-    border-radius: 8px;
-  }
-  :root[data-theme=dark] .site-atmosphere::before { content: none; }
   /* Home, silver folders and the four solution spreads. */
   :root[data-theme=dark] :is(.home-welcome, .skills-card-copy, .page-hero, .home-post-card, .home-quick-links, .solution-lens-copy,
         .solution-section, .solution-fit, .solution-outputs, .solution-process, .solution-faq, .collaboration-cta)

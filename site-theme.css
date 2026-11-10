@@ -8,7 +8,10 @@ body[data-current-page][data-page] {
   width: 100%;
   aspect-ratio: 3 / 2;
   background: transparent var(--intro-print) center / contain no-repeat;
-  mix-blend-mode: multiply;
+  border-radius: 8px;
+  color-scheme: only light;
+  mix-blend-mode: normal;
+  filter: none;
   pointer-events: none;
 }
 .home-hero { --intro-print: url("assets/brand/studio-ink.webp"); }

@@ -18,7 +18,7 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
   const archive = !slug, page = archive ? 'blog' : 'article';
   const url = archive ? 'blog.html?lang=' + lang : 'article.html?post=' + slug + '&lang=' + lang;
   const navMarkup = nav.map(([file,fa,en]) => `<a href="/${file}?lang=${lang}">${lang==='fa'?fa:en}</a>`).join(' ');
-  let html = template.replace(/<html lang="fa" dir="rtl">/,`<html lang="${lang}" dir="${lang==='fa'?'rtl':'ltr'}">`)
+  let html = template.replace(/<html lang="fa" dir="rtl"/,`<html lang="${lang}" dir="${lang==='fa'?'rtl':'ltr'}"`)
     .replace(/<title>.*?<\/title>/,()=>`<title>${esc(title)} — ${names[lang]}</title>`)
     .replace(/<meta name="description" content="[^"]*">/,()=>`<meta name="description" content="${esc(intro)}">`)
     .replace('<meta name="theme-color"',()=>`<script>if (location.pathname.includes('/reading/')) {const u=new URL('../../${page}.html',location.href);u.search=location.search;u.searchParams.set('lang','${lang}');${slug?`u.searchParams.set('post','${slug}');`:''}u.hash=location.hash;history.replaceState(null,'',u)}</script>\n  <meta name="theme-color"`)

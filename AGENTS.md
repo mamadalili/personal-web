@@ -85,6 +85,8 @@ The author later requested four macOS-inspired folders for Home specifically. Us
 
 ## Shared site theme
 
+Open each page in light mode. The day/night switch changes the current page only. Render the Home ink print and the hand on all four Solutions pages in their original WebP colours in either mode.
+
 Use a white page surface behind text, employer marks and folder links. Use the blue ink print in the Home introduction and the hand lifting blue paper in all Solutions introductions. Every page ends with the shared coastal print below content. On phones, use the approved 190% crop anchored at 78% of the remaining space, above the glass navigation.
 
 CV includes Tina nail atelier as the fifth project, after the four previously ordered projects.

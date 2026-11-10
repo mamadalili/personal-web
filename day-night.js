@@ -1,25 +1,13 @@
 (() => {
   const root = document.documentElement;
-  const media = window.matchMedia('(prefers-color-scheme: dark)');
-  const key = 'portfolio-color-mode';
-  let preference = null;
-
-  function readPreference() {
-    try {
-      const saved = localStorage.getItem(key);
-      preference = saved === 'dark' || saved === 'light' ? saved : null;
-    } catch {
-      // A blocked store still permits switching for the current document.
-    }
-  }
-
   function refreshSwitches() {
     document.querySelectorAll('day-night-switch').forEach(control => control.sync());
   }
 
-  function apply() {
-    const mode = preference || (media.matches ? 'dark' : 'light');
+  function setTheme(mode) {
     root.dataset.theme = mode;
+    const scheme = document.querySelector('meta[name="color-scheme"]');
+    if (scheme) scheme.content = mode === 'dark' ? 'dark' : 'only light';
     const chrome = document.querySelector('meta[name="theme-color"]');
     if (chrome) chrome.content = mode === 'dark' ? '#10131c' : '#1c0998';
     refreshSwitches();
@@ -65,9 +53,7 @@
         </button>`;
       this.button = shadow.querySelector('button');
       this.button.addEventListener('click', () => {
-        preference = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        try { localStorage.setItem(key, preference); } catch { /* Use the in-memory choice. */ }
-        apply();
+        setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
       });
     }
 
@@ -84,15 +70,9 @@
     }
   }
 
-  readPreference();
   customElements.define('day-night-switch', DayNightSwitch);
-  apply();
+  setTheme('light');
   new MutationObserver(refreshSwitches).observe(root, {attributes: true, attributeFilter: ['lang']});
-  media.addEventListener('change', () => { if (preference === null) apply(); });
-  window.addEventListener('storage', event => {
-    if (event.key === key || event.key === null) { readPreference(); apply(); }
-  });
-  window.addEventListener('pageshow', event => {
-    if (event.persisted) { readPreference(); apply(); }
-  });
+  // A restored history entry is another opening of the page.
+  window.addEventListener('pagehide', event => { if (event.persisted) setTheme('light'); });
 })();
