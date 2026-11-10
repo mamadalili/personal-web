@@ -1,5 +1,10 @@
 (() => {
   const root = document.documentElement;
+  const sessionKey = 'portfolio-session-theme';
+  function selectedTheme() {
+    try { return sessionStorage.getItem(sessionKey) === 'dark' ? 'dark' : 'light'; }
+    catch { return 'light'; }
+  }
   function refreshSwitches() {
     document.querySelectorAll('day-night-switch').forEach(control => control.sync());
   }
@@ -53,7 +58,9 @@
         </button>`;
       this.button = shadow.querySelector('button');
       this.button.addEventListener('click', () => {
-        setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        const mode = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        try { sessionStorage.setItem(sessionKey, mode); } catch {}
+        setTheme(mode);
       });
     }
 
@@ -71,8 +78,7 @@
   }
 
   customElements.define('day-night-switch', DayNightSwitch);
-  setTheme('light');
+  setTheme(selectedTheme());
   new MutationObserver(refreshSwitches).observe(root, {attributes: true, attributeFilter: ['lang']});
-  // A restored history entry is another opening of the page.
-  window.addEventListener('pagehide', event => { if (event.persisted) setTheme('light'); });
+  window.addEventListener('pageshow', () => setTheme(selectedTheme()));
 })();
