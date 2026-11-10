@@ -5,9 +5,16 @@ import {dirname, resolve} from 'node:path';
 import {posts, articleTemplate} from '../blog-data.mjs';
 import {buildReadingPages} from './reading-pages.mjs';
 import {postSummaries} from '../blog-summary-model.mjs';
+import {workStoryTopics} from '../work-stories-data.mjs';
+import {workStoryHref} from '../work-stories-model.mjs';
+import {buildBrowserRuntime} from './build-browser-runtime.mjs';
+import {buildStoryPage} from './story-page.mjs';
 
 export function buildBlogRuntime(items, template) {
   const files = new Map(), summaries = postSummaries(items);
+  const linked = Object.values(workStoryTopics).flat().filter(story => workStoryHref(story,'fa',items));
+  const storyPosts = [...new Set(linked.map(story => story.post))].map(slug => ({slug,status:'published'}));
+  files.set('work-story-posts.mjs', '// Generated from published bilingual work stories.\nexport const posts = ' + JSON.stringify(storyPosts) + ';\n');
   const serialize = (article, slug) => {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('Invalid article slug');
     const data = JSON.stringify(article) + '\n';
@@ -26,7 +33,7 @@ export function buildBlogRuntime(items, template) {
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   const root = fileURLToPath(new URL('../', import.meta.url));
-  const output = [...buildBlogRuntime(posts, articleTemplate), ...buildReadingPages(posts)];
+  const output = [...buildBlogRuntime(posts, articleTemplate), ...buildReadingPages(posts), ['work-stories.html',buildStoryPage(posts)]];
   for (const [name, content] of output) {
     const path = resolve(root, name);
     if (process.argv.includes('--check')) {
@@ -36,5 +43,6 @@ if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.m
       writeFileSync(path, content, 'utf8');
     }
   }
+  await buildBrowserRuntime(process.argv.includes('--check'));
   console.log(`Blog runtime ${process.argv.includes('--check') ? 'verified' : 'generated'}: ${postSummaries(posts).length} bilingual articles.`);
 }

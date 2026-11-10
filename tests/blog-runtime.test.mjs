@@ -8,8 +8,9 @@ import {buildBlogRuntime} from '../scripts/generate-blog-runtime.mjs';
 import {loadArticleData} from '../blog-article-data.mjs';
 import {blogLibrarySelection} from '../blog-library-model.mjs';
 import {homePostPages} from '../home-blog.mjs';
+import {visibleWorkStories, workStoryTopics} from '../work-stories-data.mjs';
 
-test('Home and archive dependency graphs exclude article bodies and article-only widgets', () => {
+test('Home, archive and work stories exclude article bodies and article-only widgets', () => {
   const visit = (file, seen = new Set()) => {
     if (seen.has(file.href)) return seen;
     seen.add(file.href);
@@ -17,10 +18,22 @@ test('Home and archive dependency graphs exclude article bodies and article-only
     for (const [, path] of source.matchAll(/\bfrom\s+['"](\.\/[^'"]+\.mjs)(?:\?[^'"]*)?['"]/g)) visit(new URL(path, file), seen);
     return seen;
   };
-  for (const entry of ['home-blog.mjs', 'blog-list.mjs']) {
+  for (const entry of ['home-blog.mjs', 'blog-list.mjs', 'work-stories.mjs']) {
     const graph = [...visit(new URL(`../${entry}`, import.meta.url))];
-    assert.ok(graph.some(path => path.endsWith('/blog-summaries.mjs')));
+    assert.equal(graph.some(path => path.endsWith('/blog-summaries.mjs')), entry !== 'work-stories.mjs');
     assert.ok(graph.every(path => !/\/(?:posts\/|blog-data\.mjs|blog-widgets\.mjs|blog-market\.mjs)/.test(path)), entry);
+  }
+});
+
+test('work stories can be read in either language before any module downloads', () => {
+  const html = readFileSync(new URL('../work-stories.html', import.meta.url), 'utf8');
+  const groups = [...html.matchAll(/<section lang="(fa|en)" dir="(?:rtl|ltr)">([\s\S]*?)<\/section>/g)];
+  assert.deepEqual(groups.map(group => group[1]), ['fa','en']);
+  for (const [,language,group] of groups) {
+    for (const id of Object.keys(workStoryTopics)) {
+      assert.ok(group.includes('data-role-copy="' + id + '"'), id);
+      for (const story of visibleWorkStories(id)) assert.ok(group.includes(story[language].title), story.id);
+    }
   }
 });
 

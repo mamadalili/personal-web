@@ -6,3 +6,4 @@ assets/anatomy/** text=auto eol=lf
 # These public URLs fingerprint the exact exported bytes.
 assets/posts/*.json text eol=lf
 reading/**/*.html text eol=lf
+runtime-*.mjs text eol=lf

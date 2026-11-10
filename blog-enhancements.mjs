@@ -1,6 +1,6 @@
 import {readingWidget} from './blog-reading.mjs';
 
-const modules = {
+export const articleModules = {
   'decision-audit': ['./blog-decision-audit.mjs', 'createDecisionAudits'],
   workflow: ['./blog-workflow.mjs', 'createWorkflowWidgets'],
   'data-motion': ['./blog-data-motion.mjs?v=20261102-unit-objects', 'createDataMotionWidgets'],
@@ -16,7 +16,7 @@ const modules = {
 
 export function addonKind(type) {
   if (type === 'context-lab' || type === 'brain-check') return 'company-brain';
-  return Object.hasOwn(modules,type) ? type : null;
+  return Object.hasOwn(articleModules,type) ? type : null;
 }
 
 export function enhanceArticle(root, context) {
@@ -40,11 +40,23 @@ export function enhanceArticle(root, context) {
     const retryControl = slots[0].querySelector('[data-retry-addon]');
     if (retryControl) retryControl.disabled = true;
     try {
-      const [path, factory, loadStyle] = modules[kind];
-      const url = new URL(path, import.meta.url);
+      const [path, factory, loadStyle] = articleModules[kind];
+      const url = new URL(path.replace('./','./runtime-'), import.meta.url);
       if (retry) url.searchParams.set('retry', String(Date.now()));
-      const module = await import(url.href);
-      if (loadStyle) await module[loadStyle]();
+      async function load() {
+        const module = await import(url.href);
+        if (loadStyle) await module[loadStyle]();
+        return module;
+      }
+      let module;
+      try { module = await load(); }
+      catch {
+        if (signal.aborted) return;
+        await new Promise(resolve => setTimeout(resolve,500));
+        if (signal.aborted || !root.isConnected) return;
+        url.searchParams.set('retry',String(Date.now()));
+        module = await load();
+      }
       if (signal.aborted || !root.isConnected) return;
       const options = {...context, signal:attempt.signal};
       if (kind === 'market-atlas') {

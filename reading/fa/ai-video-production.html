@@ -3,6 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <script>
+    document.addEventListener('error', event => {
+      const asset = event.target;
+      const script = asset.tagName === 'SCRIPT' && asset.src;
+      const style = asset.tagName === 'LINK' && asset.rel === 'stylesheet';
+      if ((!script && !style) || asset.parentNode !== document.head) return;
+      const url = new URL(script ? asset.src : asset.href);
+      const attempt = Number(asset.dataset.loadAttempt || 0) + 1;
+      if (url.origin !== location.origin || attempt > 2) return;
+      setTimeout(() => {
+        if (!asset.isConnected) return;
+        const next = document.createElement(script ? 'script' : 'link');
+        for (const {name, value} of asset.attributes) next.setAttribute(name, value);
+        next.dataset.loadAttempt = String(attempt);
+        url.searchParams.set('retry', String(Date.now()));
+        next[script ? 'src' : 'href'] = url.href;
+        const replace = () => asset.replaceWith(next);
+        if (script && asset.defer && document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replace, {once:true});
+        } else replace();
+      }, attempt * 500);
+    }, true);
+  </script>
   <script>if (location.pathname.includes('/reading/')) {const u=new URL('../../article.html',location.href);u.search=location.search;u.searchParams.set('lang','fa');u.searchParams.set('post','ai-video-production');u.hash=location.hash;history.replaceState(null,'',u)}</script>
   <meta name="theme-color" content="#1c0998">
   <meta name="color-scheme" content="only light">
@@ -17,7 +40,7 @@
   <link rel="stylesheet" href="/blog-solo.css">
   <link rel="stylesheet" href="/blog-market.css?v=20261031-original-visuals">
   <link rel="stylesheet" href="/blog-data-motion.css?v=20261102-unit-objects">
-  <script src="/portfolio.js?v=20261110-reading" defer></script>
+  <script src="/portfolio.js?v=20261110-recovery" defer></script>
   <link rel="stylesheet" href="/color-mode.css?v=20261110-manual">
   <link rel="canonical" href="https://mrdalili.ir/article.html?post=ai-video-production&amp;lang=fa">
 </head>

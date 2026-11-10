@@ -185,6 +185,17 @@ function renderCollaborationCTA({showExperience=false}={}){
 }
 function renderSkills(){location.replace(pageURL('cv')+'&tab=experience');}
 let disposeBlog=()=>{};
+const pageModuleBase=document.currentScript?.src||document.baseURI;
+async function loadPageModule(file, retry=false) {
+ const url = new URL('runtime-'+file, pageModuleBase);
+ if (retry) url.searchParams.set('retry',String(Date.now()));
+ try { return await import(url.href); }
+ catch {
+  await new Promise(resolve => setTimeout(resolve,500));
+  url.searchParams.set('retry',String(Date.now()));
+  return import(url.href);
+ }
+}
 function renderBlog(mode='index',retry=false){
  disposeBlog();disposeBlog=()=>{};
  const root=$('main'), version=++blogMountVersion, language=lang;
@@ -195,9 +206,6 @@ function renderBlog(mode='index',retry=false){
  const staticURL=mode==='index'?(language==='fa'?'blog.html':'reading/en/archive.html')
    : /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug||'')?`reading/${language}/${slug}.html`:null;
  const entry=mode==='index'?'blog-list.mjs':'blog.mjs';
- const url=new URL(entry,document.baseURI);
- url.searchParams.set('v','20261110-reading');
- if(retry)url.searchParams.set('retry',String(Date.now()));
  root.querySelector('[data-reading-retry]')?.remove();
  if(!ready()) root.innerHTML=loadingMarkup(language==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
  let interactive=false;
@@ -217,7 +225,7 @@ function renderBlog(mode='index',retry=false){
   } catch { /* The interactive reader can still load independently. */ }
  }
  const reading=getReadingCopy();
- import(url.href).then(async({mountBlog,unmountBlog})=>{
+ loadPageModule(entry,retry).then(async({mountBlog,unmountBlog})=>{
   if(!current())return;
   disposeBlog=unmountBlog||(()=>{});
   await mountBlog(root,{language,mode,template});
@@ -251,14 +259,23 @@ function renderSolutions(){
   console.error('Solutions could not be loaded',error);
  });
 }
-function renderWorkStories(){
+const workStoryCopy=document.getElementById('work-story-copy')?.cloneNode(true);
+function renderWorkStories(retry=false){
  disposeWorkStories();disposeWorkStories=()=>{};
  const version=++workStoriesMountVersion,language=lang;
- $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی روایت‌های کاری…':'Preparing the work stories…');
- import('./work-stories.mjs?v=20261102-story-cards').then(({mountWorkStories})=>{
+ const root=$('main');
+ if(!root.querySelector('#work-story-copy') && workStoryCopy)root.replaceChildren(workStoryCopy.cloneNode(true));
+ root.querySelector('[data-story-status]')?.remove();
+ const requested=new URLSearchParams(location.search).get('role');
+ if(requested)for(const details of root.querySelectorAll('[data-role-copy]'))details.open=details.dataset.roleCopy===requested;
+ loadPageModule('work-stories.mjs',retry).then(({mountWorkStories})=>{
   if(version!==workStoriesMountVersion||language!==lang)return;
   disposeWorkStories=mountWorkStories($('main'),{language,roles:career,formatYears:years,renderWebsite:companyWebsite,activateStory:document.activeElement?.id!=='language'});
- }).catch(()=>{if(version!==workStoriesMountVersion||language!==lang)return;$('main').innerHTML=`<section class="page-hero"><h1>${lang==='fa'?'روایت‌های کاری':'Work stories'}</h1><a class="blog-button" href="${pageURL('cv')}">${lang==='fa'?'دیدن سوابق کاری':'Explore my CV'}</a></section>`;});
+ }).catch(()=>{
+  if(version!==workStoriesMountVersion||language!==lang)return;
+  root.insertAdjacentHTML('afterbegin',`<p role="status" class="reading-recovery" data-story-status>${lang==='fa'?'برای دیدن نمای تعاملی روایت‌ها دوباره تلاش کن.':'Try again to open the interactive stories.'} <button type="button" data-story-retry>${lang==='fa'?'تلاش دوباره':'Try again'}</button></p>`);
+  root.querySelector('[data-story-retry]').addEventListener('click',()=>renderWorkStories(true),{once:true});
+ });
 }
 function contactLinks(){
  return `<div class="contact-methods">${contactChannels.map(channel=>`<a class="contact-card contact-method" data-contact="${channel.id}" href="${channel.href}" ${channel.href.startsWith('https:')?'target="_blank" rel="noopener noreferrer"':''}><span class="contact-method-icon">${icon(channel.icon)}</span><span class="contact-method-copy"><strong>${channel[lang]}</strong><span dir="ltr">${channel.value}</span></span><span class="contact-method-arrow">${icon('arrow')}</span></a>`).join('')}</div>`;

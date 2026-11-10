@@ -1,5 +1,7 @@
 # Static hosting
 
+On a clean build machine, install the pinned authoring dependencies with `npm ci --prefix react-site` before generating the blog runtime. Include regenerated `runtime-*.mjs` files and `work-story-posts.mjs` when publishing changes to the archive, article interactions or work stories. Upload bundles before publishing HTML that uses them.
+
 The public domain is https://mrdalili.ir/. This site runs as static HTML, CSS, JavaScript modules and local assets; it needs no database or Node.js server on the hosting account.
 
 Publish the root HTML, CSS, JS and MJS files, `robots.txt`, `sitemap.xml` and the `assets`, `figures`, `fonts`, `images` and `posts` directories. Exclude the article template, Git metadata, authoring skills, documentation, prompts, tests, scripts and review documents. Keep any upload archive outside the public document root.
