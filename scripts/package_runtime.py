@@ -21,13 +21,13 @@ def package_runtime(root, names, destination, released_at=None):
     for name in names:
         relative = Path(name)
         runtime = relative.name == name and (relative.suffix.lower() in {'.html', '.css', '.js', '.mjs'} or name in {'sitemap.xml','robots.txt'})
-        asset = re.fullmatch(r'(?:assets/companies/online-tahrir\.webp|assets/brand/site-horizon\.svg|assets/brand/home-horizon(?:-mobile)?\.webp|assets/blog/(?:previews/)?[a-z0-9]+(?:-[a-z0-9]+)*\.webp|assets/posts/[a-z0-9]+(?:-[a-z0-9]+)*-[a-f0-9]{16}\.json|posts/[a-z0-9]+(?:-[a-z0-9]+)*\.mjs|images/myphoto-(?:avatar|profile)-v1\.webp|fonts/Vazirmatn\.woff2)', name)
-        home_landscape = name in {'assets/brand/alborz-first-light.webp', 'assets/brand/alborz-first-light-mobile.webp',
-                                      'assets/brand/ridge-to-surf.webp', 'assets/brand/ridge-to-surf-small.webp',
-                                      'assets/brand/studio-ink.webp', 'assets/brand/studio-ink-small.webp',
+        asset = re.fullmatch(r'(?:assets/companies/online-tahrir\.webp|assets/blog/(?:previews/)?[a-z0-9]+(?:-[a-z0-9]+)*\.webp|assets/posts/[a-z0-9]+(?:-[a-z0-9]+)*-[a-f0-9]{16}\.json|posts/[a-z0-9]+(?:-[a-z0-9]+)*\.mjs|images/myphoto-(?:avatar|profile)-v1\.webp|fonts/Vazirmatn\.woff2)', name)
+        reading_page = re.fullmatch(r'reading/(?:fa|en)/[a-z0-9]+(?:-[a-z0-9]+)*\.html', name)
+        cache_config = name in {'assets/posts/.htaccess', 'fonts/.htaccess'}
+        home_landscape = name in {'assets/brand/studio-ink.webp', 'assets/brand/studio-ink-small.webp',
                                       'assets/brand/studio-hand.webp', 'assets/brand/studio-hand-small.webp',
                                       'assets/brand/coastal-print.webp', 'assets/brand/coastal-print-mobile.webp'}
-        if not runtime and not asset and not home_landscape and name != 'assets/cv/mohammadreza-dalili-fa.pdf':
+        if not runtime and not asset and not reading_page and not cache_config and not home_landscape and name != 'assets/cv/mohammadreza-dalili-fa.pdf':
             raise ValueError('Only explicit runtime files and supported generated public assets may be packaged')
         source = root / relative
         if not source.resolve().is_relative_to(root) or not source.is_file() or any(path.is_symlink() for path in [source, *source.parents] if path != root):

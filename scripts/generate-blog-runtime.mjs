@@ -3,6 +3,7 @@ import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {dirname, resolve} from 'node:path';
 import {posts, articleTemplate} from '../blog-data.mjs';
+import {buildReadingPages} from './reading-pages.mjs';
 import {postSummaries} from '../blog-summary-model.mjs';
 
 export function buildBlogRuntime(items, template) {
@@ -25,7 +26,8 @@ export function buildBlogRuntime(items, template) {
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   const root = fileURLToPath(new URL('../', import.meta.url));
-  for (const [name, content] of buildBlogRuntime(posts, articleTemplate)) {
+  const output = [...buildBlogRuntime(posts, articleTemplate), ...buildReadingPages(posts)];
+  for (const [name, content] of output) {
     const path = resolve(root, name);
     if (process.argv.includes('--check')) {
       if (readFileSync(path, 'utf8').replace(/\r\n/g, '\n') !== content) throw new Error(`Stale runtime content: ${name}. Run node scripts/generate-blog-runtime.mjs.`);

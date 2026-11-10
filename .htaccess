@@ -14,3 +14,25 @@ AddDefaultCharset UTF-8
     Header set Cache-Control "no-cache, max-age=0, must-revalidate"
   </FilesMatch>
 </IfModule>
+
+# Portfolio reading routes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{QUERY_STRING} (?:^|&)post=([a-z0-9]+(?:-[a-z0-9]+)*)(?:&|$)
+  RewriteRule ^article\.html$ - [E=PORTFOLIO_POST:%1]
+  RewriteCond %{ENV:PORTFOLIO_POST} !^$
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteCond %{DOCUMENT_ROOT}/reading/en/%{ENV:PORTFOLIO_POST}.html -f
+  RewriteRule ^article\.html$ reading/en/%{ENV:PORTFOLIO_POST}.html [END]
+  RewriteCond %{ENV:PORTFOLIO_POST} !^$
+  RewriteCond %{DOCUMENT_ROOT}/reading/fa/%{ENV:PORTFOLIO_POST}.html -f
+  RewriteRule ^article\.html$ reading/fa/%{ENV:PORTFOLIO_POST}.html [END]
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteRule ^blog\.html$ reading/en/archive.html [END]
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "^myphoto-(avatar|profile)-v[0-9]+\.webp$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+# End portfolio reading routes

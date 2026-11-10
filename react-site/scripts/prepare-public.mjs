@@ -17,7 +17,12 @@ mkdirSync(target,{recursive:true});
 for(const entry of readdirSync(sourceRoot,{withFileTypes:true})){
  if(entry.isFile()&&/\.(html|css|js|mjs)$/.test(entry.name))cpSync(join(sourceRoot,entry.name),join(target,entry.name));
 }
-for(const directory of ['assets','images','fonts','posts'])cpSync(join(sourceRoot,directory),join(target,directory),{recursive:true});
+for(const directory of ['assets','images','fonts','posts','reading'])cpSync(join(sourceRoot,directory),join(target,directory),{recursive:true});
+const readingFiles=['blog.html',...['fa','en'].flatMap(lang=>readdirSync(join(target,'reading',lang)).filter(name=>name.endsWith('.html')).map(name=>join('reading',lang,name)))];
+for(const name of readingFiles){
+ const file=join(target,name);
+ writeFileSync(file,readFileSync(file,'utf8').replace(/\b(href|src|srcset)="\/(?!\/)/g,'$1="/legacy/'));
+}
 mkdirSync(join(target,'figures'),{recursive:true});
 cpSync(join(sourceRoot,'figures/solo-model.mjs'),join(target,'figures/solo-model.mjs'));
 writeFileSync(join(publicRoot,'robots.txt'),'User-agent: *\nDisallow: /\n');

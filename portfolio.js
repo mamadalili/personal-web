@@ -95,8 +95,8 @@ function updateURL(){const url=new URL(location.href);url.searchParams.set('lang
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 function render(){
   ensureAmbient();
-  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.title=`${pageLabel} — ${t.name}`;
-  document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
+  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';if (!($('main').dataset.readingLang===lang && page==='article')) document.title=`${pageLabel} — ${t.name}`;
+  if (!($('main').dataset.readingLang===lang && page==='article')) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=titleMarkup();$('header-label').textContent=page==='home'?'':pageLabel;$('header-label').hidden=page==='home';
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
@@ -104,7 +104,7 @@ function render(){
   $('language').innerHTML=languageButtonMarkup();$('language').dir=lang==='fa'?'ltr':'rtl';
   $('language').lang=lang==='fa'?'en':'fa';$('language').setAttribute('aria-label',lang==='fa'?'Switch to English':'تغییر زبان به فارسی');
   $('footer').innerHTML=`<nav aria-label="${s.navLabel}">${Object.keys(pageFiles).map((id,i)=>`<a href="${pageURL(id)}" ${navPage===id?'aria-current="page"':''}>${icon(id)}<span>${s.nav[i]}</span></a>`).join('')}</nav>`;
-  $('main').className=page==='cv'?'layout':'page-layout';
+  if (!$('main').dataset.readingLang) $('main').className=page==='cv'?'layout':'page-layout';
   if(page==='cv'){
     $('main').innerHTML='<aside id="profile" class="profile-card"></aside><section class="workspace"><div id="intro" class="intro"></div><div class="work-card"><div id="main-tabs" class="main-tabs" role="tablist"></div><div id="content"></div></div></section>';
     renderCV();
@@ -185,19 +185,55 @@ function renderCollaborationCTA({showExperience=false}={}){
 }
 function renderSkills(){location.replace(pageURL('cv')+'&tab=experience');}
 let disposeBlog=()=>{};
-function renderBlog(mode='index'){
+function renderBlog(mode='index',retry=false){
  disposeBlog();disposeBlog=()=>{};
- const version=++blogMountVersion,language=lang;
- $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
- const module=mode==='index'?'./blog-list.mjs?v=20261102-light-lists':'./blog.mjs?v=20261102-light-lists';
- import(module).then(({mountBlog,unmountBlog})=>{
-  if(version!==blogMountVersion||language!==lang)return;
+ const root=$('main'), version=++blogMountVersion, language=lang;
+ const slug=mode==='article'?new URLSearchParams(location.search).get('post'):null;
+ const template=document.body.dataset.template==='true';
+ const current=()=>version===blogMountVersion && language===lang;
+ const ready=()=>root.dataset.readingLang===language && (root.dataset.readingPost||null)===slug;
+ const staticURL=mode==='index'?(language==='fa'?'blog.html':'reading/en/archive.html')
+   : /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug||'')?`reading/${language}/${slug}.html`:null;
+ const entry=mode==='index'?'blog-list.mjs':'blog.mjs';
+ const url=new URL(entry,document.baseURI);
+ url.searchParams.set('v','20261110-reading');
+ if(retry)url.searchParams.set('retry',String(Date.now()));
+ root.querySelector('[data-reading-retry]')?.remove();
+ if(!ready()) root.innerHTML=loadingMarkup(language==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
+ let interactive=false;
+ async function getReadingCopy(){
+  if(ready()||template||!staticURL)return;
+  try {
+   const response=await fetch(staticURL);
+   if(!response.ok)return;
+   const html=new DOMParser().parseFromString(await response.text(),'text/html');
+   const copy=html.querySelector('#main');
+   if(!current()||interactive||copy?.dataset.readingLang!==language||(copy.dataset.readingPost||null)!==slug)return;
+   root.className=copy.className;
+   root.dataset.readingLang=language;root.dataset.readingPost=slug||'';
+   if(copy.dataset.readingSrc)root.dataset.readingSrc=copy.dataset.readingSrc;
+   root.replaceChildren(...copy.childNodes);
+   document.title=html.title;
+  } catch { /* The interactive reader can still load independently. */ }
+ }
+ const reading=getReadingCopy();
+ import(url.href).then(async({mountBlog,unmountBlog})=>{
+  if(!current())return;
   disposeBlog=unmountBlog||(()=>{});
-  return mountBlog($('main'),{language,mode,template:document.body.dataset.template==='true'});
- }).catch(error=>{
-  if(version!==blogMountVersion)return;
-  $('main').innerHTML=`<p class="blog-loading">${lang==='fa'?'نمایش نوشته‌ها با مشکل روبه‌رو شد. صفحه را دوباره بارگذاری کنید.':'The posts could not be loaded. Please reload the page.'}</p>`;
-  console.error('Blog could not be loaded',error);
+  await mountBlog(root,{language,mode,template});
+  if(current()){interactive=true;root.dataset.readingLang=language;root.dataset.readingPost=slug||'';}
+ }).catch(async error=>{
+  await reading;
+  if(!current())return;
+  if(!ready())root.replaceChildren();
+  const note=document.createElement('p');
+  note.dataset.readingRetry='';note.className='reading-recovery';note.setAttribute('role','status');
+  note.textContent=language==='fa'?'بارگیری بخش تعاملی کامل نشد. ':'The interactive features could not load. ';
+  const button=document.createElement('button');button.type='button';
+  button.textContent=language==='fa'?'تلاش دوباره':'Try again';
+  button.addEventListener('click',()=>renderBlog(mode,true),{once:true});note.append(button);
+  (root.querySelector(mode==='index'?'.library-tools':'.article-header')||root).append(note);
+  console.warn('Blog enhancement unavailable',error);
  });
 }
 function renderSolutions(){
@@ -276,5 +312,11 @@ document.addEventListener('keydown',event=>{
  else return;
  event.preventDefault();const next=items[(index+items.length)%items.length];if(vertical)selectCareer(next.dataset.career);else selectTab(next.dataset.tab);next.focus();
 });
-$('language').addEventListener('click',()=>{lang=lang==='fa'?'en':'fa';try{localStorage.setItem('portfolio-language',lang);}catch{}render();$('language').focus();});
+$('language').addEventListener('click',()=>{
+ lang=lang==='fa'?'en':'fa';try{localStorage.setItem('portfolio-language',lang);}catch{}
+ if((page==='blog'||page==='article') && document.body.dataset.template!=='true'){
+  const url=new URL(location.href);url.searchParams.set('lang',lang);location.assign(url);return;
+ }
+ render();$('language').focus();
+});
 render();

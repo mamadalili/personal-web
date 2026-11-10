@@ -49,3 +49,14 @@ body[data-current-page][data-page] {
 @media print {
   .site-atmosphere, .page-coast { display: none; }
 }
+
+@media screen {
+  body[data-page] > #main { min-block-size: 100vh; min-block-size: 100svh; }
+}
+.reading-recovery { color: var(--muted); margin-block: 1rem; font-size: .9rem; }
+.reading-recovery button { min-height: 44px; padding-inline: .65em; color: var(--purple); font: inherit; text-decoration: underline; background: transparent; }
+.reading-chart { margin-block: 1.5rem; }
+.reading-chart figcaption, .reading-widget h3 { font-weight: 700; }
+.reading-chart summary { cursor: pointer; }
+.reading-chart table { border-collapse: collapse; }
+.reading-chart :is(td,th) { padding: .35em .7em; border-block-end: 1px solid var(--line); }

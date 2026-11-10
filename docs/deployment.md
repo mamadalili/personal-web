@@ -4,6 +4,8 @@ The public domain is https://mrdalili.ir/. This site runs as static HTML, CSS, J
 
 Publish the root HTML, CSS, JS and MJS files, `robots.txt`, `sitemap.xml` and the `assets`, `figures`, `fonts`, `images` and `posts` directories. Exclude the article template, Git metadata, authoring skills, documentation, prompts, tests, scripts and review documents. Keep any upload archive outside the public document root.
 
+Include `reading/fa/<slug>.html`, `reading/en/<slug>.html`, `blog.html` and `reading/en/archive.html` with changed articles. Generate them with `node scripts/generate-blog-runtime.mjs`. The root rewrite routes serve these files at the historical public URLs. Keep the host-managed configuration when installing the marked reading block from `.htaccess`.
+
 Package only the runtime figure dependency `figures/solo-model.mjs`; the other figure files are retired authoring prototypes. ZIP archives created on Windows must explicitly store Unix file modes: regular files `0644`, directories `0755` when directory entries are included. Verify the archive's stored modes before uploading. The host refuses world-writable `0666` files. Keep a working backup outside the public document root before replacing files.
 
 The repository's `.htaccess` contains the site's Apache directives. On a managed host with an existing `.htaccess`, preserve the host-generated settings and append the site's directives. `DirectoryIndex index.html` selects the homepage ahead of a hosting placeholder. The JavaScript MIME type must cover `.mjs` files.

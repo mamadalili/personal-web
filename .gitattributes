@@ -3,3 +3,6 @@
 assets/anatomy/** text=auto eol=lf
 # Preserve pinned upstream bytes for integrity checks on every platform.
 .agents/skills/antislop*/** -text
+# These public URLs fingerprint the exact exported bytes.
+assets/posts/*.json text eol=lf
+reading/**/*.html text eol=lf

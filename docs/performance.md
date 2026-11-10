@@ -2,7 +2,7 @@
 
 Production still uses the root application. `react-site/` is the staged migration preview; performance work must not accidentally publish that preview.
 
-`blog-data.mjs` and `posts/` remain the article sources. Home and the archive import only `blog-summaries.mjs`. Article pages fetch a single content-hashed JSON export from `assets/posts/`; all article fields and both native languages are preserved. The generated index must be deployed with the data files it names. Keep older hashed files on the host so previously opened pages continue to work.
+`blog-data.mjs` and `posts/` remain the article sources. Home and the archive import only `blog-summaries.mjs`. Both archive languages and every article now ship as readable HTML before JavaScript runs. Article interactions fetch a single content-hashed JSON export from `assets/posts/`; all article fields and both native languages are preserved. The generated index must be deployed with the data files it names. Keep older hashed files on the host so previously opened pages continue to work.
 
 After editing or publishing an article:
 
@@ -44,3 +44,5 @@ The same foreground Chrome viewport loaded Persian Home with caching disabled be
 Home transferred 77.5% fewer bytes in this comparison. This is a payload measurement, not a claim that every connection becomes 77.5% faster. Server compression was already active before the change.
 
 All 113 published runtime/assets matched their release SHA-256 hashes over HTTPS. Conditional requests using the preceding release's modification time returned current 200 responses for changed HTML, CSS and JavaScript; host-managed runtime revalidation remained intact. Original banners, the source portrait and all 29 complete bilingual articles were retained.
+
+The same generator writes `blog.html` and `reading/{fa,en}/`. Ship the affected reading files and both archives when publishing. Only content-hashed JSON and explicitly versioned portraits receive a one-year immutable cache lifetime. WOFF2 revalidates after a day. Keep HTML, readable routes and unversioned scripts revalidatable. When installing the reading rewrite rules, merge the marked block into the live root configuration and preserve cPanel's own directives.
