@@ -1,3 +1,4 @@
+import {createElement} from 'react';
 import {Link, useLocation} from 'react-router';
 import {legacy} from '../../content/legacy';
 import {pageURL, assetURL} from '../../lib/routing';
@@ -19,6 +20,7 @@ export function SiteHeader({lang, page, solution}: {lang: Language; page: NavPag
     </AppLink>
     <div className="header-end">
       <span id="header-label" hidden={page === 'home'}>{page === 'home' ? '' : label}</span>
+      {createElement('day-night-switch')}
       <Link id="language" className="language-link" to={pageURL(solution ?? page, otherLang) + hash}
         lang={otherLang} dir={otherLang === 'fa' ? 'rtl' : 'ltr'}
         aria-label={lang === 'fa' ? 'Switch to English' : 'تغییر زبان به فارسی'}>

@@ -19,11 +19,12 @@ export function Layout({children}: {children: ReactNode}) {
     : detail?.intro ?? legacy.contact[lang].intro;
   const styles = ['portfolio.css', 'site-theme.css', ...(page === 'home' ? ['home-blog.css', 'home-hero.css', 'solution-portals.css']
     : page === 'solutions' ? ['solutions.css', 'solution-portals.css'] : ['contact.css', 'company-logos.css'])];
-  return <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
+  return <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'} suppressHydrationWarning>
     <head>
       <meta charSet="utf-8"/>
       <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-      <meta name="theme-color" content="#1c0998"/>
+      <meta name="theme-color" content="#1c0998" suppressHydrationWarning/>
+      <script src="/legacy/day-night.js?v=20261110"/>
       <title>{title}</title>
       <meta name="description" content={description}/>
       <meta name="robots" content="noindex, nofollow"/>
@@ -31,6 +32,7 @@ export function Layout({children}: {children: ReactNode}) {
       <link rel="icon" href="/legacy/assets/brand/monogram.svg" type="image/svg+xml"/>
       {styles.map(file => <link key={file} rel="stylesheet" href={`/legacy/${file}`}/>)}
       <Meta/><Links/>
+      <link rel="stylesheet" href="/legacy/color-mode.css?v=20261110"/>
     </head>
     <body data-page={page} data-current-page={page} data-solution={solution}>
       <a href="#main" className="skip">{lang === 'fa' ? 'رفتن به محتوای اصلی' : 'Skip to content'}</a>
