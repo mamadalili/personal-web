@@ -55,6 +55,10 @@ const illustratedCoverAlts = {
     fa:'روبان قرمز از لینک ذخیره‌شده به صفحهٔ جدید یک دفتر چهارخانه می‌رسد. روی رسید خرید آزمایشی هم نام همان دفتر آمده است.',
     en:'A red ribbon leads from a saved link to the new page for a red gingham notebook. The test receipt names the same notebook.',
   },
+  'can-exhibitions': {
+    fa:'پرده کنار رفته و هود روی صحنهٔ کن پیداست. کنار میز گفت‌وگو، نقشهٔ نصب هود و پیش‌نویس قرارداد نمایندگی باز مانده‌اند.',
+    en:'A curtain lifts to reveal a CAN range hood. At the meeting table, its installation drawing sits beside an open draft dealership agreement.',
+  },
 };
 
 function option(copy) {
