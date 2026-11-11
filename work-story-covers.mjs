@@ -1,4 +1,7 @@
-const revisions = new Map([['boomerang-online-sales', 'v2']]);
+const revisions = new Map([
+  ['boomerang-online-sales', 'v2'],
+  ['boomerang-four-languages', 'v2'],
+]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {
   const revision = revisions.get(slug);

@@ -10,6 +10,16 @@ const manuscripts = {boomerang, turbin, can, datis, binici};
 const palettes = ['brick-paper','tide-ink','spruce-peach','cobalt-straw','cherry-mist','aqua-oxide','indigo-flax','plum-apricot','olive-silk','ink-tangerine'];
 const localized = copy => ({fa:{title:copy.fa}, en:{title:copy.en}});
 const paragraph = copy => ({type:'paragraph', ...copy});
+const illustratedCoverAlts = {
+  'boomerang-online-sales': {
+    fa:'سردوش و رابط برنجی در جعبه، جلوی ویترین فروشگاه بومرنگ‌کالا',
+    en:'A handheld shower and brass adapter in a presentation box in front of the Boomerang Kala storefront',
+  },
+  'boomerang-four-languages': {
+    fa:'نمای سایت بومرنگ روی کاتالوگی تاشو با زبانه‌های انگلیسی، فارسی، عربی و روسی و دو برچسب محصول',
+    en:'The Boomerang website on a fold-out catalog with English, Persian, Arabic and Russian tabs and two product tags',
+  },
+};
 
 function option(copy) {
   return Object.fromEntries(['fa','en'].map(lang => {
@@ -44,9 +54,7 @@ function edition(role, org, row, number, adjacent) {
     post[lang] = {title,subtitle:(fa?'در ':'At ')+org[lang],category:fa?'روایت‌های کاری':'Work stories',
       sourceNote:fa?'شرح مسئولیت من در رزومه آمده. مثال و تمرین این نوشته برای توضیح موضوع‌اند.':'My CV documents the role. The situations and choices in this story are illustrative.',
       excerpt:copy.intro[lang],readTime:fa?digits(low)+' تا '+digits(high)+' دقیقه با تمرین':low+'–'+high+' min with the exercise'};
-    const alt = slug === 'boomerang-online-sales'
-      ? (fa ? 'سردوش و رابط برنجی در جعبه، جلوی ویترین فروشگاه بومرنگ‌کالا' : 'A handheld shower and brass adapter in a presentation box in front of the Boomerang Kala storefront')
-      : [title,org[lang],fa?faKeys:enKeys].join(' — ');
+    const alt = illustratedCoverAlts[slug]?.[lang] ?? [title,org[lang],fa?faKeys:enKeys].join(' — ');
     post.cover[lang] = {src:workStoryCoverSrc(slug,lang),width:1600,height:900,alt};
   }
   return post;
