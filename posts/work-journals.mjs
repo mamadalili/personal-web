@@ -71,6 +71,10 @@ const illustratedCoverAlts = {
     fa:'در استودیوی وبینار داتیس، مجری دو وب‌کم را مقایسه می‌کند. روی لپ‌تاپ می‌پرسند آیا مدل دوم ارزش هزینهٔ بیشتر را دارد. کنار چراغ پخش زنده، کارت مجری یادآوری می‌کند که بخش مقایسه را برای مخاطب بفرستد.',
     en:'A Datis webinar host compares two webcams. A viewer asks on the laptop whether the second is worth the extra cost. A cue card beside the on-air light reminds the host to share the comparison clip.',
   },
+  'datis-fieldwork': {
+    fa:'مشتری روی پیشخوان به دو وب‌کم اشاره می‌کند. در دفتر بازدید، سؤالش «فرق این دو مدل چیه؟» روبه‌روی برداشت فروشنده دربارهٔ قیمت ثبت شده است.',
+    en:'A customer points to two webcams on the counter. The open field notebook pairs the customer’s question, “How do these models differ?”, with the seller’s hunch that price mattered.',
+  },
 };
 
 function option(copy) {

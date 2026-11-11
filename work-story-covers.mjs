@@ -14,6 +14,7 @@ const revisions = new Map([
   ['can-sales-network', 'v2'],
   ['can-partnerships', 'v2'],
   ['datis-webinars', 'v2'],
+  ['datis-fieldwork', 'v2'],
 ]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {
