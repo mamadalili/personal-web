@@ -67,6 +67,10 @@ const illustratedCoverAlts = {
     fa:'بلاگر و کارشناس نمایندگی کنار فر توکار یک ریلز مشترک ضبط می‌کنند. روی میز، کنار کلاکت، برگه‌ای برای اجازهٔ ارجاع درخواست مشتری و پیگیری نمایندگی دیده می‌شود.',
     en:'A creator and a showroom specialist film a joint reel beside a built-in oven. A referral slip next to the clapperboard records customer consent and assigns follow-up to the dealer.',
   },
+  'datis-webinars': {
+    fa:'در استودیوی وبینار داتیس، مجری دو وب‌کم را مقایسه می‌کند. روی لپ‌تاپ می‌پرسند آیا مدل دوم ارزش هزینهٔ بیشتر را دارد. کنار چراغ پخش زنده، کارت مجری یادآوری می‌کند که بخش مقایسه را برای مخاطب بفرستد.',
+    en:'A Datis webinar host compares two webcams. A viewer asks on the laptop whether the second is worth the extra cost. A cue card beside the on-air light reminds the host to share the comparison clip.',
+  },
 };
 
 function option(copy) {
