@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <script>
+    document.addEventListener('error', event => {
+      const asset = event.target;
+      const script = asset.tagName === 'SCRIPT' && asset.src;
+      const style = asset.tagName === 'LINK' && asset.rel === 'stylesheet';
+      if ((!script && !style) || asset.parentNode !== document.head) return;
+      const url = new URL(script ? asset.src : asset.href);
+      const attempt = Number(asset.dataset.loadAttempt || 0) + 1;
+      if (url.origin !== location.origin || attempt > 2) return;
+      setTimeout(() => {
+        if (!asset.isConnected) return;
+        const next = document.createElement(script ? 'script' : 'link');
+        for (const {name, value} of asset.attributes) next.setAttribute(name, value);
+        next.dataset.loadAttempt = String(attempt);
+        url.searchParams.set('retry', String(Date.now()));
+        next[script ? 'src' : 'href'] = url.href;
+        const replace = () => asset.replaceWith(next);
+        if (script && asset.defer && document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replace, {once:true});
+        } else replace();
+      }, attempt * 500);
+    }, true);
+  </script>
+  <script>if (location.pathname.includes('/reading/')) {const u=new URL('../../article.html',location.href);u.search=location.search;u.searchParams.set('lang','en');u.searchParams.set('post','boomerang-logistics');u.hash=location.hash;history.replaceState(null,'',u)}</script>
+  <meta name="theme-color" content="#1c0998">
+  <meta name="color-scheme" content="only light">
+  <script src="/day-night.js?v=20261110-session"></script>
+  <meta name="description" content="To the customer, “shipped” means the parcel is moving. To a shop, it may only mean a label was printed.">
+  <title>Online sales logistics — Mohamad Reza Dalili</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preload" href="/fonts/Vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio.css?v=20261102-performance">
+  <link rel="stylesheet" href="/site-theme.css?v=20261110-manual">
+  <link rel="stylesheet" href="/blog.css?v=20261101-content-system">
+  <link rel="stylesheet" href="/blog-solo.css">
+  <link rel="stylesheet" href="/blog-market.css?v=20261031-original-visuals">
+  <link rel="stylesheet" href="/blog-data-motion.css?v=20261102-unit-objects">
+  <script src="/portfolio.js?v=20261110-recovery" defer></script>
+  <link rel="stylesheet" href="/color-mode.css?v=20261110-manual">
+  <link rel="canonical" href="https://mrdalili.ir/article.html?post=boomerang-logistics&amp;lang=en">
+</head>
+<body data-page="article" data-current-page="article">
+  <a href="#main" class="skip">رفتن به محتوای اصلی / Skip to content</a>
+  <header class="site-header"><a class="brand" href="/index.html?lang=en" aria-label="Mohamad Reza Dalili"><span class="brand-mark"><span class="brand-logo" aria-hidden="true"><img src="/assets/brand/monogram.svg" width="64" height="64" alt=""></span></span><span class="brand-identity"><span id="brand-name">Mohamad Reza Dalili</span><span class="professional-title header-role" id="brand-role"><span>Marketer and AI Operator</span><span class="title-shine" aria-hidden="true">Marketer and AI Operator</span></span></span></a><div class="header-end"><span id="header-label">Portfolio</span><day-night-switch></day-night-switch><button id="language" type="button" lang="fa" aria-label="تغییر زبان به فارسی">فارسی <span aria-hidden="true">↗</span></button></div></header>
+  <main id="main" tabindex="-1" class="page-layout article-page editorial-story" data-reading-lang="en" data-reading-post="boomerang-logistics" data-reading-src="/assets/posts/boomerang-logistics-be16fc03acf8564a.json">
+    <header class="article-header"><a class="article-back" href="/blog.html?lang=en">← All posts</a><div class="eyebrow">Work stories</div><h1>Online sales logistics</h1><p class="article-deck">At Boomerang</p><p>To the customer, “shipped” means the parcel is moving. To a shop, it may only mean a label was printed.</p>
+      <div class="article-byline"><img src="/images/myphoto-avatar-v1.webp" width="32" height="32" alt=""><span>Mohamad Reza Dalili</span><span aria-hidden="true">·</span><span>1–2 min with the exercise</span><time datetime="2026-11-11">Nov 11, 2026</time></div>
+      <p class="article-reviewed">Sources reviewed: <time datetime="2026-11-11">Nov 11, 2026</time></p>
+      <img class="article-cover-image" src="/assets/blog/boomerang-logistics-en.webp" alt="Online sales logistics — Boomerang — Parcel · Tracking · Delivery" width="1600" height="900" loading="eager" decoding="async" fetchpriority="high">
+    </header>
+    <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ><summary><span>IN THIS ARTICLE</span><output data-reading-label>0%</output></summary><progress value="0" max="100" aria-label="Reading progress"></progress><nav class="article-toc" aria-label="IN THIS ARTICLE"><a href="#experience">When is a parcel actually on its way?</a><a href="#practice">The evidence for a change of status</a><a href="#sources">Sources & methodology</a></nav></details></aside>
+      <article class="article-body"><section id="experience" class="article-section"><h2>When is a parcel actually on its way?</h2><p>From the online sales side of Boomerang, logistics starts with the promise made at checkout. The customer sees a delivery date. The shop needs to know whether the parcel is still on the packing table.</p><p>Consider a packed order with a tracking number that hasn’t been collected. A wrong address is still easy to correct. After handover the same correction has to go through the carrier.</p></section><section id="practice" class="article-section"><h2>The evidence for a change of status</h2><p>Label creation, carrier collection and delivery are separate events. Give each one a checkable signal and a support colleague can answer without guessing.</p><div data-reading-slot><details class="article-disclosure"><summary>What would you tell someone whose labelled parcel is still on the table?</summary><p><strong>Ready for collection</strong> It describes the current state. The handover record will justify the next update.</p><p><strong>On its way to you</strong> The customer may call the carrier about a parcel it hasn’t received yet.</p></details></div><p>Read the tracking message as the recipient. Should you be listening for the doorbell or waiting for a dispatch update?</p></section>
+      <section id="sources" class="article-section article-sources"><h2>Sources & methodology</h2><p>My CV documents the role. The situations and choices in this story are illustrative.</p><div class="source-ledger"><div class="source-card" id="source-career"><span class="source-kind">Source &amp; details</span><h3><a href="https://mrdalili.ir/profile.html?tab=experience&amp;role=boomerang" target="_blank" rel="noopener noreferrer">My role at Boomerang <span aria-hidden="true">↗</span></a></h3><div class="source-meta"><span>Mohammadreza Dalili</span></div><p>Role and responsibilities from my CV.</p></div></div></section>
+      <section class="article-related"><h2>KEEP EXPLORING</h2><div><a href="/article.html?post=boomerang-ai-operations&amp;lang=en"><h3>Technology and AI</h3><p>An assistant can write a fluent description and quietly give one model a feature that belongs to its neighbour.</p><span aria-hidden="true">↗</span></a></div></section></article>
+    </div>
+    <dialog class="article-dialog" aria-labelledby="article-dialog-title"><div class="dialog-top"><span class="small-label">Blog</span><button type="button" data-dialog-close autofocus>Close <span aria-hidden="true">×</span></button></div><h2 id="article-dialog-title"></h2><div class="dialog-content"></div></dialog></main>
+  <picture class="page-coast" aria-hidden="true">
+    <source media="(max-width: 680px)" srcset="/assets/brand/coastal-print-mobile.webp">
+    <img src="/assets/brand/coastal-print.webp" width="2172" height="724" alt="" loading="lazy" decoding="async">
+  </picture>
+  <footer id="footer" class="footer"></footer>
+  <noscript><nav class="noscript" aria-label="Pages"><a href="/index.html?lang=en">Home</a> <a href="/strategy.html?lang=en">Solutions</a> <a href="/blog.html?lang=en">Blog</a> <a href="/profile.html?lang=en">CV</a> <a href="/contact.html?lang=en">Contact</a> <a href="/article.html?post=boomerang-logistics&amp;lang=fa">فارسی</a></nav></noscript>
+</body>
+</html>

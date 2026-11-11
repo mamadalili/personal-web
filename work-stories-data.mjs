@@ -1,13 +1,13 @@
-// Editorial topic plans, not published case studies or claims about results.
-// A post slug is added only after the author's independent story is published.
+import {workEditions} from './work-editions.mjs';
+
 const topics=(role,entries)=>entries.map(([id,fa,en])=>({id:`${role}-${id}`,post:null,fa:{title:fa},en:{title:en}}));
 
-const visibleCounts={boomerang:5,turbin:4,can:4,datis:3,binici:3,'safir-lead':3,'safir-field':3,asiatech:3};
+const visibleCounts={'safir-lead':3,'safir-field':3,asiatech:3};
 export function visibleWorkStories(roleId){
-  return Object.hasOwn(workStoryTopics,roleId)?workStoryTopics[roleId].slice(0,visibleCounts[roleId]??3):[];
+  return Object.hasOwn(workStoryTopics,roleId)?workStoryTopics[roleId].slice(0,workEditions[roleId]?.topics.length ?? visibleCounts[roleId]):[];
 }
 
-export const workStoryTopics={
+const outlines={
   boomerang:topics('boomerang',[
     ['online-sales','فروش آنلاین از کجا شروع شد؟','Where online sales began'],
     ['store','از محصول تا فروشگاه اینترنتی','From a product to an online store'],
@@ -65,3 +65,11 @@ export const workStoryTopics={
     ['learning','چیزی که کار فنی به مسیر بعدی من اضافه کرد','What technical work brought to the rest of my career']
   ])
 };
+
+export const workStoryTopics = Object.fromEntries(Object.entries(outlines).map(([role, plans]) => {
+  const published = (workEditions[role]?.topics ?? []).map(([key, fa, en]) => {
+    const id = role + '-' + key;
+    return {id, post:id, fa:{title:fa}, en:{title:en}};
+  });
+  return [role, [...published, ...plans.filter(plan => !published.some(story => story.id === plan.id))]];
+}));

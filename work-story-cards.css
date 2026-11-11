@@ -24,3 +24,35 @@ html[dir=rtl] .story-preview-arrow svg{transform:scaleX(-1)}
 .work-story-collection{margin-top:23px;padding-top:19px}
 .work-role-background{border-top:1px solid #e7e8ee;margin-top:28px;padding-top:24px}
 @media(max-width:760px){.story-preview-rail{grid-auto-columns:minmax(175px,80%)}.story-preview-head{align-items:center}.story-preview-head h4{font-size:13px}.story-preview-card{min-height:165px}.work-story-collection .work-story-list{grid-auto-columns:minmax(205px,85%)}.work-story-collection .work-story{min-height:200px;padding:19px;scroll-margin-block-start:20px}.work-story-collection .work-story h4{font-size:16px}}
+
+.work-story-cover {
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  border-radius:9px;
+}
+.work-story-collection .work-story--published,
+.story-preview-card:has(.work-story-cover) {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto 1fr;
+  align-items:start;
+  gap:12px 8px;
+  padding:9px 9px 13px;
+  min-height:0;
+}
+.work-story--published > .work-story-cover,
+.story-preview-card > .work-story-cover {grid-column:1/-1}
+.work-story-collection .work-story--published h4 {margin:0 0 4px;font-size:1rem;line-height:1.65}
+.work-story--published > div,.story-preview-card:has(.work-story-cover) > strong {padding-inline-start:5px}
+.work-story-collection .work-story--published .work-story-arrow,
+.story-preview-card:has(.work-story-cover) .story-preview-arrow {align-self:end}
+.story-preview-card:has(.work-story-cover) .story-preview-state {display:none}
+.work-story--published:focus-visible {outline:3px solid #6742cb;outline-offset:2px}
+html[data-theme=dark] .work-story-collection .work-story--published,
+html[data-theme=dark] .story-preview-card {background:#191d29;border-color:#444958;color:#f1f3f9}
+html[data-theme=dark] .work-story-collection .work-story--published h4,
+html[data-theme=dark] .work-story--published .work-story-state,
+html[data-theme=dark] .story-preview-arrow {color:#ecedf3}

@@ -7,19 +7,28 @@ import {readFileSync} from 'node:fs';
 
 const completeArticle={slug:'a-real-story',status:'published',fa:{title:'روایت',excerpt:'خلاصهٔ روایت'},en:{title:'Story',excerpt:'Story summary'},sections:[{id:'experience',fa:{title:'تجربه'},en:{title:'Experience'},blocks:[{type:'paragraph',fa:'متن تجربهٔ واقعی',en:'The actual experience.'}]}]};
 
-test('every existing job has five independent bilingual story plans, including both Safir roles and Asiatech',()=>{
-  const jobs=['boomerang','turbin','can','datis','binici','safir-lead','safir-field','asiatech'];
-  assert.deepEqual(Object.keys(workStoryTopics),jobs);
-  const ids=[];
-  for(const job of jobs){
-    assert.equal(workStoryTopics[job].length,5);
-    for(const story of workStoryTopics[job]){
-      ids.push(story.id);
-      for(const language of ['fa','en'])assert.ok(story[language].title.trim());
-      assert.equal(story.post,null);
+const counts = {boomerang:6,turbin:5,can:3,datis:3,binici:2,'safir-lead':3,'safir-field':3,asiatech:3};
+const companies = {boomerang:'بومرنگ',turbin:'آنلاین تحریر',can:'لوازم خانگی کن',datis:'پویش رایان داتیس',binici:'بی‌نی‌سی'};
+
+test('the nineteen published topics have distinct bilingual articles, employer subtitles and exercises',()=>{
+  assert.deepEqual(Object.keys(workStoryTopics),Object.keys(counts));
+  const slugs=new Set();
+  for(const [role,topics] of Object.entries(workStoryTopics)) for(const story of topics){
+    if (!story.post) continue;
+    const article=posts.find(item=>item.slug===story.post);
+    assert.equal(article.fa.subtitle,'در '+companies[role]);
+    assert.ok(article.en.subtitle.startsWith('At '));
+    for(const lang of ['fa','en']){
+      assert.equal(article[lang].title,story[lang].title);
+      assert.equal(article[lang].category,lang==='fa'?'روایت‌های کاری':'Work stories');
+      assert.ok(workStoryHref(story,lang,posts));
+      const quiz=article.sections.flatMap(s=>s.blocks).find(b=>b.type==='quiz');
+      assert.ok(quiz.options.length>=2 && quiz.options.every(o=>o[lang].feedback));
     }
+    assert.ok(!slugs.has(story.post));
+    slugs.add(story.post);
   }
-  assert.equal(new Set(ids).size,40);
+  assert.equal(slugs.size,19);
 });
 
 test('unknown role query values fall back to a real role rather than an empty page',()=>{
@@ -56,45 +65,38 @@ test('publication guard supports the existing complete article formats',()=>{
   for(const post of posts.filter(post=>post.status==='published'&&!post.template))for(const lang of ['fa','en'])assert.ok(workStoryHref({post:post.slug},lang,posts,'https://site.test/'),`${post.slug} ${lang}`);
 });
 
-test('visible story counts follow the author’s 5/4/4/3 selection without deleting original plans',async()=>{
+test('each employer exposes the approved selection and unpublished roles retain their original plans',async()=>{
   const {visibleWorkStories}=await import('../work-stories-data.mjs');
-  const expected={boomerang:5,turbin:4,can:4,datis:3,binici:3,'safir-lead':3,'safir-field':3,asiatech:3};
-  let total=0;
-  for(const [id,count] of Object.entries(expected)){
+  for(const [id,count] of Object.entries(counts)){
     const visible=visibleWorkStories(id);
     assert.equal(visible.length,count,id);
     assert.deepEqual(visible,workStoryTopics[id].slice(0,count));
-    assert.equal(workStoryTopics[id].length,5);
-    total+=visible.length;
+    assert.equal(visible.every(row=>!!row.post),Object.hasOwn(companies,id));
+    if (!Object.hasOwn(companies,id)) assert.equal(workStoryTopics[id].length,5);
   }
-  assert.equal(total,28);
-  for(const id of ['missing','__proto__','constructor',null])assert.deepEqual(visibleWorkStories(id),[]);
+  for(const id of ['missing','__proto__','constructor',null]) assert.deepEqual(visibleWorkStories(id),[]);
 });
 
-test('CV cards use native titles and link to the actual role and outline without promising publication',async()=>{
+test('CV cards link directly to complete articles and keep navigable outlines for unpublished stories',async()=>{
   const {renderCareerStoryCards}=await import('../work-story-cards.mjs');
-  for(const lang of ['fa','en']){
-    const html=renderCareerStoryCards('turbin',lang,'https://site.test/portfolio/profile.html');
-    assert.equal((html.match(/class="story-preview-card"/g)||[]).length,4);
-    for(const story of workStoryTopics.turbin.slice(0,4)){
+  const {visibleWorkStories}=await import('../work-stories-data.mjs');
+  for(const lang of ['fa','en']) for(const role of Object.keys(counts)){
+    const html=renderCareerStoryCards(role,lang,'https://site.test/portfolio/profile.html');
+    assert.equal((html.match(/class="story-preview-card"/g)||[]).length,counts[role]);
+    for(const story of visibleWorkStories(role)){
       assert.ok(html.includes(story[lang].title));
-      assert.ok(html.includes('role=turbin'));
-      assert.ok(html.includes(`story=${story.id}#${story.id}`));
+      assert.ok(html.includes(story.post?'article.html?post='+story.post+'&amp;lang='+lang:'story='+story.id+'#'+story.id));
     }
-    assert.ok(html.includes(lang==='fa'?'طرح روایت':'Story outline'));
-    assert.ok(!html.includes('article.html'));
-    assert.ok(!html.includes('after-sales'));
   }
   assert.equal(renderCareerStoryCards('__proto__','fa','https://site.test/'),'');
 });
 
-test('a mapped story uses a neutral CV label instead of remaining an unpublished outline',async()=>{
+test('unpublished mappings cannot expose a broken blog link or thumbnail in CV',async()=>{
   const {renderCareerStoryCards}=await import('../work-story-cards.mjs');
-  const stories=workStoryTopics.turbin.slice(0,4).map((story,index)=>index===0?{...story,post:completeArticle.slug}:story);
+  const missing={...workStoryTopics.turbin[0],post:'not-published'};
   for(const lang of ['fa','en']){
-    const html=renderCareerStoryCards('turbin',lang,'https://site.test/profile.html',stories);
-    assert.ok(html.includes(lang==='fa'?'>روایت کاری<':'>Work story<'));
-    assert.ok(!html.includes('article.html'));
+    const html=renderCareerStoryCards('turbin',lang,'https://site.test/profile.html',[missing]);
+    assert.ok(!html.includes('article.html') && !html.includes('<img'));
   }
 });
 

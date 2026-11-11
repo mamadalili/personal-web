@@ -1,6 +1,6 @@
 import { escapeHTML as esc, internalHref } from './blog-core.mjs';
-import { posts } from './work-story-posts.mjs';
-import { visibleWorkStories } from './work-stories-data.mjs?v=20261102-story-cards';
+import { posts } from './work-story-posts.mjs?v=20261111-work-journals';
+import { visibleWorkStories } from './work-stories-data.mjs?v=20261111-work-journals';
 import { selectWorkRole } from './work-stories-model.mjs?v=20261031-work-stories-2';
 
 const copy={
@@ -34,7 +34,7 @@ export function mountWorkStories(root,{language='fa',roles,formatYears=value=>va
     const linked=topics.map(story=>({story,url:story.post && internalHref('post:'+story.post,lang,posts,location.href)}));
     root.querySelectorAll('[data-work-role]').forEach(link=>{if(link.dataset.workRole===role.id)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});
     root.querySelector('.work-stories-detail').innerHTML=`<header class="work-role-header"><div class="work-role-meta"><span class="employer-detail-brand">${role.logo?`<span class="employer-detail-logo">${roleLogo(role)}</span>`:''}<span>${esc(c.company)}</span></span><time>${esc(formatYears(role.years))}</time></div><h2 id="work-role-title">${esc(c.role)}</h2><p class="work-sector">${esc(c.sector)}</p>${renderWebsite(role)}</header>
-      <section class="work-story-collection" aria-labelledby="work-story-heading"><div class="work-story-heading"><h3 id="work-story-heading">${t.stories}</h3></div><p class="work-story-intro">${linked.some(row=>row.url)?t.mixedIntro:t.plannedIntro}</p><div class="work-story-list" tabindex="0" role="region" aria-label="${t.stories}">${linked.map(({story,url})=>url?`<a id="${esc(story.id)}" class="work-story work-story--published" href="${esc(url)}"><span class="work-story-icon">${paper}</span><div><h4>${esc(story[lang].title)}</h4><span class="work-story-state">${t.read}</span></div><span class="work-story-arrow">${arrow}</span></a>`:`<article id="${esc(story.id)}" class="work-story work-story--planned" tabindex="-1"><span class="work-story-icon">${paper}</span><div><span class="work-story-state">${t.plan}</span><h4>${esc(story[lang].title)}</h4></div></article>`).join('')}</div></section>
+      <section class="work-story-collection" aria-labelledby="work-story-heading"><div class="work-story-heading"><h3 id="work-story-heading">${t.stories}</h3></div>${linked.every(row=>row.url)?'':'<p class="work-story-intro">'+(linked.some(row=>row.url)?t.mixedIntro:t.plannedIntro)+'</p>'}<div class="work-story-list" tabindex="0" role="region" aria-label="${t.stories}">${linked.map(({story,url})=>url?`<a id="${esc(story.id)}" class="work-story work-story--published" href="${esc(url)}"><img class="work-story-cover" src="assets/blog/previews/${esc(story.post)}-${lang}.webp" width="768" height="432" alt="" loading="lazy"><div><h4>${esc(story[lang].title)}</h4><span class="work-story-state">${t.read}</span></div><span class="work-story-arrow">${arrow}</span></a>`:`<article id="${esc(story.id)}" class="work-story work-story--planned" tabindex="-1"><span class="work-story-icon">${paper}</span><div><span class="work-story-state">${t.plan}</span><h4>${esc(story[lang].title)}</h4></div></article>`).join('')}</div></section>
       <section class="work-role-background"><h3 class="work-scope-title">${t.scope}</h3><div class="work-role-summary">${c.points.map(point=>`<p>${esc(point)}</p>`).join('')}</div></section>`;
     revealSelectedLink();
     const requested=new URLSearchParams(location.search).get('story')||location.hash.slice(1);

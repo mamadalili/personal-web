@@ -304,7 +304,7 @@ function renderContactPage(){
 function renderContent(){
  const t=copy[lang];
  const root=$('panel-experience'),version=++careerStoriesMountVersion,language=lang;
- import('./work-story-cards.mjs?v=20261102-story-cards').then(({renderCareerStoryCards})=>{
+ import('./work-story-cards.mjs?v=20261111-work-journals').then(({renderCareerStoryCards})=>{
   if(version!==careerStoriesMountVersion||language!==lang||!root.isConnected)return;
   root.querySelectorAll('.career-story-link').forEach(link=>{
    const role=new URL(link.href).searchParams.get('role');

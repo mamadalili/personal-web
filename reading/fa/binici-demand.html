@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <script>
+    document.addEventListener('error', event => {
+      const asset = event.target;
+      const script = asset.tagName === 'SCRIPT' && asset.src;
+      const style = asset.tagName === 'LINK' && asset.rel === 'stylesheet';
+      if ((!script && !style) || asset.parentNode !== document.head) return;
+      const url = new URL(script ? asset.src : asset.href);
+      const attempt = Number(asset.dataset.loadAttempt || 0) + 1;
+      if (url.origin !== location.origin || attempt > 2) return;
+      setTimeout(() => {
+        if (!asset.isConnected) return;
+        const next = document.createElement(script ? 'script' : 'link');
+        for (const {name, value} of asset.attributes) next.setAttribute(name, value);
+        next.dataset.loadAttempt = String(attempt);
+        url.searchParams.set('retry', String(Date.now()));
+        next[script ? 'src' : 'href'] = url.href;
+        const replace = () => asset.replaceWith(next);
+        if (script && asset.defer && document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replace, {once:true});
+        } else replace();
+      }, attempt * 500);
+    }, true);
+  </script>
+  <script>if (location.pathname.includes('/reading/')) {const u=new URL('../../article.html',location.href);u.search=location.search;u.searchParams.set('lang','fa');u.searchParams.set('post','binici-demand');u.hash=location.hash;history.replaceState(null,'',u)}</script>
+  <meta name="theme-color" content="#1c0998">
+  <meta name="color-scheme" content="only light">
+  <script src="/day-night.js?v=20261110-session"></script>
+  <meta name="description" content="دو فروشگاه از یک کالا به اندازهٔ هم فروخته‌اند. یکی تمام هفته موجود داشته و دیگری فقط یک روز. آیا تقاضایشان هم یکسان بوده؟">
+  <title>نقاط فروش — محمدرضا دلیلی</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preload" href="/fonts/Vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio.css?v=20261102-performance">
+  <link rel="stylesheet" href="/site-theme.css?v=20261110-manual">
+  <link rel="stylesheet" href="/blog.css?v=20261101-content-system">
+  <link rel="stylesheet" href="/blog-solo.css">
+  <link rel="stylesheet" href="/blog-market.css?v=20261031-original-visuals">
+  <link rel="stylesheet" href="/blog-data-motion.css?v=20261102-unit-objects">
+  <script src="/portfolio.js?v=20261110-recovery" defer></script>
+  <link rel="stylesheet" href="/color-mode.css?v=20261110-manual">
+  <link rel="canonical" href="https://mrdalili.ir/article.html?post=binici-demand&amp;lang=fa">
+</head>
+<body data-page="article" data-current-page="article">
+  <a href="#main" class="skip">رفتن به محتوای اصلی / Skip to content</a>
+  <header class="site-header"><a class="brand" href="/index.html?lang=fa" aria-label="Mohamad Reza Dalili"><span class="brand-mark"><span class="brand-logo" aria-hidden="true"><img src="/assets/brand/monogram.svg" width="64" height="64" alt=""></span></span><span class="brand-identity"><span id="brand-name">محمدرضا دلیلی</span><span class="professional-title header-role" id="brand-role"><span>مارکتر و اپراتور هوش‌مصنوعی</span><span class="title-shine" aria-hidden="true">مارکتر و اپراتور هوش‌مصنوعی</span></span></span></a><div class="header-end"><span id="header-label">پورتفولیوی شخصی</span><day-night-switch></day-night-switch><button id="language" type="button" lang="en" aria-label="Switch to English">English <span aria-hidden="true">↗</span></button></div></header>
+  <main id="main" tabindex="-1" class="page-layout article-page editorial-story" data-reading-lang="fa" data-reading-post="binici-demand" data-reading-src="/assets/posts/binici-demand-5141cc8cddd7092e.json">
+    <header class="article-header"><a class="article-back" href="/blog.html?lang=fa">← همهٔ نوشته‌ها</a><div class="eyebrow">روایت‌های کاری</div><h1>نقاط فروش</h1><p class="article-deck">در بی‌نی‌سی</p><p>دو فروشگاه از یک کالا به اندازهٔ هم فروخته‌اند. یکی تمام هفته موجود داشته و دیگری فقط یک روز. آیا تقاضایشان هم یکسان بوده؟</p>
+      <div class="article-byline"><img src="/images/myphoto-avatar-v1.webp" width="32" height="32" alt=""><span>محمدرضا دلیلی</span><span aria-hidden="true">·</span><span>۲ تا ۳ دقیقه با تمرین</span><time datetime="2026-11-11">۲۰ آبان ۱۴۰۵</time></div>
+      <p class="article-reviewed">بازبینی منابع: <time datetime="2026-11-11">۲۰ آبان ۱۴۰۵</time></p>
+      <img class="article-cover-image" src="/assets/blog/binici-demand-fa.webp" alt="نقاط فروش — بی‌نی‌سی — تقاضا · پوشش · توزیع" width="1600" height="900" loading="eager" decoding="async" fetchpriority="high">
+    </header>
+    <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ><summary><span>در این مقاله</span><output data-reading-label>۰٪</output></summary><progress value="0" max="100" aria-label="پیشرفت خواندن"></progress><nav class="article-toc" aria-label="در این مقاله"><a href="#experience">از فروش ثبت‌شده تا تقاضای دیده‌نشده</a><a href="#practice">پیش از تقسیم بار بعدی</a><a href="#sources">منابع و روش</a></nav></details></aside>
+      <article class="article-body"><section id="experience" class="article-section"><h2>از فروش ثبت‌شده تا تقاضای دیده‌نشده</h2><p>در بی‌نی‌سی برای برنامهٔ فروش هر محصول، تقاضای بازار و بودجه را کنار هم می‌گذاشتم. نگاه به نقاط فروش برای همین مهم است. عدد نهایی بدون دانستن فرصت هر فروشگاه برای عرضهٔ کالا، تصویر ناقصی می‌دهد.</p><p>در این مثال آموزشی، یک نقطهٔ فروش بعد از اولین سفارش‌ها ناموجود شده. صفرِ روز بعد شاید یعنی کسی آن کالا را نمی‌خواست؛ شاید هم یعنی فرصت خریدی وجود نداشت. از خود عدد فروش نمی‌شود بین این دو انتخاب کرد.</p></section><section id="practice" class="article-section"><h2>پیش از تقسیم بار بعدی</h2><p>کنار فروش هر نقطه، روزهایی را که کالا قابل عرضه بوده ثبت کن. اگر فروشنده موردی از تقاضای بی‌پاسخ سراغ دارد، آن را جدا از سفارش قطعی یادداشت کن. این دو عدد قابل جمع‌زدن نیستند، اما کنار هم کمک می‌کنند دربارهٔ محمولهٔ بعدی سؤال دقیق‌تری بپرسیم.</p><div data-reading-slot><details class="article-disclosure"><summary>برای مقایسهٔ این دو فروشگاه اول چه چیز کم است؟</summary><p><strong>مدت موجود بودن کالا</strong> اختلاف فرصت عرضه را می‌بینی و بعد سراغ تفاوت تقاضا می‌روی.</p><p><strong>یک رتبه‌بندی از روی مبلغ فروش</strong> رتبه‌بندی همان تفاوت پنهان را با ظاهری دقیق‌تر تکرار می‌کند.</p></details></div><p>هر جا فروش صفر است، کنار آن بپرس «موجود بود؟» جواب همین سؤال کوتاه می‌تواند مسیر تماس بعدی با نقطهٔ فروش را عوض کند.</p></section>
+      <section id="sources" class="article-section article-sources"><h2>منابع و روش</h2><p>شرح مسئولیت من در رزومه آمده. مثال و تمرین این نوشته برای توضیح موضوع‌اند.</p><div class="source-ledger"><div class="source-card" id="source-career"><span class="source-kind">منبع و جزئیات</span><h3><a href="https://mrdalili.ir/profile.html?tab=experience&amp;role=binici" target="_blank" rel="noopener noreferrer">سابقهٔ کاری من در بی‌نی‌سی <span aria-hidden="true">↗</span></a></h3><div class="source-meta"><span>Mohammadreza Dalili</span></div><p>شرح نقش و مسئولیت‌ها در رزومهٔ من.</p></div></div></section>
+      <section class="article-related"><h2>ادامهٔ مسیر</h2><div><a href="/article.html?post=binici-dashboard&amp;lang=fa"><h3>همکاری بازاریابی و فروش با دیتا (مهندسی فروش)</h3><p>بازاریابی می‌گوید «درخواست زیاد داشتیم»، فروش می‌گوید «سفارش کم بود». هر دو ممکن است درست بگویند و دربارهٔ دو اتفاق متفاوت حرف بزنند.</p><span aria-hidden="true">↗</span></a></div></section></article>
+    </div>
+    <dialog class="article-dialog" aria-labelledby="article-dialog-title"><div class="dialog-top"><span class="small-label">بلاگ</span><button type="button" data-dialog-close autofocus>بستن <span aria-hidden="true">×</span></button></div><h2 id="article-dialog-title"></h2><div class="dialog-content"></div></dialog></main>
+  <picture class="page-coast" aria-hidden="true">
+    <source media="(max-width: 680px)" srcset="/assets/brand/coastal-print-mobile.webp">
+    <img src="/assets/brand/coastal-print.webp" width="2172" height="724" alt="" loading="lazy" decoding="async">
+  </picture>
+  <footer id="footer" class="footer"></footer>
+  <noscript><nav class="noscript" aria-label="صفحه‌ها"><a href="/index.html?lang=fa">خانه</a> <a href="/strategy.html?lang=fa">راهکارها</a> <a href="/blog.html?lang=fa">بلاگ</a> <a href="/profile.html?lang=fa">CV</a> <a href="/contact.html?lang=fa">تماس</a> <a href="/article.html?post=binici-demand&amp;lang=en">English</a></nav></noscript>
+</body>
+</html>

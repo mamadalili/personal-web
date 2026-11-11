@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <script>
+    document.addEventListener('error', event => {
+      const asset = event.target;
+      const script = asset.tagName === 'SCRIPT' && asset.src;
+      const style = asset.tagName === 'LINK' && asset.rel === 'stylesheet';
+      if ((!script && !style) || asset.parentNode !== document.head) return;
+      const url = new URL(script ? asset.src : asset.href);
+      const attempt = Number(asset.dataset.loadAttempt || 0) + 1;
+      if (url.origin !== location.origin || attempt > 2) return;
+      setTimeout(() => {
+        if (!asset.isConnected) return;
+        const next = document.createElement(script ? 'script' : 'link');
+        for (const {name, value} of asset.attributes) next.setAttribute(name, value);
+        next.dataset.loadAttempt = String(attempt);
+        url.searchParams.set('retry', String(Date.now()));
+        next[script ? 'src' : 'href'] = url.href;
+        const replace = () => asset.replaceWith(next);
+        if (script && asset.defer && document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replace, {once:true});
+        } else replace();
+      }, attempt * 500);
+    }, true);
+  </script>
+  <script>if (location.pathname.includes('/reading/')) {const u=new URL('../../article.html',location.href);u.search=location.search;u.searchParams.set('lang','en');u.searchParams.set('post','can-partnerships');u.hash=location.hash;history.replaceState(null,'',u)}</script>
+  <meta name="theme-color" content="#1c0998">
+  <meta name="color-scheme" content="only light">
+  <script src="/day-night.js?v=20261110-session"></script>
+  <meta name="description" content="Two partners can run a good event and still leave an interested customer wondering whom to call.">
+  <title>Partnerships and joint campaigns — Mohamad Reza Dalili</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preload" href="/fonts/Vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio.css?v=20261102-performance">
+  <link rel="stylesheet" href="/site-theme.css?v=20261110-manual">
+  <link rel="stylesheet" href="/blog.css?v=20261101-content-system">
+  <link rel="stylesheet" href="/blog-solo.css">
+  <link rel="stylesheet" href="/blog-market.css?v=20261031-original-visuals">
+  <link rel="stylesheet" href="/blog-data-motion.css?v=20261102-unit-objects">
+  <script src="/portfolio.js?v=20261110-recovery" defer></script>
+  <link rel="stylesheet" href="/color-mode.css?v=20261110-manual">
+  <link rel="canonical" href="https://mrdalili.ir/article.html?post=can-partnerships&amp;lang=en">
+</head>
+<body data-page="article" data-current-page="article">
+  <a href="#main" class="skip">رفتن به محتوای اصلی / Skip to content</a>
+  <header class="site-header"><a class="brand" href="/index.html?lang=en" aria-label="Mohamad Reza Dalili"><span class="brand-mark"><span class="brand-logo" aria-hidden="true"><img src="/assets/brand/monogram.svg" width="64" height="64" alt=""></span></span><span class="brand-identity"><span id="brand-name">Mohamad Reza Dalili</span><span class="professional-title header-role" id="brand-role"><span>Marketer and AI Operator</span><span class="title-shine" aria-hidden="true">Marketer and AI Operator</span></span></span></a><div class="header-end"><span id="header-label">Portfolio</span><day-night-switch></day-night-switch><button id="language" type="button" lang="fa" aria-label="تغییر زبان به فارسی">فارسی <span aria-hidden="true">↗</span></button></div></header>
+  <main id="main" tabindex="-1" class="page-layout article-page editorial-story" data-reading-lang="en" data-reading-post="can-partnerships" data-reading-src="/assets/posts/can-partnerships-2addc6a2410d4505.json">
+    <header class="article-header"><a class="article-back" href="/blog.html?lang=en">← All posts</a><div class="eyebrow">Work stories</div><h1>Partnerships and joint campaigns</h1><p class="article-deck">At CAN Home Appliances</p><p>Two partners can run a good event and still leave an interested customer wondering whom to call.</p>
+      <div class="article-byline"><img src="/images/myphoto-avatar-v1.webp" width="32" height="32" alt=""><span>Mohamad Reza Dalili</span><span aria-hidden="true">·</span><span>1–2 min with the exercise</span><time datetime="2026-11-11">Nov 11, 2026</time></div>
+      <p class="article-reviewed">Sources reviewed: <time datetime="2026-11-11">Nov 11, 2026</time></p>
+      <img class="article-cover-image" src="/assets/blog/can-partnerships-en.webp" alt="Partnerships and joint campaigns — CAN Home Appliances — Dealer · Introduction · Referral" width="1600" height="900" loading="eager" decoding="async" fetchpriority="high">
+    </header>
+    <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ><summary><span>IN THIS ARTICLE</span><output data-reading-label>0%</output></summary><progress value="0" max="100" aria-label="Reading progress"></progress><nav class="article-toc" aria-label="IN THIS ARTICLE"><a href="#experience">From introduction to handoff</a><a href="#practice">Put a name to the promise</a><a href="#sources">Sources & methodology</a></nav></details></aside>
+      <article class="article-body"><section id="experience" class="article-section"><h2>From introduction to handoff</h2><p>My marketing role at CAN spanned advertising and the sales network. Picture a kitchen showroom and an appliance dealer advising the same customer. It’s a useful way to examine a partnership.</p><p>One partner knows the available space. The other knows suitable models. Much of the value lies in sparing the shopper a second explanation, provided they agree to the handoff.</p></section><section id="practice" class="article-section"><h2>Put a name to the promise</h2><p>In this example the first partner passes on the agreed dimensions and model. The second gives a reply window and reports the outcome. A single request is now traceable end to end.</p><div data-reading-slot><details class="article-disclosure"><summary>What would you agree before printing the joint poster?</summary><p><strong>Whose logo is larger</strong> This settles a layout decision while leaving the customer’s request unclaimed.</p><p><strong>Who answers the referral</strong> Both the shopper and the referring partner know where the next action sits.</p></details></div><p>Send one trial inquiry through the partnership. If both parties wait for the other, there’s a missing line in the agreement.</p></section>
+      <section id="sources" class="article-section article-sources"><h2>Sources & methodology</h2><p>My CV documents the role. The situations and choices in this story are illustrative.</p><div class="source-ledger"><div class="source-card" id="source-career"><span class="source-kind">Source &amp; details</span><h3><a href="https://mrdalili.ir/profile.html?tab=experience&amp;role=can" target="_blank" rel="noopener noreferrer">My role at CAN Home Appliances <span aria-hidden="true">↗</span></a></h3><div class="source-meta"><span>Mohammadreza Dalili</span></div><p>Role and responsibilities from my CV.</p></div></div></section>
+      <section class="article-related"><h2>KEEP EXPLORING</h2><div><a href="/article.html?post=can-exhibitions&amp;lang=en"><h3>Events and exhibitions</h3><p>A photo can show a busy booth. It won’t tell you who needs an answer tomorrow.</p><span aria-hidden="true">↗</span></a></div></section></article>
+    </div>
+    <dialog class="article-dialog" aria-labelledby="article-dialog-title"><div class="dialog-top"><span class="small-label">Blog</span><button type="button" data-dialog-close autofocus>Close <span aria-hidden="true">×</span></button></div><h2 id="article-dialog-title"></h2><div class="dialog-content"></div></dialog></main>
+  <picture class="page-coast" aria-hidden="true">
+    <source media="(max-width: 680px)" srcset="/assets/brand/coastal-print-mobile.webp">
+    <img src="/assets/brand/coastal-print.webp" width="2172" height="724" alt="" loading="lazy" decoding="async">
+  </picture>
+  <footer id="footer" class="footer"></footer>
+  <noscript><nav class="noscript" aria-label="Pages"><a href="/index.html?lang=en">Home</a> <a href="/strategy.html?lang=en">Solutions</a> <a href="/blog.html?lang=en">Blog</a> <a href="/profile.html?lang=en">CV</a> <a href="/contact.html?lang=en">Contact</a> <a href="/article.html?post=can-partnerships&amp;lang=fa">فارسی</a></nav></noscript>
+</body>
+</html>
