@@ -17,6 +17,7 @@ const revisions = new Map([
   ['datis-fieldwork', 'v2'],
   ['datis-question', 'v2'],
   ['binici-dashboard', 'v2'],
+  ['binici-demand', 'v2'],
 ]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {

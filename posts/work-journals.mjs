@@ -83,6 +83,10 @@ const illustratedCoverAlts = {
     fa:'دستگاه ثبت نمودار بی‌نی‌سی برای یک درخواست دو پیشنهاد را نشان می‌دهد. در این مثال آموزشی تعداد کالا از ۱۰ به ۳۰ تغییر کرده و یک سفارش ثبت شده است.',
     en:'A BiNiCi chart recorder shows two quotes for one inquiry. In this example, the quantity goes from 10 units to 30 and one order is recorded.',
   },
+  'binici-demand': {
+    fa:'وانت بی‌نی‌سی جلوی دو فروشگاه قطعات ایستاده است. در این مثال، هر دو فروشگاه شش قطعه فروخته‌اند. یکی هفت روز کالا داشته و دیگری فقط یک روز.',
+    en:'A BiNiCi delivery van stands between two parts shops. In this example, each sold six units. One had stock for seven days, the other for just one.',
+  },
 };
 
 function option(copy) {
