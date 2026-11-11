@@ -63,6 +63,10 @@ const illustratedCoverAlts = {
     fa:'زیر هود ویترین کن، عکس کابینت خریدار روی گوشی دیده می‌شود. روی نقشهٔ همان مدل، شابلون سبز عرض برش را کنار خط اندازهٔ عرض بیرونی نشان می‌دهد.',
     en:'Below a CAN showroom hood, a phone shows the shopper’s cabinet. A green template marks the cut-out on the model’s fitting drawing, beside the overall width.',
   },
+  'can-partnerships': {
+    fa:'بلاگر و کارشناس نمایندگی کنار فر توکار یک ریلز مشترک ضبط می‌کنند. روی میز، کنار کلاکت، برگه‌ای برای اجازهٔ ارجاع درخواست مشتری و پیگیری نمایندگی دیده می‌شود.',
+    en:'A creator and a showroom specialist film a joint reel beside a built-in oven. A referral slip next to the clapperboard records customer consent and assigns follow-up to the dealer.',
+  },
 };
 
 function option(copy) {
