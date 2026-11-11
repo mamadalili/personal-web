@@ -23,6 +23,10 @@ const illustratedCoverAlts = {
     fa:'یک محصول بومرنگ در بنر مجموعه، صفحهٔ محصول و نسخهٔ موبایل',
     en:'One Boomerang vanity featured in a campaign banner, a product detail page and a mobile layout',
   },
+  'boomerang-channels': {
+    fa:'رسید پرداخت و برگهٔ سفارش شمارهٔ ۴۲۷ کنار هم. روی رسید تیک خورده و جای تأیید سفارش خالی است.',
+    en:'A checked payment receipt and an order card share reference 427. The order confirmation box is still empty.',
+  },
 };
 
 function option(copy) {
