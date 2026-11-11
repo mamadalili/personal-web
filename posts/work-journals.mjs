@@ -39,6 +39,10 @@ const illustratedCoverAlts = {
     fa:'یک بسته مداد آبی روی یک قفسه، جلوی قاب مرورگر و ویترین کاغذی بازارگاه.',
     en:'One pack of blue pencils sits on a shared shelf in front of a browser frame and a paper marketplace storefront.',
   },
+  'turbin-launch': {
+    fa:'رسید انبار به کارتن دفترها وصل است. روی نوار دور دفترها «یک بسته» و روی جلد دفتر جداشده «یک دفتر» نوشته شده است.',
+    en:'A receiving tag hangs from a carton of notebooks. A band identifies one pack, and the separate notebook is marked as one selling unit.',
+  },
 };
 
 function option(copy) {
