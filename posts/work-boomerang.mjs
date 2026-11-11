@@ -85,44 +85,48 @@ export const stories = {
   },
   "content": {
     intro: {
-      fa: "«اندازه‌اش چقدر است؟» گاهی یعنی عدد را خوانده‌ام، ولی هنوز نمی‌توانم آن را روی میز خودم تصور کنم.",
-      en: "“How big is it?” can mean “I saw the measurements, but I still can’t picture it on my desk.”"
+      fa: "روی بنر خانه، یک ست روشویی را می‌بینی و رویش می‌زنی. حالا سؤال‌ها عوض می‌شوند. این رنگ چه اسمی دارد؟ داخل سفارش دقیقاً چه چیزهایی هست؟ عکس و توضیحی که روی بنر برایت کافی بود، اینجا دیگر همهٔ جوابت را نمی‌دهد. برای من، کار محتوای دیجیتال از همین تفاوت شروع می‌شود.",
+      en: "You spot a vanity on the homepage and tap the banner. Now you want to know the name of the finish and what actually ships with the order. The photo and headline that got you here have done their job. The product page has a different one."
     },
     opening: {
-      fa: "یک عکس چه سؤالی را کم می‌کند؟",
-      en: "Give the photograph a job"
+      fa: "برای معرفی یک محصول چه چیزهایی لازم است؟",
+      en: "What does it take to introduce one product?"
     },
     role: {
-      fa: "وقتی مسئول فروش آنلاین هستی، یک صفحهٔ قشنگ فقط بخشی از کار است. برای بحث محتوای دیجیتال در بومرنگ، یک سؤال را مبنا می‌گیرم. مشتری با دیدن این صفحه چه تصمیمی را راحت‌تر می‌گیرد؟",
-      en: "Working in online sales puts a useful constraint on content. For this part of my Boomerang work, the question I start with is what decision a customer can make after seeing a page."
+      fa: "فرض کن قرار است یک مدل تازه را در سایت بومرنگ معرفی کنیم. اول اسم دقیق مدل، مشخصات تأییدشده و عکس‌های همان مدل را کنار هم می‌گذاریم. اگر معلوم نیست آینه همراه ست فروخته می‌شود، این سؤال را از تیم محصول می‌پرسیم. یک عکس زیبا به‌تنهایی جواب این سؤال نیست.",
+      en: "Suppose we’re introducing a new model on the Boomerang site. We start with its exact name, verified specifications and photos of that model. If it’s unclear whether the mirror comes with the vanity, that’s a question for the product team. A styled photograph can’t answer it."
     },
     example: {
-      fa: "فرض کن سه عکس از روبه‌روی محصول داریم. عکس چهارم را هم از همان زاویه بگیریم یا محصول را کنار دستی بگذاریم که دارد از آن استفاده می‌کند؟ اگر مسئله اندازه باشد، دومی چیز تازه‌ای می‌گوید. اندازهٔ دقیق را هم باید نوشت؛ دست آدم‌ها خط‌کش نیست.",
-      en: "Suppose a listing already has three front views. A fourth could show the product in someone’s hand. If scale is the sticking point, that picture adds information. Give the actual dimensions too. Hands aren’t rulers."
+      fa: "حالا می‌شود صفحه را نوشت. عنوان کمک می‌کند خریدار مدل را بشناسد. در توضیح کوتاه می‌گوییم بین گزینه‌ها چه فرقی هست. جدول برای چیزهایی است که باید بشود کنار هم مقایسه کرد، مثل رنگ، جنس و اقلام همراه. عکس اصلی ظاهر کار را نشان می‌دهد و عکس جزئیات می‌تواند تفاوتی را روشن کند که در متن سخت توضیح داده می‌شود.",
+      en: "Then we can write the page. The title identifies the model. A short description explains what distinguishes the options. The table holds details a shopper might compare, such as finish, material and what’s included. The main photograph shows the piece as a whole. A close-up can explain a difference that would take a paragraph to describe."
     },
     practice: {
-      fa: "از سؤال مشتری به سفارش تولید محتوا",
-      en: "Turn a question into a brief"
+      fa: "همان محصول، در جای دیگر سایت",
+      en: "One product in several places"
     },
     method: {
-      fa: "برای مثال، «داخلش چه جا می‌شود؟» را عیناً در بالای سفارش عکاسی بنویس. بعد مشخص کن چه چیزی کنار محصول بیاید و چه مشخصه‌ای زیر عکس نوشته شود. حالا عکاس و نویسنده دارند جواب یک سؤال مشترک را می‌سازند.",
-      en: "Write “What fits inside?” at the top of the photo brief. Specify an everyday object to include and the dimension that belongs in the caption. Photographer and writer now have the same question to answer."
-    },
-    question: {
-      fa: "خریدار بین دو اندازه مانده. کدام تصویر را جلوتر می‌آوری؟",
-      en: "Someone is between sizes. Which image goes first?"
-    },
-    first: {
-      fa: "هر دو اندازه کنار یک شیء آشنا ~ چشم یک مرجع مشترک پیدا می‌کند. ابعاد هر مدل را کنار همان تصویر ثبت کن.",
-      en: "Both sizes beside a familiar object ~ A shared reference makes the comparison legible. Put each model’s dimensions next to the image."
-    },
-    second: {
-      fa: "تصویر بسته‌بندی از دور ~ برای تشخیص جعبه خوب است. اگر مقیاس خود کالا معلوم نباشد، سؤال خرید سر جایش می‌ماند.",
-      en: "A distant view of the packaging ~ Useful for recognising the box. It doesn’t resolve uncertainty about the size of the item inside."
+      fa: "بنر صفحهٔ خانه فرصت یک نگاه را دارد. آنجا یک عکس از مجموعه، اسمش و یک لینک روشن کافی است. کسی که روی بنر می‌زند باید همان مجموعه را پیدا کند. در موبایل هم باید برش عکس را جدا دید؛ گاهی عکس روی دسکتاپ درست است، اما روی گوشی خود محصول از کادر بیرون می‌رود.",
+      en: "A homepage banner has a moment to catch someone’s eye. A collection photograph, its name and a link can do the job. That link should land on the collection in the photo. Check the crop on a phone as well: a desktop composition sometimes leaves the product itself outside the mobile frame."
     },
     closing: {
-      fa: "قبل از تولید محتوای بعدی، یک سؤال واقعی از پشتیبانی بردار. اگر جوابش توی عکس پیداست، زیرنویس می‌تواند کوتاه بماند.",
-      en: "Pick a real support question before commissioning the next piece of content. When the picture answers it, the caption can stay short."
+      fa: "برای یک معرفی کوتاه در شبکه‌های اجتماعی، می‌شود روی یک جزئیات مکث کرد و برای مشخصات کامل به صفحهٔ همان مدل لینک داد. اسم مدل و اطلاعاتش در همه‌جا یکی است؛ چیزی که تغییر می‌کند مقدار توضیح و انتخاب تصویر است.",
+      en: "A social post can linger on one detail and point to the model page for the full specifications. The model name and facts stay consistent. How much you say and which photograph you use depend on where the reader sees it."
+    },
+    exerciseHeading: {
+      fa: "تمرین · وقتی یک مشخصه تغییر می‌کند",
+      en: "Try it · One specification changes"
+    },
+    question: {
+      fa: "فرض کن فروش آینه از ست جدا شده، ولی عکس اصلی هنوز هر دو را کنار هم نشان می‌دهد. کدام کار بیشتر به خریدار کمک می‌کند؟",
+      en: "Suppose the mirror is now sold separately, but the main photograph still shows both pieces. Which change would help the buyer most?"
+    },
+    first: {
+      fa: "فقط عکس بنر خانه را عوض کنم ~ بنر تازه دیده می‌شود، اما خریدار هنوز در صفحهٔ سفارش نمی‌فهمد پولش را بابت کدام اقلام می‌دهد.",
+      en: "Replace just the homepage banner ~ The banner looks different. The buyer still can’t tell what the price on the product page covers."
+    },
+    second: {
+      fa: "اقلام همراه را در صفحهٔ محصول اصلاح کنم و معرفی‌های مرتبط را هم چک کنم ~ از همان‌جایی شروع کرده‌ای که تصمیم خرید گرفته می‌شود. حالا زیرنویس عکس، متن معرفی و هر بنری را که وعدهٔ «ست همراه آینه» داده با اطلاعات تازه هماهنگ کن.",
+      en: "Correct the product listing, then check the related content ~ Start where someone decides what to buy. Update the included items, then check the caption, description and any banner that promised a mirror in the set."
     }
   },
   "channels": {

@@ -2,7 +2,7 @@ export const workEditions = {
   boomerang: {fa:"بومرنگ", en:"Boomerang", logo:"boomerang", topics:[
     ["online-sales","فروش آنلاین – سایت ایکامرس","Online sales and the ecommerce site","سبد خرید · مدل کالا · تحویل","Cart · Product variant · Delivery","basket"],
     ["four-languages","فعالیت دیجیتال برون‌مرزی – سایت ۴ زبانه","Cross-border commerce on a four-language site","زبان · مقصد · استعلام","Language · Destination · Inquiry","globe"],
-    ["content","محتوای دیجیتال","Digital content","عکس محصول · جزئیات · مقیاس","Product photo · Detail · Scale","camera"],
+    ["content","محتوای دیجیتال","Digital content","متن و عکس محصول · مشخصات · بنر سایت","Copy and photos · Specs · Web banners","camera"],
     ["channels","فرآیندهای فروش آنلاین","Online sales processes","سفارش · پرداخت · پیگیری","Order · Payment · Follow-up","receipt"],
     ["logistics","لجستیک فروش آنلاین","Online sales logistics","بسته · رهگیری · تحویل","Parcel · Tracking · Delivery","box"],
     ["ai-operations","فناوری و هوش مصنوعی","Technology and AI","کاتالوگ · منبع · بازبینی","Catalog · Source · Review","chip"]

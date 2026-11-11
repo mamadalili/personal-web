@@ -19,6 +19,10 @@ const illustratedCoverAlts = {
     fa:'نمای سایت بومرنگ روی کاتالوگی تاشو با زبانه‌های انگلیسی، فارسی، عربی و روسی و دو برچسب محصول',
     en:'The Boomerang website on a fold-out catalog with English, Persian, Arabic and Russian tabs and two product tags',
   },
+  'boomerang-content': {
+    fa:'یک محصول بومرنگ در بنر مجموعه، صفحهٔ محصول و نسخهٔ موبایل',
+    en:'One Boomerang vanity featured in a campaign banner, a product detail page and a mobile layout',
+  },
 };
 
 function option(copy) {
@@ -32,15 +36,22 @@ function edition(role, org, row, number, adjacent) {
   const [id, faTitle, enTitle, faKeys, enKeys] = row;
   const slug = role + '-' + id;
   const copy = manuscripts[role][id];
+  const quiz = {type:'quiz', ...copy.question, options:(number % 2 ? [copy.second,copy.first] : [copy.first,copy.second]).map(option)};
+  const practice = {id:'practice', ...localized(copy.practice), blocks:[paragraph(copy.method)]};
+  const sections = [
+    {id:'experience', ...localized(copy.opening), blocks:[paragraph(copy.role), paragraph(copy.example)]},
+    practice,
+  ];
+  if (copy.exerciseHeading) {
+    practice.blocks.push(paragraph(copy.closing));
+    sections.push({id:'exercise', ...localized(copy.exerciseHeading), blocks:[quiz]});
+  } else {
+    practice.blocks.push(quiz, paragraph(copy.closing));
+  }
   const post = {
     slug, status:'published', date:'2026-11-11', reviewed:'2026-11-11',
     bannerPair:{id:palettes[Math.floor(number / 2)], position:number % 2 + 1},
-    cover:{}, sections:[
-      {id:'experience', ...localized(copy.opening), blocks:[paragraph(copy.role), paragraph(copy.example)]},
-      {id:'practice', ...localized(copy.practice), blocks:[paragraph(copy.method),
-        {type:'quiz', ...copy.question, options:(number % 2 ? [copy.second,copy.first] : [copy.first,copy.second]).map(option)},
-        paragraph(copy.closing)]}
-    ],
+    cover:{}, sections,
     related:[{target:'post:' + role + '-' + adjacent[0], fa:{title:adjacent[1],description:manuscripts[role][adjacent[0]].intro.fa},en:{title:adjacent[2],description:manuscripts[role][adjacent[0]].intro.en}}],
     sources:[{id:'career',kind:'context',publisher:'Mohammadreza Dalili',url:'https://mrdalili.ir/profile.html?tab=experience&role='+role,
       fa:{title:'سابقهٔ کاری من در '+org.fa,note:'شرح نقش و مسئولیت‌ها در رزومهٔ من.'},
