@@ -51,6 +51,10 @@ const illustratedCoverAlts = {
     fa:'کنار خودکار آبی، دستگاهی با نشان ChatGPT پیش‌نویس پاسخ را چاپ می‌کند. روی پروندهٔ بازگشت وجه مهر «ارجاع به پشتیبان» خورده است.',
     en:'Beside a blue pen, a printer bearing the ChatGPT logo issues a draft reply. A refund enquiry is stamped for a support agent.',
   },
+  'turbin-migration': {
+    fa:'روبان قرمز از لینک ذخیره‌شده به صفحهٔ جدید یک دفتر چهارخانه می‌رسد. روی رسید خرید آزمایشی هم نام همان دفتر آمده است.',
+    en:'A red ribbon leads from a saved link to the new page for a red gingham notebook. The test receipt names the same notebook.',
+  },
 };
 
 function option(copy) {
