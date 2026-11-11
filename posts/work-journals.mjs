@@ -35,6 +35,10 @@ const illustratedCoverAlts = {
     fa:'برگه‌های دو مدل روشویی با کدهای مشابه کنار هم‌اند. ذره‌بین روی خانهٔ خالی مشخصات در کاتالوگ قرار دارد.',
     en:'Two basin catalog sheets have nearly identical model codes. A magnifying glass rests over an empty specification field.',
   },
+  'turbin-marketplaces': {
+    fa:'یک بسته مداد آبی روی یک قفسه، جلوی قاب مرورگر و ویترین کاغذی بازارگاه.',
+    en:'One pack of blue pencils sits on a shared shelf in front of a browser frame and a paper marketplace storefront.',
+  },
 };
 
 function option(copy) {
