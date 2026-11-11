@@ -27,6 +27,10 @@ const illustratedCoverAlts = {
     fa:'رسید پرداخت و برگهٔ سفارش شمارهٔ ۴۲۷ کنار هم. روی رسید تیک خورده و جای تأیید سفارش خالی است.',
     en:'A checked payment receipt and an order card share reference 427. The order confirmation box is still empty.',
   },
+  'boomerang-logistics': {
+    fa:'بستهٔ برچسب‌خورده روی میز بسته‌بندی است و چرخ حمل نارنجی بیرون درِ انبار منتظر است.',
+    en:'A labelled parcel sits on the packing bench. An empty orange hand truck waits outside the warehouse door.',
+  },
 };
 
 function option(copy) {

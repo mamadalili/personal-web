@@ -3,6 +3,7 @@ const revisions = new Map([
   ['boomerang-four-languages', 'v2'],
   ['boomerang-content', 'v2'],
   ['boomerang-channels', 'v2'],
+  ['boomerang-logistics', 'v2'],
 ]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {
