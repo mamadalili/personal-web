@@ -7,6 +7,7 @@ const revisions = new Map([
   ['boomerang-ai-operations', 'v2'],
   ['turbin-marketplaces', 'v2'],
   ['turbin-launch', 'v2'],
+  ['turbin-warehouse', 'v2'],
 ]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {

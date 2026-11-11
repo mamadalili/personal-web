@@ -43,6 +43,10 @@ const illustratedCoverAlts = {
     fa:'رسید انبار به کارتن دفترها وصل است. روی نوار دور دفترها «یک بسته» و روی جلد دفتر جداشده «یک دفتر» نوشته شده است.',
     en:'A receiving tag hangs from a carton of notebooks. A band identifies one pack, and the separate notebook is marked as one selling unit.',
   },
+  'turbin-warehouse': {
+    fa:'سه دفتر روی قفسه‌اند. یکی مهر رزرو دارد، جلد دومی پاره است و فقط روی سومی برچسب «قابل فروش» دیده می‌شود.',
+    en:'Three notebooks sit on a shelf. One is reserved, one has a torn cover, and only the third is marked available.',
+  },
 };
 
 function option(copy) {
