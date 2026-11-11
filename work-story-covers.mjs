@@ -8,6 +8,7 @@ const revisions = new Map([
   ['turbin-marketplaces', 'v2'],
   ['turbin-launch', 'v2'],
   ['turbin-warehouse', 'v2'],
+  ['turbin-ai', 'v2'],
 ]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {

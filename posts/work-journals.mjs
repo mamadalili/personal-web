@@ -47,6 +47,10 @@ const illustratedCoverAlts = {
     fa:'سه دفتر روی قفسه‌اند. یکی مهر رزرو دارد، جلد دومی پاره است و فقط روی سومی برچسب «قابل فروش» دیده می‌شود.',
     en:'Three notebooks sit on a shelf. One is reserved, one has a torn cover, and only the third is marked available.',
   },
+  'turbin-ai': {
+    fa:'کنار خودکار آبی، دستگاهی با نشان ChatGPT پیش‌نویس پاسخ را چاپ می‌کند. روی پروندهٔ بازگشت وجه مهر «ارجاع به پشتیبان» خورده است.',
+    en:'Beside a blue pen, a printer bearing the ChatGPT logo issues a draft reply. A refund enquiry is stamped for a support agent.',
+  },
 };
 
 function option(copy) {
