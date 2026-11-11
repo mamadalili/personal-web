@@ -79,6 +79,10 @@ const illustratedCoverAlts = {
     fa:'روی نوار مصاحبه نوشته شده «چرا از خرید منصرف شدی؟». دو سر نوار به برگهٔ مقایسهٔ دو ماوس و نمونهٔ اولیهٔ یک ماوس می‌رسند.',
     en:'An interview cassette asks, “What made you walk away?” Its ribbon leads to a comparison sheet for two mice and a working mock-up to test a missing feature.',
   },
+  'binici-dashboard': {
+    fa:'دستگاه ثبت نمودار بی‌نی‌سی برای یک درخواست دو پیشنهاد را نشان می‌دهد. در این مثال آموزشی تعداد کالا از ۱۰ به ۳۰ تغییر کرده و یک سفارش ثبت شده است.',
+    en:'A BiNiCi chart recorder shows two quotes for one inquiry. In this example, the quantity goes from 10 units to 30 and one order is recorded.',
+  },
 };
 
 function option(copy) {
