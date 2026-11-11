@@ -31,6 +31,10 @@ const illustratedCoverAlts = {
     fa:'بستهٔ برچسب‌خورده روی میز بسته‌بندی است و چرخ حمل نارنجی بیرون درِ انبار منتظر است.',
     en:'A labelled parcel sits on the packing bench. An empty orange hand truck waits outside the warehouse door.',
   },
+  'boomerang-ai-operations': {
+    fa:'برگه‌های دو مدل روشویی با کدهای مشابه کنار هم‌اند. ذره‌بین روی خانهٔ خالی مشخصات در کاتالوگ قرار دارد.',
+    en:'Two basin catalog sheets have nearly identical model codes. A magnifying glass rests over an empty specification field.',
+  },
 };
 
 function option(copy) {
