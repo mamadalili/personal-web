@@ -1,4 +1,5 @@
 import {workEditions} from '../work-editions.mjs';
+import {workStoryCoverSrc} from '../work-story-covers.mjs';
 import {stories as boomerang} from './work-boomerang.mjs';
 import {stories as turbin} from './work-turbin.mjs';
 import {stories as can} from './work-can.mjs';
@@ -43,7 +44,10 @@ function edition(role, org, row, number, adjacent) {
     post[lang] = {title,subtitle:(fa?'در ':'At ')+org[lang],category:fa?'روایت‌های کاری':'Work stories',
       sourceNote:fa?'شرح مسئولیت من در رزومه آمده. مثال و تمرین این نوشته برای توضیح موضوع‌اند.':'My CV documents the role. The situations and choices in this story are illustrative.',
       excerpt:copy.intro[lang],readTime:fa?digits(low)+' تا '+digits(high)+' دقیقه با تمرین':low+'–'+high+' min with the exercise'};
-    post.cover[lang] = {src:'assets/blog/'+slug+'-'+lang+'.webp',width:1600,height:900,alt:[title,org[lang],fa?faKeys:enKeys].join(' — ')};
+    const alt = slug === 'boomerang-online-sales'
+      ? (fa ? 'سردوش و رابط برنجی در جعبه، جلوی ویترین فروشگاه بومرنگ‌کالا' : 'A handheld shower and brass adapter in a presentation box in front of the Boomerang Kala storefront')
+      : [title,org[lang],fa?faKeys:enKeys].join(' — ');
+    post.cover[lang] = {src:workStoryCoverSrc(slug,lang),width:1600,height:900,alt};
   }
   return post;
 }
