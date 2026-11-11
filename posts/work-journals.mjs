@@ -59,6 +59,10 @@ const illustratedCoverAlts = {
     fa:'پرده کنار رفته و هود روی صحنهٔ کن پیداست. کنار میز گفت‌وگو، نقشهٔ نصب هود و پیش‌نویس قرارداد نمایندگی باز مانده‌اند.',
     en:'A curtain lifts to reveal a CAN range hood. At the meeting table, its installation drawing sits beside an open draft dealership agreement.',
   },
+  'can-sales-network': {
+    fa:'زیر هود ویترین کن، عکس کابینت خریدار روی گوشی دیده می‌شود. روی نقشهٔ همان مدل، شابلون سبز عرض برش را کنار خط اندازهٔ عرض بیرونی نشان می‌دهد.',
+    en:'Below a CAN showroom hood, a phone shows the shopper’s cabinet. A green template marks the cut-out on the model’s fitting drawing, beside the overall width.',
+  },
 };
 
 function option(copy) {

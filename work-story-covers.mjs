@@ -11,6 +11,7 @@ const revisions = new Map([
   ['turbin-ai', 'v2'],
   ['turbin-migration', 'v2'],
   ['can-exhibitions', 'v2'],
+  ['can-sales-network', 'v2'],
 ]);
 
 export function workStoryCoverSrc(slug, language, preview = false) {
