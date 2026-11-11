@@ -75,6 +75,10 @@ const illustratedCoverAlts = {
     fa:'مشتری روی پیشخوان به دو وب‌کم اشاره می‌کند. در دفتر بازدید، سؤالش «فرق این دو مدل چیه؟» روبه‌روی برداشت فروشنده دربارهٔ قیمت ثبت شده است.',
     en:'A customer points to two webcams on the counter. The open field notebook pairs the customer’s question, “How do these models differ?”, with the seller’s hunch that price mattered.',
   },
+  'datis-question': {
+    fa:'روی نوار مصاحبه نوشته شده «چرا از خرید منصرف شدی؟». دو سر نوار به برگهٔ مقایسهٔ دو ماوس و نمونهٔ اولیهٔ یک ماوس می‌رسند.',
+    en:'An interview cassette asks, “What made you walk away?” Its ribbon leads to a comparison sheet for two mice and a working mock-up to test a missing feature.',
+  },
 };
 
 function option(copy) {
