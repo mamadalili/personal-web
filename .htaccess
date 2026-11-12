@@ -29,6 +29,7 @@ AddDefaultCharset UTF-8
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
   RewriteRule ^blog\.html$ reading/en/archive.html [R=302,L]
+  RewriteRule ^blog\.html$ reading/fa/archive.html [R=302,L]
 
   # Older bookmarks used the home URL for a CV tab or employer.
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
@@ -57,6 +58,12 @@ AddDefaultCharset UTF-8
   <FilesMatch "^(?:index|profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)(?:\.(?:fa|en))?\.html$">
     Header merge Vary Cookie
   </FilesMatch>
+</IfModule>
+<IfModule mod_headers.c>
+  <Files "blog.html">
+    Header always merge Vary Cookie
+    Header always set Cache-Control "private, no-store"
+  </Files>
 </IfModule>
 # End portfolio entry pages
 

@@ -373,7 +373,7 @@ $('language').addEventListener('click',()=>{
  if((page==='blog'||page==='article'||page==='home'||page==='cv'||page==='solutions'||page==='contact'||page==='work-stories') && document.body.dataset.template!=='true'){
   const url=new URL(location.href);url.searchParams.set('lang',lang);
   if(page==='blog'){
-   const archive=lang==='en'?'reading/en/archive.html':'blog.html';
+   const archive='reading/'+lang+'/archive.html';
    url.pathname=new URL(archive,pageModuleBase).pathname;
   }else if(page==='contact'||page==='work-stories'||(page==='solutions'&&document.body.dataset.solution)){
    url.pathname=url.pathname.replace(/(?:\.(?:en|fa))?\.html$/,'.'+lang+'.html');

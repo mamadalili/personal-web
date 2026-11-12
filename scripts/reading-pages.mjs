@@ -62,7 +62,8 @@ export function buildReadingPages(items){
     const archive=localizedDocument(template,{lang,title:lang==='fa'?'آرشیو بلاگ':'Blog archive',
       intro:libraryCopy[lang].intro,
       main:renderArchive({lang,items:live}),classes:'blog-index'});
-    files.set(lang==='fa'?'blog.html':'reading/en/archive.html',archive);
+    files.set('reading/'+lang+'/archive.html',archive);
+    if (lang==='fa') files.set('blog.html',archive);
     for(const source of live) {
       const post=withDataMotion(source), digest=createHash('sha256').update(JSON.stringify(source)+'\n').digest('hex').slice(0,16);
       const dataSrc='assets/posts/'+post.slug+'-'+digest+'.json';

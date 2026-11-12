@@ -8,12 +8,13 @@ import {loadArticleData} from '../blog-article-data.mjs';
 
 test('every public article and both archives can be read from the first HTML response', () => {
   const files=buildReadingPages(posts), live=posts.filter(item=>item.status==='published');
-  assert.equal(files.size,live.length*2+2);
+  assert.equal(files.size,live.length*2+3);
   for(const [name,expected] of files) {
     assert.equal(readFileSync(new URL('../'+name,import.meta.url),'utf8').replace(/\r\n/g,'\n'),expected,name);
   }
   for(const lang of ['fa','en']){
-    const archive=files.get(lang==='fa'?'blog.html':'reading/en/archive.html');
+    const archive=files.get('reading/'+lang+'/archive.html');
+    if (lang==='fa') assert.equal(files.get('blog.html'),archive);
     assert.ok(archive.includes('<html lang="'+lang+'" dir="'+(lang==='fa'?'rtl':'ltr')+'"'));
     assert.match(archive, /<h1>[^<]+<br>[^<]+<\/h1><p>[^<]+<\/p>/);
     assert.equal((archive.match(/data-alternate-text=/g) || []).length,live.length);
