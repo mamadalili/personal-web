@@ -15,6 +15,30 @@ AddDefaultCharset UTF-8
   </FilesMatch>
 </IfModule>
 
+# Portfolio entry pages
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Older bookmarks used the home URL for a CV tab or employer.
+  RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
+  RewriteRule ^(?:index\.html)?$ profile.html [L]
+
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=(?:fa|en)(?:&|$)
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^(?:index\.html|profile\.html)?$ - [E=PORTFOLIO_EN:1]
+  RewriteCond %{ENV:PORTFOLIO_EN} =1 [OR]
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteRule ^(?:index\.html)?$ index.en.html [END]
+  RewriteCond %{ENV:PORTFOLIO_EN} =1 [OR]
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteRule ^profile\.html$ profile.en.html [END]
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "^(?:index|profile)(?:\.en)?\.html$">
+    Header merge Vary Cookie
+  </FilesMatch>
+</IfModule>
+# End portfolio entry pages
+
 # Portfolio reading routes
 <IfModule mod_rewrite.c>
   RewriteEngine On

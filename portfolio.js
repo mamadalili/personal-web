@@ -83,7 +83,15 @@ function professionalTitle(extra='',label=copy[lang].role){return `<span class="
 function languageButtonMarkup(){return `<svg class="language-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6m-7 0 6-6 2-3H2m5-3h1m5 18 4-10 4 10m-6.5-3h5"/></svg><span class="language-label">${lang==='fa'?'English':'فارسی'}</span>`;}
 function loadingMarkup(text,extra=''){return `<div class="site-loader ${extra}" role="status">${brandMark(true)}<span class="visually-hidden">${text}</span></div>`;}
 let savedLanguage;try{savedLanguage=localStorage.getItem('portfolio-language');}catch{}
-let lang=['fa','en'].includes(params.get('lang'))?params.get('lang'):['fa','en'].includes(savedLanguage)?savedLanguage:'fa';
+function rememberServerLanguage(value){
+ try{
+  if(!document.cookie.split(';').some(part=>part.trim()==='portfolio_language='+value)){
+   document.cookie='portfolio_language='+value+'; Path=/; Max-Age=31536000; SameSite=Lax';
+  }
+ }catch{}
+}
+if(['fa','en'].includes(savedLanguage)) rememberServerLanguage(savedLanguage);
+let lang=['fa','en'].includes(params.get('lang'))?params.get('lang'):['fa','en'].includes(savedLanguage)?savedLanguage:document.documentElement.lang==='en'?'en':'fa';
 let activeTab=tabIds.includes(params.get('tab'))?params.get('tab'):location.pathname.endsWith('/contact.html')?'contact':'experience';
 let activeCareer=career.some(x=>x.id===params.get('role'))?params.get('role'):'boomerang';
 const $=id=>document.getElementById(id);
@@ -96,7 +104,7 @@ function heading(title,sub,extra=''){return `<div class="section-heading"><div><
 function render(){
   ensureAmbient();
   const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';if (!($('main').dataset.readingLang===lang && page==='article')) document.title=`${pageLabel} — ${t.name}`;
-  if (!($('main').dataset.readingLang===lang && page==='article')) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?s.homeIntro:page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
+  if (!($('main').dataset.readingLang===lang && page==='article')) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?homeDescription():page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=titleMarkup();$('header-label').textContent=page==='home'?'':pageLabel;$('header-label').hidden=page==='home';
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
@@ -117,11 +125,19 @@ function render(){
   else renderContactPage();
   updateURL();
 }
+function cvProfileMarkup(){
+  const t=copy[lang];
+  return `<div class="profile-top"></div><img class="portrait" src="images/myphoto-profile-v1.webp" width="130" height="130" alt="${t.name}" fetchpriority="high"><div class="identity"><h1>${t.name}</h1>${professionalTitle('role')}<span class="location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>${t.location}</span><a class="cv-download" href="assets/cv/mohammadreza-dalili-fa.pdf" download="Mohammadreza-Dalili-CV-FA.pdf"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg><span>${lang==='fa'?'دانلود رزومه (PDF)':'Download CV (Persian PDF)'}</span></a></div><div class="profile-section"><h2 class="small-label">${t.aboutMe}</h2><p class="bio">${t.bio}</p></div><div class="profile-section"><h2 class="small-label">${t.focus}</h2>${chips(t.skills)}</div><div class="profile-contact"><a class="primary-link" href="mailto:Mohammadreza.dalili@live.com">${t.connect}<span aria-hidden="true">↗</span></a><div class="profile-links"><a href="https://github.com/mamadalili" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:Mohammadreza.dalili@live.com">${t.email} ↗</a></div></div>`;
+}
+function cvIntroMarkup(){
+  const t=copy[lang];
+  return `<div class="eyebrow">${t.eyebrow}</div><h2>${t.headline}</h2><p>${t.intro}</p><div class="stats">${t.stats.map(([n,label])=>`<div class="stat"><strong>${n}</strong><span>${label}</span></div>`).join('')}</div>`;
+}
 function renderCV(){
   const t=copy[lang];
   $('profile').setAttribute('aria-label',t.name);
-  $('profile').innerHTML=`<div class="profile-top"></div><img class="portrait" src="images/myphoto-profile-v1.webp" width="130" height="130" alt="${t.name}" fetchpriority="high"><div class="identity"><h1>${t.name}</h1>${professionalTitle('role')}<span class="location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>${t.location}</span><a class="cv-download" href="assets/cv/mohammadreza-dalili-fa.pdf" download="Mohammadreza-Dalili-CV-FA.pdf"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg><span>${lang==='fa'?'دانلود رزومه (PDF)':'Download CV (Persian PDF)'}</span></a></div><div class="profile-section"><h2 class="small-label">${t.aboutMe}</h2><p class="bio">${t.bio}</p></div><div class="profile-section"><h2 class="small-label">${t.focus}</h2>${chips(t.skills)}</div><div class="profile-contact"><a class="primary-link" href="mailto:Mohammadreza.dalili@live.com">${t.connect}<span aria-hidden="true">↗</span></a><div class="profile-links"><a href="https://github.com/mamadalili" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:Mohammadreza.dalili@live.com">${t.email} ↗</a></div></div>`;
-  $('intro').innerHTML=`<div class="eyebrow">${t.eyebrow}</div><h2>${t.headline}</h2><p>${t.intro}</p><div class="stats">${t.stats.map(([n,label])=>`<div class="stat"><strong>${n}</strong><span>${label}</span></div>`).join('')}</div>`;
+  $('profile').innerHTML=cvProfileMarkup();
+  $('intro').innerHTML=cvIntroMarkup();
   $('main-tabs').setAttribute('aria-label',t.tabLabel);
   $('main-tabs').innerHTML=tabIds.map((id,i)=>`<button type="button" role="tab" id="tab-${id}" aria-controls="panel-${id}" aria-selected="${id===activeTab}" tabindex="${id===activeTab?0:-1}" data-tab="${id}">${t.tabs[i]}${i<2?`<span class="tab-count" aria-hidden="true">${new Intl.NumberFormat(lang).format(i===0?8:projects.length)}</span>`:''}</button>`).join('');
   $('content').innerHTML=tabIds.map(id=>`<section role="tabpanel" id="panel-${id}" aria-labelledby="tab-${id}" tabindex="0" ${id===activeTab?'':'hidden'}></section>`).join('');
@@ -148,15 +164,28 @@ const homePortalCopy={
  fa:{strategy:{title:'استراتژی',text:'اول برای کدوم مشتری و کدوم بازار وقت بذاریم؟'},execution:{title:'اجرا و فروش',text:'از دیدن تبلیغ تا ثبت سفارش چه کارهایی مونده؟'},technology:{title:'فناوری',text:'فروشگاه یا ابزار تیم کجا کار رو سخت کرده؟'},'ai-tools':{title:'ابزارهای AI',text:'کدوم کار رو به AI بسپاریم و کجا خودمون بررسی کنیم؟'}},
  en:{strategy:{title:'Strategy',text:'Which customers and markets deserve our time first?'},execution:{title:'Execution & sales',text:'What needs to happen between seeing an ad and placing an order?'},technology:{title:'Technology',text:'Where is the shop or a team tool making work harder?'},'ai-tools':{title:'AI workflows',text:'What can AI take on, and where should we check its work?'}}
 };
+function homeDescription(){
+ return siteCopy[lang].homeIntro.replace('{role}',lang==='fa'?'مارکتر و اپراتور هوش مصنوعی،':copy[lang].role).replace('{home}',lang==='fa'?'خانه دیجیتال':'digital home');
+}
+function homeIntroMarkup(){
+ const t=copy[lang],s=siteCopy[lang];
+ return escapeHTML(s.homeIntro).replace('{role}',`<a class="home-intro-role" href="${pageURL('home')}">${professionalTitle('',lang==='fa'?'مارکتر و اپراتور هوش مصنوعی،':t.role)}</a>`).replace('{home}',`<strong>${lang==='fa'?'خانه دیجیتال':'digital home'}</strong>`);
+}
+function homeOpeningMarkup(folders){
+ const s=siteCopy[lang],k=skillsCopy[lang];
+ return `<section class="home-first-view home-art-hero" aria-labelledby="home-title"><div class="page-hero home-hero"><div class="home-welcome"><h1 id="home-title">${s.homeTitle}</h1><p>${homeIntroMarkup()}</p></div><div class="site-atmosphere is-paused" aria-hidden="true"></div></div>
+ <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><h2 id="skills-hero-title">${k.cardTitle}</h2><p>${k.cardBody}</p><div class="home-hero-actions">${homeCardCTA('solutions',k.cardAction)}${homeCardCTA('contact',s.contactAction)}</div></div><div class="skills-card-side"><nav class="skills-capability-grid home-folder-grid" aria-label="${lang==='fa'?'راهکارها':'Solutions'}" data-capability-cards>${folders}</nav></div></article>
+ </section>`;
+}
 function renderHome(){
  disposeHomeBlog();disposeHomeBlog=()=>{};
- const t=copy[lang],s=siteCopy[lang],k=skillsCopy[lang];
+ const s=siteCopy[lang];
+ const initial=$('main').dataset.entryLang===lang ? $('main').querySelector('[data-capability-cards]') : null;
+ const folders=initial?.innerHTML || loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…');
+ delete $('main').dataset.entryLang;
  const homeLanguage=lang;
- const homeIntro=escapeHTML(s.homeIntro).replace('{role}',`<a class="home-intro-role" href="${pageURL('home')}">${professionalTitle('',lang==='fa'?'مارکتر و اپراتور هوش مصنوعی،':t.role)}</a>`).replace('{home}',`<strong>${lang==='fa'?'خانه دیجیتال':'digital home'}</strong>`);
  const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
- $('main').innerHTML=`<div class="home-scroll-story"><section class="home-first-view home-art-hero" aria-labelledby="home-title"><div class="page-hero home-hero"><div class="home-welcome"><h1 id="home-title">${s.homeTitle}</h1><p>${homeIntro}</p></div><div class="site-atmosphere is-paused" aria-hidden="true"></div></div>
- <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><h2 id="skills-hero-title">${k.cardTitle}</h2><p>${k.cardBody}</p><div class="home-hero-actions">${homeCardCTA('solutions',k.cardAction)}${homeCardCTA('contact',s.contactAction)}</div></div><div class="skills-card-side"><nav class="skills-capability-grid home-folder-grid" aria-label="${lang==='fa'?'راهکارها':'Solutions'}" data-capability-cards>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…')}</nav></div></article>
- </section><section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
+ $('main').innerHTML=`<div class="home-scroll-story">${homeOpeningMarkup(folders)}<section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
  <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h2 id="home-blog-title" class="visually-hidden">${s.blogLabel}</h2><p>${s.blogBody}</p><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><div data-home-blog>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…','home-blog-loading')}</div></article>
  <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h2>${s.cvTitle}</h2><p>${s.cvBody} <a class="home-story-link" href="${pageURL('work-stories')}">${lang==='fa'?'روایت‌های کاری من':'Stories from my work'}</a></p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h2>${s.contactTitle}</h2><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
@@ -331,7 +360,8 @@ document.addEventListener('keydown',event=>{
 });
 $('language').addEventListener('click',()=>{
  lang=lang==='fa'?'en':'fa';try{localStorage.setItem('portfolio-language',lang);}catch{}
- if((page==='blog'||page==='article') && document.body.dataset.template!=='true'){
+ rememberServerLanguage(lang);
+ if((page==='blog'||page==='article'||page==='home'||page==='cv') && document.body.dataset.template!=='true'){
   const url=new URL(location.href);url.searchParams.set('lang',lang);location.assign(url);return;
  }
  render();$('language').focus();

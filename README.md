@@ -200,6 +200,10 @@ Preserve the fixed top-centred glass navigation (`#footer`), the narrow-screen h
 
 Replace `images/myphoto.webp` with the desired WebP image. The original JPG is retained as a source asset. The portrait crops are controlled by `.portrait`, `.header-portrait` and `.contact-profile img` in `portfolio.css`.
 
+## Home and CV first render
+
+After editing the Home or CV introduction or the folder artwork, run `npm ci --prefix react-site` once and `node scripts/generate-entry-pages.mjs` from the repository root. Use `node scripts/generate-entry-pages.mjs --check` to check the committed HTML against the render functions. Publish both language versions of each page with the matching `portfolio.js`. The “Portfolio entry pages” block in the root `.htaccess` selects the response for the existing URLs. On managed hosting, merge this block into the active configuration.
+
 ## Checks after editing
 
 ```sh
@@ -218,7 +222,7 @@ In the browser, check Home, Blog, CV, Contact and Skills in both languages. On d
 
 ## Privacy and external links
 
-- The website remembers the language in browser `localStorage` under `portfolio-language`.
+- The language selector saves the preference in `localStorage` and a first-party `portfolio_language` cookie. Home and CV use the cookie for requests without an explicit language.
 - The selected language appears in every page URL; the main tab and role also appear on CV links for shareable navigation.
 - There is no analytics script, tracking cookie or contact-form backend in the current website.
 - Email links open the visitor's email application. External links navigate to their named services.
