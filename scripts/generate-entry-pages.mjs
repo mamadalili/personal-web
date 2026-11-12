@@ -98,13 +98,16 @@ const pages = [['index', 'home'], ['profile', 'cv'], ['contact', 'contact'],
 for (const [file, page] of pages) {
   const template = read(file + '.html');
   for (const lang of ['fa', 'en']) {
-    const target = file + (lang === 'en' ? '.en' : '') + '.html';
+    const targets = [file + (lang === 'en' ? '.en' : '') + '.html'];
+    if (lang === 'fa' && (page === 'solutions' || page === 'contact')) targets.push(file+'.fa.html');
     const html = renderEntry(file, page, lang, template);
-    if (process.argv.includes('--check')) {
-      if (read(target) !== html) throw new Error('Stale initial HTML: ' + target);
-    } else {
-      writeFileSync(new URL(target, root), html);
+    for (const target of targets) {
+      if (process.argv.includes('--check')) {
+        if (read(target) !== html) throw new Error('Stale initial HTML: ' + target);
+      } else {
+        writeFileSync(new URL(target, root), html);
+      }
+      console.log(target);
     }
-    console.log(target);
   }
 }

@@ -9,6 +9,9 @@ for (const [lang, dir] of [['fa', 'rtl'], ['en', 'ltr']]) {
     test(`the ${lang} ${page} response includes its introduction before JavaScript runs`, () => {
       const file = page + (lang === 'en' ? '.en.html' : '.html');
       const html = readFileSync(new URL('../' + file, import.meta.url), 'utf8');
+      if (lang === 'fa' && (page === 'contact' || solutions.some(item => item.id === page))) {
+        assert.equal(readFileSync(new URL('../' + page + '.fa.html', import.meta.url), 'utf8'), html);
+      }
       const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
       assert.match(html, new RegExp(`<html lang="${lang}" dir="${dir}"`));
       assert.ok(main);

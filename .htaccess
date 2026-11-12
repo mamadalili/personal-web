@@ -20,6 +20,11 @@ AddDefaultCharset UTF-8
   RewriteEngine On
   RewriteRule ^solutions\.html$ strategy.html [R=302,L]
 
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=fa(?:&|$)
+  RewriteRule ^(strategy|execution|technology|ai-tools|contact)\.en\.html$ $1.fa.html [R=302,L]
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteRule ^(strategy|execution|technology|ai-tools|contact)\.fa\.html$ $1.en.html [R=302,L]
+
   # Older bookmarks used the home URL for a CV tab or employer.
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
@@ -32,14 +37,19 @@ AddDefaultCharset UTF-8
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(profile|strategy|execution|technology|ai-tools|contact)\.html$ $1.en.html [END]
+  RewriteRule ^(strategy|execution|technology|ai-tools|contact)\.html$ $1.en.html [R=302,L]
+  RewriteRule ^(strategy|execution|technology|ai-tools|contact)\.html$ $1.fa.html [R=302,L]
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^profile\.html$ profile.en.html [END]
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
   RewriteRule ^(?:index\.html)?$ index.en.html [END]
 </IfModule>
 <IfModule mod_headers.c>
-  <FilesMatch "^(?:index|profile|strategy|execution|technology|ai-tools|contact)(?:\.en)?\.html$">
+  <FilesMatch "^(?:index|profile|strategy|execution|technology|ai-tools|contact)(?:\.(?:fa|en))?\.html$">
     Header merge Vary Cookie
   </FilesMatch>
 </IfModule>

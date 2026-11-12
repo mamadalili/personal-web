@@ -91,7 +91,8 @@ function rememberServerLanguage(value){
  }catch{}
 }
 if(['fa','en'].includes(savedLanguage)) rememberServerLanguage(savedLanguage);
-let lang=['fa','en'].includes(params.get('lang'))?params.get('lang'):['fa','en'].includes(savedLanguage)?savedLanguage:document.documentElement.lang==='en'?'en':'fa';
+const fileLanguage=location.pathname.match(/\.(fa|en)\.html$/)?.[1];
+let lang=['fa','en'].includes(params.get('lang'))?params.get('lang'):fileLanguage||(['fa','en'].includes(savedLanguage)?savedLanguage:document.documentElement.lang==='en'?'en':'fa');
 let activeTab=tabIds.includes(params.get('tab'))?params.get('tab'):location.pathname.endsWith('/contact.html')?'contact':'experience';
 let activeCareer=career.some(x=>x.id===params.get('role'))?params.get('role'):'boomerang';
 const $=id=>document.getElementById(id);
@@ -367,7 +368,11 @@ $('language').addEventListener('click',()=>{
  lang=lang==='fa'?'en':'fa';try{localStorage.setItem('portfolio-language',lang);}catch{}
  rememberServerLanguage(lang);
  if((page==='blog'||page==='article'||page==='home'||page==='cv'||page==='solutions'||page==='contact') && document.body.dataset.template!=='true'){
-  const url=new URL(location.href);url.searchParams.set('lang',lang);location.assign(url);return;
+  const url=new URL(location.href);url.searchParams.set('lang',lang);
+  if(page==='contact'||(page==='solutions'&&document.body.dataset.solution)){
+   url.pathname=url.pathname.replace(/(?:\.(?:en|fa))?\.html$/,'.'+lang+'.html');
+  }
+  location.assign(url);return;
  }
  render();$('language').focus();
 });
