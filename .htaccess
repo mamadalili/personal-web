@@ -20,17 +20,21 @@ AddDefaultCharset UTF-8
   RewriteEngine On
   # Older bookmarks used the home URL for a CV tab or employer.
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
-  RewriteRule ^(?:index\.html)?$ profile.html [L]
-
-  RewriteCond %{QUERY_STRING} !(?:^|&)lang=(?:fa|en)(?:&|$)
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(?:index\.html|profile\.html)?$ - [E=PORTFOLIO_EN:1]
-  RewriteCond %{ENV:PORTFOLIO_EN} =1 [OR]
-  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
-  RewriteRule ^(?:index\.html)?$ index.en.html [END]
-  RewriteCond %{ENV:PORTFOLIO_EN} =1 [OR]
-  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteRule ^(?:index\.html)?$ profile.en.html [END]
+  RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
+  RewriteRule ^(?:index\.html)?$ profile.html [END]
+
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
   RewriteRule ^profile\.html$ profile.en.html [END]
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^(?:index\.html)?$ index.en.html [END]
 </IfModule>
 <IfModule mod_headers.c>
   <FilesMatch "^(?:index|profile)(?:\.en)?\.html$">
