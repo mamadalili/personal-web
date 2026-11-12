@@ -14,8 +14,11 @@ test('every public article and both archives can be read from the first HTML res
   }
   for(const lang of ['fa','en']){
     const archive=files.get(lang==='fa'?'blog.html':'reading/en/archive.html');
+    assert.ok(archive.includes('<html lang="'+lang+'" dir="'+(lang==='fa'?'rtl':'ltr')+'"'));
+    assert.match(archive, /<h1>[^<]+<br>[^<]+<\/h1><p>[^<]+<\/p>/);
+    assert.equal((archive.match(/data-alternate-text=/g) || []).length,live.length);
     for(const item of live){
-      assert.ok(archive.includes('post='+item.slug+'&amp;lang='+lang));
+      assert.ok(archive.includes('href="/reading/'+lang+'/'+item.slug+'.html"'));
       const html=files.get('reading/'+lang+'/'+item.slug+'.html');
       assert.ok(html.includes('<h1>'+escapeHTML(item[lang].title)+'</h1>'));
       assert.ok(html.includes('myphoto-avatar-v1.webp'));

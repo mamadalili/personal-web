@@ -1,14 +1,23 @@
-import {mountBlogIndex} from './blog-index.mjs?v=20261102-light-lists';
-import {posts} from './blog-summaries.mjs';
-import {internalHref} from './blog-core.mjs';
+import {attachArchiveFilters} from './archive-controls.mjs';
 
-let dispose = () => {};
-export function unmountBlog() { dispose(); dispose = () => {}; }
-export function mountBlog(root, {language = 'fa'} = {}) {
-  dispose();
-  const controller = new AbortController();
-  dispose = () => controller.abort();
-  const lang = language === 'en' ? 'en' : 'fa';
-  root.classList.remove('market-story');
-  mountBlogIndex(root, {lang, items: posts, href: target => internalHref(target, lang, posts, location.href), signal: controller.signal});
+let controller, disposeFallback;
+export function unmountBlog() {
+  controller?.abort();
+  disposeFallback?.();
+  disposeFallback = undefined;
+}
+
+export async function mountBlog(root, {language = 'fa'} = {}) {
+  unmountBlog();
+  controller = new AbortController();
+  const {signal} = controller;
+  if (root.dataset.readingLang === language && root.querySelector('[data-library-controls]')) {
+    attachArchiveFilters(root, signal);
+    return;
+  }
+  // Older cached pages and client-only entries need the archive renderer.
+  const legacy = await import(new URL('./runtime-blog.mjs', import.meta.url).href);
+  if (signal.aborted) return;
+  disposeFallback = legacy.unmountBlog;
+  await legacy.mountBlog(root, {language, mode: 'index'});
 }

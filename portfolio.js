@@ -106,8 +106,9 @@ function render(){
   ensureAmbient();
   const hasEntry=$('main').dataset.entryLang===lang;
   const hasStaticSolution=hasEntry && page==='solutions';
-  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';if (!hasStaticSolution && !($('main').dataset.readingLang===lang && page==='article')) document.title=`${pageLabel} — ${t.name}`;
-  if (!(hasEntry && page==='work-stories') && !hasStaticSolution && !($('main').dataset.readingLang===lang && page==='article')) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?homeDescription():page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
+  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';const hasReadingEntry=$('main').dataset.readingLang===lang && (page==='blog'||page==='article');
+  if (!hasStaticSolution && !hasReadingEntry) document.title=`${pageLabel} — ${t.name}`;
+  if (!(hasEntry && page==='work-stories') && !hasStaticSolution && !hasReadingEntry) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?homeDescription():page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=titleMarkup();$('header-label').textContent=page==='home'?'':pageLabel;$('header-label').hidden=page==='home';
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
@@ -220,6 +221,7 @@ let disposeBlog=()=>{};
 const pageModuleBase=document.currentScript?.src||document.baseURI;
 async function loadPageModule(file, retry=false) {
  const url = new URL('runtime-'+file, pageModuleBase);
+ if (file==='blog-list.mjs') url.searchParams.set('v','20261112-archive');
  if (file==='work-stories.mjs') url.searchParams.set('v','20261112-work-entries');
  if (retry) url.searchParams.set('retry',String(Date.now()));
  try { return await import(url.href); }
@@ -370,7 +372,10 @@ $('language').addEventListener('click',()=>{
  rememberServerLanguage(lang);
  if((page==='blog'||page==='article'||page==='home'||page==='cv'||page==='solutions'||page==='contact'||page==='work-stories') && document.body.dataset.template!=='true'){
   const url=new URL(location.href);url.searchParams.set('lang',lang);
-  if(page==='contact'||page==='work-stories'||(page==='solutions'&&document.body.dataset.solution)){
+  if(page==='blog'){
+   const archive=lang==='en'?'reading/en/archive.html':'blog.html';
+   url.pathname=new URL(archive,pageModuleBase).pathname;
+  }else if(page==='contact'||page==='work-stories'||(page==='solutions'&&document.body.dataset.solution)){
    url.pathname=url.pathname.replace(/(?:\.(?:en|fa))?\.html$/,'.'+lang+'.html');
   }
   location.assign(url);return;

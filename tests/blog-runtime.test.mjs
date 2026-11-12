@@ -20,7 +20,7 @@ test('Home, archive and work stories exclude article bodies and article-only wid
   };
   for (const entry of ['home-blog.mjs', 'blog-list.mjs', 'work-stories.mjs']) {
     const graph = [...visit(new URL(`../${entry}`, import.meta.url))];
-    assert.equal(graph.some(path => path.endsWith('/blog-summaries.mjs')), entry !== 'work-stories.mjs');
+    assert.equal(graph.some(path => path.endsWith('/blog-summaries.mjs')), entry === 'home-blog.mjs');
     assert.ok(graph.every(path => !/\/(?:posts\/|blog-data\.mjs|blog-widgets\.mjs|blog-market\.mjs)/.test(path)), entry);
   }
 });

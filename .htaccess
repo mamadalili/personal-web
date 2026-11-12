@@ -25,6 +25,11 @@ AddDefaultCharset UTF-8
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
   RewriteRule ^(strategy|execution|technology|ai-tools|contact|work-stories)\.fa\.html$ $1.en.html [R=302,L]
 
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^blog\.html$ reading/en/archive.html [R=302,L]
+
   # Older bookmarks used the home URL for a CV tab or employer.
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
@@ -49,7 +54,7 @@ AddDefaultCharset UTF-8
   RewriteRule ^(?:index\.html)?$ index.en.html [END]
 </IfModule>
 <IfModule mod_headers.c>
-  <FilesMatch "^(?:index|profile|strategy|execution|technology|ai-tools|contact|work-stories)(?:\.(?:fa|en))?\.html$">
+  <FilesMatch "^(?:index|profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)(?:\.(?:fa|en))?\.html$">
     Header merge Vary Cookie
   </FilesMatch>
 </IfModule>

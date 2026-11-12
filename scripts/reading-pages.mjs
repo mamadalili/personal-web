@@ -1,6 +1,6 @@
 import {readFileSync} from 'node:fs';
 import {escapeHTML as esc, internalHref, publishedPosts, chartValues} from '../blog-core.mjs';
-import {renderArchive} from '../blog-index.mjs';
+import {libraryCopy, renderArchive} from '../blog-index.mjs';
 import {articleRichText, readingBlock, readingWidget, renderArticleFrame} from '../blog-reading.mjs';
 import {createResearchWidgets} from '../blog-widgets.mjs';
 import {createHash} from 'node:crypto';
@@ -26,7 +26,11 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
     .replace('<body data-page="article">',`<body data-page="${page}" data-current-page="${page}">`)
     .replace(/<main id="main"[\s\S]*?<\/main>/,()=>`<main id="main" tabindex="-1" class="page-layout ${classes}" data-reading-lang="${lang}" data-reading-post="${slug||''}"${dataSrc?` data-reading-src="${esc(dataSrc)}"`:''}>${main}</main>`)
     .replace(/<noscript>[\s\S]*?<\/noscript>/,()=>`<noscript><nav class="noscript" aria-label="${lang==='fa'?'صفحه‌ها':'Pages'}">${navMarkup} <a href="/${archive?'blog.html?lang=':'article.html?post='+slug+'&amp;lang='}${lang==='fa'?'en':'fa'}">${lang==='fa'?'English':'فارسی'}</a></nav></noscript>`);
-  if (archive) html = html.replace('<noscript>', '<noscript><style>.library-filters,.library-search{display:none}</style>').replace(/^.*<link rel="stylesheet" href="blog-(?:solo|market|data-motion)\.css[^"]*">.*\n/gm,'');
+  if (archive) html = html
+    .replace('portfolio.js?v=20261110-recovery','portfolio.js?v=20261112-archive')
+    .replace('رفتن به محتوای اصلی / Skip to content',lang==='fa'?'رفتن به محتوای اصلی':'Skip to content')
+    .replace(/<span id="header-label">[^<]*<\/span>/, '<span id="header-label">'+(lang==='fa'?'بلاگ':'Blog')+'</span>')
+    .replace('<noscript>', '<noscript><style>.library-filters,.library-search{display:none}</style>').replace(/^.*<link rel="stylesheet" href="blog-(?:solo|market|data-motion)\.css[^"]*">.*\n/gm,'');
   if (lang==='en') html=html.replace('>محمدرضا دلیلی</span>','>Mohamad Reza Dalili</span>')
     .replaceAll('مارکتر و اپراتور هوش‌مصنوعی','Marketer and AI Operator').replace('پورتفولیوی شخصی','Portfolio')
     .replace('lang="en" aria-label="Switch to English">English','lang="fa" aria-label="تغییر زبان به فارسی">فارسی');
@@ -56,8 +60,8 @@ export function buildReadingPages(items){
       return local.pathname+local.search+local.hash;
     };
     const archive=localizedDocument(template,{lang,title:lang==='fa'?'آرشیو بلاگ':'Blog archive',
-      intro:lang==='fa'?'مطالبی درباره بازار، فروش آنلاین و کار با AI.':'Writing on markets, online sales and working with AI.',
-      main:renderArchive({lang,items:live,href}),classes:'blog-index'});
+      intro:libraryCopy[lang].intro,
+      main:renderArchive({lang,items:live}),classes:'blog-index'});
     files.set(lang==='fa'?'blog.html':'reading/en/archive.html',archive);
     for(const source of live) {
       const post=withDataMotion(source), digest=createHash('sha256').update(JSON.stringify(source)+'\n').digest('hex').slice(0,16);
