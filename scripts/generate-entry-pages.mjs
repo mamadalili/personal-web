@@ -1,7 +1,8 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {runInNewContext} from 'node:vm';
-import {renderHomeFolderCards} from '../solutions.mjs';
+import {renderHomeFolderCards, renderSolutionPage} from '../solutions.mjs';
+import {solutions} from '../solutions-data.mjs';
 import {escapeHTML} from '../blog-core.mjs';
 import {siteUrl} from '../site-config.mjs';
 
@@ -16,7 +17,9 @@ const names = new Set([
   'copy', 'siteCopy', 'skillsCopy', 'homePortalCopy', 'iconPaths', 'icon', 'pageFiles',
   'extraPageFiles', 'pageURL', 'escapeHTML', 'chips', 'titleMarkup', 'professionalTitle',
   'brandMark', 'languageButtonMarkup', 'homeCardCTA', 'homeDescription', 'homeIntroMarkup',
-  'homeOpeningMarkup', 'cvProfileMarkup', 'cvIntroMarkup',
+  'homeOpeningMarkup', 'cvProfileMarkup', 'cvIntroMarkup', 'contactChannels', 'contactLinks',
+  'employerWebsites', 'career', 'companyLogo', 'renderEmployerRail', 'contactPageMarkup', 'skillIconPaths', 'skillIcon',
+  'renderMotionScene', 'collaborationCopy', 'renderCollaborationCTA',
 ]);
 const declarations = [];
 for (const statement of tree.body) {
@@ -30,41 +33,58 @@ for (const statement of tree.body) {
 }
 if (declarations.length !== names.size) throw new Error('Missing portfolio entry renderer');
 
-function renderEntry(page, lang, template) {
+function renderEntry(stem, page, lang, template) {
   const home = page === 'home';
-  const file = home ? 'index.html' : 'profile.html';
+  const file = stem + '.html';
+  const solution = page === 'solutions' ? stem : null;
   const other = lang === 'fa' ? 'en' : 'fa';
   const isFa = lang === 'fa';
   const parts = runInNewContext(declarations.join('\n') + `
     const person = copy[lang], site = siteCopy[lang];
     const folders = () => renderHomeFolderCards({language: lang, url: pageURL, portals: homePortalCopy[lang]});
+    let main, description, title;
+    let motionSceneSerial=0;
+    const label=site.nav[Object.keys(pageFiles).indexOf(page)];
+    if (solution) {
+      const result=renderSolutionPage({language:lang,solution,baseURL:siteUrl,url:pageURL,icon:skillIcon,
+        portals:homePortalCopy[lang],motion:id=>renderMotionScene('solution',id),
+        collaboration:()=>renderCollaborationCTA({showExperience:true})});
+      ({html:main,description,title}=result);
+    } else if (page==='contact') {
+      main=contactPageMarkup();
+      description=site.contactIntro;
+    } else if (home) {
+      main='<div class="home-scroll-story">'+homeOpeningMarkup(folders())+'</div>';
+      description=homeDescription();
+    } else {
+      main='<aside id="profile" class="profile-card" aria-label="'+escapeHTML(person.name)+'">'+cvProfileMarkup()+'</aside>'
+        +'<section class="workspace"><div id="intro" class="intro">'+cvIntroMarkup()+'</div></section>';
+      description=person.intro;
+    }
     ({
+      main, description, title:title || label+' — '+person.name,
       name: person.name, role: titleMarkup(), languageButton: languageButtonMarkup(),
-      label: site.nav[home ? 0 : 3], homeLabel: site.nav[0], navLabel: site.navLabel,
-      description: home ? homeDescription() : person.intro,
+      label, homeLabel: site.nav[0], navLabel: site.navLabel,
       headerImage: home ? '<img class="header-portrait" src="images/myphoto-avatar-v1.webp" width="59" height="59" alt="" fetchpriority="high">' : brandMark(),
-      main: home ? '<div class="home-scroll-story">' + homeOpeningMarkup(folders()) + '</div>'
-        : '<aside id="profile" class="profile-card" aria-label="' + escapeHTML(person.name) + '">' + cvProfileMarkup() + '</aside>'
-        + '<section class="workspace"><div id="intro" class="intro">' + cvIntroMarkup() + '</div></section>',
       navigation: Object.keys(pageFiles).map((id, i) => '<a href="' + pageURL(id) + '"' + (id === page ? ' aria-current="page"' : '') + '>' + icon(id) + '<span>' + escapeHTML(site.nav[i]) + '</span></a>').join('')
     })
-  `, {lang, home, page, renderHomeFolderCards}, {timeout: 1000});
+  `, {lang, home, page, solution, siteUrl, renderSolutionPage, renderHomeFolderCards, URL, URLSearchParams}, {timeout: 1000});
 
   const canonical = new URL(home ? './' : file, siteUrl);
   canonical.searchParams.set('lang', lang);
   const head = template.slice(0, template.indexOf('</head>'))
     .replace(/<html\b[^>]*>/, `<html lang="${lang}" dir="${isFa ? 'rtl' : 'ltr'}" data-theme="light">`)
-    .replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHTML(parts.label)} — ${escapeHTML(parts.name)}</title>`)
+    .replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHTML(parts.title)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, () => `<meta name="description" content="${escapeHTML(parts.description)}">`)
-    .replace(/portfolio\.js\?v=[^"]+/, 'portfolio.js?v=20261112-entry')
+    .replace(/portfolio\.js\?v=[^"]+/, home || page === 'cv' ? 'portfolio.js?v=20261112-entry' : 'portfolio.js?v=20261112-entry-solutions')
     .replace(/^  <link rel="canonical".*\n/gm, '');
   const coast = template.match(/<picture class="page-coast"[\s\S]*?<\/picture>/)[0];
   return `${head}  <link rel="canonical" href="${canonical.href}">
 </head>
-<body data-page="${page}" data-current-page="${page}">
+<body data-page="${page}"${solution ? ` data-solution="${solution}"` : ''} data-current-page="${page}">
   <a href="#main" class="skip">${isFa ? 'رفتن به محتوای اصلی' : 'Skip to content'}</a>
   <header class="site-header"><a class="brand" href="index.html?lang=${lang}" aria-label="${escapeHTML(parts.homeLabel)} — ${escapeHTML(parts.name)}"><span class="brand-mark">${parts.headerImage}</span><span class="brand-identity"><span id="brand-name">${escapeHTML(parts.name)}</span><span class="professional-title header-role" id="brand-role">${parts.role}</span></span></a><div class="header-end"><span id="header-label"${home ? ' hidden' : ''}>${home ? '' : escapeHTML(parts.label)}</span><day-night-switch></day-night-switch><button id="language" type="button" lang="${other}" dir="${isFa ? 'ltr' : 'rtl'}" aria-label="${isFa ? 'Switch to English' : 'تغییر زبان به فارسی'}">${parts.languageButton}</button></div></header>
-  <main id="main" tabindex="-1" class="${home ? 'page-layout' : 'layout'}" data-entry-lang="${lang}">${parts.main}</main>
+  <main id="main" tabindex="-1" class="${solution ? 'page-layout solutions-page' : page === 'cv' ? 'layout' : 'page-layout'}" data-entry-lang="${lang}">${parts.main}</main>
   ${coast}
   <footer id="footer" class="footer"><nav aria-label="${escapeHTML(parts.navLabel)}">${parts.navigation}</nav></footer>
   <noscript><style>#language,day-night-switch{display:none}</style><p class="noscript"><a href="${file}?lang=${other}" lang="${other}">${isFa ? 'English' : 'فارسی'}</a></p></noscript>
@@ -73,11 +93,13 @@ function renderEntry(page, lang, template) {
 `;
 }
 
-for (const [file, page] of [['index', 'home'], ['profile', 'cv']]) {
+const pages = [['index', 'home'], ['profile', 'cv'], ['contact', 'contact'],
+  ...solutions.map(({id}) => [id, 'solutions'])];
+for (const [file, page] of pages) {
   const template = read(file + '.html');
   for (const lang of ['fa', 'en']) {
     const target = file + (lang === 'en' ? '.en' : '') + '.html';
-    const html = renderEntry(page, lang, template);
+    const html = renderEntry(file, page, lang, template);
     if (process.argv.includes('--check')) {
       if (read(target) !== html) throw new Error('Stale initial HTML: ' + target);
     } else {

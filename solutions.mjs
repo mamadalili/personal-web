@@ -40,15 +40,16 @@ export function renderHomeFolderCards({language='fa',current='',url,portals={}})
  }).join('');
 }
 
-export function mountSolutions(root,{language='fa',solution='',url,icon,art=globalThis.renderHomeCapabilityArt,portals={},motion=()=>'',collaboration}) {
+export function renderSolutionPage({language='fa',solution='',url,icon,portals={},motion=()=>'',collaboration,baseURL}) {
   const lang=language==='en'?'en':'fa',t=solutionsCopy[lang];
   const current=solution?solutions.find(item=>item.id===solution):solutions[0];
   const href=(target,params={})=>{
     const destination=url(target);
     if(!destination)return null;
-    const link=new URL(destination,location.href);
+    if(!Object.keys(params).length)return destination;
+    const link=new URL(destination,baseURL);
     for(const [key,value] of Object.entries(params))link.searchParams.set(key,value);
-    return link.href;
+    return destination.split(/[?#]/,1)[0]+link.search+link.hash;
   };
   const arrow='<svg class="cta-direction" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>';
   const heading=parts=>`${esc(parts[0])}<br><em>${esc(parts[1])}</em>`;
@@ -56,16 +57,15 @@ export function mountSolutions(root,{language='fa',solution='',url,icon,art=glob
   const cards=items=>items.map(item=>`<article class="solution-card"><span class="solution-icon">${icon(item.icon)}</span><h3><a href="${esc(href(item.id))}">${esc(item[lang].label)}</a></h3><p>${esc(item[lang].summary)}</p><ul class="solution-tags">${item[lang].tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul>${cta(item.id,t.explore)}</article>`).join('');
   const closing=()=>collaboration();
 
-  root.classList.add('solutions-page');
   if(solution&&!current){
-    root.innerHTML=`<section class="page-hero"><div class="eyebrow">${esc(t.label)}</div><h1>${esc(t.notFound)}</h1><p>${esc(t.notFoundText)}</p>${cta('solutions',t.back)}</section>`;
-    return;
+    const html=`<section class="page-hero"><div class="eyebrow">${esc(t.label)}</div><h1>${esc(t.notFound)}</h1><p>${esc(t.notFoundText)}</p>${cta('solutions',t.back)}</section>`;
+    return {html,title:t.notFound,description:t.notFoundText};
   }
   const content=current?.[lang]||t;
-  document.title=`${current?`${content.label} — `:''}${t.label} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
-  document.querySelector('meta[name="description"]').content=content.intro;
+  const title=`${current?`${content.label} — `:''}${t.label} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
 
-  root.innerHTML=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="home-folder-grid" aria-label="${esc(t.label)}">${renderHomeFolderCards({language:lang,current:current.id,url:href,portals})}</nav></header>
+
+  const html=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="home-folder-grid" aria-label="${esc(t.label)}">${renderHomeFolderCards({language:lang,current:current.id,url:href,portals})}</nav></header>
     <section class="solution-detail-hero solution-spread" aria-labelledby="solution-title">
       <div class="page-hero solution-opening">
         <nav class="solution-breadcrumb" aria-label="${lang==='fa'?'مسیر صفحه':'Breadcrumb'}"><span>${esc(t.label)}</span><span aria-hidden="true">/</span><span aria-current="page">${esc(content.label)}</span></nav>
@@ -85,4 +85,13 @@ export function mountSolutions(root,{language='fa',solution='',url,icon,art=glob
     ${current.evidence.length?`<section class="solution-evidence" aria-labelledby="evidence-heading"><h2 id="evidence-heading">${esc(t.evidence)}</h2><div>${current.evidence.map(item=>`<a href="${esc(href(item.target,item.params))}">${esc(item[lang])}${arrow}</a>`).join('')}</div></section>`:''}
     <section class="solution-faq" aria-labelledby="questions-heading"><h2 id="questions-heading">${esc(t.questions)}</h2>${content.faq.map(item=>`<details><summary>${esc(item.q)}</summary><p>${esc(item.a)}</p></details>`).join('')}</section>
     <section class="solution-related" aria-labelledby="related-heading"><div class="home-section-heading"><h2 id="related-heading">${esc(t.others)}</h2></div><div class="solutions-grid">${cards(solutions.filter(item=>item.id!==current.id))}</div></section>${closing()}`;
+  return {html:html.trim().replaceAll(/^[^\S\n]+$/gm,''),title,description:content.intro};
+}
+
+export function mountSolutions(root,options) {
+  const page=renderSolutionPage({...options,baseURL:location.href});
+  document.title=page.title;
+  document.querySelector('meta[name="description"]').content=page.description;
+  root.classList.add('solutions-page');
+  root.innerHTML=page.html;
 }

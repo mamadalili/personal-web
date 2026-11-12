@@ -103,8 +103,10 @@ function updateURL(){const url=new URL(location.href);url.searchParams.set('lang
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 function render(){
   ensureAmbient();
-  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';if (!($('main').dataset.readingLang===lang && page==='article')) document.title=`${pageLabel} — ${t.name}`;
-  if (!($('main').dataset.readingLang===lang && page==='article')) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?homeDescription():page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
+  const hasEntry=$('main').dataset.entryLang===lang;
+  const hasStaticSolution=hasEntry && page==='solutions';
+  const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';if (!hasStaticSolution && !($('main').dataset.readingLang===lang && page==='article')) document.title=`${pageLabel} — ${t.name}`;
+  if (!hasStaticSolution && !($('main').dataset.readingLang===lang && page==='article')) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?homeDescription():page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=titleMarkup();$('header-label').textContent=page==='home'?'':pageLabel;$('header-label').hidden=page==='home';
   const brand=document.querySelector('.brand');brand.href=pageURL('home');brand.setAttribute('aria-label',`${s.nav[0]} — ${t.name}`);
@@ -112,17 +114,17 @@ function render(){
   $('language').innerHTML=languageButtonMarkup();$('language').dir=lang==='fa'?'ltr':'rtl';
   $('language').lang=lang==='fa'?'en':'fa';$('language').setAttribute('aria-label',lang==='fa'?'Switch to English':'تغییر زبان به فارسی');
   $('footer').innerHTML=`<nav aria-label="${s.navLabel}">${Object.keys(pageFiles).map((id,i)=>`<a href="${pageURL(id)}" ${navPage===id?'aria-current="page"':''}>${icon(id)}<span>${s.nav[i]}</span></a>`).join('')}</nav>`;
-  if (!$('main').dataset.readingLang) $('main').className=page==='cv'?'layout':'page-layout';
+  if (!hasStaticSolution && !$('main').dataset.readingLang) $('main').className=page==='cv'?'layout':'page-layout';
   if(page==='cv'){
     $('main').innerHTML='<aside id="profile" class="profile-card"></aside><section class="workspace"><div id="intro" class="intro"></div><div class="work-card"><div id="main-tabs" class="main-tabs" role="tablist"></div><div id="content"></div></div></section>';
     renderCV();
   }else if(page==='home')renderHome();
-  else if(page==='solutions')renderSolutions();
+  else if(page==='solutions'){if(!hasStaticSolution)renderSolutions();}
   else if(page==='skills')renderSkills();
   else if(page==='blog')renderBlog();
   else if(page==='article')renderBlog('article');
   else if(page==='work-stories')renderWorkStories();
-  else renderContactPage();
+  else if(!hasEntry)renderContactPage();
   updateURL();
 }
 function cvProfileMarkup(){
@@ -277,7 +279,7 @@ function renderSolutions(){
  if(!document.body.dataset.solution){location.replace(pageURL('strategy')+location.hash);return;}
  const version=++solutionsMountVersion,language=lang;
  $('main').innerHTML=loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
- import('./solutions.mjs?v=20261109-solutions-spread').then(({mountSolutions})=>{
+ import('./solutions.mjs?v=20261112-entry-solutions').then(({mountSolutions})=>{
   if(version!==solutionsMountVersion||language!==lang)return;
   mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:pageURL,icon:skillIcon,portals:homePortalCopy[language],motion:active=>renderMotionScene('solution',active),collaboration:()=>renderCollaborationCTA({showExperience:true})});
   ensureAmbient();
@@ -325,10 +327,13 @@ function renderEmployerRail(){
  const seen=new Set(),employers=career.filter(role=>role.logo&&!seen.has(role.logo.src)&&seen.add(role.logo.src));
  return `<section class="employer-rail" aria-labelledby="employer-rail-title"><header><h2 id="employer-rail-title">${lang==='fa'?'بخشی از مسیر کاری من':'Places I have worked'}</h2><a href="${pageURL('cv')}&tab=experience">${lang==='fa'?'دیدن سوابق کاری':'Explore my work experience'}${icon('arrow')}</a></header><div class="employer-logo-grid">${employers.map(role=>`<a class="employer-logo-card" href="${pageURL('cv')}&tab=experience&role=${role.id}"><span>${companyLogo(role)}</span><strong>${escapeHTML(role[lang].company)}</strong></a>`).join('')}</div></section>`;
 }
-function renderContactPage(){
+function contactPageMarkup(){
  const t=copy[lang],s=siteCopy[lang];
  const c=lang==='fa'?{email:'برایم بنویسید',label:'شروع یک گفت‌وگو',title:'دربارهٔ چی می‌خوای حرف بزنیم؟',note:'اگر مشکل توی سایت یا فروشگاهه، لینک همون صفحه رو بفرست و بگو کجا گیر کردی.',channels:'از چه راهی راحت‌تری؟'}:{email:'Write to me',label:'START A CONVERSATION',title:'What would you like to talk about?',note:'If it’s about a site or a shop, send the page link and tell me where you got stuck.',channels:'How would you like to get in touch?'};
- $('main').innerHTML=`<section class="contact-editorial" aria-labelledby="contact-title"><div class="contact-light-trace" aria-hidden="true"></div><div class="contact-editorial-copy"><h1 id="contact-title">${escapeHTML(s.contactIntro)}</h1><div class="contact-editorial-actions"><a href="${contactChannels.find(channel=>channel.id==='email').href}"><span>${c.email}</span>${icon('arrow')}</a><a href="${pageURL('cv')}"><span>${s.cvLink}</span>${icon('arrow')}</a></div><div class="contact-signature"><strong>${escapeHTML(t.name)}</strong>${professionalTitle()}</div></div><figure class="contact-portrait-stage"><div class="contact-monogram" aria-hidden="true"><img src="assets/brand/monogram.svg" alt="" width="210" height="210"></div><img class="contact-author-photo" src="images/contact-portrait.webp" width="1142" height="1377" alt="${escapeHTML(t.name)}" fetchpriority="high"></figure><a class="contact-glass" href="#contact-channels"><span class="contact-glass-copy"><small>${c.label}</small><strong>${c.title}</strong><p>${c.note}</p></span><span class="contact-glass-arrow" aria-hidden="true">${icon('arrow')}</span></a></section><section class="contact-channels-section" id="contact-channels" aria-labelledby="contact-channels-title"><div class="contact-channels-header"><h2 id="contact-channels-title">${c.channels}</h2>${brandMark(true)}</div>${contactLinks()}</section>${renderEmployerRail()}`;
+ return `<section class="contact-editorial" aria-labelledby="contact-title"><div class="contact-light-trace" aria-hidden="true"></div><div class="contact-editorial-copy"><h1 id="contact-title">${escapeHTML(s.contactIntro)}</h1><div class="contact-editorial-actions"><a href="${contactChannels.find(channel=>channel.id==='email').href}"><span>${c.email}</span>${icon('arrow')}</a><a href="${pageURL('cv')}"><span>${s.cvLink}</span>${icon('arrow')}</a></div><div class="contact-signature"><strong>${escapeHTML(t.name)}</strong>${professionalTitle()}</div></div><figure class="contact-portrait-stage"><div class="contact-monogram" aria-hidden="true"><img src="assets/brand/monogram.svg" alt="" width="210" height="210"></div><img class="contact-author-photo" src="images/contact-portrait.webp" width="1142" height="1377" alt="${escapeHTML(t.name)}" fetchpriority="high"></figure><a class="contact-glass" href="#contact-channels"><span class="contact-glass-copy"><small>${c.label}</small><strong>${c.title}</strong><p>${c.note}</p></span><span class="contact-glass-arrow" aria-hidden="true">${icon('arrow')}</span></a></section><section class="contact-channels-section" id="contact-channels" aria-labelledby="contact-channels-title"><div class="contact-channels-header"><h2 id="contact-channels-title">${c.channels}</h2>${brandMark(true)}</div>${contactLinks()}</section>${renderEmployerRail()}`;
+}
+function renderContactPage(){
+ $('main').innerHTML=contactPageMarkup();
 }
 function renderContent(){
  const t=copy[lang];
@@ -361,7 +366,7 @@ document.addEventListener('keydown',event=>{
 $('language').addEventListener('click',()=>{
  lang=lang==='fa'?'en':'fa';try{localStorage.setItem('portfolio-language',lang);}catch{}
  rememberServerLanguage(lang);
- if((page==='blog'||page==='article'||page==='home'||page==='cv') && document.body.dataset.template!=='true'){
+ if((page==='blog'||page==='article'||page==='home'||page==='cv'||page==='solutions'||page==='contact') && document.body.dataset.template!=='true'){
   const url=new URL(location.href);url.searchParams.set('lang',lang);location.assign(url);return;
  }
  render();$('language').focus();
