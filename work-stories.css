@@ -57,3 +57,6 @@ html[lang=en] .work-story h4{line-height:1.5}
  .work-stories-page{padding-bottom:30px}.work-stories-hero{display:block;padding:24px 0 25px}.work-stories-hero h1{font-size:32px}.work-stories-hero p{font-size:13px;line-height:2}.work-stories-back{margin-top:19px;font-size:11px}
  .work-stories-layout{display:block;padding-top:25px}.work-roles{position:static;margin-bottom:22px}.work-roles>p{font-size:11px;margin-bottom:13px}.work-role-list{display:grid;grid-auto-flow:column;grid-auto-columns:215px;grid-template-rows:1fr;gap:7px;overflow-x:auto;overflow-y:hidden;max-height:none;padding:5px 4px 13px;scroll-snap-type:x mandatory;scroll-padding:5px}.work-role{scroll-snap-align:start;min-height:105px;padding:13px 10px;background:#ffffffb8}.work-role-copy>span{font-size:10px}.work-stories-detail{padding:23px 19px;border-radius:17px;scroll-margin-top:18px}.work-role-header h2{font-size:24px}.work-role-meta{font-size:11px;gap:10px}.work-role-summary p{font-size:12px}.work-story{gap:11px;padding:17px 0;min-height:91px}.work-story h4{font-size:14px}.work-story-note{padding:15px}.work-story-intro{font-size:11px}
 }
+
+.work-role-panels{display:grid;gap:24px;min-width:0}
+.work-role-panels>[hidden]{display:none}

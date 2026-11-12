@@ -26,14 +26,25 @@ test('Home, archive and work stories exclude article bodies and article-only wid
 });
 
 test('work stories can be read in either language before any module downloads', () => {
-  const html = readFileSync(new URL('../work-stories.html', import.meta.url), 'utf8');
-  const groups = [...html.matchAll(/<section lang="(fa|en)" dir="(?:rtl|ltr)">([\s\S]*?)<\/section>/g)];
-  assert.deepEqual(groups.map(group => group[1]), ['fa','en']);
-  for (const [,language,group] of groups) {
-    for (const id of Object.keys(workStoryTopics)) {
-      assert.ok(group.includes('data-role-copy="' + id + '"'), id);
-      for (const story of visibleWorkStories(id)) assert.ok(group.includes(story[language].title), story.id);
+  for (const [language,dir] of [['fa','rtl'],['en','ltr']]) {
+    const html = readFileSync(new URL(`../work-stories.${language}.html`,import.meta.url),'utf8');
+    assert.ok(html.includes(`<html lang="${language}" dir="${dir}"`));
+    assert.equal((html.match(/<h1>/g) ?? []).length,1);
+    assert.match(html, /class="work-stories-hero">[\s\S]*?<h1>[^<]+<\/h1><p>[^<]+<\/p>/);
+    const panels = [...html.matchAll(/data-work-panel="([^"]+)"([\s\S]*?)(?=<section class="work-stories-detail"|<\/main>)/g)];
+    assert.deepEqual(panels.map(match => match[1]), Object.keys(workStoryTopics));
+    for (const [,id,panel] of panels) {
+      for (const story of visibleWorkStories(id)) {
+        assert.ok(panel.includes(story[language].title),story.id);
+        if (story.post) {
+          const href = `reading/${language}/${story.post}.html`;
+          assert.ok(panel.includes(`href="${href}"`));
+          assert.ok(readFileSync(new URL('../'+href,import.meta.url),'utf8').includes(`data-reading-post="${story.post}"`));
+        }
+      }
     }
+    assert.equal((html.match(/class="work-story work-story--published"/g) ?? []).length,19);
+    assert.equal((html.match(/class="work-story work-story--planned"/g) ?? []).length,9);
   }
 });
 

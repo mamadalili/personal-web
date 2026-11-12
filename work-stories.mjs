@@ -1,10 +1,10 @@
 import {workStoryCoverSrc} from './work-story-covers.mjs';
-import { escapeHTML as esc, internalHref } from './blog-core.mjs';
+import { escapeHTML as esc } from './blog-core.mjs';
 import { posts } from './work-story-posts.mjs?v=20261111-work-journals';
 import { visibleWorkStories } from './work-stories-data.mjs?v=20261111-work-journals';
 import { selectWorkRole } from './work-stories-model.mjs?v=20261031-work-stories-2';
 
-const copy={
+export const workStoriesCopy={
   fa:{eyebrow:'آورده‌های مسیر کار',title:'روایت‌های کاری من',intro:'از کامپیوتر تا بازاریابی و فروش آنلاین، تجربه‌ها و چیزهایی که در عمل یاد گرفتم.',choose:'از کدام تجربه شروع کنیم؟',chooseHint:'روی اسم یک شرکت بزن تا ببینی اونجا چه کار می‌کردم و دربارهٔ چه تجربه‌هایی می‌نویسم.',scope:'کار من در این نقش',stories:'نوشته‌های این تجربه',plannedIntro:'فعلاً عنوان‌ها رو گذاشتم. وقتی روایت هر کدوم آماده بشه، از همین‌جا می‌تونی بخونیش.',mixedIntro:'روایت‌های منتشرشده را بخوان؛ موضوع‌های بعدی هم در همین فهرست می‌آیند.',plan:'طرح روایت',read:'خواندن روایت',allCV:'دیدن سوابق و پروژه‌ها',selected:'تجربهٔ انتخاب‌شده',upNext:'روایت بعدی از کجا شروع شود؟',upNextText:'مسئله چه بود، من چه کاری پیش بردم و چه چیزی از آن یاد گرفتم؟ هر نوشته، روایت مستقلی از یک تجربه است.'},
   en:{eyebrow:'WHAT WORK TAUGHT ME',title:'Stories from my work',intro:'From computers to marketing and online sales: experiences and what I learned in practice.',choose:'Where would you like to start?',chooseHint:'Pick a company to see what I did there and which experiences I’m writing about.',scope:'My work in this role',stories:'Stories from this experience',plannedIntro:'These are the topics I’m working on. As each story is published, you’ll be able to read it here.',mixedIntro:'Read the published stories, with upcoming topics alongside them.',plan:'Story outline',read:'Read the story',allCV:'Explore my experience and projects',selected:'Selected experience',upNext:'Where does the next story begin?',upNextText:'What was the problem, what did I do, and what did I learn? Each piece tells a separate story from the work.'}
 };
@@ -13,15 +13,35 @@ const paper='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 
 const roleLogo=role=>role.logo?`<img class="company-logo" src="${esc(role.logo.src)}" width="${role.logo.width}" height="${role.logo.height}" alt="" loading="lazy" decoding="async">`:esc(role.mark);
 
+function roleURL(lang,id){
+  return 'work-stories.'+lang+'.html?lang='+lang+'&role='+encodeURIComponent(id);
+}
+
+function renderWorkPanel(role,lang,formatYears,renderWebsite,published){
+  const t=workStoriesCopy[lang],c=role[lang];
+  const linked=visibleWorkStories(role.id).map(story=>({
+    story,url:published.has(story.post)?'reading/'+lang+'/'+encodeURIComponent(story.post)+'.html':null,
+  }));
+  return `<section class="work-stories-detail" id="work-role-${esc(role.id)}" data-work-panel="${esc(role.id)}" aria-labelledby="work-role-title-${esc(role.id)}"><header class="work-role-header"><div class="work-role-meta"><span class="employer-detail-brand">${role.logo?`<span class="employer-detail-logo">${roleLogo(role)}</span>`:''}<span>${esc(c.company)}</span></span><time>${esc(formatYears(role.years))}</time></div><h2 id="work-role-title-${esc(role.id)}">${esc(c.role)}</h2><p class="work-sector">${esc(c.sector)}</p>${renderWebsite(role)}</header>
+      <section class="work-story-collection" aria-labelledby="work-story-heading-${esc(role.id)}"><div class="work-story-heading"><h3 id="work-story-heading-${esc(role.id)}">${t.stories}</h3></div>${linked.every(row=>row.url)?'':'<p class="work-story-intro">'+(linked.some(row=>row.url)?t.mixedIntro:t.plannedIntro)+'</p>'}<div class="work-story-list" tabindex="0" role="region" aria-label="${t.stories}">${linked.map(({story,url})=>url?`<a id="${esc(story.id)}" class="work-story work-story--published" href="${esc(url)}"><img class="work-story-cover" src="${esc(workStoryCoverSrc(story.post,lang,true))}" width="768" height="432" alt="" loading="lazy"><div><h4>${esc(story[lang].title)}</h4><span class="work-story-state">${t.read}</span></div><span class="work-story-arrow">${arrow}</span></a>`:`<article id="${esc(story.id)}" class="work-story work-story--planned" tabindex="-1"><span class="work-story-icon">${paper}</span><div><span class="work-story-state">${t.plan}</span><h4>${esc(story[lang].title)}</h4></div></article>`).join('')}</div></section>
+      <section class="work-role-background"><h3 class="work-scope-title">${t.scope}</h3><div class="work-role-summary">${c.points.map(point=>`<p>${esc(point)}</p>`).join('')}</div></section></section>`;
+}
+
+export function renderWorkStoriesMarkup({language,roles,formatYears,renderWebsite,storyPosts=posts}){
+  const lang=language==='en'?'en':'fa',t=workStoriesCopy[lang];
+  const published=new Set(storyPosts.filter(item=>item.status==='published').map(item=>item.slug));
+  return `<header class="work-stories-hero"><div><span class="eyebrow">${t.eyebrow}</span><h1>${t.title}</h1><p>${t.intro}</p></div><a class="work-stories-back" href="profile.html?lang=${lang}&amp;tab=experience">${t.allCV}${arrow}</a></header>
+    <div class="work-stories-layout"><aside class="work-roles"><h2>${t.choose}</h2><p>${t.chooseHint}</p><nav class="work-role-list" aria-label="${t.choose}">${roles.map(role=>`<a href="${esc(roleURL(lang,role.id))}#work-role-${esc(role.id)}" class="work-role" data-work-role="${esc(role.id)}"><span class="work-role-mark${role.logo?' has-company-logo':''}" aria-hidden="true">${roleLogo(role)}</span><span class="work-role-copy"><strong>${esc(role[lang].company)}</strong><span>${esc(role[lang].role)}</span><small>${esc(formatYears(role.years))}</small></span></a>`).join('')}</nav></aside><div class="work-role-panels">${roles.map(role=>renderWorkPanel(role,lang,formatYears,renderWebsite,published)).join('')}</div></div><p class="visually-hidden" role="status" data-work-announcement></p>`;
+}
+
 export function mountWorkStories(root,{language='fa',roles,formatYears=value=>value,renderWebsite=()=>'',activateStory=true}){
-  const lang=language==='en'?'en':'fa',t=copy[lang],controller=new AbortController(),signal=controller.signal;
+  const lang=language==='en'?'en':'fa',t=workStoriesCopy[lang],controller=new AbortController(),signal=controller.signal;
   let selected=selectWorkRole(roles,new URLSearchParams(location.search).get('role'));
   if(!selected)return ()=>controller.abort();
-  const roleURL=id=>{const url=new URL('work-stories.html',location.href);url.searchParams.set('lang',lang);url.searchParams.set('role',id);return url.href;};
-  const cvURL=()=>{const url=new URL('profile.html',location.href);url.searchParams.set('lang',lang);url.searchParams.set('tab','experience');return url.href;};
   root.classList.add('work-stories-page');
-  root.innerHTML=`<header class="work-stories-hero"><div><span class="eyebrow">${t.eyebrow}</span><h1>${t.title}</h1><p>${t.intro}</p></div><a class="work-stories-back" href="${esc(cvURL())}">${t.allCV}${arrow}</a></header>
-    <div class="work-stories-layout"><aside class="work-roles"><h2>${t.choose}</h2><p>${t.chooseHint}</p><nav class="work-role-list" aria-label="${t.choose}">${roles.map(role=>`<a href="${esc(roleURL(role.id))}" class="work-role" data-work-role="${esc(role.id)}"><span class="work-role-mark${role.logo?' has-company-logo':''}" aria-hidden="true">${roleLogo(role)}</span><span class="work-role-copy"><strong>${esc(role[lang].company)}</strong><span>${esc(role[lang].role)}</span><small>${esc(formatYears(role.years))}</small></span></a>`).join('')}</nav></aside><section class="work-stories-detail" aria-labelledby="work-role-title"></section></div><p class="visually-hidden" role="status" data-work-announcement></p>`;
+  if(root.dataset.entryLang!==lang || !root.querySelector('[data-work-panel]')){
+    root.innerHTML=renderWorkStoriesMarkup({language:lang,roles,formatYears,renderWebsite});
+  }
   function revealSelectedLink(){
     const list=root.querySelector('.work-role-list'),link=list.querySelector('[aria-current]');
     if(!link)return;
@@ -32,11 +52,8 @@ export function mountWorkStories(root,{language='fa',roles,formatYears=value=>va
   }
   function renderSelected(announce=false,activateTopic=false){
     const role=selected,c=role[lang],topics=visibleWorkStories(role.id);
-    const linked=topics.map(story=>({story,url:story.post && internalHref('post:'+story.post,lang,posts,location.href)}));
     root.querySelectorAll('[data-work-role]').forEach(link=>{if(link.dataset.workRole===role.id)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});
-    root.querySelector('.work-stories-detail').innerHTML=`<header class="work-role-header"><div class="work-role-meta"><span class="employer-detail-brand">${role.logo?`<span class="employer-detail-logo">${roleLogo(role)}</span>`:''}<span>${esc(c.company)}</span></span><time>${esc(formatYears(role.years))}</time></div><h2 id="work-role-title">${esc(c.role)}</h2><p class="work-sector">${esc(c.sector)}</p>${renderWebsite(role)}</header>
-      <section class="work-story-collection" aria-labelledby="work-story-heading"><div class="work-story-heading"><h3 id="work-story-heading">${t.stories}</h3></div>${linked.every(row=>row.url)?'':'<p class="work-story-intro">'+(linked.some(row=>row.url)?t.mixedIntro:t.plannedIntro)+'</p>'}<div class="work-story-list" tabindex="0" role="region" aria-label="${t.stories}">${linked.map(({story,url})=>url?`<a id="${esc(story.id)}" class="work-story work-story--published" href="${esc(url)}"><img class="work-story-cover" src="${esc(workStoryCoverSrc(story.post,lang,true))}" width="768" height="432" alt="" loading="lazy"><div><h4>${esc(story[lang].title)}</h4><span class="work-story-state">${t.read}</span></div><span class="work-story-arrow">${arrow}</span></a>`:`<article id="${esc(story.id)}" class="work-story work-story--planned" tabindex="-1"><span class="work-story-icon">${paper}</span><div><span class="work-story-state">${t.plan}</span><h4>${esc(story[lang].title)}</h4></div></article>`).join('')}</div></section>
-      <section class="work-role-background"><h3 class="work-scope-title">${t.scope}</h3><div class="work-role-summary">${c.points.map(point=>`<p>${esc(point)}</p>`).join('')}</div></section>`;
+    root.querySelectorAll('[data-work-panel]').forEach(panel=>{panel.hidden=panel.dataset.workPanel!==role.id;});
     revealSelectedLink();
     const requested=new URLSearchParams(location.search).get('story')||location.hash.slice(1);
     const story=topics.find(item=>item.id===requested);
@@ -50,8 +67,8 @@ export function mountWorkStories(root,{language='fa',roles,formatYears=value=>va
   function select(id,{write=false,focusPanel=false,activateTopic=false}={}){
     const next=selectWorkRole(roles,id),changed=next.id!==selected.id;
     selected=next;renderSelected(write&&changed,activateTopic);
-    if(write&&changed)history.pushState(null,'',roleURL(selected.id));
-    if(focusPanel&&matchMedia('(max-width:760px)').matches)root.querySelector('.work-stories-detail').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+    if(write&&changed)history.pushState(null,'',roleURL(lang,selected.id));
+    if(focusPanel&&matchMedia('(max-width:760px)').matches)root.querySelector('[data-work-panel]:not([hidden])').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
   }
   root.addEventListener('click',event=>{
     const link=event.target.closest('[data-work-role]');
