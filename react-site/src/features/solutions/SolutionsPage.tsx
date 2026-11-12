@@ -26,7 +26,10 @@ export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
         </nav>
         <h1 id="solution-title">{c.headline[0]}<br/><em>{c.headline[1]}</em></h1>
         <HomeAtmosphere/>
-        <p>{c.intro}</p><CTA page="contact" label={t.conversation} lang={lang}/>
+        <p>{c.intro}{current.story && <>
+          <br/><AppLink className="solution-story-link" href={pageURL('article', lang, {post: current.story.post})}>{current.story[lang]}</AppLink>
+        </>}</p>
+        <CTA page="contact" label={t.conversation} lang={lang}/>
       </div>
       <aside className="solution-lens" aria-labelledby="solution-lens-title"><MotionScene lang={lang} solution={id}/>
         <div className="solution-lens-copy"><span className="small-label">{t.lens}</span>

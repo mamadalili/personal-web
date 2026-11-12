@@ -71,7 +71,7 @@ export function mountSolutions(root,{language='fa',solution='',url,icon,art=glob
         <nav class="solution-breadcrumb" aria-label="${lang==='fa'?'مسیر صفحه':'Breadcrumb'}"><span>${esc(t.label)}</span><span aria-hidden="true">/</span><span aria-current="page">${esc(content.label)}</span></nav>
         <h1 id="solution-title">${heading(content.headline)}</h1>
         <div class="site-atmosphere is-paused" aria-hidden="true"></div>
-        <p>${esc(content.intro)}</p>
+        <p>${esc(content.intro)}${current.story ? `<br><a class="solution-story-link" href="${esc(href('article',{post:current.story.post}))}">${esc(current.story[lang])}</a>` : ''}</p>
         ${cta('contact',t.conversation)}
       </div>
       <aside class="solution-lens" aria-labelledby="solution-lens-title">
