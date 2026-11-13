@@ -279,22 +279,128 @@ html[dir=rtl] .collaboration-arrow svg,html[dir=rtl] .collaboration-secondary sv
 #language:focus-visible{outline:3px solid #1c0998;outline-offset:4px}
 #header-label[hidden]{display:none}
 @media(max-width:420px){.site-header{gap:10px;padding-inline:16px}.brand{gap:8px;min-width:0}.brand-identity{min-width:0}.header-role{white-space:normal}.header-end{flex:none}#language{gap:6px;padding-inline:9px}}
-.cv-download {
+.cv-profile-head {
   display: flex;
   align-items: center;
+  gap: 14px;
+  padding: 22px 20px 18px;
+}
+.cv-portrait {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 29%;
+}
+.cv-identity { min-width: 0; }
+.cv-identity h1 {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.cv-identity .role {
+  margin: 2px 0;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.cv-identity .location { color: var(--muted); }
+
+.cv-about, .cv-focus {
+  margin-inline: 20px;
+  padding-block: 18px 0;
+  border: 0;
+  text-align: start;
+}
+.cv-about { border-block-start: 1px solid var(--line); }
+.profile-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.cv-bio-lead {
+  margin: 0 0 7px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.85;
+}
+.cv-about .bio {
+  max-width: none;
+  margin: 0;
+  color: var(--body-ink, #4e4c5c);
+  font-size: 14px;
+  line-height: 1.9;
+}
+.cv-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 3px .45em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--body-ink, #4e4c5c);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.cv-skills li { max-inline-size: 100%; }
+.cv-skills li:not(:last-child)::after { content: ","; }
+.cv-skills:lang(fa) li:not(:last-child)::after { content: "،"; }
+
+.cv-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  margin: 16px 20px 0;
+  padding-block: 12px;
+  border-block-start: 1px solid var(--line);
+}
+.cv-download, .cv-reach a {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  gap: .55rem;
-  width: fit-content;
-  max-width: 100%;
   min-height: 44px;
-  margin: 14px auto 0;
-  padding: 6px 16px;
-  border: 1px solid #bcb4d6;
-  border-radius: 9px;
-  color: #291a61;
-  background: #faf9ff;
-  font-size: 13px;
+  max-width: 100%;
+  font-size: 14px;
   font-weight: 700;
 }
-.cv-download:hover { background: #eeebfa; border-color: currentColor; }
-.cv-download:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.cv-download {
+  flex: 1 1 auto;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid #c1badf;
+  border-radius: 8px;
+  background: #f2effb;
+  color: #000;
+}
+.cv-download svg { flex: none; }
+.cv-download:hover { background: #eae4fb; border-color: #8e83b5; }
+.cv-reach {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  justify-content: center;
+  gap: 0 12px;
+}
+.cv-reach a {
+  min-width: 44px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .3em;
+}
+.cv-reach a:hover { color: var(--purple); text-decoration-color: currentColor; }
+.cv-actions a:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+
+@media (max-width: 760px) {
+  .cv-profile-head { gap: 14px; padding-block: 18px; }
+  .cv-portrait { width: 66px; height: 66px; }
+  .cv-identity h1 { font-size: 23px; }
+  .cv-about .bio { font-size: 15px; }
+  .cv-bio-lead { font-size: 17px; }
+}

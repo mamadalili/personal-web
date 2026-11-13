@@ -79,11 +79,12 @@ function renderEntry(stem, page, lang, template, storyPosts) {
 
   const canonical = new URL(home ? './' : file, siteUrl);
   canonical.searchParams.set('lang', lang);
+  const entryVersion = {home:'20261112-entry', cv:'20261113-cv-profile', 'work-stories':'20261112-work-entries'}[page] ?? '20261112-entry-solutions';
   const head = template.slice(0, template.indexOf('</head>'))
     .replace(/<html\b[^>]*>/, `<html lang="${lang}" dir="${isFa ? 'rtl' : 'ltr'}" data-theme="light">`)
     .replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHTML(parts.title)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, () => `<meta name="description" content="${escapeHTML(parts.description)}">`)
-    .replace(/portfolio\.js\?v=[^"]+/, home || page === 'cv' ? 'portfolio.js?v=20261112-entry' : page === 'work-stories' ? 'portfolio.js?v=20261112-work-entries' : 'portfolio.js?v=20261112-entry-solutions')
+    .replace(/portfolio\.js\?v=[^"]+/, 'portfolio.js?v=' + entryVersion)
     .replace(/^  <link rel="canonical".*\n/gm, '');
   const coast = template.match(/<picture class="page-coast"[\s\S]*?<\/picture>/)[0];
   return `${head}  <link rel="canonical" href="${canonical.href}">
