@@ -23,7 +23,7 @@ html[dir=rtl] .story-preview-arrow svg{transform:scaleX(-1)}
 .work-story-list:focus-visible{outline:2px solid #1c0998;outline-offset:3px}
 .work-story-collection{margin-top:23px;padding-top:19px}
 .work-role-background{border-top:1px solid #e7e8ee;margin-top:28px;padding-top:24px}
-@media(max-width:760px){.story-preview-rail{grid-auto-columns:minmax(175px,80%)}.story-preview-head{align-items:center}.story-preview-head h4{font-size:13px}.story-preview-card{min-height:165px}.work-story-collection .work-story-list{grid-auto-columns:minmax(205px,85%)}.work-story-collection .work-story{min-height:200px;padding:19px;scroll-margin-block-start:20px}.work-story-collection .work-story h4{font-size:16px}}
+@media(max-width:760px){.work-story-collection .work-story-list{grid-auto-columns:minmax(205px,85%)}.work-story-collection .work-story{min-height:200px;padding:19px;scroll-margin-block-start:20px}.work-story-collection .work-story h4{font-size:16px}}
 
 .work-story-cover {
   display:block;
@@ -56,3 +56,61 @@ html[data-theme=dark] .story-preview-card {background:#191d29;border-color:#4449
 html[data-theme=dark] .work-story-collection .work-story--published h4,
 html[data-theme=dark] .work-story--published .work-story-state,
 html[data-theme=dark] .story-preview-arrow {color:#ecedf3}
+
+@media (max-width: 760px) {
+  .career-stories-preview .story-preview-head {
+    flex-wrap: wrap;
+    gap: 0 8px;
+    margin-block-end: 6px;
+  }
+  .career-stories-preview .story-preview-head h4 {
+    margin: 0;
+    font-size: .9375rem;
+    line-height: 1.6;
+  }
+  .story-preview-rail {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .career-stories-preview .story-preview-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 4px 10px;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    scroll-snap-align: none;
+  }
+  .career-stories-preview .story-preview-card:has(.work-story-cover) {
+    gap: 8px 10px;
+    padding: 7px 7px 11px;
+  }
+  .career-stories-preview .work-story-cover {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    border-radius: 7px;
+  }
+  .career-stories-preview .story-preview-state { grid-column: 1 / -1; font-size: .75rem; }
+  .career-stories-preview .story-preview-card strong {
+    grid-column: 1;
+    min-width: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+  .career-stories-preview .story-preview-card > .story-preview-arrow {
+    grid-column: 2;
+    align-self: center;
+    margin: 0;
+  }
+}
