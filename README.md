@@ -241,6 +241,6 @@ The profile-and-tabs layout takes inspiration from [Agile CRM — Customer Profi
 - **Email:** [mohammadreza.dalili@live.com](mailto:mohammadreza.dalili@live.com)
 - **GitHub:** [mamadalili](https://github.com/mamadalili)
 - **LinkedIn:** [mohamadreza-dalili](https://www.linkedin.com/in/mohamadreza-dalili/)
-- **Personal domain:** [mrdalili.com](https://mrdalili.com)
+- **Personal domain:** [mrdalili.ir](https://mrdalili.ir)
 
 The personal-domain link is retained from the earlier project; this README does not imply that the current branch has been deployed there.
