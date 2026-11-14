@@ -122,46 +122,90 @@ export const stories = {
     ]
   },
   "four-languages": {
+    reviewed: "2026-11-14",
     intro: {
-      fa: "اگر مشتری زبان صفحه را عوض کند اما هنوز نداند کالا به شهرش می‌رسد یا نه، کار سایت چهارزبانه نیمه‌تمام مانده.",
-      en: "Switching languages is easy. Finding out whether an order can reach your city can be much harder."
+      fa: "برای فروش خارجی بومرنگ، یک سایت چهارزبانه جدا از فروشگاه ساختیم. خریدار مدل را در یک گالری می‌دید و می‌توانست بپرسد «از این مدل، با این تعداد و برای این مقصد، چه قیمتی می‌دهید؟» همین سؤال روی طراحی سایت، محتوای چهار زبان و تصمیمی که برای جست‌وجوی فارسی گرفتم اثر گذاشت.",
+      en: "For Boomerang’s international business, we built a four-language site separate from the online store. A buyer could browse a gallery, pick a model and ask, “What would you quote for this quantity, shipped here?” That question shaped the design, the copy in each language and my decision about Persian search."
     },
     opening: {
-      fa: "بعد از انتخاب زبان چه می‌شود؟",
-      en: "After the language switch"
+      fa: "چرا سایت چهارزبانه را از فروشگاه جدا کردیم؟",
+      en: "Why build a separate site for international buyers?"
     },
     role: {
-      fa: "در بومرنگ، راه‌اندازی و مدیریت فروش خارجی روی سایت چهارزبانه بخشی از کار من بود. یک عبارت ساده مثل «موجود است» بسته به اینکه مشتری کجا زندگی می‌کند، سؤال‌های متفاوتی می‌سازد.",
-      en: "At Boomerang my role included launching and managing international sales on a four-language site. A phrase as simple as “in stock” raises different questions depending on where the customer lives."
+      fa: "یکی از اولین کارهایم در بومرنگ بررسی قالب سایت بود. در فروشگاه بومرنگ‌کالا، خریدار محصول را به سبد می‌برد و از درگاه بانکی پرداخت می‌کرد. برای بازار خارجی قرار بود مدل‌ها را شبیه یک گالری نشان بدهیم. کسی که مدلی را پسندیده بود، باید می‌توانست از همان صفحه **استعلام بفرستد** و درخواستش به دست تیم فروش برسد.",
+      en: "One of my first jobs at Boomerang was to work out what kind of site we needed. In the Boomerang Kala store, a shopper added a product to the cart and paid through the domestic payment gateway. For international buyers we wanted a gallery. Once someone found a model they liked, they needed to be able to **request a quote** from that page and get the inquiry to our sales team."
     },
     example: {
-      fa: "در نمونهٔ ما دو خریدار هر دو انگلیسی می‌خوانند اما مقصدشان فرق دارد. ترجمه برای هر دو درست است. هزینهٔ حمل، امکان سفارش و کسی که باید جواب استعلام را بدهد ممکن است متفاوت باشد. برای همین از روی زبان، مقصد را حدس نمی‌زنیم.",
-      en: "Consider two people reading the same English listing from different countries. The translation works for both. Shipping, order eligibility and the person handling the inquiry may differ. Language alone tells us none of those things."
+      fa: "هم طراحی صفحه عوض می‌شد، هم شیوهٔ سنجش بازاریابی. مثلاً اگر یک تبلیغ، خریدار را به صفحهٔ یک مدل می‌رساند، باید همان‌جا عکس و مشخصاتش را می‌دید و موقع استعلام مجبور نمی‌شد دوباره اسم مدل را پیدا کند. برای سنجش تبلیغ فروشگاه می‌شود سفارش‌های پرداخت‌شده را شمرد. در سایت خارجی، سؤال اول این است که چند **درخواست قابل‌پیگیری** به تیم فروش رسیده. اینکه چند درخواست به سفارش رسیده‌اند، سؤال بعدی است.",
+      en: "That changed both the page design and how I’d judge a campaign. Say an ad takes a buyer to a particular model. They should see its photos and specs there, then be able to send an inquiry without having to look up the model name again. In the store I can judge an ad by paid orders. On the international site I’d first ask how many **inquiries sales could follow up** came through. How many became orders is a separate question."
     },
     practice: {
-      fa: "استعلامی که می‌شود جواب داد",
-      en: "An inquiry someone can answer"
+      fa: "چهار زبان در خود سایت",
+      en: "Four languages built into the site"
     },
     method: {
-      fa: "فرض کن خریدار روی «درخواست قیمت» می‌زند. اگر نام مدل، تعداد و مقصد همراه پیام برسد، تیم فروش می‌تواند از همان جواب اول سر اصل مطلب برود. کسی که زبان دیگری را انتخاب می‌کند هم باید روی همان محصول بماند.",
-      en: "Suppose a buyer requests a quote. Include the model, quantity and destination and sales can address the request in the first reply. Switching languages halfway through should keep the buyer on that product."
+      fa: "از اول برایم مهم بود که خواندن سایت به ترجمهٔ خودکار مرورگر وابسته نباشد. با کمک هوش مصنوعی برای هر چهار زبان **فارسی، انگلیسی، عربی و روسی** سند محتوای جداگانه آماده کردیم. خریدار زبان را از داخل خود سایت انتخاب می‌کرد. در فرم استعلام هم یک فرق مهم هست. زبانِ مکاتبه را می‌شود از خریدار پرسید، اما از روی آن نمی‌شود فهمید سفارش باید کجا فرستاده شود.",
+      en: "I wanted people to be able to read the site without relying on their browser to translate it. With help from AI we prepared a separate content document for each of the four languages, **Persian, English, Arabic and Russian**. Visitors chose their language on the site. The inquiry form raises a different issue. You can ask which language a buyer wants to use, but that won’t tell you where the order needs to go."
     },
     question: {
-      fa: "برای برآورد ارسال، کدام فیلد را لازم داری؟",
-      en: "What input do you need for a delivery estimate?"
+      fa: "یک خریدار در نسخهٔ انگلیسی قیمت چند عدد از یک مدل را می‌پرسد. برای برآورد هزینهٔ ارسال، کدام اطلاعات را لازم داری؟",
+      en: "A buyer on the English site asks for a quote on several units. What do you need to estimate delivery?"
     },
     first: {
-      fa: "مقصد سفارش ~ با مقصد می‌شود امکان ارسال را بررسی کرد. زبان مکاتبه را خریدار جداگانه انتخاب می‌کند.",
-      en: "Delivery destination ~ This lets you check service availability. The buyer can choose a correspondence language separately."
+      fa: "مقصد سفارش ~ درست است. دو خریدار ممکن است هر دو انگلیسی بنویسند و یکی ارسال به مسقط بخواهد و دیگری به ایروان. کشور و شهر مقصد را همراه مدل و تعداد بگیر.",
+      en: "Delivery destination ~ Yes. Two buyers can both write in English while one wants delivery to Muscat and the other to Yerevan. Ask for the destination city and country along with the model and quantity."
     },
     second: {
-      fa: "زبان مرورگر ~ زبان راهنمای خوبی برای نمایش متن است اما دربارهٔ نشانی تحویل چیزی ثابت نمی‌کند.",
-      en: "Browser language ~ It can help choose the copy to display. It tells you nothing certain about the delivery address."
+      fa: "زبان مرورگر ~ ممکن است خریدار انگلیسی بخواند و کالا را در کشور دیگری تحویل بگیرد. زبان مرورگر نشانی تحویل را به تیم فروش نمی‌دهد.",
+      en: "Browser language ~ Someone can read English and take delivery in any number of countries. The browser setting gives sales no delivery address to price against."
     },
     closing: {
-      fa: "یک محصول را در هر زبان باز کن، مقصد را تغییر بده و تا اولین پاسخ فروش جلو برو. گاهی یک فرم کوتاه از چهار صفحه ترجمهٔ بیشتر کارسازتر است.",
-      en: "Open one product in each language, change the destination and follow it through to the first sales reply. A short form can do more for the buyer than another translated page."
-    }
+      fa: "برای امتحان کردن این مسیر، یک مدل را باز کن و وسط کار زبان را عوض کن. آیا هنوز روی همان محصولی؟ آیا معلوم است فرم دربارهٔ کدام مدل است و تیم فروش باید به چه زبانی جواب بدهد؟",
+      en: "To check the experience, open a model and switch languages halfway through. Are you still looking at the same product? Can you tell which model the form refers to and which language sales should reply in?"
+    },
+    extraSections: [
+      {
+        id: "performance",
+        fa: {title: "بررسی سرعت بعد از هر مرحله"},
+        en: {title: "Checking speed at each stage"},
+        blocks: [
+          {type: "paragraph",
+            fa: "سایت چهارزبانه درگاه پرداخت داخلی و افزونه‌های فروشگاه را نداشت. انتظار داشتم همین موضوع سبک‌ترش کند. با این حال، سرعت یکی از بزرگ‌ترین چالش‌های کار شد. بعد از هر مرحلهٔ توسعه دوباره بارگذاری صفحه‌ها را بررسی می‌کردیم تا بفهمیم چیزی که تازه اضافه شده کجای مسیر را کند کرده است.",
+            en: "The four-language site didn’t need the domestic payment gateway or the store’s plugins. I expected that to make it lighter. Even so, speed became one of the biggest challenges. After each stage of development we checked page loading again to see where a new addition might be slowing someone down."},
+          {type: "paragraph",
+            fa: "در یک گالری، خود عکس بخشی از تصمیم خرید است. یک بررسی ساده این است که صفحهٔ مدل را با گوشی باز کنی. عکس اصلی چه وقت دیده می‌شود؟ وقتی بقیهٔ عکس‌ها هنوز دارند می‌آیند، می‌توانی دکمهٔ استعلام را بزنی و شروع به نوشتن کنی؟ این دو سؤال کمک می‌کنند بفهمی اول باید سراغ عکس بروی یا فرم.",
+            en: "In a gallery the photograph is part of the buying decision. Try opening a model on your phone. When can you actually see the main photo? Can you tap the inquiry button and start typing while the other pictures are still loading? Those two checks help you decide whether to look at the images or the form first."}
+        ]
+      },
+      {
+        id: "indexing",
+        fa: {title: "آیا نسخهٔ فارسی رقیب فروشگاه می‌شد؟"},
+        en: {title: "Would the Persian gallery compete with the store?"},
+        blocks: [
+          {type: "paragraph",
+            fa: "بله، این احتمال وجود داشت. برای دو سایت برنامهٔ کلمات کلیدی متفاوتی داشتیم، اما نام مدل‌ها و خیلی از عبارت‌هایی که مشتری فارسی جست‌وجو می‌کرد مشترک بود. کسی که اسم محصول را برای خرید سرچ می‌کرد، ممکن بود به گالری و فرم استعلام برسد. برای آن خریدار، صفحهٔ فروشگاه مقصد بهتری بود.",
+            en: "Yes, that was a real possibility. We had different keyword plans for the two sites, but model names and many of the phrases Persian-speaking shoppers used overlapped. Someone searching for a product to buy could land on the gallery and its inquiry form. The store was a better destination for that shopper."},
+          {type: "paragraph",
+            fa: "برای همین، **نسخهٔ فارسی سایت چهارزبانه را نوایندکس (noindex) کردم** و تمرکز سئو را روی **انگلیسی، عربی و روسی** گذاشتم. صفحهٔ فارسی برای کسی که از داخل سایت انتخابش می‌کرد در دسترس بود. وقتی گوگل صفحه را بررسی می‌کند و دستور نوایندکس را می‌بیند، آن صفحه را از نتایج جست‌وجو کنار می‌گذارد. [راهنمای گوگل دربارهٔ نوایندکس](#source-google-noindex)",
+            en: "I **set the Persian version of the four-language site to noindex** and focused our SEO work on **English, Arabic and Russian**. Visitors could still choose Persian on the site. When Google crawls a page and reads the noindex directive, it keeps that page out of its search results. [Google’s guide to noindex](#source-google-noindex)"}
+        ]
+      }
+    ],
+    sourceNote: {
+      fa: "انتخاب قالب، آماده‌سازی چهار نسخه و تصمیم مربوط به جست‌وجوی فارسی را از تجربهٔ خودم در بومرنگ روایت کرده‌ام. راهنمای گوگل سازوکار نوایندکس را توضیح می‌دهد.",
+      en: "The design, the four language editions and the decision about Persian search come from my work at Boomerang. Google’s guide explains how the indexing directive works."
+    },
+    sources: [
+      {id:"gallery", kind:"context", publisher:"Boomerang", url:"https://www.boomerang-co.com/",
+        fa:{title:"گالری بین‌المللی بومرنگ",note:"سایت چهارزبانهٔ معرفی محصولات و استعلام."},
+        en:{title:"Boomerang’s international gallery",note:"The four-language site for browsing products and making an inquiry."}},
+      {id:"store", kind:"context", publisher:"Boomerang Kala", url:"https://boomerangkala.com/",
+        fa:{title:"فروشگاه بومرنگ‌کالا",note:"فروشگاه آنلاین بومرنگ برای انتخاب محصول و ثبت خرید."},
+        en:{title:"The Boomerang Kala store",note:"Boomerang’s online shop for choosing products and placing an order."}},
+      {id:"google-noindex", kind:"guide", publisher:"Google Search Central", url:"https://developers.google.com/search/docs/crawling-indexing/block-indexing",
+        fa:{title:"دستور نوایندکس چگونه کار می‌کند؟",note:"گوگل توضیح می‌دهد که خزنده باید به صفحه دسترسی داشته باشد تا بتواند دستور را بخواند."},
+        en:{title:"How the noindex directive works",note:"Google explains why its crawler needs access to the page to read the directive."}}
+    ]
   },
   "content": {
     intro: {
