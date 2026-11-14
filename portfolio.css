@@ -472,4 +472,35 @@ html[dir=rtl] .collaboration-arrow svg,html[dir=rtl] .collaboration-secondary sv
   }
   .career-metric + .career-metric { border-block-start: 1px solid var(--line); }
   .career-metric dd { justify-self: end; }
+
+  #main-tabs {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    padding: 5px;
+    overflow: visible;
+  }
+  #main-tabs button {
+    min-inline-size: 0;
+    min-height: 44px;
+    padding: 5px 2px;
+    border-radius: 8px;
+    color: var(--body-ink, #4e4c5c);
+    font-size: clamp(.8125rem, 3.4vw, .9375rem);
+    font-weight: 500;
+    line-height: 1.45;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  #main-tabs .tab-count { display: none; }
+  #main-tabs button[aria-selected="true"] {
+    background: var(--purple);
+    color: var(--surface);
+    font-weight: 750;
+  }
+  #main-tabs button[aria-selected="true"]::after { display: none; }
+  #main-tabs button:focus-visible { outline: 2px solid var(--purple); outline-offset: 1px; }
+}
+@media (max-width: 760px) and (forced-colors: active) {
+  #main-tabs button[aria-selected="true"] { border-block-end: 3px solid Highlight; }
 }
