@@ -504,3 +504,77 @@ html[dir=rtl] .collaboration-arrow svg,html[dir=rtl] .collaboration-secondary sv
 @media (max-width: 760px) and (forced-colors: active) {
   #main-tabs button[aria-selected="true"] { border-block-end: 3px solid Highlight; }
 }
+
+.career-disclosures.companies {
+  display: block;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+}
+.career-entry { min-width: 0; border-block-start: 1px solid var(--line); }
+.career-disclosures .company {
+  display: grid;
+  grid-template-columns: clamp(54px, 14vw, 68px) minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  min-height: 72px;
+  padding: 10px 9px;
+  border: 0;
+  border-inline-start: 3px solid transparent;
+  border-radius: 0;
+  text-align: start;
+  scroll-margin-block-start: 14px;
+}
+.career-disclosures .company-mark.has-company-logo {
+  width: 100%;
+  height: 46px;
+  padding: 4px;
+  border-radius: 7px;
+}
+.career-disclosures .company-copy { display: grid; gap: 1px; overflow-wrap: anywhere; }
+.career-disclosures .company .company-copy strong {
+  color: var(--ink);
+  font-size: .9375rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+.career-disclosures .company-position {
+  color: var(--body-ink, #4e4c5c);
+  font-size: .8125rem;
+  line-height: 1.5;
+}
+.career-disclosures .company-copy small { color: var(--body-ink, #4e4c5c); font-size: .75rem; }
+.career-disclosures .company::after {
+  content: "";
+  justify-self: center;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  color: var(--purple);
+  transform: rotate(45deg);
+}
+#panel-experience .company[aria-expanded="true"] {
+  background: var(--pale);
+  border-inline-start-color: var(--purple);
+}
+#panel-experience .company[aria-expanded="false"] { background: transparent; border-color: transparent; }
+@media (hover: hover) and (pointer: fine) {
+  #panel-experience .company[aria-expanded="false"]:hover { background: var(--raised, #f6f6f9); }
+}
+.career-disclosures .company[aria-expanded="true"] .company-copy strong { color: var(--purple); font-weight: 750; }
+.career-disclosures .company[aria-expanded="true"]::after { transform: rotate(225deg); }
+.career-disclosures .company:focus-visible { outline: 2px solid var(--purple); outline-offset: -2px; }
+.career-entry .experience-detail {
+  min-height: 0;
+  padding: 10px 12px 18px;
+  border-inline-start: 3px solid var(--purple);
+  animation: none;
+}
+.career-entry .experience-detail .meta { margin-block-start: 0; font-size: .8125rem; color: var(--body-ink, #4e4c5c); }
+@media (max-width: 760px) {
+  #panel-experience .experience-grid { grid-template-columns: minmax(0, 1fr); padding-inline: clamp(8px, 2.5vw, 16px); }
+}

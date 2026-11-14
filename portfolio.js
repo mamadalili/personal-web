@@ -43,6 +43,8 @@ let blogMountVersion=0;
 let solutionsMountVersion=0;
 let workStoriesMountVersion=0;
 let careerStoriesMountVersion=0;
+let careerCollapsed=false;
+const careerMobileLayout = page === 'cv' ? matchMedia('(max-width: 760px)') : null;
 let disposeWorkStories=()=>{};
 const siteCopy={
  fa:{nav:['خانه','راهکارها','بلاگ','CV','تماس'],navLabel:'منوی اصلی',homeLabel:'',homeTitle:'نقطه تلاقی<br><em>بازاریابی و فناوری</em>',homeIntro:'من محمدرضا دلیلی {role} در این {home} تقابل بازاریابی و فناوری بررسی می‌کنیم.',cvLabel:'پروفایل کاری',cvTitle:'مسیر کاری، پروژه‌ها و تجربه‌ها.',cvBody:'ببین در هر شرکت چه کاری به عهده داشتم و در ساخت کدوم پروژه‌ها نقش داشتم.',cvAction:'دیدن پروفایل کاری',blogLabel:'بلاگ',blogTitle:'ایده‌ها را بخوانید؛ تجربه‌شان کنید.',blogBody:"یادداشت‌های تعاملی و تجربه‌های بازاریابی، تجارت الکترونیک و فناوری.",blogAction:'رفتن به بلاگ',contactLabel:'تماس',contactTitle:'یک گفت‌وگوی تازه شروع کنیم.',contactBody:"دربارهٔ یک پروژه، فروش آنلاین یا کار با AI سؤالی داری؟ می‌تونی مستقیم بهم پیام بدی.",contactAction:'راه‌های ارتباط',blogEyebrow:'یادداشت‌های من',blogHeading:'ایده‌ها، تجربه‌ها<br>و <em>چیزهایی که یاد می‌گیرم.</em>',blogIntro:'جایی برای نوشتن دربارهٔ بازاریابی، رشد کسب‌وکار آنلاین و فناوری.',emptyTitle:'هنوز نوشته‌ای منتشر نشده.',emptyBody:'وقتی اولین یادداشت منتشر شود، همین‌جا می‌توانید آن را بخوانید.',backHome:'بازگشت به خانه',contactIntro:'برای صحبت دربارهٔ بازاریابی، کار با هوش‌مصنوعی و پروژه‌های دیجیتال، در ارتباط باشیم.',cvLink:'آشنایی با مسیر کاری من',copyright:'محمدرضا دلیلی'},
@@ -383,27 +385,82 @@ function contactPageMarkup(){
 function renderContactPage(){
  $('main').innerHTML=contactPageMarkup();
 }
+function cvCompanyButton(role, mobile) {
+  const entry = role[lang];
+  const selected = activeCareer === role.id;
+  const state = mobile ? `aria-expanded="${selected && !careerCollapsed}"`
+    : `role="tab" aria-selected="${selected}" tabindex="${selected ? 0 : -1}"`;
+  return `<button type="button" class="company" id="role-${role.id}" data-career="${role.id}" aria-controls="detail-${role.id}" ${state}>
+    <span class="company-mark${role.logo ? ' has-company-logo' : ''}" aria-hidden="true">${companyLogo(role)}</span>
+    <span class="company-copy"><strong>${escapeHTML(entry.company)}</strong>${mobile ? `<span class="company-position">${escapeHTML(entry.role)}</span>` : ''}<small>${years(role.years)}</small></span>
+  </button>`;
+}
+
+function cvCareerDetail(role, mobile) {
+  const t = copy[lang], entry = role[lang];
+  const open = role.id === activeCareer && !(mobile && careerCollapsed);
+  const identity = mobile ? '' : `<div class="detail-kicker employer-detail-brand">${role.logo ? `<span class="employer-detail-logo">${companyLogo(role)}</span>` : ''}<span>${escapeHTML(entry.company)}</span></div><h3>${escapeHTML(entry.role)}</h3>`;
+  return `<article class="experience-detail" id="detail-${role.id}" role="${mobile ? 'region' : 'tabpanel'}" aria-labelledby="role-${role.id}"${mobile ? '' : ' tabindex="0"'}${open ? '' : ' hidden'}>
+    ${identity}<div class="meta">${mobile ? '' : `<span>${years(role.years)}</span>`}<span>${escapeHTML(entry.sector)}</span></div>${companyWebsite(role)}
+    <a class="career-story-link" href="${pageURL('work-stories')}&role=${role.id}"><span class="career-story-mark" aria-hidden="true">${icon('blog')}</span><span class="career-story-copy"><strong>${lang==='fa'?'روایت‌های این تجربه':'Stories from this role'}</strong><span>${lang==='fa'?`کارها و چیزهایی که در ${entry.company} یاد گرفتم`:`Work and lessons from ${entry.company}`}</span></span><span class="career-story-arrow" aria-hidden="true">${icon('arrow')}</span></a>
+    <div class="detail-rule"></div><h4>${t.scope}</h4><ul class="responsibilities">${entry.points.map(point => `<li>${escapeHTML(point)}</li>`).join('')}</ul><div class="detail-tags">${chips(entry.tags)}</div>
+  </article>`;
+}
+
+function renderCareerExperience() {
+  const t = copy[lang];
+  const mobile = careerMobileLayout.matches;
+  const root = $('panel-experience'), previousFocus = document.activeElement;
+  const focusedRole = root.contains(previousFocus) && previousFocus.closest('[data-career], .experience-detail');
+  const version = ++careerStoriesMountVersion, language = lang;
+  const layout = mobile
+    ? `<div class="companies career-disclosures" role="group" aria-label="${t.careerLabel}">${career.map(role => `<div class="career-entry">${cvCompanyButton(role,true)}${cvCareerDetail(role,true)}</div>`).join('')}</div>`
+    : `<div class="companies" role="tablist" aria-orientation="vertical" aria-label="${t.careerLabel}">${career.map(role => cvCompanyButton(role,false)).join('')}</div><div>${career.map(role => cvCareerDetail(role,false)).join('')}</div>`;
+  root.innerHTML = heading(t.experience,t.experienceSub) + `<div class="experience-grid">${layout}</div>`;
+  if (focusedRole) $('role-' + (focusedRole.dataset.career || activeCareer)).focus({preventScroll:true});
+  import('./work-story-cards.mjs?v=20261111-work-journals').then(({renderCareerStoryCards}) => {
+    if (version !== careerStoriesMountVersion || language !== lang || !root.isConnected) return;
+    root.querySelectorAll('.career-story-link').forEach(link => {
+      const role = new URL(link.href).searchParams.get('role');
+      const markup = renderCareerStoryCards(role,language,location.href);
+      if (markup) link.outerHTML = markup;
+    });
+  }).catch(()=>{});
+}
 function renderContent(){
  const t=copy[lang];
- const root=$('panel-experience'),version=++careerStoriesMountVersion,language=lang;
- import('./work-story-cards.mjs?v=20261111-work-journals').then(({renderCareerStoryCards})=>{
-  if(version!==careerStoriesMountVersion||language!==lang||!root.isConnected)return;
-  root.querySelectorAll('.career-story-link').forEach(link=>{
-   const role=new URL(link.href).searchParams.get('role');
-   const markup=renderCareerStoryCards(role,language,location.href);
-   if(markup)link.outerHTML=markup;
-  });
- }).catch(()=>{});
- $('panel-experience').innerHTML=heading(t.experience,t.experienceSub)+`<div class="experience-grid"><div class="companies" role="tablist" aria-orientation="vertical" aria-label="${t.careerLabel}">${career.map(c=>`<button type="button" class="company" id="role-${c.id}" role="tab" aria-controls="detail-${c.id}" aria-selected="${activeCareer===c.id}" tabindex="${activeCareer===c.id?0:-1}" data-career="${c.id}"><span class="company-mark${c.logo?' has-company-logo':''}" aria-hidden="true">${companyLogo(c)}</span><span class="company-copy"><strong>${c[lang].company}</strong><small dir="${lang==='fa'?'rtl':'ltr'}">${years(c.years)}</small></span></button>`).join('')}</div><div>${career.map(c=>`<article class="experience-detail" id="detail-${c.id}" role="tabpanel" aria-labelledby="role-${c.id}" tabindex="0" ${activeCareer===c.id?'':'hidden'}><div class="detail-kicker employer-detail-brand">${c.logo?`<span class="employer-detail-logo">${companyLogo(c)}</span>`:''}<span>${c[lang].company}</span></div><h3>${c[lang].role}</h3><div class="meta"><span>${years(c.years)}</span><span>${c[lang].sector}</span></div>${companyWebsite(c)}<a class="career-story-link" href="${pageURL('work-stories')}&role=${c.id}"><span class="career-story-mark" aria-hidden="true">${icon('blog')}</span><span class="career-story-copy"><strong>${lang==='fa'?'روایت‌های این تجربه':'Stories from this role'}</strong><span>${lang==='fa'?`کارها و چیزهایی که در ${c[lang].company} یاد گرفتم`:`Work and lessons from ${c[lang].company}`}</span></span><span class="career-story-arrow" aria-hidden="true">${icon('arrow')}</span></a><div class="detail-rule"></div><h4>${t.scope}</h4><ul class="responsibilities">${c[lang].points.map(p=>`<li>${p}</li>`).join('')}</ul><div class="detail-tags">${chips(c[lang].tags)}</div></article>`).join('')}</div></div>`;
+ renderCareerExperience();
  $('panel-projects').innerHTML=heading(t.projectHeading,t.projectSub)+`<div class="project-list">${projects.map((p,i)=>`<details class="project" ${i===0?'open':''}><summary><span class="project-icon" aria-hidden="true">${p.icon}</span><span><span class="project-title">${p[lang].title}</span><span class="project-subtitle" style="display:block">${p[lang].sub}</span></span></summary><div class="project-body"><p>${p[lang].body}</p>${chips(p[lang].tags)}${p.url?`<a class="text-link" href="${p.url}" target="_blank" rel="noopener noreferrer">${t.repo}</a>`:''}</div></details>`).join('')}</div>`;
  $('panel-about').innerHTML=heading(t.aboutHeading,t.aboutSub)+`<div class="about"><p>${t.longBio}</p><h4>${t.capabilities}</h4><div class="capability-grid">${t.capabilityItems.map(([a,b])=>`<div><strong>${a}</strong><p>${b}</p></div>`).join('')}</div><h4>${t.education}</h4>${t.degrees.map(([a,b,c])=>`<div class="education"><div><strong>${a}</strong><p>${b}</p></div><time>${c}</time></div>`).join('')}<h4>${t.results}</h4><p>${t.resultsText}</p><h4>${t.interests}</h4><p>${t.interestsText}</p></div>`;
  $('panel-contact').innerHTML=heading(t.contactHeading,t.contactSub)+`<div class="contact"><p>${t.contactText}</p>${contactLinks()}</div>`;
 }
 function selectTab(id){activeTab=id;for(const item of document.querySelectorAll('[data-tab]')){const active=item.dataset.tab===id;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;$(`panel-${item.dataset.tab}`).hidden=!active;}updateURL();}
-function selectCareer(id){activeCareer=id;for(const item of document.querySelectorAll('[data-career]')){const active=item.dataset.career===id;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;$(`detail-${item.dataset.career}`).hidden=!active;}updateURL();}
+function selectCareer(id) {
+  const mobile = careerMobileLayout.matches;
+  careerCollapsed = mobile && activeCareer === id && !careerCollapsed;
+  activeCareer = id;
+  const trigger = $('role-' + id);
+  for (const button of $('panel-experience').querySelectorAll('[data-career]')) {
+    const active = button === trigger && !careerCollapsed;
+    if (mobile) button.setAttribute('aria-expanded', String(active));
+    else {
+      button.setAttribute('aria-selected', String(active));
+      button.tabIndex = active ? 0 : -1;
+    }
+    $(button.getAttribute('aria-controls')).hidden = !active;
+  }
+  updateURL();
+  if (mobile && !careerCollapsed) {
+    const panel = $('detail-' + id);
+    const footerTop = $('footer').getBoundingClientRect().top;
+    if (trigger.getBoundingClientRect().top < 0 || panel.getBoundingClientRect().top + 96 > footerTop) {
+      trigger.scrollIntoView({block:'start', behavior:'instant'});
+    }
+  }
+}
 document.addEventListener('click',event=>{const tab=event.target.closest('[data-tab]');const company=event.target.closest('[data-career]');if(tab)selectTab(tab.dataset.tab);if(company)selectCareer(company.dataset.career);});
 document.addEventListener('keydown',event=>{
- const el=event.target.closest('[data-tab],[data-career]');if(!el)return;
+ const el=event.target.closest('[data-tab],[data-career][role="tab"]');if(!el)return;
  const items=[...el.closest('[role="tablist"]').querySelectorAll('[role="tab"]')];let index=items.indexOf(el);const vertical=el.hasAttribute('data-career');
  if(event.key==='Home')index=0;else if(event.key==='End')index=items.length-1;
  else if(vertical&&['ArrowDown','ArrowUp'].includes(event.key))index+=(event.key==='ArrowDown'?1:-1);
@@ -425,5 +482,9 @@ $('language').addEventListener('click',()=>{
   location.assign(url);return;
  }
  render();$('language').focus();
+});
+careerMobileLayout?.addEventListener('change', () => {
+  careerCollapsed = false;
+  renderCareerExperience();
 });
 render();
