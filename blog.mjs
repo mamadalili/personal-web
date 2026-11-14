@@ -84,7 +84,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
       const slots=[...root.querySelectorAll(`#${CSS.escape(section.id)} > [data-reading-slot]`)];
       for (const block of section.blocks) {
         const markup=renderBlock(block);
-        if (['paragraph','image','details','callout','quote'].includes(block.type)) continue;
+        if (['paragraph','image','details','callout','quote','table'].includes(block.type)) continue;
         const slot=slots.shift();
         if (slot) { slot.insertAdjacentHTML('beforebegin',markup); slot.remove(); }
       }

@@ -174,3 +174,30 @@ html[lang=en] .library-feature h2{line-height:1.25}
 .trace-totals meter { inline-size: 100%; accent-color: var(--ink); }
 .trace-result { margin-block: 12px 0; font-weight: 650; }
 .trace-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+.article-table {
+  width: 100%;
+  margin-block: 1.25rem;
+  border-collapse: collapse;
+  color: var(--ink);
+  font-size: .9375rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.article-table caption { text-align: start; font-weight: 750; padding-block-end: .7rem; }
+.article-table :is(th, td) { text-align: start; vertical-align: top; padding: .65rem .75rem; border-block-end: 1px solid var(--line); }
+.article-table thead { background: var(--pale); }
+.article-table tbody th { width: 21%; }
+.article-table tbody td { width: 39.5%; }
+.article-table tbody a { color: var(--purple); text-decoration: underline; text-underline-offset: .2em; }
+.article-table-label { display: none; }
+@media (max-width: 760px) {
+  .article-table { display: block; }
+  .article-table caption { display: block; }
+  .article-table thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .article-table tbody { display: block; }
+  .article-table tbody tr { display: grid; gap: .25em; border-block-start: 1px solid var(--line); padding-block: .8rem; }
+  .article-table tbody :is(th, td) { width: auto; padding: 0; border: 0; }
+  .article-table tbody th { font-size: 1rem; }
+  .article-table-label { display: block; font-weight: 650; font-size: .84em; margin-block-start: .3em; }
+}

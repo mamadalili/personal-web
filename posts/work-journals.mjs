@@ -112,22 +112,33 @@ function edition(role, org, row, number, adjacent) {
   } else {
     practice.blocks.push(quiz, paragraph(copy.closing));
   }
+  const extraSections = copy.extraSections ?? [];
+  sections.push(...extraSections);
   const post = {
-    slug, status:'published', date:'2026-11-11', reviewed:'2026-11-11',
+    slug, status:'published', date:'2026-11-11', reviewed:copy.reviewed ?? '2026-11-11',
     bannerPair:{id:palettes[Math.floor(number / 2)], position:number % 2 + 1},
     cover:{}, sections,
     related:[{target:'post:' + role + '-' + adjacent[0], fa:{title:adjacent[1],description:manuscripts[role][adjacent[0]].intro.fa},en:{title:adjacent[2],description:manuscripts[role][adjacent[0]].intro.en}}],
     sources:[{id:'career',kind:'context',publisher:'Mohammadreza Dalili',url:'https://mrdalili.ir/profile.html?tab=experience&role='+role,
       fa:{title:'سابقهٔ کاری من در '+org.fa,note:'شرح نقش و مسئولیت‌ها در رزومهٔ من.'},
-      en:{title:'My role at '+org.en,note:'Role and responsibilities from my CV.'}}]
+      en:{title:'My role at '+org.en,note:'Role and responsibilities from my CV.'}}, ...(copy.sources ?? [])]
   };
   for (const lang of ['fa','en']) {
     const fa = lang === 'fa', title = fa ? faTitle : enTitle;
-    const words = [copy.intro,copy.role,copy.example,copy.method,copy.question,copy.first,copy.second,copy.closing].map(p=>p[lang]).join(' ').split(/\s+/).length;
+    const text = [copy.intro,copy.role,copy.example,copy.method,copy.question,copy.first,copy.second,copy.closing].map(p=>p[lang]);
+    for (const section of extraSections) {
+      text.push(section[lang].title);
+      for (const block of section.blocks) {
+        const local = block[lang];
+        if (block.type === 'table') text.push(local.caption, ...local.columns, ...local.rows.flat());
+        else text.push(local);
+      }
+    }
+    const words = text.join(' ').split(/\s+/).length;
     const low = Math.max(1,Math.ceil(words/180)), high = low+1;
     const digits = n=>new Intl.NumberFormat(fa?'fa-IR':'en').format(n);
     post[lang] = {title,subtitle:(fa?'در ':'At ')+org[lang],category:fa?'روایت‌های کاری':'Work stories',
-      sourceNote:fa?'شرح مسئولیت من در رزومه آمده. مثال و تمرین این نوشته برای توضیح موضوع‌اند.':'My CV documents the role. The situations and choices in this story are illustrative.',
+      sourceNote:copy.sourceNote?.[lang] ?? (fa?'شرح مسئولیت من در رزومه آمده. مثال و تمرین این نوشته برای توضیح موضوع‌اند.':'My CV documents the role. The situations and choices in this story are illustrative.'),
       excerpt:copy.intro[lang],readTime:fa?digits(low)+' تا '+digits(high)+' دقیقه با تمرین':low+'–'+high+' min with the exercise'};
     const alt = illustratedCoverAlts[slug]?.[lang] ?? [title,org[lang],fa?faKeys:enKeys].join(' — ');
     post.cover[lang] = {src:workStoryCoverSrc(slug,lang),width:1600,height:900,alt};

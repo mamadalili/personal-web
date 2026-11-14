@@ -52,6 +52,15 @@ export function renderArticleFrame({article,lang,href,renderBlock,date,sourceCar
 
 export function readingBlock(block,lang,rich) {
   if(block.type==='image')return renderArticleImage(block,lang);
+  if (block.type === 'table') {
+    const {caption, columns, rows} = block[lang];
+    const headers = columns.map(label => `<th scope="col" role="columnheader">${esc(label)}</th>`).join('');
+    const body = rows.map(([heading, ...cells]) => {
+      const values = cells.map((value, index) => `<td role="cell"><span class="article-table-label" aria-hidden="true">${esc(columns[index+1])}</span>${rich(value)}</td>`).join('');
+      return `<tr role="row"><th scope="row" role="rowheader">${rich(heading)}</th>${values}</tr>`;
+    }).join('');
+    return `<table class="article-table" role="table"><caption>${esc(caption)}</caption><thead role="rowgroup"><tr role="row">${headers}</tr></thead><tbody role="rowgroup">${body}</tbody></table>`;
+  }
   if (block.type === 'quote') return `<blockquote class="article-pullquote">${rich(block[lang])}</blockquote>`;
   if (block.type==='paragraph') return `<p>${rich(block[lang])}</p>`;
   if (block.type==='callout') return `<aside class="article-callout">${rich(block[lang])}</aside>`;
