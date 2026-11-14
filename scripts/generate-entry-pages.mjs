@@ -79,7 +79,7 @@ function renderEntry(stem, page, lang, template, storyPosts) {
 
   const canonical = new URL(home ? './' : file, siteUrl);
   canonical.searchParams.set('lang', lang);
-  const entryVersion = {home:'20261112-entry', cv:'20261113-cv-profile', 'work-stories':'20261112-work-entries'}[page] ?? '20261112-entry-solutions';
+  const entryVersion = {home:'20261112-entry', cv:'20261114-cv-journey', 'work-stories':'20261112-work-entries'}[page] ?? '20261112-entry-solutions';
   const head = template.slice(0, template.indexOf('</head>'))
     .replace(/<html\b[^>]*>/, `<html lang="${lang}" dir="${isFa ? 'rtl' : 'ltr'}" data-theme="light">`)
     .replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHTML(parts.title)}</title>`)
