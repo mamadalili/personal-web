@@ -1,5 +1,5 @@
 const revisions = new Map([
-  ['boomerang-online-sales', 'v2'],
+  ['boomerang-online-sales', 'v3'],
   ['boomerang-four-languages', 'v2'],
   ['boomerang-content', 'v2'],
   ['boomerang-channels', 'v2'],

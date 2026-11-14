@@ -12,8 +12,8 @@ const localized = copy => ({fa:{title:copy.fa}, en:{title:copy.en}});
 const paragraph = copy => ({type:'paragraph', ...copy});
 const illustratedCoverAlts = {
   'boomerang-online-sales': {
-    fa:'سردوش و رابط برنجی در جعبه، جلوی ویترین فروشگاه بومرنگ‌کالا',
-    en:'A handheld shower and brass adapter in a presentation box in front of the Boomerang Kala storefront',
+    fa:'شیر روشویی اسپینل روی پایهٔ قرمز، کنار عکس همین مدل در صفحهٔ محصول بومرنگ‌کالا',
+    en:'The Spinel basin tap on a red plinth beside its product photo in the Boomerang Kala store',
   },
   'boomerang-four-languages': {
     fa:'نمای سایت بومرنگ روی کاتالوگی تاشو با زبانه‌های انگلیسی، فارسی، عربی و روسی و دو برچسب محصول',
@@ -100,18 +100,21 @@ function edition(role, org, row, number, adjacent) {
   const [id, faTitle, enTitle, faKeys, enKeys] = row;
   const slug = role + '-' + id;
   const copy = manuscripts[role][id];
-  const quiz = {type:'quiz', ...copy.question, options:(number % 2 ? [copy.second,copy.first] : [copy.first,copy.second]).map(option)};
   const practice = {id:'practice', ...localized(copy.practice), blocks:[paragraph(copy.method)]};
   const sections = [
     {id:'experience', ...localized(copy.opening), blocks:[paragraph(copy.role), paragraph(copy.example)]},
     practice,
   ];
-  if (copy.exerciseHeading) {
-    practice.blocks.push(paragraph(copy.closing));
-    sections.push({id:'exercise', ...localized(copy.exerciseHeading), blocks:[quiz]});
-  } else {
-    practice.blocks.push(quiz, paragraph(copy.closing));
+  if (copy.question) {
+    const options = (number % 2 ? [copy.second,copy.first] : [copy.first,copy.second]).map(option);
+    const quiz = {type:'quiz', ...copy.question, options};
+    if (copy.exerciseHeading) {
+      sections.push({id:'exercise', ...localized(copy.exerciseHeading), blocks:[quiz]});
+    } else {
+      practice.blocks.push(quiz);
+    }
   }
+  practice.blocks.push(paragraph(copy.closing));
   const extraSections = copy.extraSections ?? [];
   sections.push(...extraSections);
   const post = {
@@ -125,7 +128,7 @@ function edition(role, org, row, number, adjacent) {
   };
   for (const lang of ['fa','en']) {
     const fa = lang === 'fa', title = fa ? faTitle : enTitle;
-    const text = [copy.intro,copy.role,copy.example,copy.method,copy.question,copy.first,copy.second,copy.closing].map(p=>p[lang]);
+    const text = [copy.intro,copy.role,copy.example,copy.method,copy.question,copy.first,copy.second,copy.closing].filter(Boolean).map(p=>p[lang]);
     for (const section of extraSections) {
       text.push(section[lang].title);
       for (const block of section.blocks) {

@@ -144,20 +144,8 @@ export const stories = {
       en: "Four languages built into the site"
     },
     method: {
-      fa: "از اول برایم مهم بود که خواندن سایت به ترجمهٔ خودکار مرورگر وابسته نباشد. با کمک هوش مصنوعی برای هر چهار زبان **فارسی، انگلیسی، عربی و روسی** سند محتوای جداگانه آماده کردیم. خریدار زبان را از داخل خود سایت انتخاب می‌کرد. در فرم استعلام هم یک فرق مهم هست. زبانِ مکاتبه را می‌شود از خریدار پرسید، اما از روی آن نمی‌شود فهمید سفارش باید کجا فرستاده شود.",
-      en: "I wanted people to be able to read the site without relying on their browser to translate it. With help from AI we prepared a separate content document for each of the four languages, **Persian, English, Arabic and Russian**. Visitors chose their language on the site. The inquiry form raises a different issue. You can ask which language a buyer wants to use, but that won’t tell you where the order needs to go."
-    },
-    question: {
-      fa: "یک خریدار در نسخهٔ انگلیسی قیمت چند عدد از یک مدل را می‌پرسد. برای برآورد هزینهٔ ارسال، کدام اطلاعات را لازم داری؟",
-      en: "A buyer on the English site asks for a quote on several units. What do you need to estimate delivery?"
-    },
-    first: {
-      fa: "مقصد سفارش ~ درست است. دو خریدار ممکن است هر دو انگلیسی بنویسند و یکی ارسال به مسقط بخواهد و دیگری به ایروان. کشور و شهر مقصد را همراه مدل و تعداد بگیر.",
-      en: "Delivery destination ~ Yes. Two buyers can both write in English while one wants delivery to Muscat and the other to Yerevan. Ask for the destination city and country along with the model and quantity."
-    },
-    second: {
-      fa: "زبان مرورگر ~ ممکن است خریدار انگلیسی بخواند و کالا را در کشور دیگری تحویل بگیرد. زبان مرورگر نشانی تحویل را به تیم فروش نمی‌دهد.",
-      en: "Browser language ~ Someone can read English and take delivery in any number of countries. The browser setting gives sales no delivery address to price against."
+      fa: "از اول برایم مهم بود که خواندن سایت به ترجمهٔ خودکار مرورگر وابسته نباشد. با کمک هوش مصنوعی برای هر چهار زبان **فارسی، انگلیسی، عربی و روسی** سند محتوای جداگانه آماده کردیم. خریدار زبان را از داخل خود سایت انتخاب می‌کرد.",
+      en: "I wanted people to be able to read the site without relying on their browser to translate it. With help from AI we prepared a separate content document for each of the four languages, **Persian, English, Arabic and Russian**. Visitors chose their language on the site."
     },
     closing: {
       fa: "برای امتحان کردن این مسیر، یک مدل را باز کن و وسط کار زبان را عوض کن. آیا هنوز روی همان محصولی؟ آیا معلوم است فرم دربارهٔ کدام مدل است و تیم فروش باید به چه زبانی جواب بدهد؟",

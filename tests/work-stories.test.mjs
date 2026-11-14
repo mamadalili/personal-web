@@ -23,7 +23,15 @@ test('the nineteen published topics have distinct bilingual articles, employer s
       assert.equal(article[lang].category,lang==='fa'?'روایت‌های کاری':'Work stories');
       assert.ok(workStoryHref(story,lang,posts));
       const quiz=article.sections.flatMap(s=>s.blocks).find(b=>b.type==='quiz');
-      assert.ok(quiz.options.length>=2 && quiz.options.every(o=>o[lang].feedback));
+      if (story.post === 'boomerang-four-languages') {
+        assert.equal(quiz,undefined);
+        const practice=article.sections.find(section=>section.id==='practice');
+        const lastBlock=practice.blocks.at(-1);
+        assert.equal(lastBlock.type,'paragraph');
+        assert.match(lastBlock[lang],lang==='fa'?/زبان را عوض کن/:/switch languages/);
+      } else {
+        assert.ok(quiz.options.length>=2 && quiz.options.every(o=>o[lang].feedback));
+      }
     }
     assert.ok(!slugs.has(story.post));
     slugs.add(story.post);
