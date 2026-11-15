@@ -69,3 +69,7 @@
 
 .home-blog-header>p{flex:1;min-width:0}
 @media(max-width:760px){.home-blog-header{align-items:flex-start;flex-direction:column;gap:12px}.home-blog-all{align-self:flex-end}}
+
+/* Reserve the controls' space while the first set of links is already usable. */
+@media(min-width:761px){.home-first-track{margin-block-end:62px}}
+@media(min-width:761px) and (max-width:999px){.home-first-posts>.home-post-card:nth-child(n+5){display:none}}

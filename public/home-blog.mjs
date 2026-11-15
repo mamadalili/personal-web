@@ -1,6 +1,6 @@
 import { renderPostCover } from './blog-covers.mjs';
 import { posts } from './blog-summaries.mjs';
-import { escapeHTML as esc, internalHref, publishedPosts } from './blog-core.mjs';
+import { escapeHTML as esc, publishedPosts } from './blog-core.mjs';
 
 export function homePostPages(items, pageSize=6) {
   if(!Number.isInteger(pageSize)||pageSize<1||pageSize>6)throw new RangeError('Home carousel pages contain one to six articles.');
@@ -48,6 +48,20 @@ const copy = {
 let carouselSerial = 0;
 const arrow = direction => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="${direction === 'previous' ? 'm14 6-6 6 6 6' : 'm10 6 6 6-6 6'}"/></svg>`;
 
+function cardMarkup(post, lang, dates) {
+  const a=post[lang], href='article.html?post='+encodeURIComponent(post.slug)+'&lang='+lang;
+  const day=post.date && new Date(post.date+'T12:00:00Z');
+  const date=day && Number.isFinite(day.getTime()) ? `<time datetime="${esc(post.date)}">${dates.format(day)}</time>` : '';
+  return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover',preview:true})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${copy[lang].read}<span aria-hidden="true">${lang==='fa'?'←':'→'}</span></span></span></a>`;
+}
+
+export function homeFirstPosts(language, items=posts) {
+  const first=homePostPages(items)[0];
+  if (!first) return `<p class="home-blog-empty">${copy[language].empty}</p>`;
+  const dates=new Intl.DateTimeFormat(language,{dateStyle:'medium',timeZone:'UTC'});
+  return `<div class="home-blog-track home-first-track"><div class="home-blog-page home-first-posts">${first.map(post=>cardMarkup(post,language,dates)).join('')}</div></div>`;
+}
+
 export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
   const controller=new AbortController(),wide=matchMedia('(min-width:1000px)'),medium=matchMedia('(min-width:761px)');
   let dispose=()=>{};
@@ -72,16 +86,9 @@ function mountHomeCarousel(root,{language,items,pageSize,restoreHref,focusKind})
   const swipeOnly = pageSize === 1;
   const pageLabel = (index, total) => (swipeOnly ? t.item : t.page)(number(index), number(total));
   const trackId = `home-blog-track-${++carouselSerial}`;
-  const date = value => {
-    if (!value) return '';
-    const parsed = new Date(`${value}T12:00:00Z`);
-    return Number.isNaN(parsed.getTime()) ? '' : `<time datetime="${esc(value)}">${new Intl.DateTimeFormat(lang, { dateStyle: 'medium' }).format(parsed)}</time>`;
-  };
+  const dates=new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeZone:'UTC'});
   root.classList.add('home-blog-mount');
-  root.innerHTML = `<div class="home-blog-track" id="${trackId}" tabindex="0" role="region" aria-label="${t.region}" aria-roledescription="${t.carousel}"${swipeOnly ? ` aria-describedby="${trackId}-hint"` : ''}>${pages.map((page, index) => `<div class="home-blog-page" role="group" aria-label="${pageLabel(index + 1, pages.length)}">${page.map(post => {
-    const a = post[lang], href = internalHref(`post:${post.slug}`, lang, items, location.href);
-    return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover',preview:true})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date(post.date)}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${t.read}<span aria-hidden="true">${lang==='fa'?'←':'→'}</span></span></span></a>`;
-  }).join('')}</div>`).join('')}</div>${swipeOnly ? `<p id="${trackId}-hint" class="home-blog-status">${t.swipeHint}</p>` : `<div class="home-blog-controls"><span class="home-blog-hint">${pages.length > 1 ? t.hint : t.latest}</span><span class="home-blog-position" aria-hidden="true"><i style="inline-size:${100 / pages.length}%"></i></span><div class="home-blog-buttons"><button type="button" data-home-step="-1" aria-controls="${trackId}" aria-label="${t.previous}">${arrow('previous')}</button><button type="button" data-home-step="1" aria-controls="${trackId}" aria-label="${t.next}">${arrow('next')}</button></div></div>`}<p class="home-blog-status" role="status" aria-live="polite" aria-atomic="true"></p>`;
+  root.innerHTML = `<div class="home-blog-track" id="${trackId}" tabindex="0" role="region" aria-label="${t.region}" aria-roledescription="${t.carousel}"${swipeOnly ? ` aria-describedby="${trackId}-hint"` : ''}>${pages.map((page, index) => `<div class="home-blog-page" role="group" aria-label="${pageLabel(index + 1, pages.length)}">${page.map(post=>cardMarkup(post,lang,dates)).join('')}</div>`).join('')}</div>${swipeOnly ? `<p id="${trackId}-hint" class="home-blog-status">${t.swipeHint}</p>` : `<div class="home-blog-controls"><span class="home-blog-hint">${pages.length > 1 ? t.hint : t.latest}</span><span class="home-blog-position" aria-hidden="true"><i style="inline-size:${100 / pages.length}%"></i></span><div class="home-blog-buttons"><button type="button" data-home-step="-1" aria-controls="${trackId}" aria-label="${t.previous}">${arrow('previous')}</button><button type="button" data-home-step="1" aria-controls="${trackId}" aria-label="${t.next}">${arrow('next')}</button></div></div>`}<p class="home-blog-status" role="status" aria-live="polite" aria-atomic="true"></p>`;
   const track = root.querySelector('.home-blog-track'), panels = [...track.children];
   const previous = root.querySelector('[data-home-step="-1"]'), next = root.querySelector('[data-home-step="1"]');
   const progress = root.querySelector('.home-blog-position i');

@@ -8,7 +8,7 @@ import {postSummaries} from '../public/blog-summary-model.mjs';
 import {workStoryTopics} from '../public/work-stories-data.mjs';
 import {workStoryHref} from '../public/work-stories-model.mjs';
 import {buildBrowserRuntime} from './build-browser-runtime.mjs';
-import {buildWorkStoryEntries} from './generate-entry-pages.mjs';
+import {buildHomeEntries, buildWorkStoryEntries} from './generate-entry-pages.mjs';
 
 export function buildBlogRuntime(items, template) {
   const files = new Map(), summaries = postSummaries(items);
@@ -16,6 +16,7 @@ export function buildBlogRuntime(items, template) {
   const storyPosts = [...new Set(linked.map(story => story.post))].map(slug => ({slug,status:'published'}));
   files.set('work-story-posts.mjs', '// Generated from published bilingual work stories.\nexport const posts = ' + JSON.stringify(storyPosts) + ';\n');
   for (const [file, html] of buildWorkStoryEntries(storyPosts)) files.set(file,html);
+  for (const [file, html] of buildHomeEntries(summaries)) files.set(file,html);
   const serialize = (article, slug) => {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('Invalid article slug');
     const data = JSON.stringify(article) + '\n';

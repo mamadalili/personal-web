@@ -92,6 +92,9 @@ function titleMarkup(label=copy[lang].role){const text=escapeHTML(label);return 
 function professionalTitle(extra='',label=copy[lang].role){return `<span class="professional-title ${extra}">${titleMarkup(label)}</span>`;}
 function languageButtonMarkup(){return `<svg class="language-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6m-7 0 6-6 2-3H2m5-3h1m5 18 4-10 4 10m-6.5-3h5"/></svg><span class="language-label">${lang==='fa'?'English':'فارسی'}</span>`;}
 function loadingMarkup(text,extra=''){return `<div class="site-loader ${extra}" role="status">${brandMark(true)}<span class="visually-hidden">${text}</span></div>`;}
+function readingSkeleton(text) {
+ return `<div class="reading-skeleton" role="status"><span class="visually-hidden">${text}</span><div class="reading-skeleton-ink" aria-hidden="true">${brandMark()}<i></i><i></i><i></i><b></b></div></div>`;
+}
 let savedLanguage;try{savedLanguage=localStorage.getItem('portfolio-language');}catch{}
 function rememberServerLanguage(value){
  try{
@@ -227,26 +230,31 @@ function homeOpeningMarkup(folders){
  <article class="home-card skills-home-card skills-hero-card" aria-labelledby="skills-hero-title"><div class="skills-card-copy"><h2 id="skills-hero-title">${k.cardTitle}</h2><p>${k.cardBody}</p><div class="home-hero-actions">${homeCardCTA('solutions',k.cardAction)}${homeCardCTA('contact',s.contactAction)}</div></div><div class="skills-card-side"><nav class="skills-capability-grid home-folder-grid" aria-label="${lang==='fa'?'راهکارها':'Solutions'}" data-capability-cards>${folders}</nav></div></article>
  </section>`;
 }
-function renderHome(){
- disposeHomeBlog();disposeHomeBlog=()=>{};
+function homeBodyMarkup(folders,posts,year=''){
  const s=siteCopy[lang];
- const initial=$('main').dataset.entryLang===lang ? $('main').querySelector('[data-capability-cards]') : null;
- const folders=initial?.innerHTML || loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…');
- delete $('main').dataset.entryLang;
- const homeLanguage=lang;
  const moreLabel=lang==='fa'?'بلاگ، پروفایل کاری و تماس':'Blog, professional profile and contact';
- $('main').innerHTML=`<div class="home-scroll-story">${homeOpeningMarkup(folders)}<section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
- <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h2 id="home-blog-title" class="visually-hidden">${s.blogLabel}</h2><p>${s.blogBody}</p><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><div data-home-blog>${loadingMarkup(lang==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Loading the latest posts…','home-blog-loading')}</div></article>
+ return `<div class="home-scroll-story">${homeOpeningMarkup(folders)}<section class="home-card-deck" aria-label="${moreLabel}"><div class="home-grid">
+ <article id="home-blog" class="home-card blog-card home-blog-section" aria-labelledby="home-blog-title"><header class="home-blog-header"><h2 id="home-blog-title" class="visually-hidden">${s.blogLabel}</h2><p>${s.blogBody}</p><a class="home-blog-all" href="${pageURL('blog')}">${lang==='fa'?'همهٔ نوشته‌ها':'All posts'}${icon('arrow')}</a></header><div class="home-blog-mount" data-home-blog>${posts}</div></article>
  <section class="home-quick-links" aria-label="${lang==='fa'?'مسیر کاری و ارتباط':'Work & conversation'}"><article class="home-card cv-card"><div class="card-top"><span class="card-icon">${icon('cv')}</span><span class="card-label">CV / ${s.cvLabel}</span></div><h2>${s.cvTitle}</h2><p>${s.cvBody} <a class="home-story-link" href="${pageURL('work-stories')}">${lang==='fa'?'روایت‌های کاری من':'Stories from my work'}</a></p>${homeCardCTA('cv',s.cvAction)}</article>
  <article class="home-card contact-home-card"><div class="card-top"><span class="card-icon">${icon('contact')}</span><span class="card-label">${s.contactLabel}</span></div><h2>${s.contactTitle}</h2><p>${s.contactBody}</p>${homeCardCTA('contact',s.contactAction)}</article></section>
- </div></section></div><div class="page-signoff">${brandMark()}<p>© ${new Date().getFullYear()} ${s.copyright}</p></div>`;
- const cardsRoot=$('main').querySelector('[data-capability-cards]');
- import('./solutions.mjs?v=20261109-studio-coast').then(({renderHomeFolderCards})=>{
+ </div></section></div><div class="page-signoff">${brandMark()}<p>© <span data-home-year>${year}</span> ${s.copyright}</p></div>`;
+}
+function renderHome(){
+ disposeHomeBlog();disposeHomeBlog=()=>{};
+ const main=$('main'),homeLanguage=lang,year=new Date().getFullYear(),same=main.dataset.entryLang===lang;
+ if(!same||!main.querySelector('[data-home-blog]')){
+  const folders=same && main.querySelector('[data-capability-cards]')?.innerHTML;
+  main.innerHTML=homeBodyMarkup(folders||loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Loading solutions…'),loadingMarkup(lang==='fa'?'در حال بارگذاری نوشته‌ها…':'Loading posts…'),year);
+ }
+ main.dataset.entryLang=lang;
+ main.querySelector('[data-home-year]').textContent=year;
+ const cardsRoot=main.querySelector('[data-capability-cards]');
+ if(!cardsRoot.querySelector('a')) import('./solutions.mjs?v=20261109-studio-coast').then(({renderHomeFolderCards})=>{
   if(!cardsRoot.isConnected||lang!==homeLanguage)return;
   cardsRoot.innerHTML=renderHomeFolderCards({language:homeLanguage,url:pageURL,icon:skillIcon,portals:homePortalCopy[homeLanguage]});
  }).catch(()=>{if(cardsRoot.isConnected&&lang===homeLanguage)cardsRoot.innerHTML=`<a class="solution-cards-fallback" href="${pageURL('solutions')}">${lang==='fa'?'دیدن راهکارها':'View solutions'}</a>`;});
  const blogRoot=$('main').querySelector('[data-home-blog]');
- import('./home-blog.mjs?v=20261102-light-lists').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage)blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
+ import('./home-blog.mjs?v=20261115-first-posts').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage&&!blogRoot.querySelector('.home-post-card'))blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
  // Restore visibility when keyboard navigation returns to the pinned skills link.
  const revealSkills=()=>{
   const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),tiles=$('main').querySelector('.skills-capability-grid'),deck=$('main').querySelector('.home-card-deck');
@@ -288,7 +296,14 @@ function renderBlog(mode='index',retry=false){
    : /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug||'')?`reading/${language}/${slug}.html`:null;
  const entry=mode==='index'?'blog-list.mjs':'blog.mjs';
  root.querySelector('[data-reading-retry]')?.remove();
- if(!ready()) root.innerHTML=loadingMarkup(language==='fa'?'در حال آماده‌سازی نوشته‌ها…':'Preparing the posts…','blog-loading');
+ if(!ready()){
+  delete root.dataset.readingLang;delete root.dataset.readingPost;delete root.dataset.readingSrc;
+  const label=language==='fa'?'در حال بارگذاری مقاله…':'Loading the article…';
+  if(mode==='article'){
+   const status=root.querySelector('.reading-skeleton .visually-hidden');
+   if(status)status.textContent=label;else root.innerHTML=readingSkeleton(label);
+  } else root.innerHTML=loadingMarkup(language==='fa'?'در حال بارگذاری نوشته‌ها…':'Loading posts…','blog-loading');
+ }
  let interactive=false;
  async function getReadingCopy(){
   if(ready()||template||!staticURL)return;

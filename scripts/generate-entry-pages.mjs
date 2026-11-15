@@ -8,6 +8,7 @@ import {renderHomeFolderCards, renderSolutionPage} from '../public/solutions.mjs
 import {solutions} from '../public/solutions-data.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
 import {siteUrl} from '../public/site-config.mjs';
+import {homeFirstPosts} from '../public/home-blog.mjs';
 
 const {parse} = createRequire(new URL('../react-site/package.json', import.meta.url))('acorn');
 const root = new URL('../public/', import.meta.url);
@@ -20,7 +21,7 @@ const names = new Set([
   'copy', 'siteCopy', 'skillsCopy', 'homePortalCopy', 'iconPaths', 'icon', 'pageFiles',
   'extraPageFiles', 'pageURL', 'escapeHTML', 'chips', 'titleMarkup', 'professionalTitle',
   'brandMark', 'languageButtonMarkup', 'homeCardCTA', 'homeDescription', 'homeIntroMarkup',
-  'homeOpeningMarkup', 'cvProfileMarkup', 'cvIntroMarkup', 'contactChannels', 'contactLinks',
+  'homeOpeningMarkup', 'homeBodyMarkup', 'cvProfileMarkup', 'cvIntroMarkup', 'contactChannels', 'contactLinks',
   'employerWebsites', 'career', 'years', 'companyWebsite', 'companyLogo', 'renderEmployerRail', 'contactPageMarkup', 'skillIconPaths', 'skillIcon',
   'renderMotionScene', 'collaborationCopy', 'renderCollaborationCTA',
 ]);
@@ -36,7 +37,7 @@ for (const statement of tree.body) {
 }
 if (declarations.length !== names.size) throw new Error('Missing portfolio entry renderer');
 
-function renderEntry(stem, page, lang, template, storyPosts) {
+function renderEntry(stem, page, lang, template, storyPosts, homePosts) {
   const home = page === 'home';
   const file = stem + '.html';
   const solution = page === 'solutions' ? stem : null;
@@ -61,7 +62,7 @@ function renderEntry(stem, page, lang, template, storyPosts) {
       main=contactPageMarkup();
       description=site.contactIntro;
     } else if (home) {
-      main='<div class="home-scroll-story">'+homeOpeningMarkup(folders())+'</div>';
+      main=homeBodyMarkup(folders(),firstPosts);
       description=homeDescription();
     } else {
       main='<aside id="profile" class="profile-card" aria-label="'+escapeHTML(person.name)+'">'+cvProfileMarkup()+'</aside>'
@@ -75,11 +76,11 @@ function renderEntry(stem, page, lang, template, storyPosts) {
       headerImage: home ? '<img class="header-portrait" src="images/myphoto-avatar-v1.webp" width="59" height="59" alt="" fetchpriority="high">' : brandMark(),
       navigation: Object.keys(pageFiles).map((id, i) => '<a href="' + pageURL(id) + '"' + (id === navPage ? ' aria-current="page"' : '') + '>' + icon(id) + '<span>' + escapeHTML(site.nav[i]) + '</span></a>').join('')
     })
-  `, {lang, home, page, solution, siteUrl, storyPosts, workStoriesCopy, renderWorkStoriesMarkup, renderSolutionPage, renderHomeFolderCards, URL, URLSearchParams}, {timeout: 1000});
+  `, {lang, home, page, solution, siteUrl, storyPosts, firstPosts:home ? homeFirstPosts(lang,homePosts) : '', workStoriesCopy, renderWorkStoriesMarkup, renderSolutionPage, renderHomeFolderCards, URL, URLSearchParams}, {timeout: 1000});
 
   const canonical = new URL(home ? './' : file, siteUrl);
   canonical.searchParams.set('lang', lang);
-  const entryVersion = {home:'20261112-entry', cv:'20261114-cv-employers', 'work-stories':'20261112-work-entries'}[page] ?? '20261112-entry-solutions';
+  const entryVersion = {home:'20261115-first-posts', cv:'20261114-cv-employers', 'work-stories':'20261112-work-entries'}[page] ?? '20261112-entry-solutions';
   const head = template.slice(0, template.indexOf('</head>'))
     .replace(/<html\b[^>]*>/, `<html lang="${lang}" dir="${isFa ? 'rtl' : 'ltr'}" data-theme="light">`)
     .replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHTML(parts.title)}</title>`)
@@ -103,14 +104,14 @@ function renderEntry(stem, page, lang, template, storyPosts) {
 
 const pages = [['index', 'home'], ['profile', 'cv'], ['contact', 'contact'], ['work-stories', 'work-stories'],
   ...solutions.map(({id}) => [id, 'solutions'])];
-function buildEntries(selection, storyPosts) {
+function buildEntries(selection, storyPosts, homePosts) {
   const entries = new Map();
   for (const [file, page] of selection) {
     const template = read(file + '.html');
     for (const lang of ['fa', 'en']) {
       const targets = [file + (lang === 'en' ? '.en' : '') + '.html'];
       if (lang === 'fa' && ['solutions','contact','work-stories'].includes(page)) targets.push(file+'.fa.html');
-      const html = renderEntry(file, page, lang, template, storyPosts);
+      const html = renderEntry(file, page, lang, template, storyPosts, homePosts);
       for (const target of targets) {
         entries.set(target, html);
       }
@@ -121,6 +122,10 @@ function buildEntries(selection, storyPosts) {
 
 export function buildWorkStoryEntries(storyPosts) {
   return buildEntries([['work-stories','work-stories']], storyPosts);
+}
+
+export function buildHomeEntries(posts) {
+  return buildEntries([['index','home']], undefined, posts);
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {

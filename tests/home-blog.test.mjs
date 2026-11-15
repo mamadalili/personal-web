@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { homePostPages, createWheelPager, wheelPageVisible } from '../public/home-blog.mjs';
+import { homeFirstPosts, homePostPages, createWheelPager, wheelPageVisible } from '../public/home-blog.mjs';
 
 test('vertical wheel paging never hides a lower row or content behind the floating navigation',()=>{
  assert.equal(wheelPageVisible({top:112,bottom:650,viewportHeight:720}),true);
@@ -10,6 +10,19 @@ test('vertical wheel paging never hides a lower row or content behind the floati
 });
 
 const post = (slug, date, extra = {}) => ({ slug, date, status: 'published', fa: { title: slug }, en: { title: slug }, ...extra });
+
+test('before JavaScript, Home links to the latest six published articles in the requested language',()=>{
+ const items=Array.from({length:8},(_,i)=>post('post-'+i,'2026-11-0'+(i+1),{fa:{title:'روایت '+i},en:{title:'Story '+i}}));
+ items.push(post('draft','2026-11-12',{status:'draft'}));
+ for(const lang of ['en','fa']){
+  const html=homeFirstPosts(lang,items);
+  const links=Array.from(html.matchAll(/href="([^"]+)"/g),m=>m[1].replaceAll('&amp;','&'));
+  assert.deepEqual(links,[7,6,5,4,3,2].map(i=>'article.html?post=post-'+i+'&lang='+lang));
+  assert.ok(html.includes('<h4>'+items[7][lang].title+'</h4>'));
+  assert.doesNotMatch(html,/<button|role="status"/);
+  assert.doesNotMatch(homeFirstPosts(lang,[]),/<a\s/);
+ }
+});
 
 test('homepage groups up to six real bilingual articles and never duplicates the final page', () => {
   const input = [post('old', '2026-10-20'), post('new', '2026-10-24'), post('middle', '2026-10-22'),
