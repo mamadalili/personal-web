@@ -1,0 +1,126 @@
+# Editorial banner assets
+
+Generated with the built-in image generation tool on 2026-10-26. All artwork is original and illustrative; it is not a research chart or a photograph of the site author. Each finished image contains the localized headline. The source PNGs were exported to WebP at quality 90 without changing composition or typography. Project exports live in `assets/blog/`; originals remain outside the public repository.
+
+The Persian and English versions are separate image assets. The shared renderer selects only the requested language; there is no browser translation. Article and Blog-list covers show the full composition. Wide Home previews use a centered crop; compact phone previews focus on the artwork side (left in Persian, right in English) beside the native HTML title.
+
+## Paired palettes
+
+Choose the cover subject from the article’s central question. A presenter fits a lesson about being on camera. A still life or an abstract print can illustrate a concept. Use a chart when the article has sourced data and the comparison is legible on a small card. People are optional. When a woman appears, depict her with uncovered hair. Pair consecutive covers through palette and print treatment while choosing each composition independently. Apply the same concept to the Persian and English editions.
+
+Solo Business and AI Payoff keep their original indigo editorial pair. AI Model Market starts a new ice-white / turquoise / emerald / silver-graphite pair. The next new article must match this family as the second cover, with its own topic-specific imagery and keywords. The site accent does not dictate every banner palette.
+
+## Prompt set
+
+### market-fa
+
+Current export: `assets/blog/ai-model-market-fa-v2.webp` (1672 × 941). Generated with the built-in image tool, exported to WebP at quality 90 without changing composition.
+
+Create an original finished editorial blog cover, 16:9 landscape, premium contemporary art direction. A NEW paired cover series with ice white, luminous turquoise, mint/emerald green and silver graphite; absolutely no purple, indigo, navy, cream, beige, brown or amber. Elegant layered translucent glass charts, a flowing line chart and different-height bar charts, faint network/AI matrix textures, softly defocused keyword typography embedded behind the main scene. The charts are conceptual with no numeric axes or invented statistics. Beautiful directional daylight, crisp focal details and soft depth of field, compelling visual hierarchy, restrained editorial typography. Not a website screenshot, no browser frame, no logos, no watermark, no physical contraption, no city of towers. 8% safe margins. Main headline sharp and prominent; background keywords almost faded, low contrast and partly out of focus, supporting the AI model economy story. Persian version. Place expressive glass charts on the LEFT half and keep the RIGHT half quiet for a beautifully typeset native Persian RTL headline in very dark graphite/teal, correct joined letters. Exact main headline: «بازار مدل‌های هوش مصنوعی». Faint background keyword fragments in Persian: «درآمد»، «ارزش‌گذاری»، «هزینه آموزش»، «مدل‌های زبانی». Main headline must be easily legible at thumbnail size. This is one finished cover, not a contact sheet.
+
+### market-en
+
+Current export: `assets/blog/ai-model-market-en-v2.webp` (1672 × 941). Generated with the built-in image tool, exported to WebP at quality 90 without changing composition.
+
+Create an original finished editorial blog cover, 16:9 landscape, premium contemporary art direction. A NEW paired cover series with ice white, luminous turquoise, mint/emerald green and silver graphite; absolutely no purple, indigo, navy, cream, beige, brown or amber. Elegant layered translucent glass charts, a flowing line chart and different-height bar charts, faint network/AI matrix textures, softly defocused keyword typography embedded behind the main scene. The charts are conceptual with no numeric axes or invented statistics. Beautiful directional daylight, crisp focal details and soft depth of field, compelling visual hierarchy, restrained editorial typography. Not a website screenshot, no browser frame, no logos, no watermark, no physical contraption, no city of towers. 8% safe margins. Main headline sharp and prominent; background keywords almost faded, low contrast and partly out of focus, supporting the AI model economy story. Matching English version of this same ice-white/turquoise/emerald cover pair. Place expressive glass charts on the RIGHT half, quiet LEFT half for large dark graphite/teal editorial type. Exact main headline: 'The AI Model Market'. Faint background keyword fragments in English: 'REVENUE', 'VALUATION', 'TRAINING COST', 'LANGUAGE MODELS'. Main headline crisp and legible at thumbnail size. This is one finished cover, not a contact sheet.
+
+
+### solo-fa
+
+Create a finished original editorial blog cover banner, landscape 16:9, 1536x864 or 1536x1024 with wide-safe composition, full bleed. Premium contemporary photographic art direction, cinematic realism blended with restrained abstract light, sophisticated midnight indigo #1c0998 / violet palette, pale lavender-white high-contrast typography, subtle warm amber light. This is a personal professional portfolio editorial series, so retain a coherent polished style across topics. Strong subject image and an exceptionally legible headline; spacious composition, generous 8% safe margins, no footer/navigation, no mock website frame, no small labels, no logos, no invented statistics or readable UI, no watermark. Put the exact supplied headline as the only text. It must read correctly at thumbnail size. No technical diagram, isometric machine, cartoon robot or cliché handshake.
+Scene: Original cinematic editorial photograph of one anonymous independent creative professional seen in three-quarter silhouette, with a few elegant translucent panels representing writing, design and analytics surrounding the same person. One capable individual coordinating several roles, calm purposeful atmosphere, refined real materials and soft side light, no busy dashboard and no physical machine or workbench. Main image on the left, quiet dark negative space on the right for the large Persian headline.
+Typography language: Persian, beautifully typeset right-to-left with correct connected letters.
+Text verbatim: "یک نفر، چند نقش؛ با کمک AI".
+
+### solo-en
+
+Create a finished original editorial blog cover banner, landscape 16:9, 1536x864 or 1536x1024 with wide-safe composition, full bleed. Premium contemporary photographic art direction, cinematic realism blended with restrained abstract light, sophisticated midnight indigo #1c0998 / violet palette, pale lavender-white high-contrast typography, subtle warm amber light. This is a personal professional portfolio editorial series, so retain a coherent polished style across topics. Strong subject image and an exceptionally legible headline; spacious composition, generous 8% safe margins, no footer/navigation, no mock website frame, no small labels, no logos, no invented statistics or readable UI, no watermark. Put the exact supplied headline as the only text. It must read correctly at thumbnail size. No technical diagram, isometric machine, cartoon robot or cliché handshake.
+Scene: Original cinematic editorial photograph of one anonymous independent creative professional seen in three-quarter silhouette, with a few elegant translucent panels representing writing, design and analytics surrounding the same person. One capable individual coordinating several roles, calm purposeful atmosphere, refined real materials and soft side light, no busy dashboard and no physical machine or workbench. Main image on the right, quiet dark negative space on the left for the large English headline.
+Typography language: English, expertly typeset left-to-right.
+Text verbatim: "One Person. Many Roles. With AI.".
+
+### payoff-fa
+
+Create a finished original editorial blog cover banner, landscape 16:9, 1536x864 or 1536x1024 with wide-safe composition, full bleed. Premium contemporary photographic art direction, cinematic realism blended with restrained abstract light, sophisticated midnight indigo #1c0998 / violet palette, pale lavender-white high-contrast typography, subtle warm amber light. This is a personal professional portfolio editorial series, so retain a coherent polished style across topics. Strong subject image and an exceptionally legible headline; spacious composition, generous 8% safe margins, no footer/navigation, no mock website frame, no small labels, no logos, no invented statistics or readable UI, no watermark. Put the exact supplied headline as the only text. It must read correctly at thumbnail size. No technical diagram, isometric machine, cartoon robot or cliché handshake.
+Scene: Original conceptual editorial photograph of an anonymous knowledge worker from behind, surrounded by a rising swirl of translucent task sheets and softly glowing digital fragments, with a clear calm boundary of violet light around the person. The tension is growing output versus limited human attention, thoughtful rather than apocalyptic. Warm amber horizon contrasts with deep indigo. No desk machine, no clinical burnout diagnosis, no numerical chart. Subject on the left, spacious quiet dark area on the right for a large Persian headline across at most three lines.
+Typography language: Persian, beautifully typeset right-to-left with correct connected letters.
+Text verbatim: "هوش مصنوعی؛ کار بیشتر، بازده کجاست؟".
+
+### payoff-en
+
+Create a finished original editorial blog cover banner, landscape 16:9, 1536x864 or 1536x1024 with wide-safe composition, full bleed. Premium contemporary photographic art direction, cinematic realism blended with restrained abstract light, sophisticated midnight indigo #1c0998 / violet palette, pale lavender-white high-contrast typography, subtle warm amber light. This is a personal professional portfolio editorial series, so retain a coherent polished style across topics. Strong subject image and an exceptionally legible headline; spacious composition, generous 8% safe margins, no footer/navigation, no mock website frame, no small labels, no logos, no invented statistics or readable UI, no watermark. Put the exact supplied headline as the only text. It must read correctly at thumbnail size. No technical diagram, isometric machine, cartoon robot or cliché handshake.
+Scene: Original conceptual editorial photograph of an anonymous knowledge worker from behind, surrounded by a rising swirl of translucent task sheets and softly glowing digital fragments, with a clear calm boundary of violet light around the person. The tension is growing output versus limited human attention, thoughtful rather than apocalyptic. Warm amber horizon contrasts with deep indigo. No desk machine, no clinical burnout diagnosis, no numerical chart. Subject on the right, spacious quiet dark area on the left for a large English headline across at most three lines.
+Typography language: English, expertly typeset left-to-right.
+Text verbatim: "AI: More Work. Where’s the Return?".
+
+## Sixteen-article collection
+
+The 32 additional native assets, exact prompts and built-in generation mode are documented in [blog-series-cover-prompts.md](blog-series-cover-prompts.md). Pair order is authoritative in `posts/series-2026-manifest.mjs`. All selected files are local WebP exports; decorative chart traces are not data.
+
+## Four-source update · 29 October 2026
+
+All six new covers were made with the built-in image generator and exported as local WebP at quality 90. Each language was generated separately; the words on the image are native Persian or English, never browser-translated. Conceptual diagrams and faint keywords are decorative, not measured data.
+
+| Visual pair | Article | Cover files | Exact on-image headline | Faint background words |
+| --- | --- | --- | --- | --- |
+| Silver, sky and lemon | Small-business website (paired with Housing Offer Terms) | `small-business-website-fa.webp`, `small-business-website-en.webp` | «سایت کسب‌وکار قرار است چه کاری انجام دهد؟» / “What Should a Small Business Website Do?” | اعتماد، پیدا شدن، درخواست / TRUST, DISCOVERY, ENQUIRY |
+| Deep teal, copper and pearl | Team capacity, position 1 | `team-capacity-fa.webp`, `team-capacity-en.webp` | «وقتی کار از توان تیم بیشتر است» / “When Work Outgrows Team Capacity” | ظرفیت، اولویت، اختیار / CAPACITY, PRIORITY, AUTHORITY |
+| Deep teal, copper and pearl | Capital One AI, position 2 | `capital-one-ai-fa.webp`, `capital-one-ai-en.webp` | «AI در Capital One؛ از داده تا کار روزمره» / “AI at Capital One: From Data to Daily Work” | داده، خدمت، بازبینی / DATA, SERVICE, REVIEW |
+
+Reusable prompt direction: create a finished editorial landscape cover with one scene that explains the article question, a large exact headline legible as a blog thumbnail, generous safe margins, and a few nearly faded topical words integrated into the background. Use a paired palette and comparable photographic treatment for neighboring articles, while changing the subject and composition. Keep Persian right-aligned and English left-aligned, with correct native lettering. Do not add fabricated metrics, logos, UI screenshots, generic robots, or irrelevant physical machinery. Review each export at thumbnail and mobile crop size before publishing. The Retail Dive article reuses its existing crimson-and-silver bilingual pair because this update revised its body rather than adding a duplicate post.
+
+## One-day reflection · 30 October 2026
+
+This article opens `stone-vermilion-pair` at position 1. Its companion, Building Wealth Beyond Luck, completes the pair at position 2. Both language versions were generated separately with the built-in image tool and exported unchanged in composition to local WebP at quality 90 (1672 × 941): `assets/blog/one-day-rethink-fa.webp` and `assets/blog/one-day-rethink-en.webp`.
+
+Shared prompt: an original premium 16:9 editorial photograph of one anonymous person beside a window at the edge of morning. Offset glass reflections suggest repeated daily patterns. A single thin vermilion line of light reaches one clear note on the desk, expressing observation and one next action. Use natural cinematic light, material texture, generous safe margins, a large legible headline and nearly faded topical keywords. Avoid a miraculous-transformation scene, fake data, clocks, calendars, robots, brain graphics, website mockups, logos and watermarks. Persian composition puts the scene left and the exact RTL headline «یک روز برای بازنگری مسیر زندگی» right, with faint «الگو»، «انتخاب»، «فردا». English mirrors the composition and uses “A Day to Rethink Your Direction” with faint “PATTERN”, “CHOICE”, “TOMORROW”.
+
+## Building wealth beyond luck · 30 October 2026
+
+This article completes `stone-vermilion-pair` at position 2. Native covers: `assets/blog/building-wealth-beyond-luck-fa.webp` and `assets/blog/building-wealth-beyond-luck-en.webp` (1672 × 941, built-in image generation, WebP quality 90). The source article is Stijn Noorman's interpretation of Naval Ravikant. The artwork is an original illustration of careful work becoming reusable, not evidence of returns or a copy of any source image.
+
+Shared prompt direction: premium 16:9 editorial photograph in the companion's cool mineral stone, charcoal, porcelain white, rich vermilion and pale-sage palette. Show an anonymous creator at a worktable, notebook and abstract laptop, with restrained translucent working drafts connected by a thin vermilion line. Avoid cash, coins, stock tickers, invented metrics, fake charts, robots, literal machinery, logos and website mockups. Keep 8% safe margins and a large legible title. The Persian composition places the scene left and the exact headline «ساختن ثروت؛ فراتر از شانس» right, with faint «مهارت»، «قضاوت»، «اهرم». The English composition mirrors it with “Building Wealth Beyond Luck” and faint “SKILL”, “JUDGMENT”, “LEVERAGE”. The traces are conceptual, never measured growth. The next new article opens a new color pair.
+
+## Make your expertise understandable · 30 October 2026
+
+This article opened `cobalt-citron-pair` at position 1. Learn More Than One Skill by Doing completes the pair with its own topic-specific scene and native headline. The separately generated, local WebP assets are `assets/blog/make-expertise-understandable-fa.webp` and `assets/blog/make-expertise-understandable-en.webp` (1672 × 941, quality 90). They are original editorial imagery, not copies of Logan Gott's article or evidence of any marketing result.
+
+Shared prompt direction: premium 16:9 photographic editorial cover. Use luminous cobalt blue, chalk white, neutral graphite and a restrained electric citron accent, separate from the earlier stone/vermilion pair. An anonymous hand sorts translucent working notes into one focused explanation; a thin citron line suggests the movement from implicit experience to a readable point. Use realistic material texture, generous safe margins and an exact native headline large enough for a thumbnail. Avoid dashboards, AI robots, invented metrics, fake charts, logos and website mockups. Persian composition puts the scene left, a clean cobalt title field right, exact headline «تجربه‌ات را طوری بگو که فهمیده شود» and faint «تجربه»، «مخاطب»، «بیان». English mirrors the scene, exact headline “Make Your Expertise Understandable” and faint “EXPERIENCE”, “AUDIENCE”, “CLARITY”. Faint writing on papers is illustrative, not source evidence.
+
+## Learn more than one skill by doing · 30 October 2026
+
+This article completes cobalt-citron-pair at position 2. The separately generated native covers are assets/blog/learn-skills-by-doing-fa.webp and assets/blog/learn-skills-by-doing-en.webp (1672 × 941, built-in image generation, WebP quality 90). The source article is Sam Elsner’s essay; the artwork is original editorial imagery, not a copy of his cover or evidence of a learning outcome.
+
+Shared prompt direction: premium 16:9 tactile editorial photograph using the companion’s luminous cobalt, chalk white, graphite and restrained electric citron. Show a person actively shaping a small piece of clay at a real worktable, with a working notebook and an unbranded laptop nearby. A thin citron light path joins the attempt to the next observation; the line is conceptual. Keep the setting different from the previous notes-sorting cover, while preserving the paired palette. Persian composition places the maker left and the exact headline «چند مهارت را در عمل یاد بگیر» right with faint «تمرین»، «بازخورد»، «انتقال». English mirrors the composition with “Learn More Than One Skill by Doing” and faint “PRACTICE”, “FEEDBACK”, “TRANSFER”. Keep 8% safe margins, legible native lettering, no numerical charts, invented metrics, robots, logos, watermarks or website UI.
+
+## AI marketing workflow · 30 October 2026
+
+The later AI Content System article opens a separate `blueprint-saffron-pair`. See [the final three assets, generation prompts and reference-access limitation](ai-content-system.md). Both discussed product marks appear as editorial identifiers on its native-language covers.
+
+Pair update, 1 November 2026: Five Formulas for Understanding Money now completes this palette at position 2. See [its artwork, final prompts and source checks](five-money-formulas.md). The next article starts a new pair.
+
+For the later in-body additions to the three original articles, see [assets, placement and final prompts](initial-article-images.md). These do not replace their paired native-language covers.
+
+This article opens `graphite-seafoam-papaya-pair` at position 1. The next article should use the same graphite `#17242a`, seafoam `#a9ded0`, papaya `#ff9e76` and warm off-white family, with its own subject. Revised native covers: `assets/blog/ai-marketing-workflow-fa-v2.webp` and `assets/blog/ai-marketing-workflow-en-v2.webp` (1672 × 941). Two language-neutral explanatory images appear in the body: `assets/blog/ai-marketing-evidence.webp` and `assets/blog/ai-marketing-approval.webp` (1536 × 1024). All four were created with the built-in image tool and converted to local WebP at quality 90. They are conceptual, not photographs of the site author's work or evidence of campaign results.
+
+Cover prompt direction: an editorial marketing operations worktable, with sourced research, weekly plan, drafts, a clear human approval point and a feedback report connected by restrained arcs. Warm daylight and tactile paper; avoid fake metrics, stock office tropes, robots, logos and watermarks. The revised Persian cover uses the exact RTL title «تیم بازاریابی AI؛ فول خودکار در خدمت ما» and one anatomically coherent visible arm; the English sister cover uses “AI Marketing Team: Fully Automated, Working for Us”. Both were regenerated from their existing covers with the built-in image editor on 31 October 2026, then exported as WebP at quality 90. The first in-body image uses an illustrative unbranded bottle to show how a product page and customer questions become a candidate message; the second shows ad, email and page drafts being accepted or returned at a human review gate. Neither image contains actual customer evidence or performance data.
+
+## Specialized Generalist · 6 November 2026
+
+“How to Thrive in the Next Decade” completes `blueprint-saffron-pair` at position 2, paired with AI Content System. [Source limits, the native cover prompts and the explanatory in-body image](specialized-generalist.md) record this release. Original covers remain full size on articles; 768px card exports preserve list performance.
+
+## Company Brain · 6 November 2026
+
+“A Company Brain: Before You Buy Another Tool” opens `ink-vermilion-teal-pair` at position 1. Separate native covers use ice white, deep teal, ink and vermilion with an archive/source/version/access composition. [Editorial scope, original art prompts and reference boundaries](company-brain.md) record the release. The next cover should complete this palette with a new topic.
+
+## AI Video · 7 November 2026
+
+“AI Video: From Idea to Final Cut” completes `ink-vermilion-teal-pair` at position 2. A clapperboard and gift-box storyboard replace the archive composition while preserving its material/palette family. Separate native covers, one explanatory in-body image and their [full prompts and evidence boundaries](ai-video-production.md) are recorded. Optimised 768px previews keep list pages lightweight. The next new article starts a new palette family.
+
+Search to Sale opens the plum / guava pair. Original commissioned-style AI illustration: an espresso technician at the point where a printed neighbourhood map meets her workbench. Both covers use localised typesetting on the dark paper; the interior still life illustrates a customer sending a photo of a leak.
+
+YouTube for Buyers completes `plum-guava-pair`. Its revised editorial cover shows a seated presenter teaching directly to camera, a studio microphone and a red YouTube play sign. Plum and guava lighting links it to Search to Sale. Native titles are typeset on the dark wall. The interior diptych illustrates the article’s product demonstration with an apron on a dress form and a barista retrieving a cloth.
+
+Marketing Engineer opens `forest-citron-register`. The newly generated cover depicts a woman aligning two transparent plates of a cup at a print registration table, with pale citron linework against dark forest ink. The open left side holds native lettering. The independently generated interior still contrasts a ready-to-dispatch glaze sample with an unfinished batch on the workshop shelves. Both illustrate the original studio exercise.
+
+Strategic Next Move completes the forest-citron-register pair. The engraved chess player, carved knight and lettering take their cue from the concentrated pose and etched lines in the source cover. Each WebP carries its native title.

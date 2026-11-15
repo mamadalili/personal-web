@@ -1,0 +1,65 @@
+body[data-current-page][data-page] {
+  background: #fff;
+  isolation: isolate;
+  padding-bottom: 0;
+}
+
+.site-atmosphere {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: transparent var(--intro-print) center / contain no-repeat;
+  border-radius: 8px;
+  color-scheme: only light;
+  mix-blend-mode: normal;
+  filter: none;
+  pointer-events: none;
+}
+.home-hero { --intro-print: url("assets/brand/studio-ink.webp"); }
+.solution-detail-hero { --intro-print: url("assets/brand/studio-hand.webp"); }
+.solution-detail-hero .page-hero .site-atmosphere {
+  width: min(74%, 258px);
+  margin-block: 18px 2px;
+}
+
+.page-coast {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  height: clamp(112px, 16vw, 290px);
+  background: white;
+  pointer-events: none;
+}
+.page-coast img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  height: auto;
+}
+.page-signoff { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .home-hero { --intro-print: url("assets/brand/studio-ink-small.webp"); }
+  .solution-detail-hero { --intro-print: url("assets/brand/studio-hand-small.webp"); }
+  body[data-current-page][data-page] { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 680px) {
+  .page-coast { height: 120px; }
+  /* Keep the pavilion at the same point in both reading directions. */
+  .page-coast img { width: 190%; left: -70.2%; }
+}
+@media print {
+  .site-atmosphere, .page-coast { display: none; }
+}
+
+@media screen {
+  body[data-page] > #main { min-block-size: 100vh; min-block-size: 100svh; }
+}
+.reading-recovery { color: var(--muted); margin-block: 1rem; font-size: .9rem; }
+.reading-recovery button { min-height: 44px; padding-inline: .65em; color: var(--purple); font: inherit; text-decoration: underline; background: transparent; }
+.reading-chart { margin-block: 1.5rem; }
+.reading-chart figcaption, .reading-widget h3 { font-weight: 700; }
+.reading-chart summary { cursor: pointer; }
+.reading-chart table { border-collapse: collapse; }
+.reading-chart :is(td,th) { padding: .35em .7em; border-block-end: 1px solid var(--line); }

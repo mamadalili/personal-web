@@ -1,0 +1,69 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { coverFor, renderPostCover } from '../public/blog-covers.mjs';
+import { existsSync } from 'node:fs';
+import { posts } from '../public/blog-data.mjs';
+import { homePostPages } from '../public/home-blog.mjs';
+
+const fa = { src: 'assets/blog/example-fa.webp', alt: 'تصویر', width: 1672, height: 941 };
+const en = { src: 'assets/blog/example-en.webp', alt: 'An image', width: 1672, height: 941 };
+const post = { cover: { fa, en } };
+
+test('covers select the requested native language without leaking a foreign headline', () => {
+  assert.deepEqual(coverFor(post, 'fa'), fa);
+  assert.deepEqual(coverFor(post, 'en'), en);
+  assert.equal(coverFor({ cover: { fa } }, 'en'), null);
+  assert.equal(coverFor(post, 'de'), null);
+  assert.notEqual(coverFor(post, 'fa'), fa);
+});
+
+test('cover paths and dimensions cannot embed arbitrary documents or private filesystem paths', () => {
+  for (const src of ['https://site.test/image.webp', '//site.test/a.webp', 'javascript:alert(1)',
+    'C:/private/photo.webp', 'assets/blog/../private.webp', 'assets/blog/a.svg', 'assets/blog/a.webp?x=1', 'assets/blog/a".webp']) {
+    assert.equal(coverFor({ cover: { fa: { ...fa, src } } }, 'fa'), null, src);
+  }
+  for (const width of [0, -1, 1.5, Infinity, '1672', 10000]) {
+    assert.equal(coverFor({ cover: { fa: { ...fa, width } } }, 'fa'), null);
+  }
+  assert.equal(coverFor(null, 'fa'), null);
+  assert.equal(coverFor({ cover: { fa: { ...fa, alt: null } } }, 'fa'), null);
+});
+
+test('article covers retain localized alternatives while link thumbnails avoid duplicate announcements', () => {
+  const article = renderPostCover(post, 'fa', { eager: true, decorative: false });
+  assert.ok(article.includes('alt="تصویر"'));
+  assert.ok(article.includes('loading="eager"'));
+  assert.ok(article.includes('fetchpriority="high"'));
+  const card = renderPostCover(post, 'en');
+  assert.ok(card.includes('alt=""'));
+  assert.ok(card.includes('loading="lazy"'));
+  assert.ok(card.includes(en.src));
+  assert.equal(renderPostCover({}, 'fa'), '');
+});
+
+test('list previews use smaller native exports while article banners keep their originals', () => {
+  for (const article of posts) {
+    for (const lang of ['fa', 'en']) {
+      const preview = article.cover[lang].src.replace('assets/blog/', 'assets/blog/previews/');
+      assert.ok(existsSync(new URL(`../public/${preview}`, import.meta.url)), preview);
+      assert.ok(renderPostCover(article, lang, {preview: true}).includes(`src="${preview}"`));
+      assert.ok(renderPostCover(article, lang).includes(`src="${article.cover[lang].src}"`));
+    }
+  }
+});
+
+test('published articles have real native cover files and the native covers appear in the responsive Home groups', () => {
+  for (const article of posts) {
+    for (const language of ['fa', 'en']) {
+      const cover = coverFor(article, language);
+      assert.ok(cover, `${article.slug}: ${language}`);
+      assert.ok(existsSync(new URL(`../public/${cover.src}`, import.meta.url)), cover.src);
+    }
+    assert.notEqual(article.cover.fa.src, article.cover.en.src);
+  }
+  const pages=homePostPages(posts);
+  assert.equal(pages.length,Math.ceil(posts.length/6));
+  assert.ok(pages.every(page=>page.length>0&&page.length<=6));
+  assert.equal(new Set(pages.flat().map(item=>item.slug)).size,posts.length);
+  assert.deepEqual(pages.flat().map(item=>item.slug),posts.map(item=>item.slug));
+});

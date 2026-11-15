@@ -1,0 +1,9 @@
+# Keep the portable authoring workflow identical across checkouts and installs.
+.agents/skills/interactive-blog-anatomy/** text eol=lf
+public/assets/anatomy/** text=auto eol=lf
+# Preserve pinned upstream bytes for integrity checks on every platform.
+.agents/skills/antislop*/** -text
+# These public URLs fingerprint the exact exported bytes.
+public/assets/posts/*.json text eol=lf
+public/reading/**/*.html text eol=lf
+public/runtime-*.mjs text eol=lf

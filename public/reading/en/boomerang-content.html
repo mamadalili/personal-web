@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <script>
+    document.addEventListener('error', event => {
+      const asset = event.target;
+      const script = asset.tagName === 'SCRIPT' && asset.src;
+      const style = asset.tagName === 'LINK' && asset.rel === 'stylesheet';
+      if ((!script && !style) || asset.parentNode !== document.head) return;
+      const url = new URL(script ? asset.src : asset.href);
+      const attempt = Number(asset.dataset.loadAttempt || 0) + 1;
+      if (url.origin !== location.origin || attempt > 2) return;
+      setTimeout(() => {
+        if (!asset.isConnected) return;
+        const next = document.createElement(script ? 'script' : 'link');
+        for (const {name, value} of asset.attributes) next.setAttribute(name, value);
+        next.dataset.loadAttempt = String(attempt);
+        url.searchParams.set('retry', String(Date.now()));
+        next[script ? 'src' : 'href'] = url.href;
+        const replace = () => asset.replaceWith(next);
+        if (script && asset.defer && document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replace, {once:true});
+        } else replace();
+      }, attempt * 500);
+    }, true);
+  </script>
+  <script>if (location.pathname.includes('/reading/')) {const u=new URL('../../article.html',location.href);u.search=location.search;u.searchParams.set('lang','en');u.searchParams.set('post','boomerang-content');u.hash=location.hash;history.replaceState(null,'',u)}</script>
+  <meta name="theme-color" content="#1c0998">
+  <meta name="color-scheme" content="only light">
+  <script src="/day-night.js?v=20261110-session"></script>
+  <meta name="description" content="You spot a vanity on the homepage and tap the banner. Now you want to know the name of the finish and what actually ships with the order. The photo and headline that got you here have done their job. The product page has a different one.">
+  <title>Digital content — Mohamad Reza Dalili</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preload" href="/fonts/Vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio.css?v=20261102-performance">
+  <link rel="stylesheet" href="/site-theme.css?v=20261110-manual">
+  <link rel="stylesheet" href="/blog.css?v=20261101-content-system">
+  <link rel="stylesheet" href="/blog-solo.css">
+  <link rel="stylesheet" href="/blog-market.css?v=20261031-original-visuals">
+  <link rel="stylesheet" href="/blog-data-motion.css?v=20261102-unit-objects">
+  <script src="/portfolio.js?v=20261110-recovery" defer></script>
+  <link rel="stylesheet" href="/color-mode.css?v=20261110-manual">
+  <link rel="canonical" href="https://mrdalili.ir/article.html?post=boomerang-content&amp;lang=en">
+</head>
+<body data-page="article" data-current-page="article">
+  <a href="#main" class="skip">رفتن به محتوای اصلی / Skip to content</a>
+  <header class="site-header"><a class="brand" href="/index.html?lang=en" aria-label="Mohamad Reza Dalili"><span class="brand-mark"><span class="brand-logo" aria-hidden="true"><img src="/assets/brand/monogram.svg" width="64" height="64" alt=""></span></span><span class="brand-identity"><span id="brand-name">Mohamad Reza Dalili</span><span class="professional-title header-role" id="brand-role"><span>Marketer and AI Operator</span><span class="title-shine" aria-hidden="true">Marketer and AI Operator</span></span></span></a><div class="header-end"><span id="header-label">Portfolio</span><day-night-switch></day-night-switch><button id="language" type="button" lang="fa" aria-label="تغییر زبان به فارسی">فارسی <span aria-hidden="true">↗</span></button></div></header>
+  <main id="main" tabindex="-1" class="page-layout article-page editorial-story" data-reading-lang="en" data-reading-post="boomerang-content" data-reading-src="/assets/posts/boomerang-content-b3d1eff5298930e1.json">
+    <header class="article-header"><a class="article-back" href="/blog.html?lang=en">← All posts</a><div class="eyebrow">Work stories</div><h1>Digital content</h1><p class="article-deck">At Boomerang</p><p>You spot a vanity on the homepage and tap the banner. Now you want to know the name of the finish and what actually ships with the order. The photo and headline that got you here have done their job. The product page has a different one.</p>
+      <div class="article-byline"><img src="/images/myphoto-avatar-v1.webp" width="32" height="32" alt=""><span>Mohamad Reza Dalili</span><span aria-hidden="true">·</span><span>2–3 min with the exercise</span><time datetime="2026-11-11">Nov 11, 2026</time></div>
+      <p class="article-reviewed">Sources reviewed: <time datetime="2026-11-11">Nov 11, 2026</time></p>
+      <img class="article-cover-image" src="/assets/blog/boomerang-content-en-v2.webp" alt="One Boomerang vanity featured in a campaign banner, a product detail page and a mobile layout" width="1600" height="900" loading="eager" decoding="async" fetchpriority="high">
+    </header>
+    <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ><summary><span>IN THIS ARTICLE</span><output data-reading-label>0%</output></summary><progress value="0" max="100" aria-label="Reading progress"></progress><nav class="article-toc" aria-label="IN THIS ARTICLE"><a href="#experience">What does it take to introduce one product?</a><a href="#practice">One product in several places</a><a href="#exercise">Try it · One specification changes</a><a href="#sources">Sources & methodology</a></nav></details></aside>
+      <article class="article-body"><section id="experience" class="article-section"><h2>What does it take to introduce one product?</h2><p>Suppose we’re introducing a new model on the Boomerang site. We start with its exact name, verified specifications and photos of that model. If it’s unclear whether the mirror comes with the vanity, that’s a question for the product team. A styled photograph can’t answer it.</p><p>Then we can write the page. The title identifies the model. A short description explains what distinguishes the options. The table holds details a shopper might compare, such as finish, material and what’s included. The main photograph shows the piece as a whole. A close-up can explain a difference that would take a paragraph to describe.</p></section><section id="practice" class="article-section"><h2>One product in several places</h2><p>A homepage banner has a moment to catch someone’s eye. A collection photograph, its name and a link can do the job. That link should land on the collection in the photo. Check the crop on a phone as well: a desktop composition sometimes leaves the product itself outside the mobile frame.</p><p>A social post can linger on one detail and point to the model page for the full specifications. The model name and facts stay consistent. How much you say and which photograph you use depend on where the reader sees it.</p></section><section id="exercise" class="article-section"><h2>Try it · One specification changes</h2><div data-reading-slot><details class="article-disclosure"><summary>Suppose the mirror is now sold separately, but the main photograph still shows both pieces. Which change would help the buyer most?</summary><p><strong>Replace just the homepage banner</strong> The banner looks different. The buyer still can’t tell what the price on the product page covers.</p><p><strong>Correct the product listing, then check the related content</strong> Start where someone decides what to buy. Update the included items, then check the caption, description and any banner that promised a mirror in the set.</p></details></div></section>
+      <section id="sources" class="article-section article-sources"><h2>Sources & methodology</h2><p>My CV documents the role. The situations and choices in this story are illustrative.</p><div class="source-ledger"><div class="source-card" id="source-career"><span class="source-kind">Source &amp; details</span><h3><a href="https://mrdalili.ir/profile.html?tab=experience&amp;role=boomerang" target="_blank" rel="noopener noreferrer">My role at Boomerang <span aria-hidden="true">↗</span></a></h3><div class="source-meta"><span>Mohammadreza Dalili</span></div><p>Role and responsibilities from my CV.</p></div></div></section>
+      <section class="article-related"><h2>KEEP EXPLORING</h2><div><a href="/article.html?post=boomerang-channels&amp;lang=en"><h3>Online sales processes</h3><p>“I’ve paid” and “We don’t have the order” can both sound true. The distance between them is where support time disappears.</p><span aria-hidden="true">↗</span></a></div></section></article>
+    </div>
+    <dialog class="article-dialog" aria-labelledby="article-dialog-title"><div class="dialog-top"><span class="small-label">Blog</span><button type="button" data-dialog-close autofocus>Close <span aria-hidden="true">×</span></button></div><h2 id="article-dialog-title"></h2><div class="dialog-content"></div></dialog></main>
+  <picture class="page-coast" aria-hidden="true">
+    <source media="(max-width: 680px)" srcset="/assets/brand/coastal-print-mobile.webp">
+    <img src="/assets/brand/coastal-print.webp" width="2172" height="724" alt="" loading="lazy" decoding="async">
+  </picture>
+  <footer id="footer" class="footer"></footer>
+  <noscript><nav class="noscript" aria-label="Pages"><a href="/index.html?lang=en">Home</a> <a href="/strategy.html?lang=en">Solutions</a> <a href="/blog.html?lang=en">Blog</a> <a href="/profile.html?lang=en">CV</a> <a href="/contact.html?lang=en">Contact</a> <a href="/article.html?post=boomerang-content&amp;lang=fa">فارسی</a></nav></noscript>
+</body>
+</html>
