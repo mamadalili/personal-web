@@ -42,11 +42,11 @@
 
 [با نمودار چهار هفته کار کن](https://mrdalili.ir/article.html?post=search-to-sale&lang=fa#orders) · [داده‌های همین نمودار در مخزن](public/posts/search-to-sale.mjs)
 
-## چرا سایت چهارزبانهٔ بومرنگ دکمهٔ خرید ندارد؟
+## کاتالوگ چهارزبانهٔ بومرنگ برای خریداران خارجی
 
 در فروشگاه بومرنگ، مشتری مدلش را انتخاب می‌کند و پولش را می‌دهد. خریدار خارجی سؤال دیگری دارد: «از این مدل، با این تعداد و برای این مقصد، چه قیمتی می‌دهید؟» برای همین در سایت چهارزبانه کنار محصول **فرم استعلام** گذاشتیم. در روایت این پروژه نوشته‌ام چرا دو سایت را جدا کردیم و چرا نخواستم نسخهٔ فارسی کاتالوگ در گوگل با فروشگاه رقابت کند.
 
-[خواندن روایت بومرنگ](https://mrdalili.ir/reading/fa/boomerang-four-languages.html) · [بقیهٔ نوشته‌ها](https://mrdalili.ir/blog.html?lang=fa)
+[دیدن سایت چهارزبانهٔ بومرنگ](https://www.boomerang-co.com/fa/) · [خواندن روایت بومرنگ](https://mrdalili.ir/reading/fa/boomerang-four-languages.html) · [بقیهٔ نوشته‌ها](https://mrdalili.ir/blog.html?lang=fa)
 
 <p>
 <a href="https://mrdalili.ir/work-stories.html?lang=fa"><picture>
@@ -55,18 +55,6 @@
 </picture></a>
 </p>
 
-## اجرای سایت روی سیستم خودت
-
-از ریشهٔ مخزن، با پایتون ۳:
-
-</div>
-
-~~~sh
-python -m http.server 8080 --bind 127.0.0.1 --directory public
-~~~
-
-<div dir="rtl" lang="fa">
-
-[پیش‌نمایش فارسی](http://127.0.0.1:8080/) · [پیش‌نمایش انگلیسی](http://127.0.0.1:8080/index.en.html) · [راهنمای فایل‌های پروژه](docs/repository-layout.md) · [ساخت مقالهٔ تعاملی](docs/interactive-blog.md)
+**وب‌سایت من: [mrdalili.ir](https://mrdalili.ir/?lang=fa)**
 
 </div>

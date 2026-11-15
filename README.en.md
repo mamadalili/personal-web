@@ -40,11 +40,11 @@ The shop booked **10 paid jobs in each week**. Five out of every 100 visits beca
 
 [Try all four weeks in the live chart](https://mrdalili.ir/article.html?post=search-to-sale&lang=en#orders) · [Find its data in the source](public/posts/search-to-sale.mjs)
 
-## Why doesn’t Boomerang’s four-language catalogue have a buy button?
+## Boomerang’s four-language catalogue for international buyers
 
 In Boomerang’s online store, a customer picks a model and pays. An overseas buyer has a different question: “What would you quote for this many units, shipped here?” We put a **quote form** beside the product. I wrote about why we kept the catalogue separate from the shop, and why I kept its Persian pages out of search results.
 
-[Read the Boomerang story](https://mrdalili.ir/reading/en/boomerang-four-languages.html) · [Browse the blog](https://mrdalili.ir/blog.html?lang=en)
+[Visit the Boomerang catalogue](https://www.boomerang-co.com/en/) · [Read the Boomerang story](https://mrdalili.ir/reading/en/boomerang-four-languages.html) · [Browse the blog](https://mrdalili.ir/blog.html?lang=en)
 
 <p>
 <a href="https://mrdalili.ir/work-stories.html?lang=en"><picture>
@@ -53,12 +53,4 @@ In Boomerang’s online store, a customer picks a model and pays. An overseas bu
 </picture></a>
 </p>
 
-## Run the site locally
-
-From the root of this repository, with Python 3:
-
-~~~sh
-python -m http.server 8080 --bind 127.0.0.1 --directory public
-~~~
-
-[English preview](http://127.0.0.1:8080/index.en.html) · [Persian preview](http://127.0.0.1:8080/) · [Repository guide](docs/repository-layout.md) · [Writing an interactive article](docs/interactive-blog.md)
+**My website: [mrdalili.ir](https://mrdalili.ir/?lang=en)**
