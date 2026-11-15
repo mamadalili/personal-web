@@ -6,20 +6,17 @@ import {createResearchWidgets} from '../public/blog-widgets.mjs';
 import {createHash} from 'node:crypto';
 import {withDataMotion} from '../public/blog-data-motion-model.mjs';
 import {siteUrl as siteOrigin} from '../public/site-config.mjs';
+import {copy,pageFiles} from '../src/content/index.mjs';
+import {navigationItems} from '../src/portfolio/navigation.mjs';
 
 const shell = () => readFileSync(new URL('../public/article.html',import.meta.url),'utf8').replace(/\r\n/g,'\n');
-const nav = [
-  ['index.html','خانه','Home'], ['strategy.html','راهکارها','Solutions'], ['blog.html','بلاگ','Blog'],
-  ['profile.html','CV','CV'], ['contact.html','تماس','Contact']
-];
-const names = {fa:'محمدرضا دلیلی',en:'Mohamad Reza Dalili'};
 
 function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}) {
   const archive = !slug, page = archive ? 'blog' : 'article';
   const url = archive ? 'blog.html?lang=' + lang : 'article.html?post=' + slug + '&lang=' + lang;
-  const navMarkup = nav.map(([file,fa,en]) => `<a href="/${file}?lang=${lang}">${lang==='fa'?fa:en}</a>`).join(' ');
+  const navMarkup = navigationItems(lang,'blog',id=>'/'+pageFiles[id]+'?lang='+lang).map(({href,label}) => `<a href="${href}">${esc(label)}</a>`).join(' ');
   let html = template.replace(/<html lang="fa" dir="rtl"/,`<html lang="${lang}" dir="${lang==='fa'?'rtl':'ltr'}"`)
-    .replace(/<title>.*?<\/title>/,()=>`<title>${esc(title)} — ${names[lang]}</title>`)
+    .replace(/<title>.*?<\/title>/,()=>`<title>${esc(title)} — ${esc(copy[lang].name)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/,()=>`<meta name="description" content="${esc(intro)}">`)
     .replace('<meta name="theme-color"',()=>`<script>if (location.pathname.includes('/reading/')) {const u=new URL('../../${page}.html',location.href);u.search=location.search;u.searchParams.set('lang','${lang}');${slug?`u.searchParams.set('post','${slug}');`:''}u.hash=location.hash;history.replaceState(null,'',u)}</script>\n  <meta name="theme-color"`)
     .replace('</head>',()=>`  <link rel="canonical" href="${esc(new URL(url,siteOrigin).href)}">\n</head>`)

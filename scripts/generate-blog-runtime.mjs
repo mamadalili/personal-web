@@ -5,15 +5,13 @@ import {dirname, resolve} from 'node:path';
 import {posts, articleTemplate} from '../public/blog-data.mjs';
 import {buildReadingPages} from './reading-pages.mjs';
 import {postSummaries} from '../public/blog-summary-model.mjs';
-import {workStoryTopics} from '../public/work-stories-data.mjs';
-import {workStoryHref} from '../public/work-stories-model.mjs';
+import {publishedStories} from './published-stories.mjs';
 import {buildBrowserRuntime} from './build-browser-runtime.mjs';
 import {buildHomeEntries, buildWorkStoryEntries} from './generate-entry-pages.mjs';
 
 export function buildBlogRuntime(items, template) {
   const files = new Map(), summaries = postSummaries(items);
-  const linked = Object.values(workStoryTopics).flat().filter(story => workStoryHref(story,'fa',items));
-  const storyPosts = [...new Set(linked.map(story => story.post))].map(slug => ({slug,status:'published'}));
+  const storyPosts = publishedStories(items);
   files.set('work-story-posts.mjs', '// Generated from published bilingual work stories.\nexport const posts = ' + JSON.stringify(storyPosts) + ';\n');
   for (const [file, html] of buildWorkStoryEntries(storyPosts)) files.set(file,html);
   for (const [file, html] of buildHomeEntries(summaries)) files.set(file,html);

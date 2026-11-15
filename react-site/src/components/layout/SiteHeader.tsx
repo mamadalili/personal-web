@@ -1,13 +1,13 @@
 import {createElement} from 'react';
 import {Link, useLocation} from 'react-router';
-import {legacy} from '../../content/legacy';
+import {siteContent} from '../../content/site.mjs';
 import {pageURL, assetURL} from '../../lib/routing';
 import type {Language, NavPage, SolutionId} from '../../lib/routing';
 import {BrandMark, ProfessionalTitle} from '../ui/BrandSignature';
 import {AppLink} from '../ui/AppLink';
 
 export function SiteHeader({lang, page, solution}: {lang: Language; page: NavPage; solution?: SolutionId}) {
-  const identity = legacy.identity[lang], navigation = legacy.navigation[lang];
+  const identity = siteContent.identity[lang], navigation = siteContent.navigation[lang];
   const {hash} = useLocation();
   const otherLang = lang === 'fa' ? 'en' : 'fa';
   const label = navigation.labels[['home', 'solutions', 'blog', 'cv', 'contact'].indexOf(page)];

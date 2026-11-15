@@ -1,3 +1,5 @@
+import {publicRoot} from '../../scripts/public-preview.mjs';
+import {siteContent} from '../src/content/site.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
@@ -8,7 +10,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const output=join(root,'build/client');
 const htmlAt=path=>readFileSync(join(output,path,'index.html'),'utf8');
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;'}[c]));
-const data=()=>JSON.parse(readFileSync(join(root,'src/content/generated/legacy.json'),'utf8'));
+const data=()=>siteContent;
 
 for(const lang of ['fa','en']){
  test(`${lang} Home ships approved copy, four real solutions and all published article summaries in HTML`,()=>{
@@ -19,7 +21,7 @@ for(const lang of ['fa','en']){
   assert.ok(html.includes('class="header-portrait"'));
   assert.equal((html.match(/class="home-folder-link"/g)||[]).length,4);
   assert.equal((html.match(/class="home-folder-art"/g)||[]).length,4);
-  assert.ok(html.includes('/legacy/solution-portals.css'));
+  assert.ok(html.includes('/solution-portals.css'));
   for(const id of ['strategy','execution','technology','ai-tools'])assert.ok(html.includes(`href="/${lang}/solutions/${id}"`),id);
   assert.ok(d.posts.length>=29);
   assert.equal((html.match(/class="home-post-card /g)||[]).length,d.posts.length);
@@ -29,7 +31,7 @@ for(const lang of ['fa','en']){
    assert.ok(html.includes(post.cover[lang].src.replace('assets/blog/','assets/blog/previews/')),post.slug);
   }
   assert.ok(!html.includes('در حال آماده‌سازی'));
-  assert.ok(!html.includes('/legacy/home-blog.mjs'));
+  assert.ok(!html.includes('/home-blog.mjs'));
   assert.ok(html.includes(`href="/${lang}/contact"`));
   assert.ok(html.includes(`href="/${lang==='fa'?'en':'fa'}"`));
  });
@@ -44,13 +46,13 @@ for(const lang of ['fa','en']){
    assert.ok(selected,'The current solution is selected regardless of HTML attribute order');
    assert.equal((html.match(/class="home-folder-link/g)||[]).length,4);
    assert.equal((html.match(/class="home-folder-art"/g)||[]).length,4);
-   assert.ok(html.includes('/legacy/solution-portals.css'));
+   assert.ok(html.includes('/solution-portals.css'));
    assert.equal([...html.matchAll(/<a\b[^>]*class="home-folder-link"[^>]*>/g)].filter(m=>m[0].includes('aria-current="page"')).length,1);
    assert.ok(html.includes(`href="/${lang}/contact"`));
    assert.ok(html.includes(escape(d.collaboration[lang].body)));
-   assert.ok(html.includes(`/legacy/profile.html?lang=${lang}&amp;tab=experience`));
+   assert.ok(html.includes(`/profile.html?lang=${lang}&amp;tab=experience`));
    assert.ok(html.includes(`href="/${lang==='fa'?'en':'fa'}/solutions/${id}"`));
-   assert.ok(!html.includes('<script src="/legacy/portfolio.js'));
+   assert.ok(!html.includes('<script src="/portfolio.js'));
    if(id==='ai-tools')assert.ok(html.includes('post=ai-model-market'));
   });
  }
@@ -75,7 +77,7 @@ test('Home folders retain the same four native destinations and descriptions as 
 test('every local destination and asset in the migrated static documents exists',()=>{
  const paths=['','fa','en',...['fa','en'].flatMap(lang=>['contact',...['strategy','execution','technology','ai-tools'].map(id=>`solutions/${id}`)].map(page=>`${lang}/${page}`))];
  for(const path of paths){
-  for(const [,url] of htmlAt(path).matchAll(/(?:href|src)="(\/[^"#?]+)[^"]*"/g))assert.ok(existsSync(join(output,url)),`${path}: ${url}`);
+  for(const [,url] of htmlAt(path).matchAll(/(?:href|src)="(\/[^"#?]+)[^"]*"/g))assert.ok(existsSync(join(output,url))||existsSync(join(publicRoot,url)),`${path}: ${url}`);
  }
 });
 
@@ -92,7 +94,7 @@ test('Home summaries omit article bodies and trusted generated art keeps valid l
    const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
    assert.equal(new Set(ids).size,ids.length);
    for(const [,reference] of markup.matchAll(/url\(#([^)]+)\)/g))assert.ok(ids.includes(reference),reference);
-   for(const [,href] of markup.matchAll(/\bhref="([^"]+)"/g))assert.ok(href.startsWith('/legacy/assets/'),href);
+   for(const [,href] of markup.matchAll(/\bhref="([^"]+)"/g))assert.ok(href.startsWith('/assets/'),href);
   }
  }
 });
@@ -125,7 +127,7 @@ test('the reused wheel model preserves tall-grid scrolling, momentum lock and ed
 });
 
 test('Home preparation skips incomplete published translations and empty slugs without breaking other pages',async()=>{
- const {homeSummaries}=await import('./home-content.mjs');
+ const {homeSummaries}=await import('../src/content/home-posts.mjs');
  const {posts}=await import('../../public/blog-data.mjs');
  const post=posts.find(item=>item.status==='published'&&item.fa&&item.en);
  const result=homeSummaries([post,{...post,slug:'no-english',en:null},{...post,slug:'no-persian',fa:null},{...post,slug:''}]);
@@ -139,7 +141,7 @@ test('static carousel controls do not advertise buttons that require unavailable
 });
 
 test('Home keeps text-only articles usable and rejects unsafe or incomplete cover metadata',async()=>{
- const {homeSummaries}=await import('./home-content.mjs');
+ const {homeSummaries}=await import('../src/content/home-posts.mjs');
  const {posts}=await import('../../public/blog-data.mjs');
  const post=posts.find(item=>item.status==='published'&&item.fa&&item.en);
  const [missing]=homeSummaries([{...post,cover:null}]);

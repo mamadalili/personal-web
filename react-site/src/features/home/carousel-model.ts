@@ -1,4 +1,4 @@
-export {createWheelPager, wheelPageVisible} from '../../content/generated/carousel-model.mjs';
+export {createWheelPager, wheelPageVisible} from '../../../../public/home-carousel-input.mjs';
 
 export function groupPosts<T>(items: readonly T[], size: number): T[][] {
   if (!Number.isInteger(size) || size < 1 || size > 6) throw new RangeError('A carousel group contains one to six posts');

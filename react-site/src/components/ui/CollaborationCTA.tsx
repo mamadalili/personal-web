@@ -1,11 +1,11 @@
-import {legacy} from '../../content/legacy';
+import {siteContent} from '../../content/site.mjs';
 import {pageURL} from '../../lib/routing';
 import type {Language} from '../../lib/routing';
 import {AppLink} from './AppLink';
 import {Icon} from './Icon';
 
 export function CollaborationCTA({lang}: {lang: Language}) {
-  const c = legacy.collaboration[lang];
+  const c = siteContent.collaboration[lang];
   const experience = pageURL('cv', lang, {tab: 'experience'});
   return <section className="collaboration-cta" aria-labelledby="collaboration-title">
     <div className="collaboration-copy">

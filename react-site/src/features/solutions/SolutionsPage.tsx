@@ -1,4 +1,4 @@
-import {legacy} from '../../content/legacy';
+import {siteContent} from '../../content/site.mjs';
 import {pageURL} from '../../lib/routing';
 import type {Language, Page, SolutionId} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
@@ -13,8 +13,8 @@ function CTA({page, label, lang}: {page: Page; label: string; lang: Language}) {
 }
 
 export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
-  const current = legacy.solutions.find(item => item.id === id)!;
-  const c = current[lang], t = legacy.solutionsCopy[lang];
+  const current = siteContent.solutions.find(item => item.id === id)!;
+  const c = current[lang], t = siteContent.solutionsCopy[lang];
   return <>
     <header className="solutions-selector"><span className="eyebrow">{t.label}</span>
       <HomeFolders lang={lang} current={id}/>
@@ -59,7 +59,7 @@ export function SolutionsPage({lang, id}: {lang: Language; id: SolutionId}) {
     </section>
     <section className="solution-related" aria-labelledby="related-heading">
       <div className="home-section-heading"><h2 id="related-heading">{t.others}</h2></div>
-      <div className="solutions-grid">{legacy.solutions.filter(item => item.id !== id).map(item =>
+      <div className="solutions-grid">{siteContent.solutions.filter(item => item.id !== id).map(item =>
         <article key={item.id} className="solution-card"><span className="solution-icon"><Icon name={item.icon}/></span>
           <h3><AppLink href={pageURL(item.id as SolutionId, lang)}>{item[lang].label}</AppLink></h3><p>{item[lang].summary}</p>
           <ul className="solution-tags">{item[lang].tags.map(tag => <li key={tag}>{tag}</li>)}</ul>

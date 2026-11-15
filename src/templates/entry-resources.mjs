@@ -1,0 +1,46 @@
+const portfolio = 'portfolio.js?v=20261115-shared-entry';
+export const entryResources = {
+  "home": [
+    "portfolio.css?v=20261109-cv-download",
+    "site-theme.css?v=20261110-manual",
+    "home-blog.css?v=20261115-first-posts",
+    "home-hero.css?v=20261109-studio-coast",
+    "solution-portals.css?v=20261102-shared-cards",
+    "work-story-cards.css?v=20261111-work-journals",
+    portfolio,
+    "color-mode.css?v=20261110-manual",
+  ],
+  "cv": [
+    "portfolio.css?v=20261114-cv-employers",
+    "site-theme.css?v=20261110-manual",
+    portfolio,
+    "company-logos.css?v=20261031-company-logos",
+    "work-story-cards.css?v=20261114-cv-story-list",
+    "color-mode.css?v=20261110-manual",
+  ],
+  "solutions": [
+    "portfolio.css?v=20261102-performance",
+    "site-theme.css?v=20261110-manual",
+    "solutions.css?v=20261109-solutions-spread",
+    "solution-portals.css?v=20261102-shared-cards",
+    portfolio,
+    "color-mode.css?v=20261110-manual",
+  ],
+  "contact": [
+    "portfolio.css?v=20261102-performance",
+    "site-theme.css?v=20261110-manual",
+    "contact.css?v=20261109-employer-row",
+    portfolio,
+    "company-logos.css?v=20261031-company-logos",
+    "color-mode.css?v=20261110-manual",
+  ],
+  "work-stories": [
+    "portfolio.css?v=20261102-performance",
+    "site-theme.css?v=20261110-manual",
+    "work-stories.css?v=20261112-work-entries",
+    portfolio,
+    "company-logos.css?v=20261031-company-logos",
+    "work-story-cards.css?v=20261111-work-journals",
+    "color-mode.css?v=20261110-manual",
+  ],
+};

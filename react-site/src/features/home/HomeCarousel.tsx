@@ -1,5 +1,5 @@
 import {useId} from 'react';
-import {legacy} from '../../content/legacy';
+import {siteContent} from '../../content/site.mjs';
 import {assetURL, pageURL} from '../../lib/routing';
 import type {Language} from '../../lib/routing';
 import {useHomeCarousel} from './useHomeCarousel';
@@ -19,7 +19,7 @@ function PagerArrow({previous = false}: {previous?: boolean}) {
 
 export function HomeCarousel({lang}: {lang: Language}) {
   const t = copy[lang], id = useId();
-  const {root, track, pages, index, ready, announcement, groupLabel, step, swipeOnly} = useHomeCarousel(legacy.posts, lang);
+  const {root, track, pages, index, ready, announcement, groupLabel, step, swipeOnly} = useHomeCarousel(siteContent.posts, lang);
   const date = (value: string) => new Intl.DateTimeFormat(lang, {dateStyle: 'medium', timeZone: 'UTC'}).format(new Date(`${value}T12:00:00Z`));
   if (!pages.length) return <p className="home-blog-empty">{t.empty}</p>;
   return <div ref={root} className="home-blog-mount" data-home-blog>

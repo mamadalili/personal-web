@@ -1,6 +1,6 @@
 # Static hosting
 
-The web root is `public/`. Serve its published contents at the domain root. The repository also contains authoring tools and a separate development preview. The local article template and release ZIPs belong outside the published tree.
+Build from the repository root with `npm ci` and `npm run build`; use `npm run check` to verify the release. The web root is `public/`. Deploy its runtime files at the domain root. The article template, release ZIPs and `react-site/build/` belong outside the published tree.
 
 ## Publishing a new blog
 

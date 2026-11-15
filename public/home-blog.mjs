@@ -1,66 +1,11 @@
-import { renderPostCover } from './blog-covers.mjs';
-import { posts } from './blog-summaries.mjs';
-import { escapeHTML as esc, publishedPosts } from './blog-core.mjs';
+import {posts} from './blog-summaries.mjs';
+import {homePostPages, cardMarkup, copy} from './home-blog-view.mjs';
+export {homePostPages, homeFirstPosts} from './home-blog-view.mjs';
+import {createWheelPager, wheelPageVisible} from './home-carousel-input.mjs';
+export {createWheelPager, wheelPageVisible};
 
-export function homePostPages(items, pageSize=6) {
-  if(!Number.isInteger(pageSize)||pageSize<1||pageSize>6)throw new RangeError('Home carousel pages contain one to six articles.');
-  const live = publishedPosts(items).filter(post => typeof post.slug === 'string' && post.slug && post.fa?.title && post.en?.title);
-  const pages = [];
-  for (let index = 0; index < live.length; index += pageSize) pages.push(live.slice(index, index + pageSize));
-  return pages;
-}
-
-export function createWheelPager() {
-  let total = 0, lastTime = -Infinity, lockedUntil = 0;
-  const native = () => { total = 0; return { consume: false, page: null }; };
-  return ({ page, pageCount, deltaX = 0, deltaY = 0, deltaMode = 0, viewportHeight = 400, time,
-    ctrlKey = false, metaKey = false, shiftKey = false, altKey = false }) => {
-    if (![page, pageCount, deltaX, deltaY, time].every(Number.isFinite) || !Number.isInteger(page) || !Number.isInteger(pageCount) || page < 0 || page >= pageCount) return native();
-    if (ctrlKey || metaKey || shiftKey || altKey || pageCount < 2 || Math.abs(deltaY) <= Math.abs(deltaX)) return native();
-    const direction = Math.sign(deltaY);
-    if (!direction || (direction < 0 && page === 0) || (direction > 0 && page === pageCount - 1)) return native();
-    if (time < lockedUntil) return { consume: true, page: null };
-    if (time - lastTime > 180 || Math.sign(total) !== direction) total = 0;
-    const factor = deltaMode === 1 ? 16 : deltaMode === 2 ? Math.max(1, viewportHeight) : 1;
-    total += deltaY * factor; lastTime = time;
-    if (Math.abs(total) < 70) return { consume: true, page: null };
-    total = 0; lockedUntil = time + 500;
-    return { consume: true, page: page + direction };
-  };
-}
-
-export function wheelPageVisible({top,bottom,viewportHeight,topInset=110,bottomInset=16}){
-  return [top,bottom,viewportHeight,topInset,bottomInset].every(Number.isFinite)&&bottom>top&&top>=topInset&&bottom<=viewportHeight-bottomInset;
-}
-
-const copy = {
-  fa: { region: 'آخرین نوشته‌های بلاگ', carousel: 'کاروسل', previous: 'نوشته‌های جدیدتر', next: 'نوشته‌های قدیمی‌تر',
-    read: 'خواندن مقاله', hint: 'کشیدن، اسکرول افقی یا دکمه‌ها', latest: 'تازه‌ترین نوشته‌ها', empty: 'نوشته‌های منتشرشده از اینجا در دسترس خواهند بود.',
-    swipeHint: 'برای دیدن نوشته‌های دیگر، به چپ یا راست بکشید. با کیبورد از کلیدهای چپ و راست استفاده کنید.',
-    item: (index, total) => `نوشتهٔ ${index} از ${total}`,
-    page: (index, total) => `مجموعهٔ ${index} از ${total} نوشته‌ها` },
-  en: { region: 'Latest blog posts', carousel: 'carousel', previous: 'Newer posts', next: 'Older posts',
-    read: 'Read article', hint: 'Swipe, scroll sideways or use the arrows', latest: 'Latest posts', empty: 'Published articles will appear here.',
-    swipeHint: 'Swipe left or right to browse posts. With a keyboard, use the left and right arrow keys.',
-    item: (index, total) => `Post ${index} of ${total}`,
-    page: (index, total) => `Post group ${index} of ${total}` }
-};
 let carouselSerial = 0;
 const arrow = direction => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="${direction === 'previous' ? 'm14 6-6 6 6 6' : 'm10 6 6 6-6 6'}"/></svg>`;
-
-function cardMarkup(post, lang, dates) {
-  const a=post[lang], href='article.html?post='+encodeURIComponent(post.slug)+'&lang='+lang;
-  const day=post.date && new Date(post.date+'T12:00:00Z');
-  const date=day && Number.isFinite(day.getTime()) ? `<time datetime="${esc(post.date)}">${dates.format(day)}</time>` : '';
-  return `<a class="home-post-card ${post.cover?'has-cover':''}" href="${esc(href)}">${renderPostCover(post,lang,{className:'home-post-cover',preview:true})}<div class="home-post-meta"><span>${esc(a.category || '')}</span>${date}</div><h4>${esc(a.title)}</h4>${a.excerpt ? `<p>${esc(a.excerpt)}</p>` : ''}<span class="home-post-foot"><small>${esc(a.readTime || '')}</small><span class="home-post-read">${copy[lang].read}<span aria-hidden="true">${lang==='fa'?'←':'→'}</span></span></span></a>`;
-}
-
-export function homeFirstPosts(language, items=posts) {
-  const first=homePostPages(items)[0];
-  if (!first) return `<p class="home-blog-empty">${copy[language].empty}</p>`;
-  const dates=new Intl.DateTimeFormat(language,{dateStyle:'medium',timeZone:'UTC'});
-  return `<div class="home-blog-track home-first-track"><div class="home-blog-page home-first-posts">${first.map(post=>cardMarkup(post,language,dates)).join('')}</div></div>`;
-}
 
 export function mountHomeBlog(root, { language = 'fa', items = posts } = {}) {
   const controller=new AbortController(),wide=matchMedia('(min-width:1000px)'),medium=matchMedia('(min-width:761px)');

@@ -1,51 +1,37 @@
 # Repository layout
 
-`public/` is the current static website. Keeping its HTML, styles, modules, data and assets together preserves the public URL tree and all browser-relative imports. Source article data and generated outputs remain distinguishable by their existing names and generation headers. This organization does not change the framework or production host.
+The production site is static: Apache serves the contents of `public/` at the domain root. React renders shared components during the build. Reading a page does not require a React download or a Node process on the host.
 
-The repository root contains development resources: `scripts/`, `tests/`, `docs/`, `prompts/`, `.agents/skills/` and the `react-site/` page renderer. `figures/` retains two retired authoring prototypes; the calculation model consumed by the website is at `public/figures/solo-model.mjs`. The original one-line `README.ms` is preserved in `docs/history/`.
+| To change… | Edit here |
+| --- | --- |
+| Persian and English portfolio copy | `src/content/cv.mjs` (CV, employers and projects), `site.mjs` (pages and navigation), `contact.mjs` (contact channels) |
+| Portfolio markup, icons and browser interactions | `src/portfolio/view.mjs`, `icons.mjs` and `browser.mjs` |
+| Shared navigation and coastal illustration | `src/components/site-chrome.mjs`; labels and destinations come from `src/content/site.mjs` |
+| Entry page assets, loading recovery and HTML composition | `src/templates/` and `scripts/generate-entry-pages.mjs` |
+| Editorial content, solution details, images and styles | `public/posts/`, `public/blog-data.mjs`, `public/solutions-data.mjs`, `public/assets/` and the public stylesheets |
+| React Router layouts and interactions | `react-site/src/` (separate preview; [supported routes](../react-site/README.md)) |
 
-## Local preview
-
-From the repository root:
-
-```sh
-python3 -m http.server 8080 --bind 127.0.0.1 --directory public
-```
-
-Open `http://localhost:8080/`, not `/public/`. Python's static server does not apply Apache `.htaccess` rules; localized entry files and direct `reading/fa/` / `reading/en/` files can be inspected directly. Apache hosting continues to use the existing language and reading rewrites.
+Author browser modules in `public/` when they are also public URLs. The home cards and work stories keep their HTML views separate from event handlers. The two renderers import these modules and the portfolio sources directly. Generated files such as `public/portfolio.js`, `runtime-*.mjs`, localized entry HTML and `reading/` should be rebuilt from source.
 
 ## Editing and generation
 
-Edit `public/portfolio.js`, `public/solutions-data.mjs`, `public/posts/` and the relevant styles/modules. Keep native Persian and English in sync. Install the pinned tooling once with `npm ci --prefix react-site` (Node 22.22.0 or newer), then run generation from the repository root:
+From the repository root, using Node 22.22 or newer:
 
 ```sh
-node scripts/generate-entry-pages.mjs
-node scripts/generate-blog-runtime.mjs
-node scripts/generate-sitemap.mjs
+npm ci
+npm run build
+npm run check
+npm test
 ```
 
-Generated HTML, bundles, summaries, article JSON, sitemap and robots all stay inside `public/`. Do not edit generated output as a substitute for its source.
+`npm run dev` serves the production files locally, including language selection, article URLs and older CV bookmarks. `npm run check:react` separately checks types, builds the React routes and tests their output. Both use the root lockfile. For skill integrity and release tooling:
 
 ```sh
-node scripts/test-site.mjs
-node scripts/generate-entry-pages.mjs --check
-node scripts/generate-blog-runtime.mjs --check
-node scripts/generate-sitemap.mjs --check
 node scripts/check-blog-skills.mjs
 node scripts/check-design-skills.mjs
-python3 -B -m unittest discover -s tests -p test_package_runtime.py
+python -B -m unittest discover -s tests -p test_package_runtime.py
 ```
 
 ## Publication boundary
 
-Upload the **contents** of `public/` to the existing host document root. Preserve its managed HTTPS configuration and merge the marked rules from `public/.htaccess`. Keep the article template and upload archives out of production as described in [deployment](deployment.md).
-
-For explicit releases, filenames remain public-relative:
-
-```sh
-python3 scripts/package_runtime.py --output /tmp/site-release.zip index.html portfolio.js portfolio.css
-```
-
-The example packages only those three files; a real release must include every changed dependency. ZIP entries are `index.html` and so on, never `public/index.html`. Runtime packaging retains the existing allowlist, fresh timestamps and Unix 0644 modes.
-
-`react-site/public/legacy/` and `react-site/build/client/` are ignored, generated preview output. The preview adapter reads the same production sources in `public/`. Build and verify it separately with the commands in [its README](../react-site/README.md); do not deploy the partial React preview over production.
+Release changed public files using [the packaging instructions](deployment.md). The package uses public-relative paths and excludes host configuration. Keep source, Node dependencies, the article template and the React preview off the host.

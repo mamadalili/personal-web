@@ -1,5 +1,5 @@
 import type {FocusEvent} from 'react';
-import {legacy} from '../../content/legacy';
+import {siteContent} from '../../content/site.mjs';
 import {pageURL} from '../../lib/routing';
 import type {Language, Page} from '../../lib/routing';
 import {AppLink} from '../../components/ui/AppLink';
@@ -14,7 +14,7 @@ function CardCTA({page, lang, label}: {page: Page; lang: Language; label: string
 }
 
 export function HomePage({lang}: {lang: Language}) {
-  const s = legacy.home[lang], k = legacy.skills[lang];
+  const s = siteContent.home[lang], k = siteContent.skills[lang];
   const [first, second] = s.homeTitle.replace('</em>', '').split('<br><em>');
   const revealSkills = (event: FocusEvent<HTMLElement>) => {
     if (!matchMedia('(min-width:1000px)').matches) return;
@@ -63,6 +63,6 @@ export function HomePage({lang}: {lang: Language}) {
         </div>
       </section>
     </div>
-    <div className="page-signoff"><BrandMark/><p>© {legacy.year} {s.copyright}</p></div>
+    <div className="page-signoff"><BrandMark/><p>© {siteContent.year} {s.copyright}</p></div>
   </>;
 }

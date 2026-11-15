@@ -1,0 +1,29 @@
+{
+  "name": "personal-web",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "workspaces": [
+    "react-site"
+  ],
+  "scripts": {
+    "dev": "node scripts/serve-site.mjs",
+    "build": "node scripts/build-portfolio.mjs && node scripts/generate-blog-runtime.mjs && node scripts/generate-entry-pages.mjs --remaining && node scripts/generate-sitemap.mjs",
+    "check": "node scripts/build-portfolio.mjs --check && node scripts/generate-blog-runtime.mjs --check && node scripts/generate-entry-pages.mjs --remaining --check && node scripts/generate-sitemap.mjs --check",
+    "test": "node scripts/test-site.mjs",
+    "dev:react": "npm run dev --workspace=personal-web-react",
+    "build:react": "npm run build --workspace=personal-web-react",
+    "preview:react": "node scripts/serve-site.mjs --react",
+    "check:react": "npm run typecheck --workspace=personal-web-react && npm run build:react && npm test --workspace=personal-web-react"
+  },
+  "devDependencies": {
+    "rolldown": "1.2.16",
+    "sirv": "3.0.2"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  }
+}

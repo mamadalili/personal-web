@@ -1,6 +1,6 @@
 import { solutions, solutionsCopy } from './solutions-data.mjs';
 import { escapeHTML as esc } from './blog-core.mjs';
-import './home-hero-art.js?v=20261102-solutions-assets';
+import {renderHomeCapabilityArt,renderHomeFolderArt} from './home-hero-art.mjs';
 
 const pendingStyles=new WeakMap();
 export function prepareSolutions(doc=document){
@@ -23,7 +23,7 @@ export function prepareSolutions(doc=document){
 // Older cached entry pages do not declare the new selector assets.
 if(typeof document!=='undefined')await prepareSolutions();
 
-export function renderCapabilityCards({language='fa',current='',url,icon,portals={},art=globalThis.renderHomeCapabilityArt}){
+export function renderCapabilityCards({language='fa',current='',url,icon,portals={},art=renderHomeCapabilityArt}){
  const lang=language==='en'?'en':'fa';
  const arrow='<svg class="cta-direction" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>';
  return solutions.map(item=>{
@@ -36,7 +36,7 @@ export function renderHomeFolderCards({language='fa',current='',url,portals={}})
  const lang=language==='en'?'en':'fa';
  return solutions.map(item=>{
   const portal=portals[item.id]||{title:item[lang].label,text:item[lang].summary};
-  return `<a class="home-folder-link" href="${esc(url(item.id))}" ${item.id===current?'aria-current="page"':''}>${globalThis.renderHomeFolderArt(item.id)}<span class="home-folder-title">${esc(portal.title)}</span><span class="home-folder-description">${esc(portal.text)}</span></a>`;
+  return `<a class="home-folder-link" href="${esc(url(item.id))}" ${item.id===current?'aria-current="page"':''}>${renderHomeFolderArt(item.id)}<span class="home-folder-title">${esc(portal.title)}</span><span class="home-folder-description">${esc(portal.text)}</span></a>`;
  }).join('');
 }
 

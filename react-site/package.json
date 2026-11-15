@@ -6,14 +6,10 @@
     "node": ">=22.22.0"
   },
   "scripts": {
-    "prepare:content": "node scripts/prepare-public.mjs",
-    "predev": "npm run prepare:content",
     "dev": "react-router dev --host 127.0.0.1",
-    "prebuild": "npm run prepare:content",
     "build": "react-router build",
-    "pretypecheck": "npm run prepare:content",
     "typecheck": "react-router typegen && tsc --noEmit",
-    "test": "node --test scripts/check-static-output.mjs scripts/check-phase-2.mjs"
+    "test": "node --test scripts/check-static-output.mjs scripts/check-phase-2.mjs scripts/check-preview-server.mjs"
   },
   "dependencies": {
     "@react-router/node": "8.5.1",
@@ -28,7 +24,6 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "acorn": "8.19.0",
-    "rolldown": "1.2.16",
     "typescript": "7.0.2",
     "vite": "8.3.5"
   }

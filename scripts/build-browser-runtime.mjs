@@ -1,13 +1,11 @@
 import {readFile, writeFile} from 'node:fs/promises';
-import {createRequire} from 'node:module';
 import {fileURLToPath, pathToFileURL} from 'node:url';
+import {rolldown} from 'rolldown';
 import {articleModules} from '../public/blog-enhancements.mjs';
 
 const root = new URL('../public/', import.meta.url);
-const resolveTool = createRequire(new URL('../react-site/package.json', import.meta.url));
 
 export async function buildBrowserRuntime(check) {
-  const {rolldown} = await import(pathToFileURL(resolveTool.resolve('rolldown')).href);
   const widgets = Object.values(articleModules).map(([path]) => path.slice(2).split('?')[0]);
   for (const name of ['blog.mjs', 'blog-list.mjs', 'work-stories.mjs', ...new Set(widgets)]) {
     const input = fileURLToPath(new URL(name, root));

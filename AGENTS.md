@@ -2,7 +2,7 @@
 
 ## Repository paths
 
-The current static application lives in `public/`. Runtime paths below (HTML, CSS, JS/MJS, `assets/`, `posts/`, `reading/`, `fonts/`, `images/`, `.htaccess`) are relative to that directory. Scripts, tests, docs, prompts, authoring skills and the optional page renderer remain at the repository root. Run commands from the repository root; generators and release tools target `public/`. Serve or upload its contents without a `public/` URL prefix. See `docs/repository-layout.md`.
+The public URL tree lives in `public/`. Edit bilingual portfolio data in `src/content/`, renderers and interactions in `src/portfolio/`, shared React components in `src/components/`, and entry templates in `src/templates/`. Runtime paths below are relative to `public/`; `portfolio.js` is a generated compatibility entry. Install with the root lockfile and build with `npm run build`. See `docs/repository-layout.md` for source ownership and commands.
 
 ## Page renderer
 
