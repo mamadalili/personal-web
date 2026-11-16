@@ -18,7 +18,7 @@ const cards = [
   '.solution-outputs > article', '.solution-process article', '.solution-card',
 ].join(',');
 
-const figures = '.chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country';
+const figures = '.chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country, .stock-state-plot';
 const chartInk = '[data-entry-series], .sl-receipt-row i, .market-track i, .market-multiple-track i, .market-dot-lane';
 const objects = '.sl-stock .sl-drawing, .sl-tray .sl-drawing';
 const targets = [sections, cards, figures].join(',');
@@ -52,6 +52,7 @@ export function watchSectionEntrances(root) {
       const fromRight = mark.matches('.sl-receipt-row i, .market-dot-lane') && doc.documentElement.dir === 'rtl';
       let start = fromRight ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
       if (mark.dataset.entrySeries === 'columns') start = 'inset(100% 0 0 0)';
+      if (mark.dataset.entrySeries === 'down') start = 'inset(0 0 100% 0)';
       play(mark, [{clipPath: start}, {clipPath: 'inset(0 0% 0 0%)'}], 'ink', 420, index * 36);
     });
     drawings.forEach((drawing, index) => {

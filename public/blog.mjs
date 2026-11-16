@@ -54,7 +54,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     const addon = addonKind(block.type);
     if (addon) return `<div data-article-addon="${addon}" data-block-id="${id}">${readingWidget(block,lang,rich)}</div>`;
     const content = readingBlock(block,lang,rich);
-    if (content !== null) return content;
+    if (content !== null) return prerendered ? null : content;
     if (block.type === 'quiz' && Array.isArray(block.options)) {
       const options = block.options.map((option, index) => `
         <label><input type="radio" name="${id}" data-quiz-choice="${id}" value="${index}">
@@ -84,7 +84,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
       const slots=[...root.querySelectorAll(`#${CSS.escape(section.id)} > [data-reading-slot]`)];
       for (const block of section.blocks) {
         const markup=renderBlock(block);
-        if (['paragraph','image','details','callout','quote','table'].includes(block.type)) continue;
+        if (markup === null) continue;
         const slot=slots.shift();
         if (slot) { slot.insertAdjacentHTML('beforebegin',markup); slot.remove(); }
       }

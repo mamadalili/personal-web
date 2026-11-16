@@ -84,6 +84,46 @@ export const stories = {
     }
   },
   "warehouse": {
+    reviewed: "2026-11-16",
+    extraSections: [{
+      id: "reserved-notebook",
+      fa: {title: "دفتر رزروشده چه وقت دوباره قابل فروش می‌شود؟"},
+      en: {title: "When can the reserved notebook go back on sale?"},
+      blocks: [
+        {
+          type: "paragraph",
+          fa: "برگردیم به همان سه دفتر. یکی سالم و آزاد است و یکی جلد آسیب‌دیده دارد. این دو را سر جایشان نگه دار. فقط سرنوشت دفتری را عوض کن که برای سفارش دیروز کنار گذاشتیم.",
+          en: "Go back to the three notebooks. One is ready to sell and another has a damaged cover. Leave those two alone. Change what happens to the one set aside for yesterday’s order."
+        },
+        {
+          type: "stock-reservation", id: "notebook", available: 1, damaged: 1, reserved: 1,
+          fa: {
+            question: "برای سفارش دیروز چه اتفاقی افتاد؟",
+            held: "رزرو باز", released: "لغو شد", collected: "تحویل شد",
+            subject: "دفتر رزروشده", cancel: "لغو سفارش", pickup: "تحویل سفارش",
+            shelf: "آزاد برای فروش", customer: "دست مشتری",
+            onHand: "در انبار", forSale: "قابل فروش",
+            title: "دو مسیر دفتر رزروشده",
+            description: "اگر مشتری لغو کند، دفتر سالم دوباره برای فروش آزاد می‌شود. اگر آن را تحویل بگیرد، دفتر از انبار خارج می‌شود.",
+            heldNote: "فعلاً هر سه دفتر در انبارند. برای مشتری بعدی فقط همان دفتر سالم و آزاد را داری.",
+            releasedNote: "دفتری وارد انبار نشد. رزروِ دفتر سالم برداشته شد و حالا می‌توانی آن را به مشتری بعدی بفروشی.",
+            collectedNote: "یک دفتر از انبار بیرون رفت. از دیروز برای همین مشتری کنار گذاشته بودی‌اش، پس هنوز همان یک دفتر برای فروش آزاد است."
+          },
+          en: {
+            question: "What happened to yesterday’s order?",
+            held: "Still reserved", released: "Cancelled", collected: "Collected",
+            subject: "Reserved notebook", cancel: "Cancel order", pickup: "Pick up order",
+            shelf: "Free to sell", customer: "With customer",
+            onHand: "Notebooks on hand", forSale: "Available to sell",
+            title: "Two paths for a reserved notebook",
+            description: "Cancelling releases the undamaged notebook for sale. Collecting it takes that notebook out of the warehouse.",
+            heldNote: "All three notebooks are in the warehouse. Only the undamaged, unreserved one is available for the next customer.",
+            releasedNote: "Nothing came into the warehouse. Lifting the reservation made a second notebook available to sell.",
+            collectedNote: "One notebook left the warehouse. It was already set aside for this customer, so there’s still one available for the next sale."
+          }
+        }
+      ]
+    }],
     intro: {
       fa: "روی قفسه سه دفتر می‌بینی ولی فروشگاه فقط یکی برای فروش نشان می‌دهد. ممکن است هر دو درست بگویند.",
       en: "Three notebooks on the shelf and one on the website can both be correct."

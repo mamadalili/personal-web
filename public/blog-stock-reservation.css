@@ -1,0 +1,68 @@
+.stock-reservation {
+  --stock-stroke: #6a6878;
+  margin: 1.25rem 0;
+  padding: 1.15rem 0;
+  border-block: 1px solid var(--line);
+  color: var(--ink);
+}
+[data-theme="dark"] .stock-reservation { --stock-stroke: #b4bbcc; }
+
+.stock-reservation fieldset {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: .4rem;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.stock-reservation legend { padding: 0 0 .7rem; color: var(--ink); font-size: 1rem; font-weight: 650; }
+.stock-choice { position: absolute; inline-size: 1px; block-size: 1px; margin: 0; clip-path: inset(50%); }
+.stock-choice + label {
+  display: grid;
+  place-items: center;
+  min-block-size: 44px;
+  padding: .3rem;
+  text-align: center;
+  color: var(--stock-stroke);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: .4rem;
+  font-size: .9rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.stock-choice:checked + label { color: var(--purple); background: var(--pale); border-color: currentColor; font-weight: 700; }
+.stock-choice:focus-visible + label { outline: 2px solid var(--purple); outline-offset: 2px; }
+
+.stock-state-plot, .stock-result { grid-column: 1 / -1; }
+.stock-state-plot svg { display: block; inline-size: min(100%, 26rem); block-size: auto; margin: .7rem auto .2rem; }
+.stock-state-plot text { text-anchor: middle; font: 600 17px Vazirmatn, "Segoe UI", Tahoma, sans-serif; fill: var(--ink); }
+.stock-state-plot .stock-event { font-size: 16.5px; font-weight: 500; fill: var(--stock-stroke); }
+.stock-origin > rect, .stock-destination rect { fill: var(--surface); stroke: var(--stock-stroke); stroke-width: 1.3; }
+.stock-notebook { color: var(--stock-stroke); stroke-width: 1.3; }
+.stock-wires { stroke: var(--stock-stroke); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.stock-choice[value="held"]:checked ~ .stock-state-plot .stock-origin > rect,
+.stock-choice[value="released"]:checked ~ .stock-state-plot .released rect,
+.stock-choice[value="collected"]:checked ~ .stock-state-plot .collected rect { fill: var(--pale); stroke: var(--purple); stroke-width: 2.5; }
+.stock-choice[value="released"]:checked ~ .stock-state-plot .stock-wires .released,
+.stock-choice[value="collected"]:checked ~ .stock-state-plot .stock-wires .collected { stroke: var(--purple); stroke-width: 3; }
+
+.stock-result, .stock-case-title { display: none; }
+.stock-choice[value="held"]:checked ~ [data-case="held"],
+.stock-choice[value="released"]:checked ~ [data-case="released"],
+.stock-choice[value="collected"]:checked ~ [data-case="collected"] { display: block; }
+.stock-result dl { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-block-start: 1px solid var(--line); }
+.stock-result dl > div { display: flex; align-items: baseline; gap: .55rem; padding: .8rem .2rem .3rem; }
+.stock-result dl > div + div { padding-inline-start: 1rem; }
+.stock-result dt { color: var(--ink); font-size: .85rem; }
+.stock-result dd { order: -1; margin: 0; color: var(--ink); font-size: 1.55rem; line-height: 1.2; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stock-result dl > div + div dd { color: var(--purple); }
+.stock-reservation .stock-result p { margin: .3rem 0 0; }
+@media print {
+  .stock-choice, .stock-choice + label { display: none; }
+  .stock-reservation .stock-result, .stock-case-title { display: block; }
+  .stock-result { break-inside: avoid; }
+}

@@ -10,6 +10,21 @@ const completeArticle={slug:'a-real-story',status:'published',fa:{title:'روا�
 const counts = {boomerang:6,turbin:5,can:3,datis:3,binici:2,'safir-lead':3,'safir-field':3,asiatech:3};
 const companies = {boomerang:'بومرنگ',turbin:'آنلاین تحریر',can:'لوازم خانگی کن',datis:'پویش رایان داتیس',binici:'بی‌نی‌سی'};
 
+test('releasing and collecting a reserved notebook change different stock counts in both reading files', () => {
+  for (const lang of ['fa', 'en']) {
+    const page = readFileSync(new URL('../public/reading/' + lang + '/turbin-warehouse.html', import.meta.url), 'utf8');
+    const section = page.split('<section id="reserved-notebook"')[1].split('</section>')[0];
+    const numbers = new Intl.NumberFormat(lang);
+    for (const [state, onHand, forSale] of [['held', 3, 1], ['released', 3, 2], ['collected', 2, 1]]) {
+      const result = section.split('data-case="' + state + '"')[1].split('</dl>')[0];
+      assert.deepEqual([...result.matchAll(/<dd>([^<]+)<\/dd>/g)].map(match => match[1]),
+        [numbers.format(onHand), numbers.format(forSale)]);
+    }
+    assert.equal((section.match(/type="radio"/g) || []).length, 3);
+    assert.match(section, /value="held"[^>]* checked>/);
+  }
+});
+
 test('the nineteen published topics have distinct bilingual articles, employer subtitles and exercises',()=>{
   assert.deepEqual(Object.keys(workStoryTopics),Object.keys(counts));
   const slugs=new Set();
