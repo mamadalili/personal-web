@@ -1,5 +1,16 @@
 # Portfolio design and content rules
 
+## Focused revision workflow
+
+1. Start with a short brief for the whole request. Record the intended outcome, the decisions already approved and the constraints shared by every part.
+2. For a multi-part change, break the work into stages, then sections, then items small enough to review on their own. Give each article, cover or interaction its own turn. A change to a single item can start there.
+3. Before editing each item, write a standalone working prompt. Use this pattern and fill it with the details of that item.
+
+   > For [one item], the reader should be able to [outcome]. Start from [source or current state], carry forward [relevant decisions], and produce [specific change]. Check the result by [observable test].
+
+4. Work on that item until its check passes. For example, open one solution folder, try its control and verify that its chart answers the question in the prompt. Then move to the next item, respecting any review points the author requested.
+5. Review the finished items together against the original brief. Check the places where they meet, such as navigation between sections or the same interaction across Persian, English and mobile.
+
 ## Repository paths
 
 The public URL tree lives in `public/`. Edit bilingual portfolio data in `src/content/`, renderers and interactions in `src/portfolio/`, shared React components in `src/components/`, and entry templates in `src/templates/`. Runtime paths below are relative to `public/`; `portfolio.js` is a generated compatibility entry. Install with the root lockfile and build with `npm run build`. See `docs/repository-layout.md` for source ownership and commands.
