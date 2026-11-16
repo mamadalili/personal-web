@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const skills = join(root, '.agents', 'skills');
 const manifest = JSON.parse(readFileSync(join(root, 'docs', 'anatomy-source.json'), 'utf8'));
+const diagramSource = JSON.parse(readFileSync(join(root, 'docs', 'diagram-design-source.json'), 'utf8'));
 const args = process.argv.slice(2);
 if (args.some(arg => arg !== '--global')) throw new Error('Usage: node scripts/check-blog-skills.mjs [--global]');
 
@@ -36,6 +37,34 @@ function verifyAnatomy(directory, label) {
     }
   }
   console.log(`${label}: ${actual.length} files match Anatomy ${manifest.source.revision}.`);
+}
+
+function verifyDiagramDesign(directory, projectCopy) {
+  const guide = 'references/style-guide.md';
+  const digest = createHash('sha256');
+  for (const path of inventory(directory).sort()) {
+    if (path === guide || Object.hasOwn(diagramSource.notices, path)) continue;
+    const bytes = readFileSync(join(directory, path));
+    digest.update(path).update('\0').update(createHash('sha256').update(bytes).digest());
+  }
+  if (digest.digest('hex') !== diagramSource.sharedFilesSha256) {
+    throw new Error('Diagram Design files differ from ' + diagramSource.revision);
+  }
+  const style = readFileSync(join(directory, guide));
+  if (!style.includes('### Semantic roles') || !style.includes('## Typography')) {
+    throw new Error('The Diagram Design style guide is incomplete.');
+  }
+  if (projectCopy) {
+    if (!style.includes('Vazirmatn') || !style.includes('#1c0998') || !style.includes('Font source: system')) {
+      throw new Error('The project diagram guide is missing its local font or brand settings.');
+    }
+    for (const [file, hash] of Object.entries(diagramSource.notices)) {
+      if (createHash('sha256').update(readFileSync(join(directory, file))).digest('hex') !== hash) {
+        throw new Error('Diagram Design notice differs: ' + file);
+      }
+    }
+  }
+  console.log('Verified ' + (projectCopy ? 'project' : 'installed') + ' Diagram Design ' + diagramSource.revision + '.');
 }
 
 function verifyBridge(directory, reference) {
@@ -78,6 +107,7 @@ for (const required of ['SKILL.md', 'LICENSE', 'agents/openai.yaml', 'references
 }
 
 verifyAnatomy(join(skills, 'anatomy'), 'Project skill');
+verifyDiagramDesign(join(skills, 'diagram-design'), true);
 verifyBridge(join(skills, 'interactive-blog-anatomy'));
 console.log('Project interactive-blog workflow is present.');
 verifyContentProduction(join(skills, 'content-production'));
@@ -93,6 +123,7 @@ console.log('Selected public runtime assets and MIT license match the pinned sou
 if (args.includes('--global')) {
   const installed = resolve(process.env.CODEX_HOME || join(homedir(), '.codex'), 'skills');
   verifyAnatomy(join(installed, 'anatomy'), 'Installed Codex skill');
+  verifyDiagramDesign(join(installed, 'diagram-design'), false);
   verifyBridge(join(installed, 'interactive-blog-anatomy'), join(skills, 'interactive-blog-anatomy'));
   console.log('Installed Codex interactive-blog workflow matches the project.');
   verifyContentProduction(join(installed, 'content-production'), join(skills, 'content-production'));

@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/cathrynlavery/diagram-design",
+  "revision": "f6db0decea96de66b901331a0f79a8d4b147ebae",
+  "upstreamSkillPath": "skills/diagram-design",
+  "sharedFilesSha256": "cd901d4c74de86b5b3cb7dfc73944a078981c69ebb03a19097cecf1be28bea00",
+  "upstreamStyleGuideSha256": "320881ec802004384c09ce4f4f087b9242d926b08071d6b908160e14c707d155",
+  "notices": {
+    "LICENSE": "bb7e12e91fecef43024111123ff784cec6c485585561d8b552557c0173b3ed29",
+    "THIRD_PARTY_LICENSES.md": "ad931154e2f91bf545fc9c442666a2159aa56c0af3cca0b7246e02c6efeab6ba"
+  }
+}

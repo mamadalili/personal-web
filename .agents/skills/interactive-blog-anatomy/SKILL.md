@@ -11,6 +11,8 @@ For content creation or substantive revision, use [content-production](../conten
 
 ## Choose the useful interaction
 
+For personal-web articles, read the project's `.agents/skills/diagram-design/SKILL.md` while planning the explanation. Follow its site-specific style guide and the reference for the selected diagram. In `docs/figures/search-to-sale-path.html`, two routes to a repair enquiry show what a visit counter captures before the reader explores the numbers.
+
 Identify what the reader should understand or decide, and what an action reveals. Use the simplest relevant form: a searchable set of offers, focused details, comparison tabs, sourced data, a glossary or a calculation with meaningful inputs. Keep prose where interaction adds no value. Do not invent facts, timing assumptions or business outcomes to make a widget fit.
 
 Before choosing a chart, turn usable source material into explicit objects: stable ID, source link, evidence type, category, input, output, dependency, time precision, measure, unit and unknowns as applicable. Ask which relationship a reader can inspect by selecting or filtering those objects. A categorical workflow may support a dependency map or slicer without supporting a numeric performance chart; a prose sequence without dates does not support a Gantt. Keep source observations, editorial interpretation and proposed operating rules distinguishable in both the model and visible copy.

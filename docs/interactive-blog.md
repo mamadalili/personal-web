@@ -7,6 +7,16 @@ The authoring method also uses `.agents/skills/content-production/SKILL.md`: aud
 
 The site uses its existing static HTML/CSS/JavaScript stack. There is no CMS, AI API, tracking or build dependency. The reusable authoring prompt is [interactive-blog.fa.md](../prompts/interactive-blog.fa.md).
 
+## Editorial diagrams
+
+For each new article or substantive revision, name one question a diagram could answer. Use [Diagram Design](../.agents/skills/diagram-design/SKILL.md) and the reference for the chosen type when a visual helps the reader follow a decision, a handoff, or a quantitative comparison. Place it beside the passage it explains. Integrate it into the existing article figure or chart. Keep captions, exact values or a textual account in the first HTML response. Add interaction when a reader's choice reveals something meaningful.
+
+In [the search-to-sale example](figures/search-to-sale-path.html), follow a repair enquiry from a map listing or the shop's service page. Only one route includes a website visit. The flowchart explains what the article's visit counter captures. Its separate weekly chart answers how many visits turned into paid jobs.
+
+The repository carries the [pinned upstream skill](https://github.com/cathrynlavery/diagram-design/tree/f6db0decea96de66b901331a0f79a8d4b147ebae/skills/diagram-design) under its MIT license. Its project-specific file is [the diagram style guide](../.agents/skills/diagram-design/references/style-guide.md). When updating the skill, retain this guide and both license notices. Templates, examples and authoring scripts stay outside `public/`. Check a finished standalone figure locally with `python .agents/skills/diagram-design/scripts/self_check.py --offline <figure.html>`, then inspect it in both languages at phone and desktop widths.
+
+Use `node scripts/check-blog-skills.mjs` to verify the bundled skill against its [source record](diagram-design-source.json). Add `--global` to check the Codex installation as well.
+
 ## Choose interactions for the article
 
 Start with [interactive-blog-anatomy](../.agents/skills/interactive-blog-anatomy/SKILL.md), the companion authoring workflow, and the reusable prompt. Identify the reader’s question before choosing a widget. Filters, focused details, comparisons, charts or a calculator can each be sufficient when they directly support that question. There is no minimum figure count.

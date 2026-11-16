@@ -27,6 +27,12 @@ Use the existing components when adding content. The shared controller already r
 
 Before publishing a new layout, scroll into it and back in both languages at mobile and desktop sizes. Each entrance plays once, filters and chart controls respond immediately, and reduced motion shows the finished state. A repeat visit to a section should preserve the reader’s position.
 
+## Diagrams in site content
+
+Use the project copy of [Diagram Design](.agents/skills/diagram-design/SKILL.md) when planning new or revised content, including Solutions and Work Stories. For every blog, identify the specific relationship a reader might need to see. When a figure makes that relationship clearer, draw it beside the relevant passage using the matching type reference. A handoff can use a flowchart, a change over time can use a line chart, and a short definition can stand on its own.
+
+Use the [site diagram style guide](.agents/skills/diagram-design/references/style-guide.md) and the existing article renderer. Give each figure native Persian and English labels, a text equivalent, and a readable layout at phone width and in both themes. For measured charts, retain the units and source. Apply the shared entrance to the plotted marks. See the [blog workflow and worked example](docs/interactive-blog.md#editorial-diagrams).
+
 ## Blog publication workflow
 
 Generate the localized pages, runtime bundles, covers and sitemap together. Follow the [publication checks](docs/deployment.md#publishing-a-new-blog), including both public languages and the article interaction. Honour draft-only requests.
