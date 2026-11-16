@@ -1,6 +1,5 @@
 // Keep sticky shells, navigation, first headings and reading text in their normal flow.
 const sections = [
-  '[data-entry="section"]',
   '.skills-card-copy', '.home-blog-header',
   '.cv-about', '.cv-focus', '.section-heading', '.story-preview-head',
   '.solution-fit > h2', '.home-section-heading', '.solution-process > h2',
@@ -13,14 +12,13 @@ const sections = [
 ].join(',');
 
 const cards = [
-  '[data-entry="card"]',
   '.home-folder-link', '.home-post-card', '.home-quick-links > article',
   '.career-metric', '.story-preview-card', '.project-list > details', '.capability-grid > div',
   '.work-story', '.contact-method', '.employer-logo-card', '.library-card',
   '.solution-outputs > article', '.solution-process article', '.solution-card',
 ].join(',');
 
-const figures = '[data-entry="figure"], .chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country';
+const figures = '.chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country';
 const chartInk = '[data-entry-series], .sl-receipt-row i, .market-track i, .market-multiple-track i, .market-dot-lane';
 const objects = '.sl-stock .sl-drawing, .sl-tray .sl-drawing';
 const targets = [sections, cards, figures].join(',');
@@ -51,8 +49,7 @@ export function watchSectionEntrances(root) {
     const marks = figure.querySelectorAll(chartInk);
     const drawings = figure.querySelectorAll(objects);
     marks.forEach((mark, index) => {
-      const followsText = mark.matches('[data-entry-series="inline"], .sl-receipt-row i, .market-dot-lane');
-      const fromRight = followsText && getComputedStyle(mark).direction === 'rtl';
+      const fromRight = mark.matches('.sl-receipt-row i, .market-dot-lane') && doc.documentElement.dir === 'rtl';
       let start = fromRight ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
       if (mark.dataset.entrySeries === 'columns') start = 'inset(100% 0 0 0)';
       play(mark, [{clipPath: start}, {clipPath: 'inset(0 0% 0 0%)'}], 'ink', 420, index * 36);

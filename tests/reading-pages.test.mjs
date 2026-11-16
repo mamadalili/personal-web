@@ -24,7 +24,11 @@ test('every public article and both archives can be read from the first HTML res
       const html=files.get('reading/'+lang+'/'+item.slug+'.html');
       assert.ok(html.includes('<h1>'+escapeHTML(item[lang].title)+'</h1>'));
       assert.ok(html.includes('myphoto-avatar-v1.webp'));
-      for(const section of item.sections) assert.ok(html.includes('id="'+section.id+'"'));
+      for (const section of item.sections) {
+        const heading = '<h2>' + escapeHTML(section[lang].title) + '</h2>';
+        assert.ok(html.includes('<section id="' + section.id + '" class="article-section">' + heading),
+          lang + '/' + item.slug + '#' + section.id);
+      }
       assert.ok(html.includes('data-reading-lang="'+lang+'"'));
     }
   }
