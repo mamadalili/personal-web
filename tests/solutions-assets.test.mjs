@@ -1,5 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {solutionExample} from '../public/solution-lab.mjs';
+
+test('qualifying leads changes the cheaper channel, and basket losses use their own denominator',()=>{
+ const all=solutionExample('strategy',false), qualified=solutionExample('strategy',true);
+ assert.ok(all.cost[1]<all.cost[0]);
+ assert.ok(qualified.cost[0]<qualified.cost[1]);
+ assert.deepEqual(solutionExample('execution',6),{counts:[100,25,6],largest:76,stage:'last'});
+ assert.deepEqual(solutionExample('execution',7),{counts:[100,25,7],largest:75,stage:'first'});
+});
+
+test('the stock sync reconciles both records and the assistant routes all six questions',()=>{
+ assert.equal(solutionExample('technology',false).difference,3);
+ assert.deepEqual(solutionExample('technology',true).counts,[5,5]);
+ assert.deepEqual(solutionExample('ai-tools',false).counts,[0,2,4]);
+ assert.deepEqual(solutionExample('ai-tools',true).counts,[3,2,1]);
+});
 
 test('Solutions renders its own artwork when an older HTML shell has no art script',async()=>{
  assert.equal(typeof globalThis.renderHomeCapabilityArt,'undefined');

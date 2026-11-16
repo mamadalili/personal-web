@@ -14,6 +14,7 @@ const page=requestedPage==='home'&&(params.has('tab')||params.has('role'))?'cv':
 const navPage=page==='article'?'blog':page==='skills'?'solutions':page==='work-stories'?'cv':page;
 let blogMountVersion=0;
 let solutionsMountVersion=0;
+let disposeSolutions=()=>{};
 let workStoriesMountVersion=0;
 let careerStoriesMountVersion=0;
 let careerCollapsed=false;
@@ -63,7 +64,7 @@ function render(){
     $('main').innerHTML='<aside id="profile" class="profile-card"></aside><section class="workspace"><div id="intro" class="intro"></div><div class="work-card"><div id="main-tabs" class="main-tabs" role="tablist"></div><div id="content"></div></div></section>';
     renderCV();
   }else if(page==='home')renderHome();
-  else if(page==='solutions'){if(!hasStaticSolution)renderSolutions();}
+  else if(page==='solutions')renderSolutions(hasStaticSolution);
   else if(page==='skills')renderSkills();
   else if(page==='blog')renderBlog();
   else if(page==='article')renderBlog('article');
@@ -183,18 +184,21 @@ function renderBlog(mode='index',retry=false){
   console.warn('Blog enhancement unavailable',error);
  });
 }
-function renderSolutions(){
+function renderSolutions(hasEntry=false){
  if(!document.body.dataset.solution){location.replace(view.pageURL('strategy')+location.hash);return;}
- const version=++solutionsMountVersion,language=lang;
- $('main').innerHTML=view.loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
- import('./solutions.mjs?v=20261112-entry-solutions').then(({mountSolutions})=>{
+ const version=++solutionsMountVersion,language=lang,root=$('main');
+ disposeSolutions();
+ if(!hasEntry)root.innerHTML=view.loadingMarkup(lang==='fa'?'در حال آماده‌سازی راهکارها…':'Preparing the solutions…','solutions-loading');
+ import('./solutions.mjs?v=20261116-folder-panels').then(({mountSolutions,activateSolutions})=>{
   if(version!==solutionsMountVersion||language!==lang)return;
-  mountSolutions($('main'),{language,solution:document.body.dataset.solution||'',url:view.pageURL,icon:skillIcon,portals:homePortalCopy[language],motion:active=>view.renderMotionScene('solution',active),collaboration:()=>view.renderCollaborationCTA({showExperience:true})});
+  const options={language,solution:document.body.dataset.solution,url:view.pageURL,icon:skillIcon,portals:homePortalCopy[language],motion:active=>view.renderMotionScene('solution',active),collaboration:()=>view.renderCollaborationCTA({showExperience:true})};
+  if(!hasEntry || !root.querySelector('.solution-workspace')) mountSolutions(root,options);
+  disposeSolutions=activateSolutions(root,options);
   ensureAmbient();
   if(location.hash==='#collaboration-title')$('collaboration-title')?.scrollIntoView({block:'start'});
  }).catch(error=>{
   if(version!==solutionsMountVersion)return;
-  $('main').innerHTML=`<p class="solutions-loading">${lang==='fa'?'نمایش راهکارها با مشکل روبه‌رو شد. صفحه را دوباره بارگذاری کنید.':'The solutions could not be loaded. Please reload the page.'}</p>`;
+  if(!hasEntry)root.innerHTML=`<p class="solutions-loading">${lang==='fa'?'نمایش راهکارها با مشکل روبه‌رو شد. صفحه را دوباره بارگذاری کنید.':'The solutions could not be loaded. Please reload the page.'}</p>`;
   console.error('Solutions could not be loaded',error);
  });
 }

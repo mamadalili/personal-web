@@ -23,7 +23,8 @@ export const entryResources = {
     "site-theme.css?v=20261110-manual",
     "solutions.css?v=20261109-solutions-spread",
     "solution-portals.css?v=20261102-shared-cards",
-    portfolio,
+    "solution-workspace.css?v=20261116-folders",
+    "portfolio.js?v=20261116-folder-panels",
     "color-mode.css?v=20261110-manual",
   ],
   "contact": [

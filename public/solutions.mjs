@@ -1,6 +1,8 @@
 import { solutions, solutionsCopy } from './solutions-data.mjs';
 import { escapeHTML as esc } from './blog-core.mjs';
 import {renderHomeCapabilityArt,renderHomeFolderArt} from './home-hero-art.mjs';
+import {renderSolutionLab} from './solution-lab.mjs';
+import {connectFolderPanel} from './solution-folder-tabs.mjs';
 
 const pendingStyles=new WeakMap();
 export function prepareSolutions(doc=document){
@@ -65,24 +67,25 @@ export function renderSolutionPage({language='fa',solution='',url,icon,portals={
   const title=`${current?`${content.label} — `:''}${t.label} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
 
 
-  const html=`<header class="solutions-selector"><span class="eyebrow">${esc(t.label)}</span><nav class="home-folder-grid" aria-label="${esc(t.label)}">${renderHomeFolderCards({language:lang,current:current.id,url:href,portals})}</nav></header>
-    <section class="solution-detail-hero solution-spread" aria-labelledby="solution-title">
-      <div class="page-hero solution-opening">
-        <nav class="solution-breadcrumb" aria-label="${lang==='fa'?'مسیر صفحه':'Breadcrumb'}"><span>${esc(t.label)}</span><span aria-hidden="true">/</span><span aria-current="page">${esc(content.label)}</span></nav>
+  const html=`<div class="solution-workspace"><header class="solutions-selector"><nav class="home-folder-grid" aria-label="${esc(t.label)}">${renderHomeFolderCards({language:lang,current:current.id,url:href,portals})}</nav></header>
+    <section class="solution-sheet" id="solution-panel" aria-labelledby="solution-title">
+      <div class="solution-sheet-head">
         <h1 id="solution-title">${heading(content.headline)}</h1>
-        <div class="site-atmosphere is-paused" aria-hidden="true"></div>
-        <p>${esc(content.intro)}${current.story ? `<br><a class="solution-story-link" href="${esc(href('article',{post:current.story.post}))}">${esc(current.story[lang])}</a>` : ''}</p>
-        ${cta('contact',t.conversation)}
+        <img class="solution-print" src="assets/brand/studio-hand-small.webp" width="680" height="453" alt="">
+        ${current.story ? `<a class="solution-story-link" href="${esc(href('article',{post:current.story.post}))}">${esc(current.story[lang])}</a>` : ''}
       </div>
+      ${renderSolutionLab(current.id,lang)}
+    </section></div>
+    <details class="solution-notes"><summary>${lang==='fa'?'جزئیات، خروجی‌ها و مراحل کار':'Details, deliverables and process'}</summary>
+      <div class="solution-notes-intro"><p>${esc(content.intro)}</p>${cta('contact',t.conversation)}</div>
       <aside class="solution-lens" aria-labelledby="solution-lens-title">
         ${motion(current.id)}
         <div class="solution-lens-copy"><span class="small-label">${esc(t.lens)}</span><h2 id="solution-lens-title">${esc(content.lensTitle)}</h2><p>${esc(content.lensText)}</p><ul class="solution-tags">${content.tags.map(tag=>`<li>${esc(tag)}</li>`).join('')}</ul></div>
       </aside>
-    </section>
     <section class="solution-fit" aria-labelledby="fit-heading"><h2 id="fit-heading">${esc(t.fit)}</h2><ul>${content.fit.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></section>
     <section class="solution-output-section" aria-labelledby="outputs-heading"><div class="home-section-heading"><h2 id="outputs-heading">${esc(t.outputs)}</h2></div><div class="solution-outputs">${content.outputs.map(item=>`<article><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('')}</div></section>
     <section class="solution-process" aria-labelledby="process-heading"><h2 id="process-heading">${esc(t.process)}</h2><div>${content.process.map(item=>`<article><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('')}</div></section>
-    ${current.evidence.length?`<section class="solution-evidence" aria-labelledby="evidence-heading"><h2 id="evidence-heading">${esc(t.evidence)}</h2><div>${current.evidence.map(item=>`<a href="${esc(href(item.target,item.params))}">${esc(item[lang])}${arrow}</a>`).join('')}</div></section>`:''}
+    </details>${current.evidence.length?`<section class="solution-evidence" aria-labelledby="evidence-heading"><h2 id="evidence-heading">${esc(t.evidence)}</h2><div>${current.evidence.map(item=>`<a href="${esc(href(item.target,item.params))}">${esc(item[lang])}${arrow}</a>`).join('')}</div></section>`:''}
     <section class="solution-faq" aria-labelledby="questions-heading"><h2 id="questions-heading">${esc(t.questions)}</h2>${content.faq.map(item=>`<details><summary>${esc(item.q)}</summary><p>${esc(item.a)}</p></details>`).join('')}</section>
     <section class="solution-related" aria-labelledby="related-heading"><div class="home-section-heading"><h2 id="related-heading">${esc(t.others)}</h2></div><div class="solutions-grid">${cards(solutions.filter(item=>item.id!==current.id))}</div></section>${closing()}`;
   return {html:html.trim().replaceAll(/^[^\S\n]+$/gm,''),title,description:content.intro};
@@ -94,4 +97,36 @@ export function mountSolutions(root,options) {
   document.querySelector('meta[name="description"]').content=page.description;
   root.classList.add('solutions-page');
   root.innerHTML=page.html;
+}
+
+// Keep each folder's real URL, including when opened directly or in a new tab.
+export function activateSolutions(root,options) {
+  const routes=new Map(solutions.map(({id})=>[new URL(options.url(id),location.href).pathname,id]));
+  const canonical=root.ownerDocument.querySelector('link[rel="canonical"]');
+  let disconnect=()=>{};
+  function show(id,focus) {
+    if(!id)return;
+    disconnect();
+    mountSolutions(root,{...options,solution:id});
+    root.ownerDocument.body.dataset.solution=id;
+    if(canonical)canonical.href=new URL(options.url(id),canonical.href).href;
+    connect();
+    if(focus)root.querySelector('.home-folder-link[aria-current="page"]')?.focus({preventScroll:true});
+  }
+  function connect() {
+    disconnect=connectFolderPanel(root,tab=>{
+      const next=new URL(tab.href);
+      const id=routes.get(next.pathname);
+      if(!id){location.assign(tab.href);return;}
+      history.pushState(null,'',next);
+      show(id,true);
+    });
+  }
+  function restore() {
+    const id=routes.get(location.pathname) || options.solution;
+    if(id!==root.ownerDocument.body.dataset.solution)show(id,root.querySelector('.home-folder-grid')?.contains(root.ownerDocument.activeElement));
+  }
+  connect();
+  window.addEventListener('popstate',restore);
+  return ()=>{disconnect();window.removeEventListener('popstate',restore);};
 }
