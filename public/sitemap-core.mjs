@@ -1,4 +1,5 @@
 import { publishedPosts } from './blog-core.mjs';
+import { localizedEntryFile } from './site-config.mjs';
 
 const mainPages=['','blog.html','profile.html','work-stories.html','contact.html'];
 const escapeXML=value=>String(value).replace(/[&<>"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[character]));
@@ -26,7 +27,7 @@ export function buildSitemapEntries(siteUrl,{posts=[],solutions=[]}={}){
   for(const route of routes){
     const alternates={};
     for(const language of ['fa','en']){
-      const url=new URL(route.path,base);
+      const url=new URL(localizedEntryFile(route.path,language),base);
       for(const [key,value] of Object.entries(route.params||{}))url.searchParams.set(key,value);
       url.searchParams.set('lang',language);
       alternates[language]=url.href;

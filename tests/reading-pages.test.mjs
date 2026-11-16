@@ -8,7 +8,7 @@ import {loadArticleData} from '../public/blog-article-data.mjs';
 
 test('every public article and both archives can be read from the first HTML response', () => {
   const files=buildReadingPages(posts), live=posts.filter(item=>item.status==='published');
-  assert.equal(files.size,live.length*2+3);
+  assert.equal(files.size,live.length*2+5);
   for(const [name,expected] of files) {
     assert.equal(readFileSync(new URL('../public/'+name,import.meta.url),'utf8').replace(/\r\n/g,'\n'),expected,name);
   }

@@ -11,7 +11,7 @@ import {createPortfolioView} from '../src/portfolio/view.mjs';
 import {renderHomeFolderCards, renderSolutionPage} from '../public/solutions.mjs';
 import {solutions} from '../public/solutions-data.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
-import {siteUrl} from '../public/site-config.mjs';
+import {localizedEntryFile, siteUrl} from '../public/site-config.mjs';
 import {entryResources} from '../src/templates/entry-resources.mjs';
 import {homeFirstPosts} from '../public/home-blog-view.mjs';
 import {publishedStories} from './published-stories.mjs';
@@ -59,7 +59,7 @@ function renderEntry(stem, page, lang, storyPosts, homePosts) {
     headerImage: home ? '<img class="header-portrait" src="images/myphoto-avatar-v1.webp" width="59" height="59" alt="" fetchpriority="high">' : brandMark(),
   };
 
-  const canonical = new URL(home ? './' : file, siteUrl);
+  const canonical = new URL(home ? './' : localizedEntryFile(file,lang), siteUrl);
   canonical.searchParams.set('lang', lang);
   const resources=entryResources[page].map(file=>file.includes('.js?')
     ? `  <script src="${file}" defer></script>`
@@ -88,7 +88,7 @@ ${resources}
   <main id="main" tabindex="-1" class="${solution ? 'page-layout solutions-page' : page === 'cv' ? 'layout' : page === 'work-stories' ? 'page-layout work-stories-page' : 'page-layout'}" data-entry-lang="${lang}">${parts.main}</main>
   ${coast}
   ${footer}
-  <noscript><style>#language,day-night-switch{display:none}</style><p class="noscript"><a href="${file}?lang=${other}" lang="${other}">${isFa ? 'English' : 'فارسی'}</a></p></noscript>
+  <noscript><style>#language,day-night-switch{display:none}</style><p class="noscript"><a href="${localizedEntryFile(file,other)}?lang=${other}" lang="${other}">${isFa ? 'English' : 'فارسی'}</a></p></noscript>
 </body>
 </html>
 `;
@@ -101,7 +101,7 @@ function buildEntries(selection, storyPosts, homePosts) {
   for (const [file, page] of selection) {
     for (const lang of ['fa', 'en']) {
       const targets = [file + (lang === 'en' ? '.en' : '') + '.html'];
-      if (lang === 'fa' && ['solutions','contact','work-stories'].includes(page)) targets.push(file+'.fa.html');
+      if (lang === 'fa' && page !== 'home') targets.push(localizedEntryFile(file+'.html',lang));
       const html = renderEntry(file, page, lang, storyPosts, homePosts);
       for (const target of targets) {
         entries.set(target, html);

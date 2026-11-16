@@ -20,7 +20,7 @@ for (const [lang, dir] of [['fa', 'rtl'], ['en', 'ltr']]) {
       if (page === 'index') {
         assert.match(main, /<h1 id="home-title">[^<]+<br><em>[^<]+<\/em><\/h1><p>[^<]+/);
         assert.equal((main.match(/class="home-folder-link"/g) ?? []).length, 4);
-        assert.match(main, new RegExp(`strategy\\.html\\?lang=${lang}`));
+        assert.match(main, new RegExp(`strategy\\.${lang}\\.html\\?lang=${lang}`));
       } else if (page === 'profile') {
         assert.match(main, /class="bio">[^<]+<\/p>/);
         assert.match(main, /id="intro"[\s\S]*?<h2>[\s\S]+?<\/h2><p>[^<]+<\/p>/);

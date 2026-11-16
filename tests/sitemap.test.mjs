@@ -10,7 +10,10 @@ test('sitemap covers canonical sections and excludes the retired skills page',()
   assert.equal(entries.length,20);
   assert.equal(new Set(entries.map(entry=>entry.loc)).size,20);
   for(const path of ['/','/blog.html','/profile.html','/work-stories.html','/contact.html','/strategy.html','/execution.html','/technology.html','/ai-tools.html']){
-    for(const language of ['fa','en'])assert.ok(entries.some(entry=>new URL(entry.loc).pathname===path&&new URL(entry.loc).searchParams.get('lang')===language));
+    for(const language of ['fa','en']){
+      const expected=path.replace(/\.html$/,'.'+language+'.html');
+      assert.ok(entries.some(entry=>new URL(entry.loc).pathname===expected&&new URL(entry.loc).searchParams.get('lang')===language),expected);
+    }
   }
 });
 test('every language URL lists matching reciprocal fa, en and fallback alternatives',()=>{
@@ -51,4 +54,24 @@ test('an incomplete published translation, duplicate slug or unsafe route fails 
   assert.throws(()=>buildSitemapEntries('https://site.test',{posts:[{...published,en:null}]}));
   assert.throws(()=>buildSitemapEntries('https://site.test',{posts:[published,published]}));
   assert.throws(()=>buildSitemapEntries('https://site.test',{solutions:[{id:'../outside'}]}));
+});
+
+test('localized entry links open their canonical HTML directly under either cookie', async t => {
+  const {previewServer}=await import('../scripts/serve-site.mjs');
+  const {once}=await import('node:events');
+  const server=previewServer().listen(0,'127.0.0.1');
+  await once(server,'listening');
+  t.after(()=>new Promise(resolve=>server.close(resolve)));
+  const origin='http://127.0.0.1:'+server.address().port;
+  const entries=buildSitemapEntries('https://mrdalili.ir/',{solutions});
+  for(const {loc,alternates} of entries){
+    const canonical=new URL(loc);
+    for(const cookie of ['en','fa']){
+      const response=await fetch(origin+canonical.pathname+canonical.search,{headers:{Cookie:'portfolio_language='+cookie},redirect:'manual'});
+      assert.equal(response.status,200,loc);
+      const html=await response.text();
+      assert.ok(html.includes('<link rel="canonical" href="'+loc+'">'),loc);
+      assert.ok(html.includes('<html lang="'+(loc===alternates.fa?'fa':'en')+'"'),loc);
+    }
+  }
 });

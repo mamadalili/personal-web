@@ -20,68 +20,61 @@ AddDefaultCharset UTF-8
   RewriteEngine On
   RewriteRule ^solutions\.html$ strategy.html [R=302,L]
 
+  # Legacy home bookmarks can identify a CV employer or tab.
+  RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^(?:index\.html)?$ profile.en.html [R=302,L]
+  RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
+  RewriteRule ^(?:index\.html)?$ profile.fa.html [R=302,L]
+
+  # The explicit query wins over a stored preference. Keep tab, role and filter parameters.
   RewriteCond %{QUERY_STRING} (?:^|&)lang=fa(?:&|$)
-  RewriteRule ^(strategy|execution|technology|ai-tools|contact|work-stories)\.en\.html$ $1.fa.html [R=302,L]
+  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.en\.html$ $1.fa.html [R=302,L]
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
-  RewriteRule ^(strategy|execution|technology|ai-tools|contact|work-stories)\.fa\.html$ $1.en.html [R=302,L]
+  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.fa\.html$ $1.en.html [R=302,L]
 
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^blog\.html$ reading/en/archive.html [R=302,L]
-  RewriteRule ^blog\.html$ reading/fa/archive.html [R=302,L]
+  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.en.html [R=302,L]
+  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.fa.html [R=302,L]
 
-  # Older bookmarks used the home URL for a CV tab or employer.
-  RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
-  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
-  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
-  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(?:index\.html)?$ profile.en.html [END]
-  RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
-  RewriteRule ^(?:index\.html)?$ profile.html [END]
-
-  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
-  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
-  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.en.html [R=302,L]
-  RewriteRule ^(strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.fa.html [R=302,L]
-  RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
-  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
-  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^profile\.html$ profile.en.html [END]
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
   RewriteRule ^(?:index\.html)?$ index.en.html [END]
 </IfModule>
 <IfModule mod_headers.c>
-  <FilesMatch "^(?:index|profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)(?:\.(?:fa|en))?\.html$">
-    Header merge Vary Cookie
-  </FilesMatch>
-</IfModule>
-<IfModule mod_headers.c>
-  <Files "blog.html">
-    Header always merge Vary Cookie
+  <FilesMatch "^(?:index|profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$">
+    Header unset Cache-Control
     Header always set Cache-Control "private, no-store"
-  </Files>
+    Header always merge Vary Cookie
+  </FilesMatch>
 </IfModule>
 # End portfolio entry pages
 
 # Portfolio reading routes
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteCond %{QUERY_STRING} (?:^|&)post=([a-z0-9]+(?:-[a-z0-9]+)*)(?:&|$)
+  # Require a single article slug. The archive is also HTML in /reading/, but isn't a post.
+  RewriteCond %{QUERY_STRING} !(?:^|&)post=[^&]*&(?:[^&]*&)*post=
+  RewriteCond %{QUERY_STRING} (?:^|&)post=(?!archive(?:&|$))([a-z0-9]+(?:-[a-z0-9]+)*)(?:&|$)
   RewriteRule ^article\.html$ - [E=PORTFOLIO_POST:%1]
   RewriteCond %{ENV:PORTFOLIO_POST} !^$
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
   RewriteCond %{DOCUMENT_ROOT}/reading/en/%{ENV:PORTFOLIO_POST}.html -f
   RewriteRule ^article\.html$ reading/en/%{ENV:PORTFOLIO_POST}.html [END]
   RewriteCond %{ENV:PORTFOLIO_POST} !^$
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang=en(?:&|$)
   RewriteCond %{DOCUMENT_ROOT}/reading/fa/%{ENV:PORTFOLIO_POST}.html -f
   RewriteRule ^article\.html$ reading/fa/%{ENV:PORTFOLIO_POST}.html [END]
-  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
-  RewriteRule ^blog\.html$ reading/en/archive.html [END]
+  RewriteRule ^article\.html$ - [R=404,L]
 </IfModule>
+<Files "article.html">
+  ErrorDocument 404 /article-not-found.html
+</Files>
 <IfModule mod_headers.c>
   <FilesMatch "^myphoto-(avatar|profile)-v[0-9]+\.webp$">
     Header set Cache-Control "public, max-age=31536000, immutable"

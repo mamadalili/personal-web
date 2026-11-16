@@ -3,6 +3,7 @@ import {icon,skillIcon} from './icons.mjs';
 import {createPortfolioView} from './view.mjs';
 import {navigationItems} from './navigation.mjs';
 import {escapeHTML} from '../../public/blog-core.mjs';
+import {localizedEntryFile} from '../../public/site-config.mjs';
 
 const tabIds=['experience','projects','about','contact'];
 const params=new URLSearchParams(location.search);
@@ -132,7 +133,7 @@ function renderBlog(mode='index',retry=false){
  const template=document.body.dataset.template==='true';
  const current=()=>version===blogMountVersion && language===lang;
  const ready=()=>root.dataset.readingLang===language && (root.dataset.readingPost||null)===slug;
- const staticURL=mode==='index'?(language==='fa'?'blog.html':'reading/en/archive.html')
+ const staticURL=mode==='index'?localizedEntryFile('blog.html',language)
    : /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug||'')?`reading/${language}/${slug}.html`:null;
  const entry=mode==='index'?'blog-list.mjs':'blog.mjs';
  root.querySelector('[data-reading-retry]')?.remove();
@@ -305,11 +306,9 @@ $('language').addEventListener('click',()=>{
  rememberServerLanguage(lang);
  if((page==='blog'||page==='article'||page==='home'||page==='cv'||page==='solutions'||page==='contact'||page==='work-stories') && document.body.dataset.template!=='true'){
   const url=new URL(location.href);url.searchParams.set('lang',lang);
-  if(page==='blog'){
-   const archive='reading/'+lang+'/archive.html';
-   url.pathname=new URL(archive,pageModuleBase).pathname;
-  }else if(page==='contact'||page==='work-stories'||(page==='solutions'&&document.body.dataset.solution)){
-   url.pathname=url.pathname.replace(/(?:\.(?:en|fa))?\.html$/,'.'+lang+'.html');
+  const entry=page==='solutions'&&document.body.dataset.solution?document.body.dataset.solution+'.html':page==='work-stories'?'work-stories.html':pageFiles[page];
+  if(entry && localizedEntryFile(entry,lang)!==entry){
+   url.pathname=new URL(localizedEntryFile(entry,lang),pageModuleBase).pathname;
   }
   location.assign(url);return;
  }
