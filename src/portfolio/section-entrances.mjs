@@ -18,7 +18,7 @@ const cards = [
   '.solution-outputs > article', '.solution-process article', '.solution-card',
 ].join(',');
 
-const figures = '.chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country, .stock-state-plot';
+const figures = '.chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country, .stock-state-plot, .payment-trace-plot';
 const chartInk = '[data-entry-series], .sl-receipt-row i, .market-track i, .market-multiple-track i, .market-dot-lane';
 const objects = '.sl-stock .sl-drawing, .sl-tray .sl-drawing';
 const targets = [sections, cards, figures].join(',');

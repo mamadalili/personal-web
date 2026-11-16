@@ -1,0 +1,70 @@
+.payment-trace {
+  --trace-rule: #6c6a78;
+  container: payment / inline-size;
+  margin: 1.25rem 0;
+  padding: 1.1rem 0;
+  border-block: 1px solid var(--line);
+  color: var(--ink);
+}
+[data-theme="dark"] .payment-trace { --trace-rule: #afb6c6; }
+.payment-trace fieldset {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .4rem;
+  min-inline-size: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.payment-trace legend { padding: 0 0 .65rem; font-weight: 650; }
+.trace-choice { position: absolute; inline-size: 1px; block-size: 1px; clip-path: inset(50%); margin: 0; }
+.trace-choice + label {
+  display: grid;
+  place-items: center;
+  min-block-size: 44px;
+  padding: .35rem;
+  border: 1px solid var(--line);
+  border-radius: .4rem;
+  color: var(--ink);
+  background: var(--surface);
+  font-size: .9rem;
+  line-height: 1.5;
+  text-align: center;
+  cursor: pointer;
+}
+.trace-choice:checked + label { border-color: currentColor; background: var(--pale); color: var(--purple); font-weight: 700; }
+.trace-choice:focus-visible + label { outline: 2px solid var(--purple); outline-offset: 2px; }
+.trace-body { grid-column: 1 / -1; display: grid; align-items: center; gap: .9rem; margin-block-start: 1rem; min-inline-size: 0; }
+.payment-trace-plot { min-inline-size: 0; }
+.payment-trace-plot svg { display: block; inline-size: min(100%, 28rem); block-size: auto; margin-inline: auto; }
+.payment-trace-plot text { text-anchor: middle; fill: var(--ink); font-family: inherit; font-size: 18px; }
+.trace-participant text { font-weight: 700; }
+.trace-actor-icon { stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.trace-lifeline { stroke: var(--trace-rule); stroke-width: 1; stroke-dasharray: 2 5; }
+.trace-arrow { fill: var(--trace-rule); }
+.trace-arrow line { stroke: var(--trace-rule); stroke-width: 1.8; }
+.trace-return { fill: var(--purple); }
+.trace-return line { stroke: var(--purple); stroke-width: 2.5; stroke-dasharray: 6 3; }
+.trace-labels text { paint-order: stroke; stroke: var(--surface); stroke-width: 5; stroke-linejoin: round; }
+.trace-pending rect { fill: var(--pale); stroke: var(--purple); }
+.trace-pending text, .trace-labels .trace-conditional { fill: var(--purple); font-weight: 650; }
+.trace-pending text { stroke: none; }
+.trace-outcome, .trace-conditional, .trace-reply-arrow { display: none; }
+.trace-choice[value="notice"]:checked ~ .trace-body [data-case="notice"],
+.trace-choice[value="unmatched"]:checked ~ .trace-body [data-case="unmatched"],
+.trace-choice[value="matched"]:checked ~ .trace-body [data-case="matched"],
+.trace-choice:not([value="notice"]):checked ~ .trace-body .trace-reply-arrow { display: block; }
+.trace-notes { min-inline-size: 0; }
+.payment-trace .trace-outcome h3 { font-size: 1.08rem; line-height: 1.6; margin: 0 0 .3rem; color: var(--ink); }
+.payment-trace .trace-outcome p { margin: 0; font-size: .96rem; line-height: 1.85; }
+.trace-outcome blockquote { margin: .8rem 0 0; border-inline-start: 3px solid var(--purple); padding: .2rem .85rem; }
+.trace-outcome blockquote strong { display: block; font-size: .83rem; color: var(--purple); }
+@container payment (min-width: 39rem) {
+  .trace-body { grid-template-columns: 1.1fr 1fr; gap: 1.5rem; }
+}
+@media print {
+  .trace-choice + label { display: none; }
+  .payment-trace .trace-body { display: block; }
+  .payment-trace .trace-outcome { display: block; break-inside: avoid; margin-block-start: .8rem; }
+}

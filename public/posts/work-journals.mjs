@@ -134,6 +134,9 @@ function edition(role, org, row, number, adjacent) {
       for (const block of section.blocks) {
         const local = block[lang];
         if (block.type === 'table') text.push(local.caption, ...local.columns, ...local.rows.flat());
+        else if (block.type === 'payment-trace') {
+          text.push(...Object.values(local), ...block.cases.flatMap(item => Object.values(item[lang])));
+        }
         else if (block.type === 'stock-reservation') text.push(...Object.values(local));
         else text.push(local);
       }

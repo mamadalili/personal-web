@@ -10,6 +10,26 @@ const completeArticle={slug:'a-real-story',status:'published',fa:{title:'روا�
 const counts = {boomerang:6,turbin:5,can:3,datis:3,binici:2,'safir-lead':3,'safir-field':3,asiatech:3};
 const companies = {boomerang:'بومرنگ',turbin:'آنلاین تحریر',can:'لوازم خانگی کن',datis:'پویش رایان داتیس',binici:'بی‌نی‌سی'};
 
+test('the missing receipt trace ships all three handoffs and buyer replies in both first responses', () => {
+  const story = posts.find(post => post.slug === 'boomerang-channels');
+  const block = story.sections.find(section => section.id === 'payment-trace').blocks.find(item => item.type === 'payment-trace');
+  assert.deepEqual(block.cases.map(item => item.id), ['notice', 'unmatched', 'matched']);
+  for (const lang of ['fa', 'en']) {
+    const page = readFileSync(new URL('../public/reading/' + lang + '/boomerang-channels.html', import.meta.url), 'utf8');
+    const section = page.split('<section id="payment-trace"')[1].split('</section>')[0];
+    assert.match(section, /value="notice"[^>]* checked>/);
+    assert.equal((section.match(/type="radio"/g) || []).length, 3);
+    for (const {id, [lang]: item} of block.cases) {
+      const prefix = 'trace-' + lang + '-checkout-' + id;
+      assert.ok(section.includes('aria-describedby="' + prefix + '-note"'));
+      assert.ok(section.includes('id="' + prefix + '-note"'));
+      assert.ok(section.includes(item.next));
+      assert.ok(section.includes(item.reply));
+      assert.ok(section.includes(item.handoff ?? block[lang].waiting));
+    }
+  }
+});
+
 test('releasing and collecting a reserved notebook change different stock counts in both reading files', () => {
   for (const lang of ['fa', 'en']) {
     const page = readFileSync(new URL('../public/reading/' + lang + '/turbin-warehouse.html', import.meta.url), 'utf8');

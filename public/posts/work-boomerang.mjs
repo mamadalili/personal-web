@@ -242,6 +242,56 @@ export const stories = {
     }
   },
   "channels": {
+    reviewed: "2026-11-16",
+    sources: [{
+      id: "gateway-verification", kind: "guide", publisher: "ZarinPal",
+      url: "https://github.com/ZarinPal/zarinpal-php-sdk/blob/main/examples/Verify.php",
+      fa: {title: "یک نمونهٔ فنی از تأیید پرداخت", note: "در نمونهٔ زرین‌پال، فروشگاه مبلغ ثبت‌شده و شناسهٔ تراکنش را برای تأیید به درگاه می‌فرستد."},
+      en: {title: "How a store verifies a payment", note: "ZarinPal’s example uses the transaction identifier and the amount in the store’s records to check a payment with the gateway."}
+    }],
+    extraSections: [{
+      id: "payment-trace",
+      fa: {title: "پول کم شده و رسید نداریم. حالا نوبت کیست؟"},
+      en: {title: "The money left the account. Who follows up?"},
+      blocks: [
+        {
+          type: "paragraph",
+          fa: "فرض کن بعد از خرید، فقط یک پیامک برداشت به دستت رسیده. مبلغ و ساعت برداشت را به پشتیبانی می‌دهی و اگر شمارهٔ پیگیری داری، آن را هم می‌فرستی. هر بار یکی از حالت‌های زیر را انتخاب کن تا ببینی پیگیری دست چه کسی می‌افتد.",
+          en: "You’ve checked out and the only thing on your phone is a debit alert. You give support the amount, the time and the bank reference if you have one. Pick what the team knows and follow that same payment."
+        },
+        {
+          type: "payment-trace", id: "checkout",
+          fa: {
+            title: "مسیر پیگیری یک پرداخت", legend: "تا اینجا چه مدرکی داریم؟",
+            bank: "بانک", store: "فروشگاه", support: "پشتیبانی",
+            reference: "مشخصات برداشت از مشتری", lookup: "بررسی پرداخت", waiting: "در انتظار پاسخ درگاه",
+            description: "مشتری مشخصات برداشت بانک را به پشتیبانی می‌دهد. پشتیبانی از فروشگاه می‌خواهد پرداخت را بررسی کند. پاسخ فروشگاه روشن می‌کند که پیگیری ادامه دارد یا می‌شود رسید فرستاد.",
+            customer: "پاسخ نمونه به مشتری"
+          },
+          en: {
+            title: "Tracing one payment", legend: "What evidence do we have?",
+            bank: "Bank", store: "Store", support: "Support",
+            reference: "Debit details from the buyer", lookup: "Check payment", waiting: "Awaiting gateway",
+            description: "The buyer passes the bank’s debit details to support. Support asks the store to check the payment. The store’s reply determines whether to keep investigating or send the receipt.",
+            customer: "What support could say"
+          },
+          cases: [
+            {id: "notice",
+              fa: {label: "فقط پیامک بانک", next: "فروشگاه از درگاه استعلام می‌گیرد", detail: "فروشگاه تراکنش را با مبلغ و زمان پیدا می‌کند و وضعیت نهایی را از درگاه می‌گیرد. تا آن موقع پشتیبانی پرونده را باز نگه می‌دارد.", reply: "«برداشت را دیدم. دارم نتیجه را از فروشگاه می‌گیرم. فعلاً دوباره پرداخت نکن. تا ساعت چهار همین‌جا خبر می‌دهم.»"},
+              en: {label: "Bank alert", next: "The store checks with the gateway", detail: "The store uses the amount and time to find the transaction and check its status with the gateway. Support keeps the case open until the answer comes back.", reply: "“I have the debit details. I’ll check with the store and update you here by four. Please hold off on paying again.”"}
+            },
+            {id: "unmatched",
+              fa: {label: "تأیید درگاه", handoff: "سفارش پیدا نشد", next: "پشتیبانی پیگیری را باز نگه می‌دارد", detail: "درگاه پرداخت را تأیید کرده، اما فروشگاه سفارشی با همان شناسه و مبلغ پیدا نکرده. پشتیبان شمارهٔ پیگیری، نام مسئول بررسی در فروشگاه و زمان خبر بعدی را در همان پرونده ثبت می‌کند.", reply: "«پرداختت تأیید شده. هنوز سفارش مربوط به آن را پیدا نکرده‌ایم. تا ساعت چهار از همین‌جا نتیجهٔ پیگیری را می‌گویم. نیازی به خرید دوباره نیست.»"},
+              en: {label: "Payment verified", handoff: "No order found", next: "Support keeps the case open", detail: "The gateway confirms the payment, but the store can’t match its reference and amount to an order. Support records the reference, who is checking at the store, and when the buyer will hear back.", reply: "“Your payment went through. We’re still looking for the order it belongs to. I’ll update you here by four. You don’t need to buy it again.”"}
+            },
+            {id: "matched",
+              fa: {label: "سفارش پیدا شد", handoff: "رسید سفارش", next: "پشتیبانی رسید همان سفارش را می‌فرستد", detail: "فروشگاه تأیید درگاه را گرفته و شناسه و مبلغ را با یک سفارش مشخص تطبیق داده. حالا پشتیبان شماره و رسید همان سفارش را برای مشتری می‌فرستد.", reply: "«سفارشت را پیدا کردیم و پرداخت روی آن ثبت شده. این هم رسید همان خرید. با شمارهٔ روی رسید می‌توانی سفارشت را پیگیری کنی.»"},
+              en: {label: "Order matched", handoff: "Order receipt", next: "Support sends the original order receipt", detail: "The store has confirmation from the gateway and has matched the reference and amount to one order. Support can now send the buyer that order’s number and receipt.", reply: "“We found your order and confirmed the payment against it. Here’s your receipt. You can use the order number on it to check on your purchase.”"}
+            }
+          ]
+        }
+      ]
+    }],
     intro: {
       fa: "یک نفر می‌گوید «پولش را داده‌ام»، یک نفر دیگر می‌گوید «هنوز سفارش نداریم». این فاصلهٔ کوچک می‌تواند همهٔ وقت پشتیبانی را بگیرد.",
       en: "“I’ve paid” and “We don’t have the order” can both sound true. The distance between them is where support time disappears."
