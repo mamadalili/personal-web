@@ -83,8 +83,8 @@ function plotBar(value, max, index) {
   return graph('0 0 246 40',
     '<path d="M4 9l5-5h227l5 5v20H4Z" fill="#68768d"/><rect x="4" y="9" width="237" height="25" rx="4" fill="#33415b"/>'+
     '<rect x="17" y="13" width="212" height="14" rx="2" fill="#18243a"/>'+
-    '<rect x="18" y="14" width="'+width+'" height="11" fill="'+ink+'"/>'+
-    '<path d="M18 14h'+width+'" stroke="#fff" opacity=".72"/>'+ticks+screw(9,21)+screw(236,21));
+    '<g data-entry-series="across"><rect x="18" y="14" width="'+width+'" height="11" fill="'+ink+'"/>'+
+    '<path d="M18 14h'+width+'" stroke="#fff" opacity=".72"/></g>'+ticks+screw(9,21)+screw(236,21));
 }
 
 function stockShelf(count, unsynced) {
@@ -151,16 +151,17 @@ export function connectSolutionLab(root) {
     if(control.type==='range') control.value=String(previous.get(id));
     else control.checked=previous.get(id);
   }
+  const isRange=control.type==='range';
+  const currentValue=()=>isRange ? control.valueAsNumber : control.checked;
   const update=()=>{
-    const isRange=control.type==='range';
-    const value=isRange ? control.valueAsNumber : control.checked;
+    const value=currentValue();
     previous.set(id,value);
     const result=results(id,lang,value);
     if(isRange) lab.querySelector('output').value=format(value,lang);
     lab.querySelector('[data-lab-chart]').innerHTML=result.chart;
     lab.querySelector('.sl-readout').textContent=result.note;
   };
-  update(); // Browsers can restore a form value on Back.
+  if(currentValue()!==defaults[id]) update(); // A restored input can differ from the prerendered figure.
   lab.dataset.ready='';
   control.addEventListener('input',update);
   return ()=>control.removeEventListener('input',update);

@@ -1,7 +1,7 @@
 import {articleLabels, articleRichText, readingBlock, readingWidget, renderArticleFrame} from './blog-reading.mjs';
 import {addonKind, enhanceArticle} from './blog-enhancements.mjs';
 import { posts, templateSrc } from './blog-summaries.mjs';
-import { loadArticleData } from './blog-article-data.mjs';
+import { loadArticleData, matchesArticleDataSource } from './blog-article-data.mjs';
 import { escapeHTML as esc, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
 import { withDataMotion } from './blog-data-motion-model.mjs?v=20261102-unit-objects';
@@ -78,7 +78,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   root.classList.add('article-page');
   root.classList.toggle('editorial-story', Boolean(a.subtitle));
   const openOutline=matchMedia('(min-width:761px)').matches;
-  const prerendered=summary && root.dataset?.readingSrc===summary.dataSrc && root.dataset.readingLang===lang && root.querySelector('.article-body');
+  const prerendered=summary && matchesArticleDataSource(root.dataset.readingSrc,summary.dataSrc) && root.dataset.readingLang===lang && root.querySelector('.article-body');
   if (prerendered) {
     for (const section of article.sections) {
       const slots=[...root.querySelectorAll(`#${CSS.escape(section.id)} > [data-reading-slot]`)];
@@ -130,7 +130,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
       }
     }
     figure.querySelector('.chart-scale-note').textContent=state.scale==='log'?t.logNote:'';
-    figure.querySelector('.chart-plot').innerHTML = `<div class="chart-axis" aria-hidden="true">${domain.ticks.map(value=>`<span style="top:${y(value)}px">${number(value,metric.format==='number'&&!Number.isInteger(value)?'decimal':metric.format)}</span>`).join('')}</div><div class="chart-drawing"><svg class="blog-chart-svg" viewBox="0 0 600 220" preserveAspectRatio="none" role="img" aria-label="${esc(`${block[lang].title} — ${metric[lang]} — ${t[state.scale]}`)}"><title>${esc(`${block[lang].title} — ${metric[lang]}`)}</title><desc>${esc(t.table)}</desc>${domain.ticks.map(value=>`<line x1="0" y1="${y(value)}" x2="600" y2="${y(value)}" stroke="#e5dff0"/>`).join('')}${marks}</svg><div class="chart-x-labels" style="--periods:${block.labels[lang].length}">${block.labels[lang].map(label=>`<span>${esc(label)}</span>`).join('')}</div></div>`;
+    figure.querySelector('.chart-plot').innerHTML = `<div class="chart-axis" aria-hidden="true">${domain.ticks.map(value=>`<span style="top:${y(value)}px">${number(value,metric.format==='number'&&!Number.isInteger(value)?'decimal':metric.format)}</span>`).join('')}</div><div class="chart-drawing"><svg class="blog-chart-svg" viewBox="0 0 600 220" preserveAspectRatio="none" role="img" aria-label="${esc(`${block[lang].title} — ${metric[lang]} — ${t[state.scale]}`)}"><title>${esc(`${block[lang].title} — ${metric[lang]}`)}</title><desc>${esc(t.table)}</desc>${domain.ticks.map(value=>`<line x1="0" y1="${y(value)}" x2="600" y2="${y(value)}" stroke="#e5dff0"/>`).join('')}<g data-entry-series="${state.view==='bars'?'columns':'across'}">${marks}</g></svg><div class="chart-x-labels" style="--periods:${block.labels[lang].length}">${block.labels[lang].map(label=>`<span>${esc(label)}</span>`).join('')}</div></div>`;
     figure.querySelector('.chart-points').innerHTML = block.labels[lang].map((label,index)=>`<button type="button" data-chart-point="${id}" data-point="${index}" aria-haspopup="dialog" aria-label="${esc(`${label}: ${data.map(item=>`${item.series[lang]} ${pointValue(block,metric,item.values[index]??null,index)}`).join(' / ')}`)}"><span>${esc(label)}</span><strong>${data.map(item=>`<span class="value-series-${item.index%2}">${pointValue(block,metric,item.values[index]??null,index)}</span>`).join('<span class="point-divider" aria-hidden="true"> / </span>')}</strong></button>`).join('');
     figure.querySelector('.chart-table-scroll').innerHTML = `<table><caption>${esc(metric[lang])}</caption><thead><tr><th scope="col">${t.period}</th>${data.map(item=>`<th scope="col">${esc(item.series[lang])}</th>`).join('')}</tr></thead><tbody>${block.labels[lang].map((label,index)=>`<tr><th scope="row">${esc(label)}</th>${data.map(item=>`<td dir="ltr">${pointValue(block,metric,item.values[index]??null,index)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
     if(announce)figure.querySelector('.chart-status').textContent=`${t.updated}: ${metric[lang]} · ${active.map(series=>series[lang]).join(' / ')}`;

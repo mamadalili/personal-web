@@ -2,6 +2,7 @@ import {career, projects, copy, siteCopy, skillsCopy, pageFiles, contactChannels
 import {icon,skillIcon} from './icons.mjs';
 import {createPortfolioView} from './view.mjs';
 import {navigationItems} from './navigation.mjs';
+import {watchSectionEntrances} from './section-entrances.mjs';
 import {escapeHTML} from '../../public/blog-core.mjs';
 import {localizedEntryFile} from '../../public/site-config.mjs';
 
@@ -325,3 +326,4 @@ careerMobileLayout?.addEventListener('change', () => {
   renderCareerExperience();
 });
 render();
+watchSectionEntrances($('main'));

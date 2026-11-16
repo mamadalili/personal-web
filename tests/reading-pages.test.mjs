@@ -4,7 +4,8 @@ import {readFileSync} from 'node:fs';
 import {posts} from '../public/blog-data.mjs';
 import {buildReadingPages} from '../scripts/reading-pages.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
-import {loadArticleData} from '../public/blog-article-data.mjs';
+import {loadArticleData, matchesArticleDataSource} from '../public/blog-article-data.mjs';
+import {posts as summaries} from '../public/blog-summaries.mjs';
 
 test('every public article and both archives can be read from the first HTML response', () => {
   const files=buildReadingPages(posts), live=posts.filter(item=>item.status==='published');
@@ -27,6 +28,20 @@ test('every public article and both archives can be read from the first HTML res
       assert.ok(html.includes('data-reading-lang="'+lang+'"'));
     }
   }
+});
+
+test('both reading routes can hydrate the matching release without replacing the article', ()=>{
+  for(const {slug,dataSrc} of summaries) {
+    for(const lang of ['fa','en']) {
+      const html=readFileSync(new URL('../public/reading/'+lang+'/'+slug+'.html',import.meta.url),'utf8');
+      const rendered=html.match(/data-reading-src="([^"]+)"/)?.[1];
+      assert.ok(matchesArticleDataSource(rendered,dataSrc),lang+'/'+slug);
+    }
+  }
+  const current=summaries[0].dataSrc;
+  assert.ok(matchesArticleDataSource(current,current));
+  assert.equal(matchesArticleDataSource('/'+current+'.old',current),false);
+  assert.equal(matchesArticleDataSource(undefined,undefined),false);
 });
 
 test('article data recovers once from a gateway failure and never retries a missing file', async()=>{
