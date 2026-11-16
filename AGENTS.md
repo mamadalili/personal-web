@@ -19,6 +19,14 @@ The public URL tree lives in `public/`. Edit bilingual portfolio data in `src/co
 
 The website is served from `public/`. The optional renderer in `react-site/` reads the same content. Keep the native languages and public routes consistent. Its build output is a separate preview.
 
+## Section and data entrances
+
+Use the shared section entrances for every new page, article and content section, in Persian and English. Standard article sections, archive cards and charts inherit the behavior from their renderers. The public page shell and the React layout each mount `src/portfolio/section-entrances.mjs` once on `main#main`, including content added after load.
+
+For a custom component, put `data-entry="section"` on its section heading, `data-entry="card"` on each repeated card, or `data-entry="figure"` on its chart container. Mark the plotted shapes with `data-entry-series="columns"` for an upward reveal, `"across"` for a left-to-right axis or `"inline"` when a bar follows the chart’s text direction. Keep the page title, introduction, axes, values and controls readable in the initial HTML. Choose one entrance per visual item and preserve existing interactive figures’ own playback.
+
+Before publishing a new layout, scroll into it and back in both languages at mobile and desktop sizes. Each entrance plays once, filters and chart controls respond immediately, and reduced motion shows the finished state. A repeat visit to a section should preserve the reader’s position.
+
 ## Blog publication workflow
 
 Generate the localized pages, runtime bundles, covers and sitemap together. Follow the [publication checks](docs/deployment.md#publishing-a-new-blog), including both public languages and the article interaction. Honour draft-only requests.

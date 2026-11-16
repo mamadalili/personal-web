@@ -3,6 +3,27 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {solutions} from '../public/solutions-data.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
+import {posts} from '../public/blog-summaries.mjs';
+import {siteUrl} from '../public/site-config.mjs';
+import {buildSitemapEntries} from '../public/sitemap-core.mjs';
+import {publicFile} from '../scripts/public-preview.mjs';
+
+test('every published route includes the shared entrance runtime and its content root', () => {
+  const publicRoot = new URL('../public/', import.meta.url);
+  for (const {loc} of buildSitemapEntries(siteUrl, {posts, solutions})) {
+    const url = new URL(loc);
+    const path = publicFile(url.pathname, url.searchParams);
+    assert.ok(path, loc);
+    const html = readFileSync(new URL('.' + path, publicRoot), 'utf8');
+    assert.equal((html.match(/<main\b[^>]*\sid=["']main["']/gi) ?? []).length, 1, loc);
+    const scripts = [...html.matchAll(/<script\b[^>]*\ssrc=["']([^"']+)["']/gi)];
+    const runtime = scripts.filter(([, src]) => {
+      const script = new URL(src, url);
+      return script.origin === url.origin && script.pathname === '/portfolio.js';
+    });
+    assert.equal(runtime.length, 1, loc);
+  }
+});
 
 for (const [lang, dir] of [['fa', 'rtl'], ['en', 'ltr']]) {
   for (const page of ['index', 'profile', 'contact', ...solutions.map(item => item.id)]) {
