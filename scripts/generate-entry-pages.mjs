@@ -100,8 +100,9 @@ function buildEntries(selection, storyPosts, homePosts) {
   const entries = new Map();
   for (const [file, page] of selection) {
     for (const lang of ['fa', 'en']) {
-      const targets = [file + (lang === 'en' ? '.en' : '') + '.html'];
-      if (lang === 'fa' && page !== 'home') targets.push(localizedEntryFile(file+'.html',lang));
+      const targets = new Set([file + (lang === 'en' ? '.en' : '') + '.html']);
+      if (page !== 'home') targets.add(localizedEntryFile(file+'.html',lang));
+      if (page === 'cv' && lang === 'fa') targets.add('profile.fa.html');
       const html = renderEntry(file, page, lang, storyPosts, homePosts);
       for (const target of targets) {
         entries.set(target, html);

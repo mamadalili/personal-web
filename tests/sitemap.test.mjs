@@ -11,7 +11,7 @@ test('sitemap covers canonical sections and excludes the retired skills page',()
   assert.equal(new Set(entries.map(entry=>entry.loc)).size,20);
   for(const path of ['/','/blog.html','/profile.html','/work-stories.html','/contact.html','/strategy.html','/execution.html','/technology.html','/ai-tools.html']){
     for(const language of ['fa','en']){
-      const expected=path.replace(/\.html$/,'.'+language+'.html');
+      const expected=path==='/profile.html' ? '/cv.'+language+'.html' : path.replace(/\.html$/,'.'+language+'.html');
       assert.ok(entries.some(entry=>new URL(entry.loc).pathname===expected&&new URL(entry.loc).searchParams.get('lang')===language),expected);
     }
   }

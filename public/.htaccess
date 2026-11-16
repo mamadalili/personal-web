@@ -18,6 +18,8 @@ AddDefaultCharset UTF-8
 # Portfolio entry pages
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # A CV bookmark may carry a language preference as well as an employer or tab.
+  RewriteRule ^profile(?:\.(?:en|fa))?\.html$ - [E=Cache-Control:no-cache]
   RewriteRule ^solutions\.html$ strategy.html [R=302,L]
 
   # Legacy home bookmarks can identify a CV employer or tab.
@@ -25,21 +27,31 @@ AddDefaultCharset UTF-8
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(?:index\.html)?$ profile.en.html [R=302,L]
+  RewriteRule ^(?:index\.html)?$ cv.en.html [R=302,L]
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
-  RewriteRule ^(?:index\.html)?$ profile.fa.html [R=302,L]
+  RewriteRule ^(?:index\.html)?$ cv.fa.html [R=302,L]
 
-  # The explicit query wins over a stored preference. Keep tab, role and filter parameters.
+  # Old CV URLs only redirect; each final cv.* document always serves one language.
   RewriteCond %{QUERY_STRING} (?:^|&)lang=fa(?:&|$)
-  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.en\.html$ $1.fa.html [R=302,L]
+  RewriteRule ^profile(?:\.(?:en|fa))?\.html$ cv.fa.html [R=302,L]
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
-  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.fa\.html$ $1.en.html [R=302,L]
+  RewriteRule ^profile(?:\.(?:en|fa))?\.html$ cv.en.html [R=302,L]
+  RewriteRule ^profile\.(en|fa)\.html$ cv.$1.html [R=302,L]
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^profile\.html$ cv.en.html [R=302,L]
+  RewriteRule ^profile\.html$ cv.fa.html [R=302,L]
+
+  # The explicit query wins over a stored preference. Keep role and filter parameters.
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=fa(?:&|$)
+  RewriteRule ^(blog|strategy|execution|technology|ai-tools|contact|work-stories)\.en\.html$ $1.fa.html [R=302,L]
+  RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$)
+  RewriteRule ^(blog|strategy|execution|technology|ai-tools|contact|work-stories)\.fa\.html$ $1.en.html [R=302,L]
 
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.en.html [R=302,L]
-  RewriteRule ^(profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.fa.html [R=302,L]
+  RewriteRule ^(blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.en.html [R=302,L]
+  RewriteRule ^(blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$ $1.fa.html [R=302,L]
 
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
@@ -47,7 +59,7 @@ AddDefaultCharset UTF-8
   RewriteRule ^(?:index\.html)?$ index.en.html [END]
 </IfModule>
 <IfModule mod_headers.c>
-  <FilesMatch "^(?:index|profile|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$">
+  <FilesMatch "^(?:index|profile(?:\.(?:en|fa))?|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$">
     Header unset Cache-Control
     Header always set Cache-Control "private, no-store"
     Header always merge Vary Cookie
@@ -70,11 +82,9 @@ AddDefaultCharset UTF-8
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=en(?:&|$)
   RewriteCond %{DOCUMENT_ROOT}/reading/fa/%{ENV:PORTFOLIO_POST}.html -f
   RewriteRule ^article\.html$ reading/fa/%{ENV:PORTFOLIO_POST}.html [END]
-  RewriteRule ^article\.html$ - [R=404,L]
+  # Let the reading directory serve its error document with the original URL and status.
+  RewriteRule ^article\.html$ reading/missing-article [L,QSD]
 </IfModule>
-<Files "article.html">
-  ErrorDocument 404 /article-not-found.html
-</Files>
 <IfModule mod_headers.c>
   <FilesMatch "^myphoto-(avatar|profile)-v[0-9]+\.webp$">
     Header set Cache-Control "public, max-age=31536000, immutable"

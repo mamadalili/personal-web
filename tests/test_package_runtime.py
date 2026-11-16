@@ -19,7 +19,7 @@ class RuntimePackageTests(unittest.TestCase):
             'assets/blog/previews/manifest.json', 'assets/maps/world-land-110m.svg',
             'figures/solo-model.mjs', 'assets/companies/boomerang.webp',
             'fonts/OFL.txt', 'fonts/Vazirmatn.ttf', 'reading/fa/archive.html',
-            'reading/en/archive.html',
+            'reading/en/archive.html', 'reading/.htaccess', 'article-not-found.html',
         ]
         with tempfile.TemporaryDirectory() as directory:
             archive = Path(directory) / 'release.zip'

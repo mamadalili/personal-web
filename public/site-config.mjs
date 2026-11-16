@@ -7,5 +7,7 @@ const localizedEntries = new Set([
 ]);
 
 export function localizedEntryFile(file, language) {
-  return localizedEntries.has(file) ? file.replace(/\.html$/, '.' + language + '.html') : file;
+  if (!localizedEntries.has(file)) return file;
+  const stem = file === 'profile.html' ? 'cv' : file.slice(0, -5);
+  return stem + '.' + language + '.html';
 }

@@ -16,7 +16,7 @@ PUBLIC_FILES = {
     'assets/brand/studio-hand.webp', 'assets/brand/studio-hand-small.webp',
     'assets/brand/studio-ink.webp', 'assets/brand/studio-ink-small.webp',
     'assets/cv/mohammadreza-dalili-fa.pdf', 'assets/maps/world-land-110m.svg',
-    'assets/posts/.htaccess', 'figures/solo-model.mjs', 'fonts/.htaccess',
+    'assets/posts/.htaccess', 'figures/solo-model.mjs', 'fonts/.htaccess', 'reading/.htaccess',
     'fonts/OFL.txt', 'fonts/Vazirmatn.ttf', 'fonts/Vazirmatn.woff2',
     'images/contact-portrait.webp', 'images/myphoto-avatar-v1.webp', 'images/myphoto-profile-v1.webp',
 }

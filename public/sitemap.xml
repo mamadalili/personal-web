@@ -25,16 +25,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.ir/blog.fa.html?lang=fa"/>
   </url>
   <url>
-    <loc>https://mrdalili.ir/profile.fa.html?lang=fa</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.ir/profile.fa.html?lang=fa"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.ir/profile.en.html?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.ir/profile.fa.html?lang=fa"/>
+    <loc>https://mrdalili.ir/cv.fa.html?lang=fa</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.ir/cv.fa.html?lang=fa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.ir/cv.en.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.ir/cv.fa.html?lang=fa"/>
   </url>
   <url>
-    <loc>https://mrdalili.ir/profile.en.html?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.ir/profile.fa.html?lang=fa"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.ir/profile.en.html?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.ir/profile.fa.html?lang=fa"/>
+    <loc>https://mrdalili.ir/cv.en.html?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://mrdalili.ir/cv.fa.html?lang=fa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrdalili.ir/cv.en.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrdalili.ir/cv.fa.html?lang=fa"/>
   </url>
   <url>
     <loc>https://mrdalili.ir/work-stories.fa.html?lang=fa</loc>

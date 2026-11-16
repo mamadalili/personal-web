@@ -2,6 +2,7 @@ import {existsSync,readFileSync,realpathSync,statSync} from 'node:fs';
 import {join,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import sirv from 'sirv';
+import {localizedEntryFile} from '../public/site-config.mjs';
 
 export const publicRoot=fileURLToPath(new URL('../public/',import.meta.url));
 const root=realpathSync(publicRoot);
@@ -13,12 +14,12 @@ export function publicFile(path,query,cookie=''){
   const explicit=query.get('lang');
   const lang=explicit==='fa'||explicit==='en'?explicit:/(?:^|;\s*)portfolio_language=en(?:;|$)/.test(cookie)?'en':'fa';
   if(path==='/'||path==='/index.html'){
-    if(query.has('tab')||query.has('role'))return '/profile.'+lang+'.html';
+    if(query.has('tab')||query.has('role'))return '/'+localizedEntryFile('profile.html',lang);
     return lang==='en'?'/index.en.html':'/index.html';
   }
   if(path==='/solutions.html')path='/strategy.html';
   const entry=localized.exec(path);
-  if(entry)return '/'+entry[1]+'.'+(explicit==='en'||explicit==='fa'?explicit:entry[2]||lang)+'.html';
+  if(entry)return '/'+localizedEntryFile(entry[1]+'.html',explicit==='en'||explicit==='fa'?explicit:entry[2]||lang);
   if(path==='/article.html'){
     const slug=query.get('post')||'';
     if(query.getAll('post').length===1 && slug!=='archive' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)){
@@ -27,6 +28,7 @@ export function publicFile(path,query,cookie=''){
     }
     return null;
   }
+  if(path.startsWith('/reading/') && !existsSync(join(root,path)))return null;
   return path;
 }
 
@@ -47,7 +49,7 @@ export function publicMiddleware({react=false}={}){
       res.end(req.method==='HEAD'?undefined:readFileSync(join(root,'article-not-found.html')));
       return;
     }
-    if(path==='/solutions.html'||(localized.test(path)&&name!==path)||((path==='/'||path==='/index.html')&&name.startsWith('/profile.'))){
+    if(path==='/solutions.html'||(localized.test(path)&&name!==path)||((path==='/'||path==='/index.html')&&name.startsWith('/cv.'))){
       const location=path==='/solutions.html'?'/strategy.html':name;
       res.writeHead(302,{Location:location+(search?'?'+search:''),Vary:'Cookie','Cache-Control':'private, no-store'}).end();
       return;

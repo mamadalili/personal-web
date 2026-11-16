@@ -49,12 +49,17 @@ test('language-specific CV responses preserve old tabs and ignore a conflicting 
     const redirect=await fetch(target,{redirect:'manual',headers:{Cookie:'portfolio_language='+cookie}});
     assert.equal(redirect.status,302,path);
     const final=new URL(redirect.headers.get('location'),origin);
-    assert.equal(final.pathname,'/profile.'+language+'.html');
+    assert.equal(final.pathname,'/cv.'+language+'.html');
     assert.equal(final.search,target.search);
     assert.match(redirect.headers.get('cache-control'),/no-store/);
     const response=await fetch(final,{redirect:'manual',headers:{Cookie:'portfolio_language='+cookie}});
     assert.equal(response.status,200);
     assert.match(await response.text(),new RegExp('<html lang="'+language+'" dir="'+(language==='en'?'ltr':'rtl')+'"'));
+  }
+  for(const [language, other] of [['fa','en'],['en','fa']]){
+    const response=await fetch(origin+'/cv.'+language+'.html?lang='+other,{headers:{Cookie:'portfolio_language='+other},redirect:'manual'});
+    assert.equal(response.status,200);
+    assert.match(await response.text(),new RegExp('<html lang="'+language+'"'));
   }
 });
 
@@ -63,8 +68,8 @@ test('missing articles return an accessible 404 document for GET and HEAD', asyn
   await once(server,'listening');
   t.after(()=>new Promise(resolve=>server.close(resolve)));
   const origin='http://127.0.0.1:'+server.address().port;
-  for (const query of ['','?post=','?post=unknown-story&lang=en','?lang=fa&post=archive','?post=..%2farchive','?post=ai-model-market&post=other']) {
-    const path=origin+'/article.html'+query;
+  for (const request of ['/article.html','/article.html?post=','/article.html?post=unknown-story&lang=en','/article.html?lang=fa&post=archive','/article.html?post=..%2farchive','/article.html?post=ai-model-market&post=other','/reading/fa/unknown-story.html','/reading/en/unknown-story.html']) {
+    const path=origin+request;
     const response=await fetch(path,{redirect:'manual'});
     assert.equal(response.status,404,path);
     const html=await response.text();

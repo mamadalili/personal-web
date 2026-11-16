@@ -30,7 +30,9 @@ function rememberServerLanguage(value){
 }
 if(['fa','en'].includes(savedLanguage)) rememberServerLanguage(savedLanguage);
 const fileLanguage=location.pathname.match(/\.(fa|en)\.html$/)?.[1];
-let lang=['fa','en'].includes(params.get('lang'))?params.get('lang'):fileLanguage||(['fa','en'].includes(savedLanguage)?savedLanguage:document.documentElement.lang==='en'?'en':'fa');
+const queryLanguage=['fa','en'].includes(params.get('lang'))?params.get('lang'):null;
+const cvFileLanguage=location.pathname.match(/\/cv\.(en|fa)\.html$/)?.[1];
+let lang=cvFileLanguage||queryLanguage||fileLanguage||(['fa','en'].includes(savedLanguage)?savedLanguage:document.documentElement.lang==='en'?'en':'fa');
 let activeTab=tabIds.includes(params.get('tab'))?params.get('tab'):location.pathname.endsWith('/contact.html')?'contact':'experience';
 let activeCareer=career.some(x=>x.id===params.get('role'))?params.get('role'):'boomerang';
 const $=id=>document.getElementById(id);
