@@ -14,6 +14,28 @@ export function blogLibrarySelection(posts,{lang='fa',query='',category=''}={}){
 const editorPicks = ['strategic-next-move', 'ai-video-production', 'company-brain'];
 const readingCollections = [
   {
+    id:'procurement-to-delivery', guided:true,
+    fa:{
+      name:'پروندهٔ «از تأمین تا تحویل سفارش»', title:'چه وقت می‌توانی به مشتری قول تحویل بدهی؟', backLabel:'برگشت به پروندهٔ «از تأمین تا تحویل سفارش»',
+      intro:'در دو روایت آنلاین تحریر، یک دفتر را از کارتن تا قفسه دنبال کن. بعد در بومرنگ ببین چه وقت می‌شود به مشتری گفت بسته‌اش راه افتاده.',
+    },
+    en:{
+      name:'From procurement to delivery', title:'When can you promise delivery?', backLabel:'Back to “From procurement to delivery”',
+      intro:'Follow a notebook from the carton to the shelf in two Online Tahrir stories. Then visit the packing table at Boomerang to see when you can tell a customer their parcel is on its way.',
+    },
+    steps:[
+      {slug:'turbin-launch',
+        fa:{label:'از اینجا شروع کن', note:'تأمین‌کننده قیمت یک بسته را می‌دهد و مشتری یک دفتر می‌خرد. وقتی کارتن رسید، رنگ و تعداد دفترهای سالم را با برگهٔ خرید چک کن.'},
+        en:{label:'Start here', note:'The supplier quotes a price per pack and the customer buys one notebook. When the carton arrives, check the colour and the number of undamaged notebooks against the purchase order.'}},
+      {slug:'turbin-warehouse',
+        fa:{label:'حالا سراغ قفسه برو', note:'سه دفتر روی قفسه است. یکی رزرو شده و یکی جلدش آسیب دیده. در تمرین انبار، رزرو را لغو کن و ببین چند دفتر برای مشتری بعدی آزاد می‌شود.'},
+        en:{label:'Next, check the shelf', note:'Three notebooks are on the shelf. One is reserved and one has a damaged cover. Cancel the reservation in the diagram and see how many you can offer the next customer.'}},
+      {slug:'boomerang-logistics',
+        fa:{label:'بسته را تا تحویل دنبال کن', note:'در مثال بومرنگ، بسته کد رهگیری دارد و هنوز روی میز است. پشتیبانی از کجا می‌فهمد راننده آن را تحویل گرفته؟ رسیدن به دست مشتری را چطور چک می‌کند؟'},
+        en:{label:'Follow the parcel to delivery', note:'A parcel at Boomerang has a tracking number and is still on the packing table. How does support know the carrier has collected it? What confirms it reached the customer?'}},
+    ],
+  },
+  {
     id:'data-marketing', guided:true,
     fa:{
       name:'پروندهٔ بازاریابی با داده', title:'کدام درخواست به سفارش رسید؟', backLabel:'برگشت به پروندهٔ بازاریابی با داده',

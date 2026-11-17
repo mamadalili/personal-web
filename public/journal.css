@@ -86,6 +86,21 @@
   border-block-start: 3px solid #9383ff;
 }
 .journal-collection + .journal-collection { margin-block-start: clamp(24px, 3vw, 40px); }
+#procurement-to-delivery {
+  --collection-paper: #f1f4ea;
+  --collection-ink: #263525;
+  --collection-text: #3d503b;
+  --collection-accent: #365a39;
+  --collection-line: #a4b4a0;
+  border-block-start-color: var(--collection-accent);
+}
+:root[data-theme=dark] #procurement-to-delivery {
+  --collection-paper: #202c25;
+  --collection-ink: #f0f6ed;
+  --collection-text: #cbdaca;
+  --collection-accent: #bbdbae;
+  --collection-line: #637664;
+}
 #data-marketing {
   --collection-paper: #edf3f8;
   --collection-ink: #192b40;

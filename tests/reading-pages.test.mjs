@@ -23,6 +23,7 @@ test('every public article and both archives can be read from the first HTML res
       .filter(([,before,,after]) => !/\bhidden\b/.test(before + after)).map(match => match[2]);
     assert.deepEqual(visibleStories.sort(),live.map(post => post.slug).sort());
     const paths = {
+      'procurement-to-delivery': ['turbin-launch','turbin-warehouse','boomerang-logistics'],
       'data-marketing': ['datis-question','measuring-ai-search','binici-dashboard'],
       'ai-content': ['make-expertise-understandable','ai-content-system','ai-video-production'],
       'journal-collection': ['search-to-sale','product-page-decisions','boomerang-channels'],
