@@ -86,6 +86,21 @@
   border-block-start: 3px solid #9383ff;
 }
 .journal-collection + .journal-collection { margin-block-start: clamp(24px, 3vw, 40px); }
+#data-marketing {
+  --collection-paper: #edf3f8;
+  --collection-ink: #192b40;
+  --collection-text: #35495b;
+  --collection-accent: #224e76;
+  --collection-line: #9eb1c2;
+  border-block-start-color: var(--collection-accent);
+}
+:root[data-theme=dark] #data-marketing {
+  --collection-paper: #1c2936;
+  --collection-ink: #eff5ff;
+  --collection-text: #c5d7e4;
+  --collection-accent: #aad9ff;
+  --collection-line: #596e82;
+}
 #ai-content {
   --collection-paper: #f6f3ec;
   --collection-ink: #292238;

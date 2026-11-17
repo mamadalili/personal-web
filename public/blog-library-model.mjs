@@ -14,6 +14,28 @@ export function blogLibrarySelection(posts,{lang='fa',query='',category=''}={}){
 const editorPicks = ['strategic-next-move', 'ai-video-production', 'company-brain'];
 const readingCollections = [
   {
+    id:'data-marketing', guided:true,
+    fa:{
+      name:'پروندهٔ بازاریابی با داده', title:'کدام درخواست به سفارش رسید؟', backLabel:'برگشت به پروندهٔ بازاریابی با داده',
+      intro:'دو استعلام قیمت ثبت شده. دو نفر قیمت پرسیده‌اند یا یک نفر دو بار؟ پیش از اینکه بودجهٔ تبلیغ را بیشتر کنی، ببین گزارشت چه چیزی را شمرده.',
+    },
+    en:{
+      name:'Marketing with data', title:'Which inquiry became an order?', backLabel:'Back to the marketing with data collection',
+      intro:'Two requests for a quote came in. Did two people ask, or did one person ask twice? Before you spend more on the campaign, find out what your report is counting.',
+    },
+    steps:[
+      {slug:'datis-question',
+        fa:{label:'از اینجا شروع کن', note:'در مثال داتیس، یک مدل کم می‌فروشد. از کسی که دست خالی برگشته چه می‌پرسی تا بفهمی مدل تازه لازم است یا توضیح بهتر؟'},
+        en:{label:'Start here', note:'In the Datis story, one model is selling slowly. What would you ask someone who walked away to find out whether you need a new model or a clearer explanation?'}},
+      {slug:'measuring-ai-search',
+        fa:{label:'دیده‌شدن یا بازدید؟', note:'پاسخ هوش مصنوعی اسم فروشگاهت را آورده و به یک مجله لینک داده. از کجا می‌فهمی کسی وارد سایت خودت هم شده؟'},
+        en:{label:'Was there a visit?', note:'An AI answer names your shop and links to a magazine. What evidence would you need before counting a visit to your own site?'}},
+      {slug:'binici-dashboard',
+        fa:{label:'درخواست را تا سفارش دنبال کن', note:'در مثال بی‌نی‌سی، مشتری بار دوم برای تعداد بیشتری قیمت می‌خواهد. ببین تیم فروش چطور هر دو پیشنهاد را زیر همان درخواست ثبت می‌کند.'},
+        en:{label:'Follow the inquiry to sales', note:'In the BiNiCi example, a customer asks for a second quote for a larger quantity. Keep both quotes under one inquiry so sales can trace the order.'}},
+    ],
+  },
+  {
     id:'ai-content', guided:true,
     fa:{
       name:'پروندهٔ هوش مصنوعی و تولید محتوا', title:'از یک سؤال واقعی تا ویدیوی کوتاه', backLabel:'برگشت به پروندهٔ هوش مصنوعی و تولید محتوا',

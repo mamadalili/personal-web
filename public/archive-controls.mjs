@@ -6,7 +6,7 @@ export function attachArchiveFilters(root, signal) {
     const sheet = document.createElement('link');
     sheet.id = 'journal-style';
     sheet.rel = 'stylesheet';
-    sheet.href = new URL('./journal.css?v=20261117-sales-path', import.meta.url).href;
+    sheet.href = new URL('./journal.css?v=20261117-data-marketing', import.meta.url).href;
     document.head.append(sheet);
   }
   const archive = root.querySelector('[data-library-controls]');

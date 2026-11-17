@@ -28,7 +28,7 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
   if (archive) html = html
     .replace('portfolio.js?v=20261110-recovery','portfolio.js?v=20261117-journal')
     .replace(/  <link rel="stylesheet" href="blog\.css[^"]*">\n/, '')
-    .replace('</head>', '  <link id="journal-style" rel="stylesheet" href="journal.css?v=20261117-sales-path">\n</head>')
+    .replace('</head>', '  <link id="journal-style" rel="stylesheet" href="journal.css?v=20261117-data-marketing">\n</head>')
     .replace('رفتن به محتوای اصلی / Skip to content',lang==='fa'?'رفتن به محتوای اصلی':'Skip to content')
     .replace(/<span id="header-label">[^<]*<\/span>/, '<span id="header-label">'+(lang==='fa'?'بلاگ':'Blog')+'</span>')
     .replace('<noscript>', '<noscript><style>.journal-controls{display:none}</style>').replace(/^.*<link rel="stylesheet" href="blog-(?:solo|market|data-motion)\.css[^"]*">.*\n/gm,'');
