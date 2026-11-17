@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { blogLibrarySelection } from '../public/blog-library-model.mjs';
+import { blogLibrarySelection, journalEdition } from '../public/blog-library-model.mjs';
 import { internalHref } from '../public/blog-core.mjs';
 const item=(slug,date,fa,en,extra={})=>({slug,date,status:'published',fa:{title:fa,excerpt:'یادگیری',category:'فناوری'},en:{title:en,excerpt:'Practical ideas',category:'Technology'},...extra});
 const items=[item('old','2026-10-20','بازار مدل‌ها','AI market'),item('new','2026-10-26','کار و بازده','Work and revenue'),item('mid','2026-10-24','کسب‌وکار مستقل','Solo business'),item('draft','2026-10-27','پیش‌نویس','Draft',{status:'draft'})];
@@ -26,4 +26,20 @@ test('Solutions links enter the same canonical selectable page in both languages
  for(const language of ['fa','en']){
   assert.equal(internalHref('solutions',language,[],'https://example.test/site/'),internalHref('strategy',language,[],'https://example.test/site/'));
  }
+});
+
+test('an editorial pick can become the lead without appearing twice; incomplete collections return to the archive', () => {
+ const stories = ['ai-video-production', 'strategic-next-move', 'product-page-decisions', 'boomerang-channels'].map(
+   (slug, index) => item(slug, '2026-10-' + (29 - index), 'نوشته', 'Story'));
+ const draft = item('search-to-sale','2026-10-22','پیش‌نویس','Draft',{status:'draft'});
+ const edition = journalEdition([...stories, draft], 'en');
+ assert.equal(edition.featured.slug, 'ai-video-production');
+ assert.deepEqual(edition.picks.map(post => post.slug), ['strategic-next-move']);
+ assert.deepEqual(edition.collection, []);
+ assert.equal(edition.ordered.length, 4);
+ assert.equal(edition.front.size, 2);
+ const complete = journalEdition([...stories, {...draft, status:'published'}], 'fa');
+ assert.deepEqual(complete.collection.map(step => step.post.slug), ['search-to-sale','product-page-decisions','boomerang-channels']);
+ assert.equal(complete.collection[2].label, 'پیگیری پرداخت');
+ assert.equal(journalEdition([draft], 'fa').front.size, 0);
 });

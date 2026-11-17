@@ -19,7 +19,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   const livePosts = publishedPosts(posts);
 
   if (mode === 'index') {
-    const {mountBlogIndex} = await import('./blog-index.mjs?v=20261101-compact-archive');
+    const {mountBlogIndex} = await import('./blog-index.mjs?v=20261117-journal');
     if (!signal.aborted && root.isConnected) mountBlogIndex(root,{lang,items:posts,href,signal});
     return;
   }

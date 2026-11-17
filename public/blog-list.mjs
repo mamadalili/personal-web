@@ -11,7 +11,7 @@ export async function mountBlog(root, {language = 'fa'} = {}) {
   unmountBlog();
   controller = new AbortController();
   const {signal} = controller;
-  if (root.dataset.readingLang === language && root.querySelector('[data-library-controls]')) {
+  if (root.dataset.readingLang === language && root.querySelector('.journal-masthead')) {
     attachArchiveFilters(root, signal);
     return;
   }

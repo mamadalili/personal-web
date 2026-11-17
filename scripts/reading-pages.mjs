@@ -25,15 +25,19 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
     .replace(/<main id="main"[\s\S]*?<\/main>/,()=>`<main id="main" tabindex="-1" class="page-layout ${classes}" data-reading-lang="${lang}" data-reading-post="${slug||''}"${dataSrc?` data-reading-src="${esc(dataSrc)}"`:''}>${main}</main>`)
     .replace(/<noscript>[\s\S]*?<\/noscript>/,()=>`<noscript><nav class="noscript" aria-label="${lang==='fa'?'صفحه‌ها':'Pages'}">${navMarkup} <a href="/${archive?'blog.html?lang=':'article.html?post='+slug+'&amp;lang='}${lang==='fa'?'en':'fa'}">${lang==='fa'?'English':'فارسی'}</a></nav></noscript>`);
   if (archive) html = html
-    .replace('portfolio.js?v=20261110-recovery','portfolio.js?v=20261112-archive')
+    .replace('portfolio.js?v=20261110-recovery','portfolio.js?v=20261117-journal')
+    .replace(/  <link rel="stylesheet" href="blog\.css[^"]*">\n/, '')
+    .replace('</head>', '  <link id="journal-style" rel="stylesheet" href="journal.css?v=20261117">\n</head>')
     .replace('رفتن به محتوای اصلی / Skip to content',lang==='fa'?'رفتن به محتوای اصلی':'Skip to content')
     .replace(/<span id="header-label">[^<]*<\/span>/, '<span id="header-label">'+(lang==='fa'?'بلاگ':'Blog')+'</span>')
-    .replace('<noscript>', '<noscript><style>.library-filters,.library-search{display:none}</style>').replace(/^.*<link rel="stylesheet" href="blog-(?:solo|market|data-motion)\.css[^"]*">.*\n/gm,'');
+    .replace('<noscript>', '<noscript><style>.journal-controls{display:none}</style>').replace(/^.*<link rel="stylesheet" href="blog-(?:solo|market|data-motion)\.css[^"]*">.*\n/gm,'');
   if (lang==='en') html=html.replace('>محمدرضا دلیلی</span>','>Mohamad Reza Dalili</span>')
     .replaceAll('مارکتر و اپراتور هوش‌مصنوعی','Marketer and AI Operator').replace('پورتفولیوی شخصی','Portfolio')
     .replace('lang="en" aria-label="Switch to English">English','lang="fa" aria-label="تغییر زبان به فارسی">فارسی');
   // The direct reading file and the historical public URL are at different depths.
-  return html.replace(/\b(href|src|srcset)="(?![\/#]|[a-z][a-z0-9+.-]*:)([^"]+)"/gi,'$1="/$2"')
+  return html.replace(/\b(href|src)="(?![\/#]|[a-z][a-z0-9+.-]*:)([^"]+)"/gi,'$1="/$2"')
+    .replace(/\bsrcset="([^"]+)"/g, (_, candidates) => 'srcset="' + candidates.split(',').map(part =>
+      part.trim().replace(/^(?![\/#]|[a-z][a-z0-9+.-]*:)/i, '/')).join(', ') + '"')
     .replace(/<a class="brand" href="\/index\.html"/,`<a class="brand" href="/index.html?lang=${lang}"`);
 }
 
@@ -57,7 +61,7 @@ export function buildReadingPages(items){
       const local=new URL(url);
       return local.pathname+local.search+local.hash;
     };
-    const archive=localizedDocument(template,{lang,title:lang==='fa'?'آرشیو بلاگ':'Blog archive',
+    const archive=localizedDocument(template,{lang,title:libraryCopy[lang].title,
       intro:libraryCopy[lang].intro,
       main:renderArchive({lang,items:live}),classes:'blog-index'});
     files.set('reading/'+lang+'/archive.html',archive);

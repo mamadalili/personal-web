@@ -17,7 +17,11 @@ test('every public article and both archives can be read from the first HTML res
     const archive=files.get('reading/'+lang+'/archive.html');
     if (lang==='fa') assert.equal(files.get('blog.html'),archive);
     assert.ok(archive.includes('<html lang="'+lang+'" dir="'+(lang==='fa'?'rtl':'ltr')+'"'));
-    assert.match(archive, /<h1>[^<]+<br>[^<]+<\/h1><p>[^<]+<\/p>/);
+    assert.match(archive, /<header class="journal-masthead">\s*<h1>[^<]+<\/h1><p>[^<]+<\/p>/);
+    assert.match(archive, /srcset="\/assets\/blog\/previews\/[^ ]+ 768w, \/assets\/blog\/[^ ]+ \d+w"/);
+    const visibleStories = [...archive.matchAll(/<a\b([^>]*?)href="\/reading\/(?:fa|en)\/([\w-]+)\.html"([^>]*)>/g)]
+      .filter(([,before,,after]) => !/\bhidden\b/.test(before + after)).map(match => match[2]);
+    assert.deepEqual(visibleStories.sort(),live.map(post => post.slug).sort());
     assert.equal((archive.match(/data-alternate-text=/g) || []).length,live.length);
     for(const item of live){
       assert.ok(archive.includes('href="/reading/'+lang+'/'+item.slug+'.html"'));

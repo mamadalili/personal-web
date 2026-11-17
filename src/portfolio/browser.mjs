@@ -120,7 +120,7 @@ let disposeBlog=()=>{};
 const pageModuleBase=document.currentScript?.src||document.baseURI;
 async function loadPageModule(file, retry=false) {
  const url = new URL('runtime-'+file, pageModuleBase);
- if (file==='blog-list.mjs') url.searchParams.set('v','20261112-archive');
+ if (file==='blog-list.mjs') url.searchParams.set('v','20261117-journal');
  if (file==='work-stories.mjs') url.searchParams.set('v','20261112-work-entries');
  if (retry) url.searchParams.set('retry',String(Date.now()));
  try { return await import(url.href); }

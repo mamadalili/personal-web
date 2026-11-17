@@ -6,7 +6,7 @@ const sections = [
   '.solution-faq > h2', '.collaboration-copy',
   '.work-role-header', '.work-role-background', '.work-story-heading',
   '.contact-glass-copy', '.contact-channels-header', '.employer-rail > header',
-  '.library-feature-copy', '#library-heading', '.article-byline', '.article-section > h2',
+  '.library-feature-copy', '.journal-lead-copy', '.journal-collection > header', '#library-heading', '.article-byline', '.article-section > h2',
   '.article-inline-image', '.article-callout', '.article-related > h2',
   '.market-chapter-copy > h2', '.market-figure-label', '.simulator-result',
 ].join(',');
@@ -14,7 +14,7 @@ const sections = [
 const cards = [
   '.home-folder-link', '.home-post-card', '.home-quick-links > article',
   '.career-metric', '.story-preview-card', '.project-list > details', '.capability-grid > div',
-  '.work-story', '.contact-method', '.employer-logo-card', '.library-card',
+  '.work-story', '.contact-method', '.employer-logo-card', '.library-card', '.journal-pick', '.journal-row', '.journal-collection li',
   '.solution-outputs > article', '.solution-process article', '.solution-card',
 ].join(',');
 

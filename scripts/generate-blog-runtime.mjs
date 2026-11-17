@@ -10,7 +10,7 @@ import {buildBrowserRuntime} from './build-browser-runtime.mjs';
 import {buildHomeEntries, buildWorkStoryEntries} from './generate-entry-pages.mjs';
 
 export function buildBlogRuntime(items, template) {
-  const files = new Map(), summaries = postSummaries(items);
+  const files = new Map(), summaries = postSummaries(items, {includeSubtitle:true});
   const storyPosts = publishedStories(items);
   files.set('work-story-posts.mjs', '// Generated from published bilingual work stories.\nexport const posts = ' + JSON.stringify(storyPosts) + ';\n');
   for (const [file, html] of buildWorkStoryEntries(storyPosts)) files.set(file,html);

@@ -1,31 +1,116 @@
 import {attachArchiveFilters} from './archive-controls.mjs';
-import { escapeHTML as esc } from './blog-core.mjs';
-import { renderPostCover } from './blog-covers.mjs';
-import { blogLibrarySelection } from './blog-library-model.mjs';
+import {escapeHTML as esc} from './blog-core.mjs';
+import {renderPostCover} from './blog-covers.mjs';
+import {journalEdition} from './blog-library-model.mjs';
 
-export const libraryCopy={
- fa:{eyebrow:'یادداشت‌ها و تجربه‌ها',title:"پرسش‌های بازاریابی و فناوری،<br>با مثال و دیتا.",intro:"مطالبی درباره بازار، فروش آنلاین و کار با AI؛ با نمودار، مقایسه یا تمرین که فهم موضوع را آسان‌تر می‌کند.",latest:'تازه‌ترین یادداشت',read:'خواندن نوشته',archive:'آرشیو نوشته‌ها',search:'دنبال چه موضوعی می‌گردی؟',placeholder:'جست‌وجوی موضوع یا کلیدواژه',all:'همهٔ موضوع‌ها',topics:'موضوع نوشته‌ها',results:'نوشته‌های انتخاب‌شده',empty:'نوشته‌ای پیدا نشد. یک کلمهٔ دیگه یا موضوع دیگه‌ای رو امتحان کن.',clear:'پاک‌کردن انتخاب‌ها',noPosts:'اولین نوشته به‌زودی از اینجا در دسترس خواهد بود.'},
- en:{eyebrow:'NOTES & EXPERIENCES',title:"Marketing and technology questions,<br>explored through examples and data.",intro:"Writing on markets, online sales and working with AI, with charts, comparisons or exercises that make the subject clearer.",latest:'LATEST NOTE',read:'Read the article',archive:'Browse the archive',search:'What are you curious about?',placeholder:'Search a topic or keyword',all:'All topics',topics:'Article topics',results:'Selected notes',empty:'No articles match. Try another keyword or topic.',clear:'Clear selections',noPosts:'The first published note will appear here.'}
+export const libraryCopy = {
+  fa: {
+    title:'مجلهٔ بازاریابی و فناوری', intro:'دربارهٔ آدمی می‌نویسم که چیزی می‌خرد، تیمی که آن را می‌فروشد و تصمیم‌هایی که بین این دو گرفته می‌شود.',
+    archive:'آرشیو نوشته‌ها', browse:'جست‌وجو در آرشیو', latest:'تازه‌ترین نوشته', picks:'انتخاب‌های من',
+    collection:'پروندهٔ فروش آنلاین', journey:'از جست‌وجو تا رسید خرید',
+    journeyIntro:'خریدار چطور پیدایت می‌کند؟ چطور مدلش را انتخاب می‌کند؟ اگر پول از حسابش کم شد و رسید نگرفت، چه می‌شود؟',
+    search:'جست‌وجو در همهٔ نوشته‌ها', placeholder:'عنوان، موضوع یا نام شرکت', all:'همهٔ موضوع‌ها', topics:'موضوع',
+    more:'نوشتهٔ دیگر', articles:'نوشته', results:'{count} نوشته از {total}', clear:'پاک کردن فیلترها',
+    empty:'نوشته‌ای با این انتخاب پیدا نشد. یک واژه یا موضوع دیگر را امتحان کن.', noPosts:'اولین نوشته به‌زودی اینجا منتشر می‌شود.',
+  },
+  en: {
+    title:'Marketing & Technology Journal', intro:'I write about the person buying a product, the team selling it and the decisions each of them makes along the way.',
+    archive:'The archive', browse:'Search the archive', latest:'Latest story', picks:'Editor’s picks',
+    collection:'Ecommerce collection', journey:'From search to the order receipt',
+    journeyIntro:'How does a buyer find you, choose a model and track down an order when the money has left their account?',
+    search:'Search all articles', placeholder:'Title, topic or company', all:'All topics', topics:'Topic',
+    more:'more articles', articles:'articles', results:'{count} of {total} articles', clear:'Clear filters',
+    empty:'No articles match. Try a different word or topic.', noPosts:'The first article will appear here.',
+  },
 };
-const arrow='<svg class="library-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>';
 
-export function renderArchive({lang,items}){
- const t=libraryCopy[lang],initial=blogLibrarySelection(items,{lang});
- const date=value=>new Intl.DateTimeFormat(lang,{dateStyle:'medium'}).format(new Date(value+'T12:00:00Z'));
- const meta=post=>'<div class="library-meta"><span>'+esc(post[lang].category)+'</span><time datetime="'+esc(post.date)+'">'+esc(date(post.date))+'</time></div>';
- const other=lang==='fa'?'en':'fa';
- const articlePath=post=>'reading/'+lang+'/'+post.slug+'.html';
- const alternateText=post=>[post[other].title,post[other].excerpt,post[other].category].join(' ');
- const card=post=>'<a class="library-card" href="'+esc(articlePath(post))+'" data-alternate-text="'+esc(alternateText(post))+'">'+renderPostCover(post,lang,{className:'library-card-cover',preview:true})+'<div class="library-card-copy">'+meta(post)+'<h3>'+esc(post[lang].title)+'</h3><p>'+esc(post[lang].excerpt)+'</p><div class="library-card-foot"><small>'+esc(post[lang].readTime)+'</small><span>'+t.read+arrow+'</span></div></div></a>';
- const markup='<header class="library-header"><div class="eyebrow">'+t.eyebrow+'</div><h1>'+t.title+'</h1><p>'+t.intro+'</p><span class="library-header-glow" aria-hidden="true"></span></header>'+(initial.featured?'<section class="library-feature" aria-label="'+t.latest+'"><a href="'+esc(articlePath(initial.featured))+'"><div class="library-feature-art">'+renderPostCover(initial.featured,lang,{className:'library-feature-cover',eager:true})+'<span>'+t.latest+'</span></div><div class="library-feature-copy">'+meta(initial.featured)+'<h2>'+esc(initial.featured[lang].title)+'</h2><p>'+esc(initial.featured[lang].excerpt)+'</p><span class="library-feature-action">'+t.read+arrow+'</span></div></a></section>':'')+'<section class="library-archive" data-library-controls data-results="'+esc(t.results)+'" data-empty="'+esc(t.empty)+'" data-no-posts="'+esc(t.noPosts)+'" aria-labelledby="library-heading"><div class="library-tools"><h2 id="library-heading">'+t.archive+'</h2><label class="library-search"><span class="sr-only">'+t.search+'</span><input id="blog-search" disabled type="search" autocomplete="off" placeholder="'+t.placeholder+'"></label></div><div class="library-filters" role="group" aria-label="'+t.topics+'"><button type="button" disabled data-library-filter="-1" aria-pressed="true"><span>'+t.all+'</span></button>'+initial.categories.map((category,index)=>'<button type="button" disabled data-library-filter="'+index+'" aria-pressed="false"><span>'+esc(category)+'</span></button>').join('')+'</div><div class="library-grid" id="blog-post-list">'+initial.items.map(card).join('')+'</div><p class="library-status" role="status" aria-live="polite"></p><button class="library-clear" type="button" hidden>'+t.clear+'</button>'+(initial.featured?'<template data-feature-card>'+card(initial.featured)+'</template>':'')+'</section>';
- return markup;
+const arrow = '<span class="journal-arrow" aria-hidden="true">→</span>';
+const searchIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg>';
+
+export function renderArchive({lang, items}) {
+  const t = libraryCopy[lang], edition = journalEdition(items, lang);
+  const {featured, picks, collection, ordered, front, categories} = edition;
+  const other = lang === 'fa' ? 'en' : 'fa';
+  const dates = new Intl.DateTimeFormat(lang, {dateStyle:'medium'});
+  const numbers = new Intl.NumberFormat(lang);
+  const href = post => 'reading/' + lang + '/' + esc(post.slug) + '.html';
+  const time = post => `<time datetime="${esc(post.date)}">${esc(dates.format(new Date(post.date + 'T12:00:00Z')))}</time>`;
+  const topic = post => `<span class="journal-topic">${esc(post[lang].category)}</span>`;
+  const employer = post => post.fa.category === 'روایت‌های کاری' && post[lang].subtitle
+    ? `<span class="journal-employer">${esc(post[lang].subtitle)}</span>` : '';
+  const art = (post, options = {}) => renderPostCover(post, lang, {className:'journal-art', preview:true, ...options});
+
+  function lead(post) {
+    const local = post[lang];
+    return `<article class="journal-lead">
+      <div class="journal-rubric"><span>${t.latest}</span>${time(post)}</div>
+      <a href="${href(post)}" aria-labelledby="journal-lead-title">
+        ${art(post, {preview:false, eager:true, sizes:'(max-width: 740px) 95vw, (max-width: 1220px) 60vw, 700px'})}
+        <div class="journal-lead-copy">
+          <div class="journal-byline">${topic(post)}${employer(post)}</div>
+          <h2 id="journal-lead-title">${esc(local.title)} ${arrow}</h2>
+          <p>${esc(local.excerpt)}</p>
+        </div>
+      </a></article>`;
+  }
+
+  function pick(post) {
+    return `<a class="journal-pick" href="${href(post)}">
+      ${art(post)}
+      <div>${topic(post)}<h3>${esc(post[lang].title)}</h3><small>${esc(post[lang].readTime)}</small></div>
+    </a>`;
+  }
+
+  function collectionStep({post, label}) {
+    return `<li><a href="${href(post)}">
+      <span class="journal-stage">${esc(label)}</span>${art(post)}
+      <h3>${esc(post[lang].title)} ${arrow}</h3></a></li>`;
+  }
+
+  function row(post) {
+    const local = post[lang], alternate = post[other];
+    const keywords = [local.subtitle, local.excerpt, alternate.title, alternate.subtitle, alternate.category, alternate.excerpt].filter(Boolean).join(' ');
+    return `<a class="journal-row" href="${href(post)}" data-topic="${esc(local.category)}" data-alternate-text="${esc(keywords)}"${front.has(post.slug) ? ' data-on-front hidden' : ''}>
+      ${art(post)}
+      <div class="journal-row-copy"><div class="journal-byline">${topic(post)}${employer(post)}</div>
+        <h3>${esc(local.title)}</h3><div class="journal-row-meta">${time(post)}<small>${esc(local.readTime)}</small></div></div>
+    </a>`;
+  }
+
+  const count = ordered.length - front.size;
+  return `<header class="journal-masthead">
+    <h1>${esc(t.title)}</h1><p>${esc(t.intro)}</p>
+    <nav class="journal-jumps" aria-label="${lang === 'fa' ? 'بخش‌های مجله' : 'Journal sections'}">
+      ${collection.length ? `<a href="#journal-collection" data-front-link>${t.collection}</a>` : ''}
+      <a href="#library-heading">${t.browse} ${arrow}</a>
+    </nav>
+  </header>
+  ${featured ? `<div class="journal-front${picks.length ? '' : ' journal-front-solo'}" data-journal-front>
+    ${lead(featured)}
+    ${picks.length ? `<section class="journal-picks" aria-labelledby="journal-picks-heading"><h2 class="journal-rubric" id="journal-picks-heading">${t.picks}</h2>${picks.map(pick).join('')}</section>` : ''}
+  </div>` : ''}
+  ${collection.length ? `<section class="journal-collection" id="journal-collection" aria-labelledby="journal-collection-title" data-journal-front>
+    <header><span class="journal-kicker">${t.collection}</span><h2 id="journal-collection-title">${t.journey}</h2><p>${t.journeyIntro}</p></header>
+    <ol>${collection.map(collectionStep).join('')}</ol>
+  </section>` : ''}
+  <section class="journal-archive" data-library-controls aria-labelledby="library-heading" data-count-label="${t.results}" data-empty="${t.empty}" data-no-posts="${t.noPosts}">
+    <div class="journal-archive-head library-tools"><h2 id="library-heading" tabindex="-1">${t.archive}</h2>
+      <div class="journal-controls">
+        <label class="journal-search">${searchIcon}<span class="visually-hidden">${t.search}</span><input id="blog-search" disabled type="search" autocomplete="off" placeholder="${t.placeholder}"></label>
+        <label class="journal-select"><span class="visually-hidden">${t.topics}</span><select id="journal-topic" disabled><option value="">${t.all}</option>${categories.map(name => `<option value="${esc(name)}">${esc(name)}</option>`).join('')}</select></label>
+      </div>
+    </div>
+    <div class="journal-feedback"><p class="library-status" role="status" aria-live="polite" aria-atomic="true">${ordered.length ? numbers.format(count) + ' ' + (front.size ? t.more : t.articles) : t.noPosts}</p>
+      <button type="button" class="library-clear" hidden>${t.clear}</button></div>
+    <div id="blog-post-list" class="journal-list">${ordered.map(row).join('')}</div>
+  </section>`;
 }
 
-export function mountBlogIndex(root,{lang,items,signal}){
- root.classList.add('blog-index');
- root.classList.remove('article-page');
- if(root.dataset.readingLang!==lang || !root.querySelector('[data-library-controls]')){
-  root.innerHTML=renderArchive({lang,items});
- }
- attachArchiveFilters(root,signal);
+export function mountBlogIndex(root, {lang, items, signal}) {
+  root.classList.add('blog-index');
+  root.classList.remove('article-page');
+  if (root.dataset.readingLang !== lang || !root.querySelector('.journal-masthead')) {
+    root.innerHTML = renderArchive({lang, items});
+  }
+  attachArchiveFilters(root, signal);
 }

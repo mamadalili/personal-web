@@ -49,10 +49,10 @@ test('work stories can be read in either language before any module downloads', 
 });
 
 test('lightweight lists preserve the complete published inventory, native search and ordering', () => {
-  assert.deepEqual(summaries.map(({dataSrc, ...post}) => post), postSummaries(posts));
+  assert.deepEqual(summaries.map(({dataSrc, ...post}) => post), postSummaries(posts, {includeSubtitle:true}));
   assert.deepEqual(homePostPages(summaries).map(page => page.map(post => post.slug)), homePostPages(posts).map(page => page.map(post => post.slug)));
   for (const lang of ['fa', 'en']) {
-    for (const query of ['', 'AI', 'بازار', 'Strategy']) {
+    for (const query of ['', 'AI', 'بازار', 'Strategy', 'داتیس', 'Datis']) {
       const select = items => blogLibrarySelection(items, {lang, query});
       assert.deepEqual(select(summaries).items.map(post => post.slug), select(posts).items.map(post => post.slug));
     }
