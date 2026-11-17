@@ -7,7 +7,7 @@ const sections = [
   '.work-role-header', '.work-role-background', '.work-story-heading',
   '.contact-glass-copy', '.contact-channels-header', '.employer-rail > header',
   '.library-feature-copy', '.journal-lead-copy', '.journal-collection > header', '#library-heading', '.article-byline', '.article-section > h2',
-  '.article-inline-image', '.article-callout', '.article-related > h2', '.strategy-brief > figcaption',
+  '.article-inline-image', '.article-callout', '.article-related > h2', '.strategy-brief > figcaption', '.ms-sheet > header',
   '.market-chapter-copy > h2', '.market-figure-label', '.simulator-result',
 ].join(',');
 
@@ -15,7 +15,7 @@ const cards = [
   '.home-folder-link', '.home-post-card', '.home-quick-links > article',
   '.career-metric', '.story-preview-card', '.project-list > details', '.capability-grid > div',
   '.work-story', '.contact-method', '.employer-logo-card', '.library-card', '.journal-pick', '.journal-row', '.journal-collection li',
-  '.solution-outputs > article', '.solution-process article', '.solution-card',
+  '.solution-outputs > article', '.solution-process article', '.solution-card', '.ms-file',
 ].join(',');
 
 const figures = '.chart-plot, .sl-figure, .market-finance-row, .market-multiple-row, .market-country, .stock-state-plot, .payment-trace-plot';

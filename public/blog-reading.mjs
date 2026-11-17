@@ -4,6 +4,7 @@ import {renderArticleImage} from './blog-inline-image.mjs';
 import {renderStockReservation} from './blog-stock-reservation.mjs';
 import {renderPaymentTrace} from './blog-payment-trace.mjs';
 import {renderStrategyBrief} from './blog-strategy-brief.mjs';
+import {renderMarketingSummary} from './blog-marketing-summary.mjs';
 
 const copy = {
   fa:{blog:'بلاگ',eyebrow:'یادداشت‌های من',heading:'ایده‌ها، تجربه‌ها و چیزهایی که یاد می‌گیرم.',intro:'درباره بازاریابی، تجارت الکترونیک و فناوری؛ با فرصتی برای کشف و تجربه.',empty:'هنوز مقاله‌ای منتشر نشده.',emptyBody:'تا اولین یادداشت، می‌توانید یک نمونه تعاملی را امتحان کنید.',preview:'دیدن نمونه تعاملی',template:'پیش‌نمایش قالب — مقاله منتشرشده نیست؛ همه اعداد آزمایشی‌اند.',toc:'در این مقاله',takeaways:'در این تجربه',back:'همه نوشته‌ها',close:'بستن',metric:'شاخص',bars:'ستونی',lines:'خطی',view:'نوع نمودار',series:'سناریوهای نمایان',method:'روش محاسبه',table:'دیدن جدول داده‌ها',period:'بازه',pointHint:'روی عدد هر بازه بزن تا جزئیاتش رو ببینی.',visits:'تعداد بازدید',rate:'نرخ تبدیل (%)',estimate:'سفارش تقریبی',reset:'بازنشانی',invalid:'بازدید باید بین ۰ تا ۱٬۰۰۰٬۰۰۰ و نرخ تبدیل بین ۰ تا ۱۰۰ باشد.',formula:'بازدید × نرخ تبدیل ÷ ۱۰۰',related:'ادامه مسیر',search:'جست‌وجوی نوشته‌ها',noResults:'نوشته‌ای با این عبارت پیدا نشد.',notFound:'این مقاله پیدا نشد.',notFoundBody:'برگرد به فهرست بلاگ و نوشته‌ای رو که دنبالش بودی پیدا کن.',atLeastOne:'حداقل یک سناریو باید نمایان بماند.',updated:'نمودار به‌روز شد',points:'جزئیات بازه‌ها',chartData:'داده نمودار',loading:'در حال آماده‌سازی مقاله…'},
@@ -68,6 +69,7 @@ export function renderArticleFrame({article,lang,href,renderBlock,date,sourceCar
 }
 
 export function readingBlock(block,lang,rich) {
+  if (block.type === 'marketing-summary') return renderMarketingSummary(block, lang);
   if (block.type === 'strategy-brief') return renderStrategyBrief(block, lang);
   if (block.type === 'payment-trace') return renderPaymentTrace(block, lang);
   if (block.type === 'stock-reservation') return renderStockReservation(block, lang);

@@ -1,3 +1,5 @@
+import {marketingSummary} from './marketing-engineer-summary.mjs';
+
 const p = (fa, en) => ({ type: 'paragraph', fa, en });
 const section = (id, fa, en, blocks) => ({ id, fa: { title: fa }, en: { title: en }, blocks });
 const choice = (fa, en, feedbackFa, feedbackEn) => ({
@@ -13,7 +15,7 @@ export const post = {
   },
   fa: {
     title: 'چطور مهندس بازاریابی شویم؟', subtitle: 'اولین گردش کار را با یک کمپین واقعی بساز',
-    category: 'بازاریابی و فروش آنلاین', readTime: '۱۴ تا ۱۸ دقیقه با تمرین',
+    category: 'بازاریابی و فروش آنلاین', readTime: '۱۶ تا ۲۲ دقیقه با تمرین',
     excerpt: 'کارگاه گفته نمونه فنجان رو دو روزه می‌فرسته. توی تبلیغ نوشته «سرویس کافه‌ات رو دو روزه تحویل بگیر». فقط یک کلمه عوض شده و حالا فروش باید قولی رو جواب بده که تولید هیچ‌وقت نداده. کار مهندس بازاریابی همین‌جا شروع می‌شه.',
     credit: 'با الهام از نوشته‌های شان هولمبرگ و گرگ آیزنبرگ درباره مهندسی بازاریابی.',
     sourceNote: 'دو سورس، دیدگاه نویسنده‌ها درباره کار مهندس بازاریابی و استفاده از ایجنت‌ها هستن؛ پژوهش اندازه‌گیری بهره‌وری نیستن. روایت کارگاه، گفت‌وگوها، نقشه کار و تمرین پنج درخواست، مثال‌های مستقل آموزشی این مقاله‌اند. ادعاهای افزایش چندبرابری خروجی، حد ثابت نرخ کلیک و پیش‌بینی اندازه تیم‌ها به‌عنوان نتیجه اثبات‌شده نقل نشده‌اند.',
@@ -21,7 +23,7 @@ export const post = {
   },
   en: {
     title: 'How to Become a Marketing Engineer', subtitle: 'Build your first workflow around a real campaign',
-    category: 'Marketing & online sales', readTime: '12–16 min with the exercises',
+    category: 'Marketing & online sales', readTime: '14–20 min with the exercises',
     excerpt: 'The pottery studio can send a sample cup in two days. The ad says it can deliver a café’s entire order in two days. One missing word has committed the sales team to a promise the kiln can’t keep. That’s a marketing engineering problem.',
     credit: 'Inspired by Shann Holmberg and Greg Isenberg on marketing engineering.',
     sourceNote: 'Both sources present their authors’ views on marketing engineering and agents, not productivity studies. The pottery studio, dialogue, workflow and five-enquiry exercise are original teaching examples. Output multipliers, a universal click-through threshold and predictions about team size are not treated as established results.',
@@ -171,7 +173,8 @@ export const post = {
     section('next-run', 'از کجا بفهمی این روش دفعه بعد هم کار می‌کنه؟', 'Find out whether the workflow survives a second run', [
       p('کمپین بعدی رو با یک تغییر واقعی اجرا کن. مثلاً این بار لعاب سبز موجود نیست. فقط موجودیِ تأییدشده رو به‌روز کن و ببین دستیار هنوز همون نمونه رو پیشنهاد می‌ده یا نه. اگه داد، قبل از اضافه کردن ایجنت تازه بررسی کن کدوم فایل قدیمی رو خونده. توی دفتر کمپین بنویس چه چیزی خراب شد، کجاش رو درست کردی و در اجرای بعد چه دیدی. این دفتر برای همکارت از یک عکس قشنگِ خروجی مفیدتره.', 'Run the next brief with one real change. Suppose green glaze is out of stock. Update the approved inventory and see whether the old sample still appears in the copy. If it does, find out which file the assistant read. Keep the faulty draft, your correction and the next result together. A teammate can learn more from that record than from a screenshot of the finished ad.'),
       p('اگر گزارش هفتگی چند بار با داده تازه و نتیجه قابل‌بررسی درآمد، اون‌وقت زمان‌بندی معنا پیدا می‌کنه. تعریف کن با دریافت ناموفق چی بشه، چند بار تکرار مجازه و کِی کار به تو برگرده. برای شروع این هفته همون کار کوچیک رو تحویل بده. یک سفارش کار، پیش‌نویس قبل و بعد از اصلاح، و یادداشت چیزی که هنوز قضاوت آدم می‌خواد. این‌ها اولین نمونه‌کار مهندسی بازاریابی تو هستن.', 'Schedule a weekly report once you’ve run it several times with fresh data and checked the result. Decide how it signals a failed import, when retries stop and which decision comes back to you. For this week, deliver a brief, a draft before and after review, and a note about what still needed your judgement. That’s a first piece of marketing engineering you can show someone.')
-    ])
+    ]),
+    section('field-guide', 'جمع‌بندی تصویری؛ از شناخت مشتری تا مرور نتیجه', 'A visual recap, from customer insight to review', [marketingSummary])
   ],
   sources: [{ id:'shann', kind:'inspiration', publisher:'Shann Holmberg / X', date:'2026-09-10', url:'https://x.com/shannholmberg/status/2098004743536750869',
     fa:{ title:'چطور مهندس بازاریابی شویم؟', note:'رویکرد نویسنده برای ساخت یک گردش کار، اتصال ابزار و داده، تأیید انسانی و ثبت یادگیری کمپین. اعداد تمرین ساخته همین مقاله‌اند.' },
