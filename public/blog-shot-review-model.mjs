@@ -13,6 +13,6 @@ export function shotReview(fixes = []) {
 
 export function shotReviewSheet(fixes, language = 'fa') {
   const state = shotReview(fixes), fa = language !== 'en';
-  const names = fa ? ['وجود جعبه از ابتدا','اندازهٔ ثابت','روبان قرمز ثابت','حرکت به راستِ تصویر'] : ['Box present from the start','Consistent size','Consistent red ribbon','Movement toward screen-right'];
+  const names = fa ? ['وجود جعبه از ابتدا','اندازه ثابت','روبان قرمز ثابت','حرکت به راستِ تصویر'] : ['Box present from the start','Consistent size','Consistent red ribbon','Movement toward screen-right'];
   return (fa ? 'بررسی آموزشی یک نما؛ تحلیل فایل واقعی نیست.\n\n' : 'Educational shot review; no real file was analysed.\n\n') + labels.map((key,i) => `${names[i]}: ${state.unresolved.includes(key)?(fa?'هنوز ناهماهنگ':'still inconsistent'):(fa?'در این مثال هماهنگ':'aligned in this example')}`).join('\n') + (fa ? '\n\nکار بعدی: بررسی حرکت واقعی، تغییر شکل، صدا و اتصال به نمای بعد. هماهنگی این چهار مورد، کیفیت ویدیو را تضمین نمی‌کند.\n' : '\n\nNext: review real motion, deformation, audio and the cut to the next shot. These four checks do not guarantee video quality.\n');
 }

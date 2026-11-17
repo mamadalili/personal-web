@@ -20,7 +20,7 @@ export function useHomeCarousel<T extends {slug: string}>(items: T[], lang: Lang
   const pages = useMemo(() => groupPosts(items, size), [items, size]);
   const number = (value: number) => new Intl.NumberFormat(lang).format(value);
   const groupLabel = (page: number, total: number) => lang === 'fa'
-    ? size === 1 ? `نوشتهٔ ${number(page)} از ${number(total)}` : `مجموعهٔ ${number(page)} از ${number(total)} نوشته‌ها`
+    ? size === 1 ? `نوشته ${number(page)} از ${number(total)}` : `مجموعه ${number(page)} از ${number(total)} نوشته‌ها`
     : size === 1 ? `Post ${number(page)} of ${number(total)}` : `Post group ${number(page)} of ${number(total)}`;
 
   useLayoutEffect(() => {

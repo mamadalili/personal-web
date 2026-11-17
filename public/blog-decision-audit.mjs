@@ -17,7 +17,7 @@ export function createDecisionAudits({lang,signal}){
    const block=widgets.get(element.dataset.decisionAudit);if(!block)return;
    const checked=[...element.querySelectorAll('input:checked')].map(input=>input.value);
    const pending=pendingEvidence(block.items,checked),result=element.querySelector('.audit-result');
-   result.innerHTML=pending.length?`<strong>${lang==='fa'?'قدم بعدی پیشنهادی':'Suggested next step'}</strong><p>${esc(pending[0][lang].next)}</p><details><summary>${lang==='fa'?'همهٔ مواردِ هنوز بررسی‌نشده':'All evidence still to check'}</summary><ul>${pending.map(item=>`<li>${esc(item[lang].next)}</li>`).join('')}</ul></details>`:`<p>${esc(block[lang].complete)}</p>`;
+   result.innerHTML=pending.length?`<strong>${lang==='fa'?'قدم بعدی پیشنهادی':'Suggested next step'}</strong><p>${esc(pending[0][lang].next)}</p><details><summary>${lang==='fa'?'همه مواردِ هنوز بررسی‌نشده':'All evidence still to check'}</summary><ul>${pending.map(item=>`<li>${esc(item[lang].next)}</li>`).join('')}</ul></details>`:`<p>${esc(block[lang].complete)}</p>`;
   };
   for(const element of root.querySelectorAll('[data-decision-audit]'))update(element);
   root.addEventListener('change',event=>{const element=event.target.closest('[data-decision-audit]');if(element)update(element);},{signal});

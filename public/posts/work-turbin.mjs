@@ -1,7 +1,7 @@
 export const stories = {
   "marketplaces": {
     intro: {
-      fa: "آخرین بستهٔ مداد را می‌شود هم در سایت دید، هم در بازارگاه. ولی فقط یک نفر می‌تواند آن را ببرد.",
+      fa: "آخرین بسته مداد را می‌شود هم در سایت دید، هم در بازارگاه. ولی فقط یک نفر می‌تواند آن را ببرد.",
       en: "The last pack of pencils can appear on the store and on a marketplace. Only one shopper can take it home."
     },
     opening: {
@@ -9,7 +9,7 @@ export const stories = {
       en: "Two storefronts, one shelf"
     },
     role: {
-      fa: "در آنلاین تحریر فروش آنلاین را از راه‌اندازی تا کار روزمرهٔ فروشگاه مدیریت می‌کردم. برای دیدن فرق یک «سایت» با یک «شبکهٔ فروش»، همین آخرین بستهٔ مداد مثال خوبی است.",
+      fa: "در آنلاین تحریر فروش آنلاین را از راه‌اندازی تا کار روزمره فروشگاه مدیریت می‌کردم. برای دیدن فرق یک «سایت» با یک «شبکه فروش»، همین آخرین بسته مداد مثال خوبی است.",
       en: "At Online Tahrir I managed online sales from launch through daily operations. The last pack of pencils is a useful way to see what changes when a shop becomes a network."
     },
     example: {
@@ -21,11 +21,11 @@ export const stories = {
       en: "Find the same product at both ends"
     },
     method: {
-      fa: "در این مثال، اول کد واحد فروش را پیدا کن. «مداد آبی» کافی نیست؛ یک عدد و بستهٔ دوازده‌تایی دو کالای قابل فروش متفاوت‌اند. سپس روشن کن ثبت سفارش در یک کانال چه زمانی موجودی قابل فروش بقیه را عوض می‌کند.",
+      fa: "در این مثال، اول کد واحد فروش را پیدا کن. «مداد آبی» کافی نیست؛ یک عدد و بسته دوازده‌تایی دو کالای قابل فروش متفاوت‌اند. سپس روشن کن ثبت سفارش در یک کانال چه زمانی موجودی قابل فروش بقیه را عوض می‌کند.",
       en: "First establish the sellable unit. “Blue pencil” isn’t enough: one pencil and a pack of twelve are different listings. Then find out when an order on one channel updates available stock elsewhere."
     },
     question: {
-      fa: "با یک بستهٔ باقی‌مانده، کدام بررسی زودتر لازم است؟",
+      fa: "با یک بسته باقی‌مانده، کدام بررسی زودتر لازم است؟",
       en: "One pack remains. What needs checking first?"
     },
     first: {
@@ -33,11 +33,11 @@ export const stories = {
       en: "Match the unit and reservation across channels ~ Now you can tell exactly which stock the first order consumes."
     },
     second: {
-      fa: "یکسان کردن عکس جلد ~ عکس به انتخاب کمک می‌کند ولی جلوی فروش دوبارهٔ آخرین بسته را نمی‌گیرد.",
+      fa: "یکسان کردن عکس جلد ~ عکس به انتخاب کمک می‌کند ولی جلوی فروش دوباره آخرین بسته را نمی‌گیرد.",
       en: "Make both cover photos match ~ Useful to shoppers, but it won’t prevent a double sale."
     },
     closing: {
-      fa: "یک کالای کم‌موجودی را از ویترین تا ثبت سفارش دنبال کن. آن فاصلهٔ کوتاه خیلی چیزها دربارهٔ سلامت شبکه می‌گوید.",
+      fa: "یک کالای کم‌موجودی را از ویترین تا ثبت سفارش دنبال کن. آن فاصله کوتاه خیلی چیزها درباره سلامت شبکه می‌گوید.",
       en: "Trace a low-stock item from listing to reservation. That short interval tells you a lot about the network."
     }
   },
@@ -51,11 +51,11 @@ export const stories = {
       en: "What exactly was quoted?"
     },
     role: {
-      fa: "یکی از جذابیت‌های مدیریت فروشگاه آنلاین تحریر برای من وصل کردن کار قبل از ویترین به چیزی است که خریدار می‌بیند. عرضهٔ کالا از وقتی شروع می‌شود که معلوم باشد چه چیزی خریده‌ایم و چه چیزی قرار است بفروشیم.",
+      fa: "یکی از جذابیت‌های مدیریت فروشگاه آنلاین تحریر برای من وصل کردن کار قبل از ویترین به چیزی است که خریدار می‌بیند. عرضه کالا از وقتی شروع می‌شود که معلوم باشد چه چیزی خریده‌ایم و چه چیزی قرار است بفروشیم.",
       en: "Managing the Online Tahrir store put the work before the listing in view. You can’t make a reliable offer until you know what was bought and in which unit it will be sold."
     },
     example: {
-      fa: "فرض کن قیمت عمده برای یک بسته اعلام شده ولی هزینهٔ ارسال به صورت کارتنی است. نوشتن عدد اول روی صفحهٔ یک دفتر، قیمت واقعی آن دفتر را نشان نمی‌دهد. اندازهٔ بسته، تعداد سالمِ دریافت‌شده و واحد فروش باید قابل تطبیق باشند.",
+      fa: "فرض کن قیمت عمده برای یک بسته اعلام شده ولی هزینه ارسال به صورت کارتنی است. نوشتن عدد اول روی صفحه یک دفتر، قیمت واقعی آن دفتر را نشان نمی‌دهد. اندازه بسته، تعداد سالمِ دریافت‌شده و واحد فروش باید قابل تطبیق باشند.",
       en: "Suppose the supplier quotes a pack while freight is charged by carton. Putting the quoted number on a single-notebook listing doesn’t give a meaningful unit price. Pack size, usable goods received and sales units all need to reconcile."
     },
     practice: {
@@ -63,7 +63,7 @@ export const stories = {
       en: "When can the listing say “in stock”?"
     },
     method: {
-      fa: "در نمونهٔ ما سفارش خرید ثبت شده، اما رنگِ دریافتی با سفارش فرق دارد. تأیید فاکتور پایان کار نیست. دریافت‌کننده باید مدل و تعداد را ببیند تا سایت کالایی را وعده بدهد که واقعاً می‌شود برداشت.",
+      fa: "در نمونه ما سفارش خرید ثبت شده، اما رنگِ دریافتی با سفارش فرق دارد. تأیید فاکتور پایان کار نیست. دریافت‌کننده باید مدل و تعداد را ببیند تا سایت کالایی را وعده بدهد که واقعاً می‌شود برداشت.",
       en: "In this example a purchase order exists, but the delivered colour differs. Approving an invoice doesn’t settle that mismatch. Someone must check the variant and count before the website promises a pickable item."
     },
     question: {
@@ -79,7 +79,7 @@ export const stories = {
       en: "As soon as the pro forma arrives ~ That document describes an intended supply, not the variants that arrived."
     },
     closing: {
-      fa: "اگر برگهٔ خرید و صفحهٔ محصول دو اسم متفاوت دارند، یک نمونه را کنارشان بگذار. نقطهٔ اختلاف اغلب قبل از انتشار پیدا می‌شود.",
+      fa: "اگر برگه خرید و صفحه محصول دو اسم متفاوت دارند، یک نمونه را کنارشان بگذار. نقطه اختلاف اغلب قبل از انتشار پیدا می‌شود.",
       en: "Put a physical sample beside the purchase sheet and the listing. Differences are easier to resolve before a shopper commits."
     }
   },
@@ -133,7 +133,7 @@ export const stories = {
       en: "On the shelf, reserved, available"
     },
     role: {
-      fa: "در کار روزمرهٔ یک فروشگاه لوازم تحریر، رنگ و طرح شبیه هم زیاد است. برای روایت انبار آنلاین تحریر، یک مثال کوچک انتخاب کرده‌ام که فرق شمارش فیزیکی و موجودی قابل فروش را روشن کند.",
+      fa: "در کار روزمره یک فروشگاه لوازم تحریر، رنگ و طرح شبیه هم زیاد است. برای روایت انبار آنلاین تحریر، یک مثال کوچک انتخاب کرده‌ام که فرق شمارش فیزیکی و موجودی قابل فروش را روشن کند.",
       en: "Stationery comes in near-identical colours and designs. For this part of the Online Tahrir story, a small example helps separate a physical count from what can still be sold."
     },
     example: {
@@ -175,11 +175,11 @@ export const stories = {
       en: "Where a draft helps the team"
     },
     role: {
-      fa: "در آنلاین تحریر یک تیم پنج‌نفرهٔ دیجیتال، محتوا و پشتیبانی فروش آنلاین را هدایت می‌کردم. برای فکر کردن به کاربرد هوش مصنوعی در چنین تیمی، به جای انتخاب ابزار، دو پیام متفاوت را کنار هم بگذاریم.",
+      fa: "در آنلاین تحریر یک تیم پنج‌نفره دیجیتال، محتوا و پشتیبانی فروش آنلاین را هدایت می‌کردم. برای فکر کردن به کاربرد هوش مصنوعی در چنین تیمی، به جای انتخاب ابزار، دو پیام متفاوت را کنار هم بگذاریم.",
       en: "At Online Tahrir I led a five-person digital, content and sales-support team. To think about how AI might fit a team like that, put two customer messages side by side before choosing a tool."
     },
     example: {
-      fa: "برای «فرق نوک نازک و متوسط چیست؟» می‌شود از روی مشخصات تأییدشده یک جواب کوتاه نوشت. برای «کی پولم می‌رسد؟» باید پروندهٔ همان سفارش را دید. یک متن روان به‌تنهایی به وضعیت پرداخت دسترسی نمی‌دهد.",
+      fa: "برای «فرق نوک نازک و متوسط چیست؟» می‌شود از روی مشخصات تأییدشده یک جواب کوتاه نوشت. برای «کی پولم می‌رسد؟» باید پرونده همان سفارش را دید. یک متن روان به‌تنهایی به وضعیت پرداخت دسترسی نمی‌دهد.",
       en: "A verified catalog can support a draft explaining fine and medium nibs. A refund question needs the individual transaction. Fluency in a chat window gives no insight into a payment record."
     },
     practice: {
@@ -187,7 +187,7 @@ export const stories = {
       en: "Sort before answering"
     },
     method: {
-      fa: "یک تمرین عملی این است که پیام‌ها را به «اطلاعات کالا» و «پیگیری سفارش» تقسیم کنی. برای اولی منبع کالا کنار پیش‌نویس باشد. برای دومی پیام و شناسهٔ سفارش به کسی برسد که اجازهٔ بررسی دارد. این یک پیشنهاد عملی است؛ شرح استقرار یک سامانه در شرکت نیست.",
+      fa: "یک تمرین عملی این است که پیام‌ها را به «اطلاعات کالا» و «پیگیری سفارش» تقسیم کنی. برای اولی منبع کالا کنار پیش‌نویس باشد. برای دومی پیام و شناسه سفارش به کسی برسد که اجازه بررسی دارد. این یک پیشنهاد عملی است؛ شرح استقرار یک سامانه در شرکت نیست.",
       en: "Try sorting messages into product information and order support. Attach the product source to the first draft. Route the second to someone authorised to inspect the order. This is a worked example of a possible workflow."
     },
     question: {
@@ -217,11 +217,11 @@ export const stories = {
       en: "Enter through the old link"
     },
     role: {
-      fa: "از نگاه کسی که فروشگاه آنلاین تحریر را مدیریت کرده، تغییر سایت مسئله‌ای فراتر از ظاهر صفحهٔ اول است. راهی که آدم‌ها دیروز از آن خرید کرده‌اند باید امروز هم به جای قابل‌فهمی برسد.",
+      fa: "از نگاه کسی که فروشگاه آنلاین تحریر را مدیریت کرده، تغییر سایت مسئله‌ای فراتر از ظاهر صفحه اول است. راهی که آدم‌ها دیروز از آن خرید کرده‌اند باید امروز هم به جای قابل‌فهمی برسد.",
       en: "From my experience managing Online Tahrir’s store, a redesign has to account for how people bought yesterday. A new homepage says very little about whether an existing path still works."
     },
     example: {
-      fa: "یک دفتر خط‌دار را فرض کن که آدرسش عوض شده. فرستادن همهٔ لینک‌های قبلی به صفحهٔ اول شاید خطای ظاهری را بپوشاند، اما خریدار دوباره باید محصول را پیدا کند. اگر همان مدل هنوز هست، مقصد طبیعی لینک، صفحهٔ جدید همان دفتر است.",
+      fa: "یک دفتر خط‌دار را فرض کن که آدرسش عوض شده. فرستادن همه لینک‌های قبلی به صفحه اول شاید خطای ظاهری را بپوشاند، اما خریدار دوباره باید محصول را پیدا کند. اگر همان مدل هنوز هست، مقصد طبیعی لینک، صفحه جدید همان دفتر است.",
       en: "Imagine a ruled notebook with a new address. Sending every old link to the homepage hides the obvious error while making the buyer search again. If the same model exists, its new page is the sensible destination."
     },
     practice: {
@@ -229,7 +229,7 @@ export const stories = {
       en: "Rehearse a real buying path"
     },
     method: {
-      fa: "در این تمرین از لینک قبلی وارد شو، طرح جلد را انتخاب کن، به سبد برو و رسید آزمایشی را بخوان. اگر همهٔ صفحه‌ها باز می‌شوند اما طرح جلد در رسید نیست، جابه‌جایی هنوز برای مشتری تمام نشده.",
+      fa: "در این تمرین از لینک قبلی وارد شو، طرح جلد را انتخاب کن، به سبد برو و رسید آزمایشی را بخوان. اگر همه صفحه‌ها باز می‌شوند اما طرح جلد در رسید نیست، جابه‌جایی هنوز برای مشتری تمام نشده.",
       en: "Enter through the old address, choose a cover design, add it to the cart and read the test receipt. Every page might open while the receipt loses the selected design. The buyer’s journey is still broken."
     },
     question: {
@@ -241,7 +241,7 @@ export const stories = {
       en: "A popular product, all the way to its variant on the receipt ~ You test entry, selection and order handoff in the same journey."
     },
     second: {
-      fa: "فقط صفحهٔ اول جدید ~ ظاهر را می‌بینی، ولی از لینک‌های قبلی و انتخاب‌های داخل سبد چیزی دستت نمی‌آید.",
+      fa: "فقط صفحه اول جدید ~ ظاهر را می‌بینی، ولی از لینک‌های قبلی و انتخاب‌های داخل سبد چیزی دستت نمی‌آید.",
       en: "Only the new homepage ~ It shows the design, but says little about past links or cart selections."
     },
     closing: {

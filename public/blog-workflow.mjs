@@ -4,7 +4,7 @@ import { validateWorkflowBlock, workflowProjection } from './blog-workflow-model
 export function createWorkflowWidgets({lang,signal}){
   const blocks=new Map(),state=new Map();
   const t=lang==='fa'?{
-    all:'همهٔ کارها',input:'ورودی',output:'خروجی',check:'بازبینی انسانی',rule:'قاعدهٔ کنترل',cadence:'زمان اجرا',before:'از این کار می‌گیرد',after:'به این کار می‌دهد',start:'نقطهٔ شروع',end:'ادامه‌ای در این نقشه ندارد',arrow:'←'
+    all:'همه کارها',input:'ورودی',output:'خروجی',check:'بازبینی انسانی',rule:'قاعده کنترل',cadence:'زمان اجرا',before:'از این کار می‌گیرد',after:'به این کار می‌دهد',start:'نقطه شروع',end:'ادامه‌ای در این نقشه ندارد',arrow:'←'
   }:{
     all:'All work',input:'Input',output:'Output',check:'Human review',rule:'Control rule',cadence:'Cadence',before:'Depends on',after:'Feeds into',start:'Starting point',end:'No later step in this map',arrow:'→'
   };
@@ -23,7 +23,7 @@ export function createWorkflowWidgets({lang,signal}){
     render(block,id){
       if(!validateWorkflowBlock(block))return '';
       blocks.set(id,block);state.set(id,{stage:'all',selected:block.jobs[0].id});
-      return `<figure class="article-workflow" data-workflow="${esc(id)}"><figcaption><span class="workflow-label">${lang==='fa'?'نقشهٔ کار':'WORKFLOW MAP'}</span><h3>${esc(block[lang].title)}</h3><p>${esc(block[lang].hint)}</p></figcaption><div class="workflow-body">${view(block,id)}</div><p class="workflow-source">${esc(block[lang].source)}</p></figure>`;
+      return `<figure class="article-workflow" data-workflow="${esc(id)}"><figcaption><span class="workflow-label">${lang==='fa'?'نقشه کار':'WORKFLOW MAP'}</span><h3>${esc(block[lang].title)}</h3><p>${esc(block[lang].hint)}</p></figcaption><div class="workflow-body">${view(block,id)}</div><p class="workflow-source">${esc(block[lang].source)}</p></figure>`;
     },
     mount(root){
       root.addEventListener('click',event=>{

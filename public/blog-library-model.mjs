@@ -16,7 +16,7 @@ const readingCollections = [
   {
     id:'procurement-to-delivery', guided:true,
     fa:{
-      name:'پروندهٔ «از تأمین تا تحویل سفارش»', title:'چه وقت می‌توانی به مشتری قول تحویل بدهی؟', backLabel:'برگشت به پروندهٔ «از تأمین تا تحویل سفارش»',
+      name:'پرونده «از تأمین تا تحویل سفارش»', title:'چه وقت می‌توانی به مشتری قول تحویل بدهی؟', backLabel:'برگشت به پرونده «از تأمین تا تحویل سفارش»',
       intro:'در دو روایت آنلاین تحریر، یک دفتر را از کارتن تا قفسه دنبال کن. بعد در بومرنگ ببین چه وقت می‌شود به مشتری گفت بسته‌اش راه افتاده.',
     },
     en:{
@@ -25,7 +25,7 @@ const readingCollections = [
     },
     steps:[
       {slug:'turbin-launch',
-        fa:{label:'از اینجا شروع کن', note:'تأمین‌کننده قیمت یک بسته را می‌دهد و مشتری یک دفتر می‌خرد. وقتی کارتن رسید، رنگ و تعداد دفترهای سالم را با برگهٔ خرید چک کن.'},
+        fa:{label:'از اینجا شروع کن', note:'تأمین‌کننده قیمت یک بسته را می‌دهد و مشتری یک دفتر می‌خرد. وقتی کارتن رسید، رنگ و تعداد دفترهای سالم را با برگه خرید چک کن.'},
         en:{label:'Start here', note:'The supplier quotes a price per pack and the customer buys one notebook. When the carton arrives, check the colour and the number of undamaged notebooks against the purchase order.'}},
       {slug:'turbin-warehouse',
         fa:{label:'حالا سراغ قفسه برو', note:'سه دفتر روی قفسه است. یکی رزرو شده و یکی جلدش آسیب دیده. در تمرین انبار، رزرو را لغو کن و ببین چند دفتر برای مشتری بعدی آزاد می‌شود.'},
@@ -38,8 +38,8 @@ const readingCollections = [
   {
     id:'data-marketing', guided:true,
     fa:{
-      name:'پروندهٔ بازاریابی با داده', title:'کدام درخواست به سفارش رسید؟', backLabel:'برگشت به پروندهٔ بازاریابی با داده',
-      intro:'دو استعلام قیمت ثبت شده. دو نفر قیمت پرسیده‌اند یا یک نفر دو بار؟ پیش از اینکه بودجهٔ تبلیغ را بیشتر کنی، ببین گزارشت چه چیزی را شمرده.',
+      name:'پرونده بازاریابی با داده', title:'کدام درخواست به سفارش رسید؟', backLabel:'برگشت به پرونده بازاریابی با داده',
+      intro:'دو استعلام قیمت ثبت شده. دو نفر قیمت پرسیده‌اند یا یک نفر دو بار؟ پیش از اینکه بودجه تبلیغ را بیشتر کنی، ببین گزارشت چه چیزی را شمرده.',
     },
     en:{
       name:'Marketing with data', title:'Which inquiry became an order?', backLabel:'Back to the marketing with data collection',
@@ -60,7 +60,7 @@ const readingCollections = [
   {
     id:'ai-content', guided:true,
     fa:{
-      name:'پروندهٔ هوش مصنوعی و تولید محتوا', title:'از یک سؤال واقعی تا ویدیوی کوتاه', backLabel:'برگشت به پروندهٔ هوش مصنوعی و تولید محتوا',
+      name:'پرونده هوش مصنوعی و تولید محتوا', title:'از یک سؤال واقعی تا ویدیوی کوتاه', backLabel:'برگشت به پرونده هوش مصنوعی و تولید محتوا',
       intro:'یک سؤال بردار که مشتری یا همکارت واقعاً از تو پرسیده. در این سه نوشته، همان سؤال را به سوژه، پیش‌نویس و چند نمای ویدیویی تبدیل می‌کنی.',
     },
     en:{
@@ -69,20 +69,20 @@ const readingCollections = [
     },
     steps:[
       {slug:'make-expertise-understandable',
-        fa:{label:'اول، سوژه را پیدا کن', note:'مشتری دنبال هزینهٔ ارسال می‌گشت. از مثال مقاله کمک بگیر و بنویس در کار خودت چه چیزی برای مخاطب مبهم بود.'},
+        fa:{label:'اول، سوژه را پیدا کن', note:'مشتری دنبال هزینه ارسال می‌گشت. از مثال مقاله کمک بگیر و بنویس در کار خودت چه چیزی برای مخاطب مبهم بود.'},
         en:{label:'First, find the story', note:'A shopper couldn’t find the delivery charge. Use that example to recall a detail someone needed you to explain in your own work.'}},
       {slug:'ai-content-system',
-        fa:{label:'بعد، جواب را بنویس', note:'سؤال و اطلاعاتی را که جوابش را روشن می‌کند به مدل بده. یک جملهٔ پیش‌نویس را اصلاح کن و دلیل تغییرش را نگه دار.'},
+        fa:{label:'بعد، جواب را بنویس', note:'سؤال و اطلاعاتی را که جوابش را روشن می‌کند به مدل بده. یک جمله پیش‌نویس را اصلاح کن و دلیل تغییرش را نگه دار.'},
         en:{label:'Next, draft the answer', note:'Give the model your question and the facts that answer it. Revise a sentence in the draft and save the reason for your edit.'}},
       {slug:'ai-video-production',
-        fa:{label:'حالا، یک صحنه بساز', note:'از متنت یک اتفاقِ دیدنی انتخاب کن. مثال جعبهٔ هدیه و روبان را دنبال کن تا ببینی بین دو نما چه چیزی باید ثابت بماند.'},
+        fa:{label:'حالا، یک صحنه بساز', note:'از متنت یک اتفاقِ دیدنی انتخاب کن. مثال جعبه هدیه و روبان را دنبال کن تا ببینی بین دو نما چه چیزی باید ثابت بماند.'},
         en:{label:'Then, plan the shots', note:'Pick a moment in your draft you can show. Follow the gift box and its ribbon to see what needs to stay the same between shots.'}},
     ],
   },
   {
     id:'journal-collection', guided:true,
     fa:{
-      name:'پروندهٔ فروش آنلاین', title:'از جست‌وجو تا رسید خرید', backLabel:'برگشت به پروندهٔ فروش آنلاین',
+      name:'پرونده فروش آنلاین', title:'از جست‌وجو تا رسید خرید', backLabel:'برگشت به پرونده فروش آنلاین',
       intro:'خریدار چطور پیدایت می‌کند؟ چطور مدلش را انتخاب می‌کند؟ اگر پول از حسابش کم شد و رسید نگرفت، چه کسی پیگیری می‌کند؟',
     },
     en:{
@@ -94,7 +94,7 @@ const readingCollections = [
         fa:{label:'از اینجا شروع کن', note:'قهوه‌سازت آب می‌دهد و سه تعمیرگاه در گوگل پیدا کرده‌ای. چه چیزی باعث می‌شود به یکی از آن‌ها زنگ بزنی؟'},
         en:{label:'Start here', note:'Your espresso machine is leaking. You find three repair shops on Google. What would make you call one of them?'}},
       {slug:'product-page-decisions',
-        fa:{label:'حالا یک مدل انتخاب کن', note:'چراغی برای میزت پیدا کرده‌ای. از روی صفحهٔ محصول ببین پایه‌اش روی میز جا می‌شود و رنگی که می‌خواهی چه وقت می‌رسد.'},
+        fa:{label:'حالا یک مدل انتخاب کن', note:'چراغی برای میزت پیدا کرده‌ای. از روی صفحه محصول ببین پایه‌اش روی میز جا می‌شود و رنگی که می‌خواهی چه وقت می‌رسد.'},
         en:{label:'Next, choose a model', note:'You’ve found a desk lamp you like. Can the product page tell you whether the base fits and when the colour you want will arrive?'}},
       {slug:'boomerang-channels',
         fa:{label:'آخر، پرداخت را پیگیری کن', note:'پول از حساب خریدار کم شده، ولی رسیدی ندارد. در نمودار بومرنگ ببین بانک، فروشگاه و پشتیبانی هرکدام چه چیزی را بررسی می‌کنند.'},

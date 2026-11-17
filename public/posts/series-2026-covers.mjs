@@ -4,7 +4,7 @@ export const seriesCovers = {
       "src": "assets/blog/product-page-decisions-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «صفحهٔ محصول؛ کمک به تصمیم خرید»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «صفحه محصول؛ کمک به تصمیم خرید»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/product-page-decisions-en.webp",
@@ -18,7 +18,7 @@ export const seriesCovers = {
       "src": "assets/blog/store-beyond-storefront-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «فروشگاه فقط ویترین نیست»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «فروشگاه فقط ویترین نیست»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/store-beyond-storefront-en.webp",
@@ -32,7 +32,7 @@ export const seriesCovers = {
       "src": "assets/blog/customer-before-brand-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «برند را از سمت مشتری ببین»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «برند را از سمت مشتری ببین»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/customer-before-brand-en.webp",
@@ -46,7 +46,7 @@ export const seriesCovers = {
       "src": "assets/blog/strategy-means-choices-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «استراتژی یعنی انتخاب‌های روشن»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «استراتژی یعنی انتخاب‌های روشن»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/strategy-means-choices-en.webp",
@@ -60,7 +60,7 @@ export const seriesCovers = {
       "src": "assets/blog/data-to-decisions-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «داده وقتی ارزش دارد که تصمیم عوض شود»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «داده وقتی ارزش دارد که تصمیم عوض شود»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/data-to-decisions-en.webp",
@@ -74,7 +74,7 @@ export const seriesCovers = {
       "src": "assets/blog/agentic-ai-operating-model-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «پیش از سپردن کار به عامل‌های AI»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «پیش از سپردن کار به عامل‌های AI»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/agentic-ai-operating-model-en.webp",
@@ -88,7 +88,7 @@ export const seriesCovers = {
       "src": "assets/blog/planning-with-four-futures-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «یک برنامه، در برابر چهار آینده»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «یک برنامه، در برابر چهار آینده»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/planning-with-four-futures-en.webp",
@@ -102,7 +102,7 @@ export const seriesCovers = {
       "src": "assets/blog/ai-nature-conservation-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «AI برای طبیعت؛ از تشخیص تا اقدام»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «AI برای طبیعت؛ از تشخیص تا اقدام»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/ai-nature-conservation-en.webp",
@@ -116,7 +116,7 @@ export const seriesCovers = {
       "src": "assets/blog/enterprise-data-at-work-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «داده‌های شرکت را وارد کار کن»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «داده‌های شرکت را وارد کار کن»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/enterprise-data-at-work-en.webp",
@@ -130,7 +130,7 @@ export const seriesCovers = {
       "src": "assets/blog/forward-deployed-engineer-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «مهندسی که کنار مسئله کار می‌کند»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «مهندسی که کنار مسئله کار می‌کند»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/forward-deployed-engineer-en.webp",
@@ -144,7 +144,7 @@ export const seriesCovers = {
       "src": "assets/blog/marketing-beyond-screen-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «بازاریابی وقتی از صفحه بیرون می‌آید»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «بازاریابی وقتی از صفحه بیرون می‌آید»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/marketing-beyond-screen-en.webp",
@@ -158,7 +158,7 @@ export const seriesCovers = {
       "src": "assets/blog/measuring-ai-search-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «جست‌وجوی AI را چطور بسنجیم؟»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «جست‌وجوی AI را چطور بسنجیم؟»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/measuring-ai-search-en.webp",
@@ -172,7 +172,7 @@ export const seriesCovers = {
       "src": "assets/blog/ai-influencer-ctv-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «AI در تبلیغات؛ کجا شروع کنیم؟»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «AI در تبلیغات؛ کجا شروع کنیم؟»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/ai-influencer-ctv-en.webp",
@@ -186,7 +186,7 @@ export const seriesCovers = {
       "src": "assets/blog/normalized-friction-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «هزینهٔ کارهایی که عادی شده‌اند»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «هزینه کارهایی که عادی شده‌اند»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/normalized-friction-en.webp",
@@ -200,7 +200,7 @@ export const seriesCovers = {
       "src": "assets/blog/ceo-time-decisions-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «تقویم مدیر، جای تصمیم است»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «تقویم مدیر، جای تصمیم است»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/ceo-time-decisions-en.webp",
@@ -214,7 +214,7 @@ export const seriesCovers = {
       "src": "assets/blog/housing-offer-terms-fa.webp",
       "width": 1672,
       "height": 941,
-      "alt": "تصویرسازی مفهومی برای مقالهٔ «وقتی شرایط پیشنهاد، معامله را جلو می‌برد»؛ نمودارها تزئینی‌اند."
+      "alt": "تصویرسازی مفهومی برای مقاله «وقتی شرایط پیشنهاد، معامله را جلو می‌برد»؛ نمودارها تزئینی‌اند."
     },
     "en": {
       "src": "assets/blog/housing-offer-terms-en.webp",

@@ -106,7 +106,7 @@ function renderHome(){
   cardsRoot.innerHTML=renderHomeFolderCards({language:homeLanguage,url:view.pageURL,icon:skillIcon,portals:homePortalCopy[homeLanguage]});
  }).catch(()=>{if(cardsRoot.isConnected&&lang===homeLanguage)cardsRoot.innerHTML=`<a class="solution-cards-fallback" href="${view.pageURL('solutions')}">${lang==='fa'?'دیدن راهکارها':'View solutions'}</a>`;});
  const blogRoot=$('main').querySelector('[data-home-blog]');
- import('./home-blog.mjs?v=20261115-first-posts').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage&&!blogRoot.querySelector('.home-post-card'))blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگهٔ بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
+ import('./home-blog.mjs?v=20261115-first-posts').then(({mountHomeBlog})=>{if(blogRoot.isConnected&&lang===homeLanguage)disposeHomeBlog=mountHomeBlog(blogRoot,{language:homeLanguage});}).catch(()=>{if(blogRoot.isConnected&&lang===homeLanguage&&!blogRoot.querySelector('.home-post-card'))blogRoot.innerHTML=`<p class="home-blog-empty">${lang==='fa'?'نوشته‌ها را در برگه بلاگ ببینید.':'Explore the articles on the Blog page.'}</p>`;});
  // Restore visibility when keyboard navigation returns to the pinned skills link.
  const revealSkills=()=>{
   const stage=$('main').querySelector('.home-first-view'),hero=$('main').querySelector('.skills-hero-card'),tiles=$('main').querySelector('.skills-capability-grid'),deck=$('main').querySelector('.home-card-deck');

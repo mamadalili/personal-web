@@ -12,7 +12,7 @@ const localized = copy => ({fa:{title:copy.fa}, en:{title:copy.en}});
 const paragraph = copy => ({type:'paragraph', ...copy});
 const illustratedCoverAlts = {
   'boomerang-online-sales': {
-    fa:'شیر روشویی اسپینل روی پایهٔ قرمز، کنار عکس همین مدل در صفحهٔ محصول بومرنگ‌کالا',
+    fa:'شیر روشویی اسپینل روی پایه قرمز، کنار عکس همین مدل در صفحه محصول بومرنگ‌کالا',
     en:'The Spinel basin tap on a red plinth beside its product photo in the Boomerang Kala store',
   },
   'boomerang-four-languages': {
@@ -20,19 +20,19 @@ const illustratedCoverAlts = {
     en:'The Boomerang website on a fold-out catalog with English, Persian, Arabic and Russian tabs and two product tags',
   },
   'boomerang-content': {
-    fa:'یک محصول بومرنگ در بنر مجموعه، صفحهٔ محصول و نسخهٔ موبایل',
+    fa:'یک محصول بومرنگ در بنر مجموعه، صفحه محصول و نسخه موبایل',
     en:'One Boomerang vanity featured in a campaign banner, a product detail page and a mobile layout',
   },
   'boomerang-channels': {
-    fa:'رسید پرداخت و برگهٔ سفارش شمارهٔ ۴۲۷ کنار هم. روی رسید تیک خورده و جای تأیید سفارش خالی است.',
+    fa:'رسید پرداخت و برگه سفارش شماره ۴۲۷ کنار هم. روی رسید تیک خورده و جای تأیید سفارش خالی است.',
     en:'A checked payment receipt and an order card share reference 427. The order confirmation box is still empty.',
   },
   'boomerang-logistics': {
-    fa:'بستهٔ برچسب‌خورده روی میز بسته‌بندی است و چرخ حمل نارنجی بیرون درِ انبار منتظر است.',
+    fa:'بسته برچسب‌خورده روی میز بسته‌بندی است و چرخ حمل نارنجی بیرون درِ انبار منتظر است.',
     en:'A labelled parcel sits on the packing bench. An empty orange hand truck waits outside the warehouse door.',
   },
   'boomerang-ai-operations': {
-    fa:'برگه‌های دو مدل روشویی با کدهای مشابه کنار هم‌اند. ذره‌بین روی خانهٔ خالی مشخصات در کاتالوگ قرار دارد.',
+    fa:'برگه‌های دو مدل روشویی با کدهای مشابه کنار هم‌اند. ذره‌بین روی خانه خالی مشخصات در کاتالوگ قرار دارد.',
     en:'Two basin catalog sheets have nearly identical model codes. A magnifying glass rests over an empty specification field.',
   },
   'turbin-marketplaces': {
@@ -48,35 +48,35 @@ const illustratedCoverAlts = {
     en:'Three notebooks sit on a shelf. One is reserved, one has a torn cover, and only the third is marked available.',
   },
   'turbin-ai': {
-    fa:'کنار خودکار آبی، دستگاهی با نشان ChatGPT پیش‌نویس پاسخ را چاپ می‌کند. روی پروندهٔ بازگشت وجه مهر «ارجاع به پشتیبان» خورده است.',
+    fa:'کنار خودکار آبی، دستگاهی با نشان ChatGPT پیش‌نویس پاسخ را چاپ می‌کند. روی پرونده بازگشت وجه مهر «ارجاع به پشتیبان» خورده است.',
     en:'Beside a blue pen, a printer bearing the ChatGPT logo issues a draft reply. A refund enquiry is stamped for a support agent.',
   },
   'turbin-migration': {
-    fa:'روبان قرمز از لینک ذخیره‌شده به صفحهٔ جدید یک دفتر چهارخانه می‌رسد. روی رسید خرید آزمایشی هم نام همان دفتر آمده است.',
+    fa:'روبان قرمز از لینک ذخیره‌شده به صفحه جدید یک دفتر چهارخانه می‌رسد. روی رسید خرید آزمایشی هم نام همان دفتر آمده است.',
     en:'A red ribbon leads from a saved link to the new page for a red gingham notebook. The test receipt names the same notebook.',
   },
   'can-exhibitions': {
-    fa:'پرده کنار رفته و هود روی صحنهٔ کن پیداست. کنار میز گفت‌وگو، نقشهٔ نصب هود و پیش‌نویس قرارداد نمایندگی باز مانده‌اند.',
+    fa:'پرده کنار رفته و هود روی صحنه کن پیداست. کنار میز گفت‌وگو، نقشه نصب هود و پیش‌نویس قرارداد نمایندگی باز مانده‌اند.',
     en:'A curtain lifts to reveal a CAN range hood. At the meeting table, its installation drawing sits beside an open draft dealership agreement.',
   },
   'can-sales-network': {
-    fa:'زیر هود ویترین کن، عکس کابینت خریدار روی گوشی دیده می‌شود. روی نقشهٔ همان مدل، شابلون سبز عرض برش را کنار خط اندازهٔ عرض بیرونی نشان می‌دهد.',
+    fa:'زیر هود ویترین کن، عکس کابینت خریدار روی گوشی دیده می‌شود. روی نقشه همان مدل، شابلون سبز عرض برش را کنار خط اندازه عرض بیرونی نشان می‌دهد.',
     en:'Below a CAN showroom hood, a phone shows the shopper’s cabinet. A green template marks the cut-out on the model’s fitting drawing, beside the overall width.',
   },
   'can-partnerships': {
-    fa:'بلاگر و کارشناس نمایندگی کنار فر توکار یک ریلز مشترک ضبط می‌کنند. روی میز، کنار کلاکت، برگه‌ای برای اجازهٔ ارجاع درخواست مشتری و پیگیری نمایندگی دیده می‌شود.',
+    fa:'بلاگر و کارشناس نمایندگی کنار فر توکار یک ریلز مشترک ضبط می‌کنند. روی میز، کنار کلاکت، برگه‌ای برای اجازه ارجاع درخواست مشتری و پیگیری نمایندگی دیده می‌شود.',
     en:'A creator and a showroom specialist film a joint reel beside a built-in oven. A referral slip next to the clapperboard records customer consent and assigns follow-up to the dealer.',
   },
   'datis-webinars': {
-    fa:'در استودیوی وبینار داتیس، مجری دو وب‌کم را مقایسه می‌کند. روی لپ‌تاپ می‌پرسند آیا مدل دوم ارزش هزینهٔ بیشتر را دارد. کنار چراغ پخش زنده، کارت مجری یادآوری می‌کند که بخش مقایسه را برای مخاطب بفرستد.',
+    fa:'در استودیوی وبینار داتیس، مجری دو وب‌کم را مقایسه می‌کند. روی لپ‌تاپ می‌پرسند آیا مدل دوم ارزش هزینه بیشتر را دارد. کنار چراغ پخش زنده، کارت مجری یادآوری می‌کند که بخش مقایسه را برای مخاطب بفرستد.',
     en:'A Datis webinar host compares two webcams. A viewer asks on the laptop whether the second is worth the extra cost. A cue card beside the on-air light reminds the host to share the comparison clip.',
   },
   'datis-fieldwork': {
-    fa:'مشتری روی پیشخوان به دو وب‌کم اشاره می‌کند. در دفتر بازدید، سؤالش «فرق این دو مدل چیه؟» روبه‌روی برداشت فروشنده دربارهٔ قیمت ثبت شده است.',
+    fa:'مشتری روی پیشخوان به دو وب‌کم اشاره می‌کند. در دفتر بازدید، سؤالش «فرق این دو مدل چیه؟» روبه‌روی برداشت فروشنده درباره قیمت ثبت شده است.',
     en:'A customer points to two webcams on the counter. The open field notebook pairs the customer’s question, “How do these models differ?”, with the seller’s hunch that price mattered.',
   },
   'datis-question': {
-    fa:'روی نوار مصاحبه نوشته شده «چرا از خرید منصرف شدی؟». دو سر نوار به برگهٔ مقایسهٔ دو ماوس و نمونهٔ اولیهٔ یک ماوس می‌رسند.',
+    fa:'روی نوار مصاحبه نوشته شده «چرا از خرید منصرف شدی؟». دو سر نوار به برگه مقایسه دو ماوس و نمونه اولیه یک ماوس می‌رسند.',
     en:'An interview cassette asks, “What made you walk away?” Its ribbon leads to a comparison sheet for two mice and a working mock-up to test a missing feature.',
   },
   'binici-dashboard': {
@@ -123,7 +123,7 @@ function edition(role, org, row, number, adjacent) {
     cover:{}, sections,
     related:[{target:'post:' + role + '-' + adjacent[0], fa:{title:adjacent[1],description:manuscripts[role][adjacent[0]].intro.fa},en:{title:adjacent[2],description:manuscripts[role][adjacent[0]].intro.en}}],
     sources:[{id:'career',kind:'context',publisher:'Mohammadreza Dalili',url:'https://mrdalili.ir/profile.html?tab=experience&role='+role,
-      fa:{title:'سابقهٔ کاری من در '+org.fa,note:'شرح نقش و مسئولیت‌ها در رزومهٔ من.'},
+      fa:{title:'سابقه کاری من در '+org.fa,note:'شرح نقش و مسئولیت‌ها در رزومه من.'},
       en:{title:'My role at '+org.en,note:'Role and responsibilities from my CV.'}}, ...(copy.sources ?? [])]
   };
   for (const lang of ['fa','en']) {

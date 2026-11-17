@@ -46,7 +46,7 @@ export function HomePage({lang}: {lang: Language}) {
         <div className="home-grid">
           <article id="home-blog" className="home-card blog-card home-blog-section" aria-labelledby="home-blog-title">
             <header className="home-blog-header"><h2 id="home-blog-title" className="visually-hidden">{s.blogLabel}</h2><p>{s.blogBody}</p>
-              <AppLink className="home-blog-all" href={pageURL('blog', lang)}>{lang === 'fa' ? 'همهٔ نوشته‌ها' : 'All posts'}<Icon name="arrow"/></AppLink>
+              <AppLink className="home-blog-all" href={pageURL('blog', lang)}>{lang === 'fa' ? 'همه نوشته‌ها' : 'All posts'}<Icon name="arrow"/></AppLink>
             </header><HomeCarousel key={lang} lang={lang}/>
           </article>
           <section className="home-quick-links" aria-label={lang === 'fa' ? 'مسیر کاری و ارتباط' : 'Work & conversation'}>

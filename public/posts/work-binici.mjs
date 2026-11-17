@@ -1,7 +1,7 @@
 export const stories = {
   "dashboard": {
     intro: {
-      fa: "بازاریابی می‌گوید «درخواست زیاد داشتیم»، فروش می‌گوید «سفارش کم بود». هر دو ممکن است درست بگویند و دربارهٔ دو اتفاق متفاوت حرف بزنند.",
+      fa: "بازاریابی می‌گوید «درخواست زیاد داشتیم»، فروش می‌گوید «سفارش کم بود». هر دو ممکن است درست بگویند و درباره دو اتفاق متفاوت حرف بزنند.",
       en: "Marketing reports plenty of inquiries. Sales reports few orders. Both can be right and still be talking about different events."
     },
     opening: {
@@ -21,7 +21,7 @@ export const stories = {
       en: "Agree on one inquiry"
     },
     method: {
-      fa: "برای این مثال، شناسهٔ مشتری، شناسهٔ درخواست و نسخهٔ پیشنهاد را جدا ثبت کن. بازاریابی می‌بیند درخواست از کجا آمد؛ فروش می‌بیند کدام پیشنهاد به سفارش رسید. حالا بحث بودجه به همان کاری وصل است که هر دو تیم می‌توانند دنبالش کنند.",
+      fa: "برای این مثال، شناسه مشتری، شناسه درخواست و نسخه پیشنهاد را جدا ثبت کن. بازاریابی می‌بیند درخواست از کجا آمد؛ فروش می‌بیند کدام پیشنهاد به سفارش رسید. حالا بحث بودجه به همان کاری وصل است که هر دو تیم می‌توانند دنبالش کنند.",
       en: "In this example, keep distinct identifiers for the customer, inquiry and quote revision. Marketing can trace the source and sales can trace the accepted quote. Both can then discuss a budget against the same piece of work."
     },
     question: {
@@ -29,7 +29,7 @@ export const stories = {
       en: "The second quote changes only the quantity. How do you record it?"
     },
     first: {
-      fa: "نسخهٔ تازهٔ پیشنهاد زیر همان درخواست ~ تاریخچه حفظ می‌شود و یک مشتری به اشتباه دو بار شمرده نمی‌شود.",
+      fa: "نسخه تازه پیشنهاد زیر همان درخواست ~ تاریخچه حفظ می‌شود و یک مشتری به اشتباه دو بار شمرده نمی‌شود.",
       en: "A revised quote under the same inquiry ~ It keeps the history without inventing another customer."
     },
     second: {
@@ -43,7 +43,7 @@ export const stories = {
   },
   "demand": {
     intro: {
-      fa: "دو فروشگاه از یک کالا به اندازهٔ هم فروخته‌اند. یکی تمام هفته موجود داشته و دیگری فقط یک روز. آیا تقاضایشان هم یکسان بوده؟",
+      fa: "دو فروشگاه از یک کالا به اندازه هم فروخته‌اند. یکی تمام هفته موجود داشته و دیگری فقط یک روز. آیا تقاضایشان هم یکسان بوده؟",
       en: "Two outlets sold the same quantity. One had stock all week, the other for a day. Did they really face equal demand?"
     },
     opening: {
@@ -51,11 +51,11 @@ export const stories = {
       en: "What a sales total leaves out"
     },
     role: {
-      fa: "در بی‌نی‌سی برای برنامهٔ فروش هر محصول، تقاضای بازار و بودجه را کنار هم می‌گذاشتم. نگاه به نقاط فروش برای همین مهم است. عدد نهایی بدون دانستن فرصت هر فروشگاه برای عرضهٔ کالا، تصویر ناقصی می‌دهد.",
+      fa: "در بی‌نی‌سی برای برنامه فروش هر محصول، تقاضای بازار و بودجه را کنار هم می‌گذاشتم. نگاه به نقاط فروش برای همین مهم است. عدد نهایی بدون دانستن فرصت هر فروشگاه برای عرضه کالا، تصویر ناقصی می‌دهد.",
       en: "At BiNiCi I considered demand and budget alongside the sales plan for each product. Outlets matter because a total tells only part of the story if we don’t know how long each shop could actually sell the item."
     },
     example: {
-      fa: "در این مثال آموزشی، یک نقطهٔ فروش بعد از اولین سفارش‌ها ناموجود شده. صفرِ روز بعد شاید یعنی کسی آن کالا را نمی‌خواست؛ شاید هم یعنی فرصت خریدی وجود نداشت. از خود عدد فروش نمی‌شود بین این دو انتخاب کرد.",
+      fa: "در این مثال آموزشی، یک نقطه فروش بعد از اولین سفارش‌ها ناموجود شده. صفرِ روز بعد شاید یعنی کسی آن کالا را نمی‌خواست؛ شاید هم یعنی فرصت خریدی وجود نداشت. از خود عدد فروش نمی‌شود بین این دو انتخاب کرد.",
       en: "In this example one shop ran out after its first orders. The next day’s zero could mean no demand or no opportunity to buy. The sales figure alone can’t distinguish the two."
     },
     practice: {
@@ -63,11 +63,11 @@ export const stories = {
       en: "Before allocating the next shipment"
     },
     method: {
-      fa: "کنار فروش هر نقطه، روزهایی را که کالا قابل عرضه بوده ثبت کن. اگر فروشنده موردی از تقاضای بی‌پاسخ سراغ دارد، آن را جدا از سفارش قطعی یادداشت کن. این دو عدد قابل جمع‌زدن نیستند، اما کنار هم کمک می‌کنند دربارهٔ محمولهٔ بعدی سؤال دقیق‌تری بپرسیم.",
+      fa: "کنار فروش هر نقطه، روزهایی را که کالا قابل عرضه بوده ثبت کن. اگر فروشنده موردی از تقاضای بی‌پاسخ سراغ دارد، آن را جدا از سفارش قطعی یادداشت کن. این دو عدد قابل جمع‌زدن نیستند، اما کنار هم کمک می‌کنند درباره محموله بعدی سؤال دقیق‌تری بپرسیم.",
       en: "Put in-stock days beside each outlet’s sales. Log requests the shop couldn’t fulfil separately from confirmed orders. Don’t add them together. Read them side by side to plan a better question for the next shipment."
     },
     question: {
-      fa: "برای مقایسهٔ این دو فروشگاه اول چه چیز کم است؟",
+      fa: "برای مقایسه این دو فروشگاه اول چه چیز کم است؟",
       en: "What’s missing before comparing those outlets?"
     },
     first: {
@@ -79,7 +79,7 @@ export const stories = {
       en: "A ranking by sales value ~ It gives the same incomplete picture a more precise-looking format."
     },
     closing: {
-      fa: "هر جا فروش صفر است، کنار آن بپرس «موجود بود؟» جواب همین سؤال کوتاه می‌تواند مسیر تماس بعدی با نقطهٔ فروش را عوض کند.",
+      fa: "هر جا فروش صفر است، کنار آن بپرس «موجود بود؟» جواب همین سؤال کوتاه می‌تواند مسیر تماس بعدی با نقطه فروش را عوض کند.",
       en: "Next to each zero, ask “Was it in stock?” That small question can change what you ask the outlet next."
     }
   }

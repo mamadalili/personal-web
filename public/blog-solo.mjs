@@ -3,7 +3,7 @@ import { filterOpportunities } from './figures/solo-model.mjs';
 
 const copy = {
   fa: {
-    all: 'همهٔ مسیرها', filter: 'پیشینه یا نقطهٔ شروع', search: 'جست‌وجو در پیشنهادها', clear: 'پاک‌کردن فیلترها',
+    all: 'همه مسیرها', filter: 'پیشینه یا نقطه شروع', search: 'جست‌وجو در پیشنهادها', clear: 'پاک‌کردن فیلترها',
     results: 'پیشنهاد قابل بررسی', empty: 'پیشنهادی با این عبارت پیدا نشد. عبارت یا مسیر را تغییر بده.',
     detail: 'دیدن جزئیات مسیر', buyer: 'خریدار پیشنهادی', proof: 'چه چیزی باید ثابت شود؟',
     ai: 'سهم AI', human: 'مسئولیت انسانی', experiment: 'اولین آزمایش', boundary: 'مرز کار', related: 'راهکار مرتبط'

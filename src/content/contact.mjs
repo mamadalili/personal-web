@@ -7,6 +7,6 @@ export const contactChannels=[
 ];
 
 export const contactCopy={
- fa:{email:'برایم بنویسید',label:'شروع یک گفت‌وگو',title:'دربارهٔ چی می‌خوای حرف بزنیم؟',note:'اگر مشکل توی سایت یا فروشگاهه، لینک همون صفحه رو بفرست و بگو کجا گیر کردی.',channels:'از چه راهی راحت‌تری؟'},
+ fa:{email:'برایم بنویسید',label:'شروع یک گفت‌وگو',title:'درباره چی می‌خوای حرف بزنیم؟',note:'اگر مشکل توی سایت یا فروشگاهه، لینک همون صفحه رو بفرست و بگو کجا گیر کردی.',channels:'از چه راهی راحت‌تری؟'},
  en:{email:'Write to me',label:'START A CONVERSATION',title:'What would you like to talk about?',note:'If it’s about a site or a shop, send the page link and tell me where you got stuck.',channels:'How would you like to get in touch?'}
 };

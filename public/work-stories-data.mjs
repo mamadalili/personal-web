@@ -11,7 +11,7 @@ const outlines={
   boomerang:topics('boomerang',[
     ['online-sales','فروش آنلاین از کجا شروع شد؟','Where online sales began'],
     ['store','از محصول تا فروشگاه اینترنتی','From a product to an online store'],
-    ['four-languages','چهار زبان، یک تجربهٔ خرید','Four languages, one shopping experience'],
+    ['four-languages','چهار زبان، یک تجربه خرید','Four languages, one shopping experience'],
     ['channels','وقتی کانال‌های فروش کنار هم قرار می‌گیرند','Bringing sales channels together'],
     ['ai-operations','AI کجای کار به کمک آمد؟','Where AI helped with the work']
   ]),
@@ -23,11 +23,11 @@ const outlines={
     ['after-sales','داستان فروش با سفارش تمام نمی‌شود','The work after an order is placed']
   ]),
   can:topics('can',[
-    ['strategy','از هدف بازاریابی تا برنامهٔ اجرا','From a marketing goal to a working plan'],
-    ['budget','بودجهٔ تبلیغات را کجا خرج کنیم؟','Where the advertising budget should go'],
+    ['strategy','از هدف بازاریابی تا برنامه اجرا','From a marketing goal to a working plan'],
+    ['budget','بودجه تبلیغات را کجا خرج کنیم؟','Where the advertising budget should go'],
     ['channels','یک پیام در کانال‌های آنلاین و آفلاین','One message across online and offline channels'],
     ['exhibitions','بازاریابی در نمایشگاه، از نزدیک','Marketing on the exhibition floor'],
-    ['sales-network','محتوایی که شبکهٔ فروش لازم داشت','Content the sales network needed']
+    ['sales-network','محتوایی که شبکه فروش لازم داشت','Content the sales network needed']
   ]),
   datis:topics('datis',[
     ['question','پیش از تحقیق، سؤال درست چه بود؟','Finding the question before the research'],
@@ -39,9 +39,9 @@ const outlines={
   binici:topics('binici',[
     ['dashboard','داشبورد فروش قرار بود به چه سؤالی جواب بدهد؟','The question behind the sales dashboard'],
     ['demand','تقاضای بازار را چطور می‌دیدیم؟','Understanding market demand'],
-    ['budget','وقتی بودجه به دادهٔ فروش وصل می‌شود','Connecting budgets to sales data'],
+    ['budget','وقتی بودجه به داده فروش وصل می‌شود','Connecting budgets to sales data'],
     ['products','استراتژی فروش برای محصولات مختلف','Sales strategy across products'],
-    ['marketing','از عددهای فروش تا برنامهٔ مارکتینگ','From sales figures to a marketing plan']
+    ['marketing','از عددهای فروش تا برنامه مارکتینگ','From sales figures to a marketing plan']
   ]),
   'safir-lead':topics('safir-lead',[
     ['regions','یک مؤسسه، بازارهای محلی متفاوت','One academy, different local markets'],
