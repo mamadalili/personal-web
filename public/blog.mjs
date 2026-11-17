@@ -1,6 +1,7 @@
 import {articleLabels, articleRichText, readingBlock, readingWidget, renderArticleFrame} from './blog-reading.mjs';
 import {addonKind, enhanceArticle} from './blog-enhancements.mjs';
 import { posts, templateSrc } from './blog-summaries.mjs';
+import {journalEdition} from './blog-library-model.mjs';
 import { loadArticleData, matchesArticleDataSource } from './blog-article-data.mjs';
 import { escapeHTML as esc, internalHref, chartValues, estimateOrders, publishedPosts, chartDomain, chartPosition, roundBound } from './blog-core.mjs';
 import { createResearchWidgets } from './blog-widgets.mjs';
@@ -19,7 +20,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
   const livePosts = publishedPosts(posts);
 
   if (mode === 'index') {
-    const {mountBlogIndex} = await import('./blog-index.mjs?v=20261117-journal');
+    const {mountBlogIndex} = await import('./blog-index.mjs?v=20261117-ai-content');
     if (!signal.aborted && root.isConnected) mountBlogIndex(root,{lang,items:posts,href,signal});
     return;
   }
@@ -97,7 +98,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     root.querySelector('.article-outline').open=openOutline;
     delete root.dataset.readingSrc;
   } else {
-    root.innerHTML=renderArticleFrame({article,lang,href,renderBlock,date:research.date,sourceCard:research.sourceCard,openOutline});
+    root.innerHTML=renderArticleFrame({article,lang,href,renderBlock,date:research.date,sourceCard:research.sourceCard,openOutline,collections:journalEdition(livePosts,lang).collections});
   }
   const dialog = root.querySelector('dialog');
   const openDialog = (title,content,trigger) => {

@@ -4,6 +4,10 @@ body[data-current-page][data-page] {
   padding-bottom: 0;
 }
 
+@media (hover:hover) {
+  body[data-page] a:hover { text-decoration-line: none; }
+}
+
 .site-atmosphere {
   width: 100%;
   aspect-ratio: 3 / 2;

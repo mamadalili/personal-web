@@ -22,6 +22,20 @@ test('every public article and both archives can be read from the first HTML res
     const visibleStories = [...archive.matchAll(/<a\b([^>]*?)href="\/reading\/(?:fa|en)\/([\w-]+)\.html"([^>]*)>/g)]
       .filter(([,before,,after]) => !/\bhidden\b/.test(before + after)).map(match => match[2]);
     assert.deepEqual(visibleStories.sort(),live.map(post => post.slug).sort());
+    const path = ['make-expertise-understandable','ai-content-system','ai-video-production'];
+    const collection = archive.match(/<section[^>]+id="ai-content"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+    assert.ok(collection);
+    assert.deepEqual([...collection.matchAll(/href="\/reading\/(?:fa|en)\/([\w-]+)\.html"/g)].map(m=>m[1]),path);
+    for (const [index, slug] of path.entries()) {
+      const article = files.get(`reading/${lang}/${slug}.html`);
+      const guide = article.match(/<nav class="article-reading-guide"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+      assert.ok(guide && guide.includes(`href="/blog.html?lang=${lang}#ai-content"`));
+      const next = path[index + 1];
+      if (next) {
+        assert.ok(guide.includes(`rel="next" href="/article.html?post=${next}&amp;lang=${lang}"`));
+        assert.ok(guide.includes(escapeHTML(live.find(post=>post.slug===next)[lang].title)));
+      } else assert.ok(!guide.includes('rel="next"'));
+    }
     assert.equal((archive.match(/data-alternate-text=/g) || []).length,live.length);
     for(const item of live){
       assert.ok(archive.includes('href="/reading/'+lang+'/'+item.slug+'.html"'));

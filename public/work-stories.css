@@ -42,7 +42,7 @@ html[dir=ltr] .work-role[aria-current=true]{box-shadow:inset 3px 0 #1c0998,0 4px
 .work-story-state{font-size:10px;color:#766b85}
 .work-story--published .work-story-state{color:#43326f;font-weight:700}
 .work-story--published .work-story-icon{background:#f1f8d8;color:#2a2a32;border-color:#ddecaa}
-.work-story--published:hover h4{text-decoration:underline;text-underline-offset:5px}
+.work-story--published:hover h4{color:var(--purple)}
 .work-story-arrow{margin-inline-start:auto;color:#1c0998}
 .work-story-note{margin-top:27px;padding:18px 20px;border-inline-start:3px solid #ccff00;background:#f8f9f3;border-radius:5px 11px 11px 5px}
 .work-story-note h3{margin:0 0 5px;font-size:12px;color:#4f5143;font-weight:700}

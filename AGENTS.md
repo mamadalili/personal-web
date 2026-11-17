@@ -69,7 +69,8 @@ Generate the localized pages, runtime bundles, covers and sitemap together. Foll
 
 - Banner palettes come in pairs. Solo and AI Payoff keep their indigo pair; AI Model Market and Product Pages share the ice-white / turquoise / emerald pair. New covers should use the next open pair before starting another palette. Do not force the site’s purple accent into every cover.
 
-- Use `#CCFF00` as the secondary highlight: a stroke around Home’s Solutions CTA and the four Solutions controls. Keep the primary purple accent and black bold CTA text. CTA arrows are clean horizontal arrows mirrored for RTL, without tilted decorative badges.
+- Use `#CCFF00` for the stroke around Home’s Solutions CTA and the four Solutions controls. Keep the primary purple accent and bold black CTA text.
+- Use a change in colour, surface or border for link and card hover feedback throughout the site. Omit decorative arrows and hover underlines. Keep a visible keyboard focus outline and a clear touch target. Directional controls such as previous and next keep their functional icons.
 - A small survey marker highlights the illustrated ridge on Home and Solutions. Decorations are ARIA-hidden, ignore pointer input, pause while the document is hidden and become static with reduced motion. Preserve the existing Home hero components.
 - The Blog index uses `blog-index.mjs` and `blog-library-model.mjs`: one real latest feature, a nonduplicated archive, native topic filters and bilingual keyword search. Keep article reading frames unchanged.
 

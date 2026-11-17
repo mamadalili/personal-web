@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs';
 import {escapeHTML as esc, internalHref, publishedPosts, chartValues} from '../public/blog-core.mjs';
 import {libraryCopy, renderArchive} from '../public/blog-index.mjs';
+import {journalEdition} from '../public/blog-library-model.mjs';
 import {articleRichText, readingBlock, readingWidget, renderArticleFrame} from '../public/blog-reading.mjs';
 import {createResearchWidgets} from '../public/blog-widgets.mjs';
 import {createHash} from 'node:crypto';
@@ -27,7 +28,7 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
   if (archive) html = html
     .replace('portfolio.js?v=20261110-recovery','portfolio.js?v=20261117-journal')
     .replace(/  <link rel="stylesheet" href="blog\.css[^"]*">\n/, '')
-    .replace('</head>', '  <link id="journal-style" rel="stylesheet" href="journal.css?v=20261117">\n</head>')
+    .replace('</head>', '  <link id="journal-style" rel="stylesheet" href="journal.css?v=20261117-ai-content">\n</head>')
     .replace('رفتن به محتوای اصلی / Skip to content',lang==='fa'?'رفتن به محتوای اصلی':'Skip to content')
     .replace(/<span id="header-label">[^<]*<\/span>/, '<span id="header-label">'+(lang==='fa'?'بلاگ':'Blog')+'</span>')
     .replace('<noscript>', '<noscript><style>.journal-controls{display:none}</style>').replace(/^.*<link rel="stylesheet" href="blog-(?:solo|market|data-motion)\.css[^"]*">.*\n/gm,'');
@@ -67,12 +68,13 @@ export function buildReadingPages(items){
     files.set('reading/'+lang+'/archive.html',archive);
     files.set(localizedEntryFile('blog.html',lang),archive);
     if (lang==='fa') files.set('blog.html',archive);
+    const {collections} = journalEdition(live, lang);
     for(const source of live) {
       const post=withDataMotion(source), digest=createHash('sha256').update(JSON.stringify(source)+'\n').digest('hex').slice(0,16);
       const dataSrc='assets/posts/'+post.slug+'-'+digest+'.json';
       const rich=articleRichText({article:post,lang,posts:live,base:siteOrigin});
       const {date,sourceCard}=createResearchWidgets({article:post,lang,rich});
-      const main=renderArticleFrame({article:post,lang,href,renderBlock:block=>{
+      const main=renderArticleFrame({article:post,lang,href,collections,renderBlock:block=>{
         const basic=readingBlock(block,lang,rich);
         return basic ?? `<div data-reading-slot>${staticBlock(block,lang,rich)}</div>`;
       },date,sourceCard});

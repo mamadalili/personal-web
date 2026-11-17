@@ -7,8 +7,7 @@ export const libraryCopy = {
   fa: {
     title:'مجلهٔ بازاریابی و فناوری', intro:'دربارهٔ آدمی می‌نویسم که چیزی می‌خرد، تیمی که آن را می‌فروشد و تصمیم‌هایی که بین این دو گرفته می‌شود.',
     archive:'آرشیو نوشته‌ها', browse:'جست‌وجو در آرشیو', latest:'تازه‌ترین نوشته', picks:'انتخاب‌های من',
-    collection:'پروندهٔ فروش آنلاین', journey:'از جست‌وجو تا رسید خرید',
-    journeyIntro:'خریدار چطور پیدایت می‌کند؟ چطور مدلش را انتخاب می‌کند؟ اگر پول از حسابش کم شد و رسید نگرفت، چه می‌شود؟',
+    inCollection:'در پرونده بخوان',
     search:'جست‌وجو در همهٔ نوشته‌ها', placeholder:'عنوان، موضوع یا نام شرکت', all:'همهٔ موضوع‌ها', topics:'موضوع',
     more:'نوشتهٔ دیگر', articles:'نوشته', results:'{count} نوشته از {total}', clear:'پاک کردن فیلترها',
     empty:'نوشته‌ای با این انتخاب پیدا نشد. یک واژه یا موضوع دیگر را امتحان کن.', noPosts:'اولین نوشته به‌زودی اینجا منتشر می‌شود.',
@@ -16,20 +15,18 @@ export const libraryCopy = {
   en: {
     title:'Marketing & Technology Journal', intro:'I write about the person buying a product, the team selling it and the decisions each of them makes along the way.',
     archive:'The archive', browse:'Search the archive', latest:'Latest story', picks:'Editor’s picks',
-    collection:'Ecommerce collection', journey:'From search to the order receipt',
-    journeyIntro:'How does a buyer find you, choose a model and track down an order when the money has left their account?',
+    inCollection:'Find it in the collection',
     search:'Search all articles', placeholder:'Title, topic or company', all:'All topics', topics:'Topic',
     more:'more articles', articles:'articles', results:'{count} of {total} articles', clear:'Clear filters',
     empty:'No articles match. Try a different word or topic.', noPosts:'The first article will appear here.',
   },
 };
 
-const arrow = '<span class="journal-arrow" aria-hidden="true">→</span>';
 const searchIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg>';
 
 export function renderArchive({lang, items}) {
   const t = libraryCopy[lang], edition = journalEdition(items, lang);
-  const {featured, picks, collection, ordered, front, categories} = edition;
+  const {featured, picks, collections, ordered, front, categories} = edition;
   const other = lang === 'fa' ? 'en' : 'fa';
   const dates = new Intl.DateTimeFormat(lang, {dateStyle:'medium'});
   const numbers = new Intl.NumberFormat(lang);
@@ -42,14 +39,15 @@ export function renderArchive({lang, items}) {
 
   function lead(post) {
     const local = post[lang];
+    const inCollection = collections.some(group => group.steps.some(step => step.post.slug === post.slug));
     return `<article class="journal-lead">
       <div class="journal-rubric"><span>${t.latest}</span>${time(post)}</div>
-      <a href="${href(post)}" aria-labelledby="journal-lead-title">
+      <a href="${inCollection ? '#story-' + esc(post.slug) : href(post)}" aria-labelledby="journal-lead-title">
         ${art(post, {preview:false, eager:true, sizes:'(max-width: 740px) 95vw, (max-width: 1220px) 60vw, 700px'})}
         <div class="journal-lead-copy">
           <div class="journal-byline">${topic(post)}${employer(post)}</div>
-          <h2 id="journal-lead-title">${esc(local.title)} ${arrow}</h2>
-          <p>${esc(local.excerpt)}</p>
+          <h2 id="journal-lead-title">${esc(local.title)}</h2>
+          <p>${esc(local.excerpt)}</p>${inCollection ? `<small>${t.inCollection}</small>` : ''}
         </div>
       </a></article>`;
   }
@@ -61,10 +59,16 @@ export function renderArchive({lang, items}) {
     </a>`;
   }
 
-  function collectionStep({post, label}) {
-    return `<li><a href="${href(post)}">
-      <span class="journal-stage">${esc(label)}</span>${art(post)}
-      <h3>${esc(post[lang].title)} ${arrow}</h3></a></li>`;
+  function collectionPanel(group) {
+    const steps = group.steps.map(({post, label, note}, index) =>
+      `<li><a id="story-${esc(post.slug)}" href="${href(post)}">
+        <span class="journal-stage">${group.guided ? `<b aria-hidden="true">${numbers.format(index + 1)}</b>` : ''}${esc(label)}</span>
+        ${art(post)}<h3>${esc(post[lang].title)}</h3>${note ? `<p>${esc(note)}</p>` : ''}
+      </a></li>`);
+    return `<section class="journal-collection${group.guided ? ' journal-collection-guided' : ''}" id="${group.id}" aria-labelledby="${group.id}-title" data-journal-front>
+      <header><span class="journal-kicker">${esc(group.name)}</span><h2 id="${group.id}-title">${esc(group.title)}</h2><p>${esc(group.intro)}</p></header>
+      <ol role="list">${steps.join('')}</ol>
+    </section>`;
   }
 
   function row(post) {
@@ -81,18 +85,15 @@ export function renderArchive({lang, items}) {
   return `<header class="journal-masthead">
     <h1>${esc(t.title)}</h1><p>${esc(t.intro)}</p>
     <nav class="journal-jumps" aria-label="${lang === 'fa' ? 'بخش‌های مجله' : 'Journal sections'}">
-      ${collection.length ? `<a href="#journal-collection" data-front-link>${t.collection}</a>` : ''}
-      <a href="#library-heading">${t.browse} ${arrow}</a>
+      ${collections.map(group => `<a href="#${group.id}" data-front-link>${esc(group.name)}</a>`).join('')}
+      <a href="#library-heading">${t.browse}</a>
     </nav>
   </header>
   ${featured ? `<div class="journal-front${picks.length ? '' : ' journal-front-solo'}" data-journal-front>
     ${lead(featured)}
     ${picks.length ? `<section class="journal-picks" aria-labelledby="journal-picks-heading"><h2 class="journal-rubric" id="journal-picks-heading">${t.picks}</h2>${picks.map(pick).join('')}</section>` : ''}
   </div>` : ''}
-  ${collection.length ? `<section class="journal-collection" id="journal-collection" aria-labelledby="journal-collection-title" data-journal-front>
-    <header><span class="journal-kicker">${t.collection}</span><h2 id="journal-collection-title">${t.journey}</h2><p>${t.journeyIntro}</p></header>
-    <ol>${collection.map(collectionStep).join('')}</ol>
-  </section>` : ''}
+  ${collections.map(collectionPanel).join('')}
   <section class="journal-archive" data-library-controls aria-labelledby="library-heading" data-count-label="${t.results}" data-empty="${t.empty}" data-no-posts="${t.noPosts}">
     <div class="journal-archive-head library-tools"><h2 id="library-heading" tabindex="-1">${t.archive}</h2>
       <div class="journal-controls">
