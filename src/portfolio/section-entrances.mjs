@@ -7,7 +7,7 @@ const sections = [
   '.work-role-header', '.work-role-background', '.work-story-heading',
   '.contact-glass-copy', '.contact-channels-header', '.employer-rail > header',
   '.library-feature-copy', '.journal-lead-copy', '.journal-collection > header', '#library-heading', '.article-byline', '.article-section > h2',
-  '.article-inline-image', '.article-callout', '.article-related > h2',
+  '.article-inline-image', '.article-callout', '.article-related > h2', '.strategy-brief > figcaption',
   '.market-chapter-copy > h2', '.market-figure-label', '.simulator-result',
 ].join(',');
 

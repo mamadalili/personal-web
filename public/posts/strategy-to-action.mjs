@@ -1,0 +1,664 @@
+export const post = {
+  "slug": "strategy-to-action",
+  "status": "published",
+  "date": "2026-11-17",
+  "reviewed": "2026-11-17",
+  "bannerPair": {
+    "id": "ink-tangerine",
+    "position": 2
+  },
+  "cover": {
+    "fa": {
+      "src": "assets/blog/strategy-to-action-fa.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "از استراتژی تا نتیجه. طرح کاغذی یک فروشگاه قهوه کنار دستگاه، بسته سفارش و دفتر بازبینی با یک نوار نارنجی به هم وصل شده‌اند."
+    },
+    "en": {
+      "src": "assets/blog/strategy-to-action-en.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "From Strategy to Results. A folded coffee-shop plan, espresso machine, delivery parcel and review ledger linked by a tangerine ribbon."
+    }
+  },
+  "fa": {
+    "title": "از استراتژی تا نتیجه",
+    "subtitle": "مدل‌های مک‌کنزی، اجرا و یادگیری",
+    "category": "استراتژی و تصمیم‌گیری",
+    "readTime": "۸ تا ۱۰ دقیقه با تمرین",
+    "excerpt": "سه کار روی میزت هست و وقت تیم محدوده. چطور یک مدل استراتژی به انتخاب کمک می‌کنه؟ بعد از انتخاب، چه کسی چه کاری انجام می‌ده و چه شاهدی تصمیم بعدی را عوض می‌کنه؟ با یک فروشگاه فرضی لوازم قهوه جلو می‌ریم.",
+    "credit": "با الهام از دو نوشته ناتان موهارت درباره ابزارهای استراتژی و ارتباط میان انتخاب، اجرا و یادگیری.",
+    "sourceNote": "نوشته اول و نسخه کامل آن درباره ده چارچوب، کنار نوشته دوم درباره هم‌راستایی، نظم اجرا و یادگیری خوانده شده‌اند. نوشته دوم برای اینفوگرافیک به الی کاسامیتجانا اعتبار می‌دهد. فروشگاه، کارها و عددهای این مقاله نمونه آموزشی ساخته‌شده‌اند.",
+    "takeaways": [
+      "از روی سؤال، مدل مناسب را پیدا کن.",
+      "برای هر انتخاب، کار، مسئول و شاهد بازبینی مشخص کن.",
+      "توزیع وقت را بین کار امروز، رشد تازه و آزمایش ایده‌ها ببین."
+    ]
+  },
+  "en": {
+    "title": "From Strategy to Results",
+    "subtitle": "McKinsey frameworks, execution and learning",
+    "category": "Strategy & decisions",
+    "readTime": "8–10 min with the exercise",
+    "excerpt": "Three projects are on your desk and the team has limited time. How can a strategy framework help you choose? Who does what next, and what evidence changes the next decision? Follow a hypothetical coffee-equipment shop.",
+    "credit": "Inspired by two Natan Mohart pieces on strategy tools and the connection between choices, execution and learning.",
+    "sourceNote": "The first post and its complete ten-framework article were read alongside the second post on alignment, execution discipline and learning. The second credits Elie Casamitjana for its infographic. The shop, projects and numbers here are original educational examples.",
+    "takeaways": [
+      "Choose a framework from the question you need to answer.",
+      "Give a choice a concrete task, an owner and review evidence.",
+      "Inspect how time is shared between today’s business, emerging growth and early experiments."
+    ]
+  },
+  "sections": [
+    {
+      "id": "start",
+      "fa": {
+        "title": "سه کار، یک تیم"
+      },
+      "en": {
+        "title": "Three projects, one team"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "فرض کن یک فروشگاه لوازم قهوه داری. مشتری‌ها برای انتخاب قطعه سازگار با دستگاهشان سؤال می‌پرسن. هم‌زمان می‌خوای ارسال منظم قهوه به دفترها را گسترش بدی و ایده یادآور سرویس دستگاه را هم امتحان کنی. تیم برای این کارها در این هفته مجموعاً **۱۲ ساعت وقت قابل تخصیص** داره.",
+          "en": "Imagine a coffee-equipment shop. Buyers ask which part fits their machine. You also want to develop regular coffee deliveries to offices and test a machine-servicing reminder. The team has a total of **12 hours available for these projects this week**."
+        },
+        {
+          "type": "paragraph",
+          "fa": "در جلسه می‌گی «باید رشد کنیم». برای اینکه همکارت فردا صبح بدونه چه کاری را جلو ببره، این جمله باید به انتخاب روشن، کار مشخص و یک زمان بازبینی برسه. مدل‌های استراتژی کمک می‌کنن سؤال را باز کنی. روال اجرا کمک می‌کنه انتخابت در کار روزانه ادامه پیدا کنه.",
+          "en": "At the meeting you say, “We need to grow.” To help a colleague choose tomorrow morning’s work, that intention needs a clear choice, a concrete task and a review point. Strategy frameworks help you examine the question. An operating routine carries the choice into daily work."
+        },
+        {
+          "type": "callout",
+          "fa": "فروشگاه این مقاله فرضی است. هر جا عددی می‌بینی، واحد و روش همان تمرین کنارش آمده تا بشه نتیجه را بررسی کرد.",
+          "en": "The shop is hypothetical. Each numerical exercise states its units and method so you can check the result."
+        }
+      ]
+    },
+    {
+      "id": "choose-model",
+      "fa": {
+        "title": "مدل را از روی سؤال انتخاب کن"
+      },
+      "en": {
+        "title": "Choose the framework from the question"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "ناتان موهارت ده مدل را کنار هم گذاشته. از هر مدل یک خروجی بخواه که به تصمیم بعدی کمک کنه. برای نمونه، ماتریس GE–McKinsey برای مقایسه چند کسب‌وکار با دو نگاه کاربرد داره؛ جذابیت صنعت و توان رقابت در آن. نمره‌ها به تعریف معیار و شواهد نیاز دارن. [توضیح اصلی ماتریس](#source-nine-box)",
+          "en": "Natan Mohart brings ten frameworks together. Ask each one for an output that helps the next decision. For example, the GE–McKinsey matrix compares businesses through industry attractiveness and competitive strength. Scores need defined criteria and evidence. [Original matrix description](#source-nine-box)"
+        },
+        {
+          "type": "table",
+          "fa": {
+            "caption": "راهنمای انتخاب مدل. خروجی ستون آخر، پیشنهاد عملی این مقاله برای جلسه است.",
+            "columns": [
+              "اگر سؤال اینه",
+              "مدل مناسب",
+              "از جلسه چه چیزی بیرون بیاد؟"
+            ],
+            "rows": [
+              [
+                "چرا کار بخش‌ها با هدف هماهنگ نیست؟",
+                "7S",
+                "یک ناهماهنگی مشخص و مسئول اصلاحش"
+              ],
+              [
+                "بودجه بین کدام کسب‌وکارها پخش بشه؟",
+                "ماتریس GE–McKinsey",
+                "مقایسه جذابیت بازار و توان رقابت"
+              ],
+              [
+                "برای کارهای آینده چقدر توجه داریم؟",
+                "سه افق رشد",
+                "وقت و معیار بررسی هر افق"
+              ],
+              [
+                "مزیت ما از کدام فعالیت‌ها میاد؟",
+                "سیستم کسب‌وکار",
+                "فعالیت‌هایی که یکدیگر را تقویت می‌کنند"
+              ],
+              [
+                "جای هزینه تولید ما در صنعت کجاست؟",
+                "منحنی هزینه صنعت",
+                "مقایسه هم‌واحد هزینه و ظرفیت"
+              ],
+              [
+                "خریدار در کجای انتخابش گیر می‌کنه؟",
+                "مسیر تصمیم مشتری",
+                "یک مانع قابل بررسی در خرید"
+              ],
+              [
+                "تغییر رفتار به چه پشتیبانی نیاز داره؟",
+                "مدل نفوذ",
+                "اقدام برای توضیح، مهارت، مشوق و الگو"
+              ],
+              [
+                "ساختار صنعت چه اثری روی رقابت داره؟",
+                "ساختار–رفتار–عملکرد یا SCP",
+                "یک سناریوی روشن از تغییر رقابت"
+              ],
+              [
+                "اندازه و ارزش‌گذاری چه قدرتی می‌ده؟",
+                "نقشه کنترل استراتژیک",
+                "تصویر موقعیت شرکت‌ها برای بررسی"
+              ],
+              [
+                "زیر عدم‌قطعیت کدام اقدام‌ها را دنبال کنیم؟",
+                "سبد ابتکارها",
+                "چند اقدام با شرط ادامه و توقف"
+              ]
+            ]
+          },
+          "en": {
+            "caption": "Choose a framework. The last column proposes a concrete meeting output for this article.",
+            "columns": [
+              "Your question",
+              "Framework",
+              "Leave the meeting with"
+            ],
+            "rows": [
+              [
+                "Why does daily work pull away from the goal?",
+                "7S",
+                "One specific mismatch and an owner to address it"
+              ],
+              [
+                "How should resources be allocated across businesses?",
+                "GE–McKinsey matrix",
+                "A comparison of industry attractiveness and competitive strength"
+              ],
+              [
+                "How much attention goes to future businesses?",
+                "Three horizons of growth",
+                "Time and review criteria for each horizon"
+              ],
+              [
+                "Which activities create our advantage?",
+                "Business system",
+                "Activities that reinforce each other"
+              ],
+              [
+                "Where do our production costs sit in the industry?",
+                "Industry cost curve",
+                "Comparable unit costs and capacities"
+              ],
+              [
+                "Where does the buyer get stuck?",
+                "Consumer decision journey",
+                "A buying obstacle to investigate"
+              ],
+              [
+                "What support does a behaviour change need?",
+                "Influence model",
+                "Actions for understanding, skills, incentives and role models"
+              ],
+              [
+                "How does industry structure affect competition?",
+                "Structure–conduct–performance",
+                "A clear scenario of changing competition"
+              ],
+              [
+                "What power do size and valuation give a company?",
+                "Strategic control map",
+                "A view of companies’ positions to investigate"
+              ],
+              [
+                "Which initiatives should continue under uncertainty?",
+                "Portfolio of initiatives",
+                "Initiatives with continuation and stopping criteria"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "paragraph",
+          "fa": "برای فروشگاه فرضی ما، سه سؤال را نگه می‌داریم. کار بخش‌ها چقدر با قول فروشگاه هماهنگه؟ چقدر وقت به کارهای با درجه بلوغ متفاوت می‌رسه؟ بعد از اجرا چه چیزی به جلسه تصمیم‌گیری برمی‌گرده؟",
+          "en": "For the example shop, keep three questions in view. How well does the work support the shop’s promise? How much time reaches businesses at different stages of maturity? What returns to the decision meeting after the work is done?"
+        }
+      ]
+    },
+    {
+      "id": "seven-s",
+      "fa": {
+        "title": "هماهنگی را در کار واقعی ببین"
+      },
+      "en": {
+        "title": "Check alignment in the actual work"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "مدل **7S** هفت بخش را به هم وصل می‌کنه. استراتژی، ساختار، سیستم‌ها، مهارت‌ها، کارکنان، شیوه مدیریت و ارزش‌های مشترک. برای استفاده از آن، یک موقعیت واقعی را بین این بخش‌ها دنبال کن. [توضیح مک‌کنزی درباره 7S](#source-seven-s)",
+          "en": "The **7S framework** connects strategy, structure, systems, skills, staff, management style and shared values. To use it, follow a concrete situation across those elements. [McKinsey’s 7S description](#source-seven-s)"
+        },
+        {
+          "type": "paragraph",
+          "fa": "قول فروشگاه ما کمک به خرید قطعه سازگاره. فروشنده باید نام مدل دستگاه را بپرسه، صفحه محصول اطلاعات لازم را بده و پشتیبانی پیام‌های مبهم را به مسئول محتوا برسونه. آموزش تیم و معیار ارزیابی فروشنده هم باید از همین قول پشتیبانی کنن. اگر پاداش فقط به تعداد فروش وصل باشه، این ارتباط را در جلسه بررسی کن.",
+          "en": "Our shop promises to help buyers find a compatible part. Sales needs to ask for the machine model, the product page needs the relevant information, and support needs to pass unclear questions to the content owner. Training and sales evaluation should support that promise too. If the reward only follows the number of sales, examine that connection at the meeting."
+        },
+        {
+          "type": "quote",
+          "fa": "وقتی می‌گی «باید هماهنگ‌تر بشیم»، یک پیام مشتری را روی میز بگذار و مسیر پاسخ‌دادن به همان پیام را بررسی کن.",
+          "en": "When the team says it needs better alignment, bring one customer message to the table and follow how that message gets answered."
+        }
+      ]
+    },
+    {
+      "id": "horizons",
+      "fa": {
+        "title": "وقت این هفته چطور پخش می‌شه؟"
+      },
+      "en": {
+        "title": "Where does this week’s time go?"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "در مدل **سه افق رشد**، کار فعلی درآمد امروز را می‌سازه. کسب‌وکار نوپا مشتری و نشانه‌های رشد داره. ایده آزمایشی هنوز به بررسی و آزمایش نیاز داره. هر سه هم‌زمان به توجه نیاز دارن و معیار بررسی هرکدام با بلوغش جور می‌شه. [منبع سه افق رشد](#source-three-horizons)",
+          "en": "In the **three horizons** framework, the core business supports today’s income. An emerging business has customers and signs of growth. An early option still needs investigation and experiments. All three need attention concurrently, with review criteria suited to their maturity. [Three horizons source](#source-three-horizons)"
+        },
+        {
+          "type": "paragraph",
+          "fa": "در این مثال، راهنمای قطعه به کار فعلی کمک می‌کنه. خدمت قهوه برای دفترها، با یک سفارش پولی فرضی، در مرحله رشد تازه است. یادآور سرویس دستگاه هنوز یک ایده آزمایشیه. در نمودار زیر دو چینش برای همان ۱۲ ساعت داریم. روی نام هر چینش بزن و مقدار هر افق را انتخاب کن.",
+          "en": "Here, the parts guide supports the current business. The office coffee service, with a hypothetical first paid order, is emerging growth. The servicing reminder is still an early option. The chart compares two allocations of the same 12 hours. Select an allocation name and inspect a horizon’s value."
+        },
+        {
+          "type": "chart",
+          "id": "horizon-hours",
+          "views": [
+            "bars"
+          ],
+          "fa": {
+            "title": "همان ۱۲ ساعت، دو تقسیم‌بندی",
+            "source": "داده فرضی برای همین تمرین. هر دو چینش جمعاً ۱۲ ساعت وقت قابل تخصیص دارند.",
+            "method": "ساعت برنامه‌ریزی‌شده هر افق را جمع می‌کنیم. در چینش اول ۱۲ + ۰ + ۰ و در چینش دوم ۸ + ۳ + ۱، هر دو برابر ۱۲ می‌شوند. نسبت دوم یک انتخاب آموزشی برای این مثال است."
+          },
+          "en": {
+            "title": "The same 12 hours, two allocations",
+            "source": "Hypothetical data for this exercise. Both plans allocate a total of 12 hours.",
+            "method": "Add the planned hours across the three horizons. The first allocation is 12 + 0 + 0 and the second is 8 + 3 + 1. Both total 12. The second split is an illustrative choice for this exercise."
+          },
+          "labels": {
+            "fa": [
+              "کار امروز — H1",
+              "رشد تازه — H2",
+              "ایده آزمایشی — H3"
+            ],
+            "en": [
+              "Current business — H1",
+              "Emerging growth — H2",
+              "Early options — H3"
+            ]
+          },
+          "metrics": [
+            {
+              "id": "hours",
+              "key": "hours",
+              "format": "number",
+              "fa": "ساعت برنامه‌ریزی‌شده",
+              "en": "Planned hours"
+            }
+          ],
+          "series": [
+            {
+              "id": "urgent",
+              "fa": "هفته پر از کارهای فوری",
+              "en": "A week filled with urgent work",
+              "values": {
+                "hours": [
+                  12,
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "id": "protected",
+              "fa": "هفته با وقت محافظت‌شده",
+              "en": "A week with protected time",
+              "values": {
+                "hours": [
+                  8,
+                  3,
+                  1
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "fa": "چینش ۸، ۳ و ۱ ساعت، یک مثال آموزشی است. برای تعیین وقت تیم خودت، تعهدهای تحویل، نیاز مشتری و شواهد مرحله فعلی هر کار را کنار هم بگذار. در پایان هفته هم وقت برنامه‌ریزی‌شده را با وقت صرف‌شده مقایسه کن.",
+          "en": "The 8, 3 and 1 hour split is an educational example. To allocate your own team’s time, consider delivery commitments, customer needs and the evidence available for each project. At the end of the week, compare the planned time with the time actually spent."
+        }
+      ]
+    },
+    {
+      "id": "working-brief",
+      "fa": {
+        "title": "هر انتخاب را به یک برگه کار وصل کن"
+      },
+      "en": {
+        "title": "Give each choice a working brief"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "نوشته دوم سه ارتباط را برجسته می‌کنه؛ هم‌راستایی با هدف، نظم اجرا و یادگیری. برای فروشگاه، آن‌ها را در یک برگه کوتاه به کار می‌گیریم. انتخاب باید به یک مسئول و کار مشخص برسه. کار هم باید شاهدی تولید کنه که در بازبینی به درد بخوره. [نوشته دوم موهارت](#source-execution)",
+          "en": "The second post connects alignment, execution discipline and learning. For the shop, put those connections into a short working brief. The choice leads to an accountable owner and a concrete task. The task should produce evidence that helps the review. [Mohart’s second post](#source-execution)"
+        },
+        {
+          "type": "strategy-brief",
+          "id": "coffee-shop",
+          "fa": {
+            "title": "یک انتخاب را تا بازبینی دنبال کن",
+            "note": "فروشگاه و کارهای این تمرین فرضی‌اند. با عوض‌کردن گزینه، قول، مسئول کار و شاهد بازبینی با هم عوض می‌شوند.",
+            "select": "کدام کار را بررسی می‌کنی؟",
+            "choice": "انتخاب",
+            "work": "کار مشخص",
+            "owner": "مسئول پیگیری",
+            "evidence": "شاهد بازبینی",
+            "review": "زمان بررسی",
+            "next": "تصمیم بعدی"
+          },
+          "en": {
+            "title": "Follow one choice through to review",
+            "note": "The shop and its projects are hypothetical. Select a project to change its promise, owner and review evidence together.",
+            "select": "Which project will you inspect?",
+            "choice": "Choice",
+            "work": "Concrete work",
+            "owner": "Accountable owner",
+            "evidence": "Review evidence",
+            "review": "When to review",
+            "next": "Next decision"
+          },
+          "cases": [
+            {
+              "id": "core",
+              "horizon": "H1",
+              "fa": {
+                "label": "کار امروز",
+                "promise": "کمک به خرید قطعه‌ای که با دستگاه مشتری سازگار باشد.",
+                "action": "راهنمای سازگاری دو قطعه پرپرسش را کنار دکمه خرید کامل کن.",
+                "owner": "مسئول محتوای محصول",
+                "evidence": "سؤال‌های حل‌نشده درباره سازگاری و علت مرجوعی همین قطعه‌ها.",
+                "review": "پایان هفته با پشتیبانی",
+                "learning": "اگر ابهام هنوز تکرار شد، ببین نام مدل، عکس یا توضیح نصب کدام‌یک کم است. اصلاح بعدی را بر اساس همان پیام انتخاب کن."
+              },
+              "en": {
+                "label": "Today’s business",
+                "promise": "Help shoppers buy a part that fits their machine.",
+                "action": "Complete the compatibility guide beside the buy button for two frequently queried parts.",
+                "owner": "Product content lead",
+                "evidence": "Unresolved compatibility questions and return reasons for those parts.",
+                "review": "With support at the end of the week",
+                "learning": "If the same confusion persists, inspect the model name, photo and fitting instructions. Choose the next edit from the actual customer message."
+              }
+            },
+            {
+              "id": "growth",
+              "horizon": "H2",
+              "fa": {
+                "label": "رشد تازه",
+                "promise": "خدمت ارسال منظم قهوه به دفترهایی که خرید تکراری دارند.",
+                "action": "برای دفتر فرضیِ دارای اولین سفارش پولی، تحویل بعدی و مقدار مصرف را روشن کن.",
+                "owner": "مسئول فروش سازمانی",
+                "evidence": "تکرار سفارش، هزینه تحویل و دلیل ادامه‌دادن یا قطع خدمت.",
+                "review": "پس از تحویل آزمایشی",
+                "learning": "با دیدن هزینه واقعی تحویل و نیاز مشتری تصمیم بگیر خدمت را اصلاح کنی، برای چند دفتر دیگر امتحان کنی یا ادامه ندهی."
+              },
+              "en": {
+                "label": "Emerging growth",
+                "promise": "Regular coffee deliveries to offices with repeat demand.",
+                "action": "For the example office with its first paid order, confirm the next delivery and how much coffee it uses.",
+                "owner": "Business sales lead",
+                "evidence": "Repeat orders, delivery costs and reasons for keeping or cancelling the service.",
+                "review": "After the trial delivery",
+                "learning": "Use actual delivery costs and the customer’s needs to decide whether to revise the service, test it with more offices or stop."
+              }
+            },
+            {
+              "id": "option",
+              "horizon": "H3",
+              "fa": {
+                "label": "ایده آزمایشی",
+                "promise": "بررسی نیاز خریداران به یادآور سرویس دستگاه.",
+                "action": "نمونه ساده پیام یادآور را به چند خریدار نشان بده و موقعیت استفاده را بپرس.",
+                "owner": "مسئول توسعه خدمت",
+                "evidence": "مشکل مشخص خریدار، دلیل پذیرش یا رد نمونه و آمادگی برای آزمایش بعدی.",
+                "review": "بعد از گفت‌وگو با خریداران",
+                "learning": "شاهد تازه تعیین می‌کند سؤال را عوض کنی، نمونه را اصلاح کنی یا یک آزمایش کوچک دیگر انجام بدهی."
+              },
+              "en": {
+                "label": "An early option",
+                "promise": "Investigate whether buyers need a machine-servicing reminder.",
+                "action": "Show a simple reminder message to a few buyers and ask when they would use it.",
+                "owner": "Service development lead",
+                "evidence": "A specific customer problem, reasons for accepting or rejecting the sample and willingness to try the next test.",
+                "review": "After the buyer conversations",
+                "learning": "Use the new evidence to revise the question, change the sample or run another small test."
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "fa": "وقتی گزینه را عوض می‌کنی، معیار بازبینی هم عوض می‌شه. برای راهنمای قطعه، پیام‌های حل‌نشده و علت مرجوعی مهمن. برای خدمت نوپا، تکرار خرید و هزینه تحویل را می‌بینی. برای ایده اولیه، دنبال یک نیاز مشخص و نشانه‌ای برای آزمایش بعدی می‌گردی.",
+          "en": "Changing the project changes what belongs in its review. For the parts guide, inspect unresolved messages and return reasons. For the emerging service, inspect repeat buying and delivery costs. For an early option, look for a specific need and evidence that informs the next test."
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "fa": {
+        "title": "از گزارش کار به تصمیم برس"
+      },
+      "en": {
+        "title": "Use the work report to make a decision"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "گزارش «شش گفت‌وگو انجام شد» به پیگیری کار کمک می‌کنه. برای تصمیم بعدی درباره خدمت قهوه، یادداشت نیاز مشتری، خرید تکراری و هزینه تحویل را هم کنار آن می‌خوای. اگر این اطلاعات هنوز جمع نشده، یکی از خروجی‌های بازبینی می‌تونه مشخص‌کردن همین سؤال باز و مسئول پیدا‌کردن جوابش باشه.",
+          "en": "“Six conversations completed” helps you track the work. The next decision about the coffee service also needs notes on customer needs, repeat buying and delivery costs. If that evidence is still missing, the review can name the open question and assign an owner to find the answer."
+        },
+        {
+          "type": "quiz",
+          "fa": "مسئول فروش شش گفت‌وگو درباره خدمت ارسال قهوه انجام داده. برای تصمیم درباره گسترش خدمت، کدام گزارش کمک بیشتری می‌کنه؟",
+          "en": "Sales has held six conversations about the coffee delivery service. Which report would best inform a decision to expand it?",
+          "options": [
+            {
+              "correct": false,
+              "fa": {
+                "label": "فقط تعداد گفت‌وگوها و ساعت کار تیم",
+                "feedback": "این‌ها می‌گن چه کاری انجام شده. هنوز معلوم نیست مشتری چه نیازی داشته، خریدی تکرار شده یا تحویل از نظر هزینه قابل ادامه بوده."
+              },
+              "en": {
+                "label": "Only the conversation count and team hours",
+                "feedback": "These describe the work done. They leave the customer’s need, repeat purchases and the economics of delivery unresolved."
+              }
+            },
+            {
+              "correct": true,
+              "fa": {
+                "label": "نیاز مشتری، تکرار سفارش و هزینه تحویل در کنار کار انجام‌شده",
+                "feedback": "این گزارش کار را به شاهد وصل می‌کنه. می‌تونی دلیل ادامه یا اصلاح خدمت را بررسی کنی. از همین نمونه کوچک هم باید با احتیاط برای گسترش بیشتر نتیجه بگیری."
+              },
+              "en": {
+                "label": "Customer needs, repeat orders and delivery costs alongside the work done",
+                "feedback": "This connects the work to evidence. It gives you reasons to continue or revise the service. A small trial still calls for care when judging a wider rollout."
+              }
+            },
+            {
+              "correct": false,
+              "fa": {
+                "label": "امتیاز بالاتر این ایده در یک جدول استراتژی",
+                "feedback": "امتیاز می‌تونه اولویت بحث را روشن کنه. برای تصمیم بعد از اجرا، رفتار مشتری و هزینه انجام خدمت را هم باید ببینی."
+              },
+              "en": {
+                "label": "A higher score for the idea in a strategy grid",
+                "feedback": "A score can help prioritize the discussion. After the trial, the next decision also needs evidence of customer behaviour and service costs."
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "fa": "یادگیری وقتی وارد روال می‌شه که چیزی را در کار بعدی عوض کنه. ممکنه مخاطب آزمایش محدودتر بشه، متن راهنما تغییر کنه یا وقت بیشتری برای بررسی تحویل کنار بگذاری. دلیل تغییر را کنار همان کار ثبت کن تا جلسه بعد از آن شروع بشه.",
+          "en": "Learning enters the routine when it changes the next piece of work. You might narrow the trial audience, revise the guide or set aside more time to investigate deliveries. Record the reason alongside the task so the next meeting can start from it."
+        }
+      ]
+    },
+    {
+      "id": "next-week",
+      "fa": {
+        "title": "برای جلسه بعد چه چیزی آماده می‌کنی؟"
+      },
+      "en": {
+        "title": "What will you bring to the next meeting?"
+      },
+      "blocks": [
+        {
+          "type": "paragraph",
+          "fa": "یک کار واقعی را انتخاب کن و برگه‌اش را با همکارت کامل کن. **کدام انتخاب را جلو می‌بره؟ مسئولش کیه؟ چه شاهدی را چه وقت می‌بینیم؟** اگر جواب یکی از این سؤال‌ها باز مونده، همان را به کار قابل پیگیری تبدیل کن.",
+          "en": "Choose one actual task and complete its brief with a colleague. **Which choice does it advance? Who owns it? What evidence will you review, and when?** Turn any unanswered question into a task someone can follow up."
+        },
+        {
+          "type": "paragraph",
+          "fa": "در جلسه بعد، برگه را با نتیجه کار کنار هم بخون. بعد تصمیم بگیر همان مسیر را ادامه بدی، بخشی را تغییر بدی یا آزمایش را متوقف کنی. این‌طوری ابزار انتخاب، کار روزانه و یادگیری به یک گفت‌وگوی قابل پیگیری وصل می‌شن.",
+          "en": "At the next meeting, read the brief alongside what happened. Decide whether to continue, change part of the approach or stop the trial. The decision tool, daily work and learning then belong to one discussion you can follow through."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "frameworks",
+      "url": "https://x.com/natan_mohart/status/2115074952865239337",
+      "publisher": "Natan Mohart",
+      "date": "2026-10-27",
+      "kind": "inspiration",
+      "fa": {
+        "title": "ده چارچوب برای استراتژی",
+        "note": "پست اصلی و متن مقاله خوانده شدند. جدول انتخاب مدل از این فهرست شروع شده و خروجی‌های جلسه برای این مثال نوشته شده‌اند."
+      },
+      "en": {
+        "title": "10 McKinsey Frameworks for Effective Strategy",
+        "note": "Original post and article text read. The model guide starts from this list, with meeting outputs authored for this example."
+      }
+    },
+    {
+      "id": "frameworks-full",
+      "url": "https://natanmohart.substack.com/p/mckinsey-frameworks",
+      "publisher": "Natan Mohart",
+      "date": "2026-10-27",
+      "kind": "analysis",
+      "fa": {
+        "title": "نسخه کامل ده چارچوب",
+        "note": "نسخه کامل برای بررسی کاربردهای ده مدل خوانده شد. مثال‌های تاریخی و تصویرهای نویسنده بازنشر نشده‌اند."
+      },
+      "en": {
+        "title": "Complete ten-framework article",
+        "note": "Complete article read to check the ten applications. This article uses its own worked example and original artwork."
+      }
+    },
+    {
+      "id": "execution",
+      "url": "https://x.com/natan_mohart/status/2122359040823242896",
+      "publisher": "Natan Mohart",
+      "date": "2026-11-16",
+      "kind": "inspiration",
+      "fa": {
+        "title": "ارتباط هم‌راستایی، اجرا و یادگیری",
+        "note": "متن کامل پست خوانده شد. نویسنده اعتبار اینفوگرافیک را به الی کاسامیتجانا می‌دهد. برگه تعاملی این صفحه یک نمونه مستقل است."
+      },
+      "en": {
+        "title": "Connecting alignment, execution and learning",
+        "note": "Full post text read. The author credits Elie Casamitjana for the infographic. This page’s interactive brief is an original teaching example."
+      }
+    },
+    {
+      "id": "seven-s",
+      "url": "https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-7-s-framework",
+      "publisher": "McKinsey Quarterly",
+      "date": "2008-03-01",
+      "kind": "guide",
+      "fa": {
+        "title": "مدل 7S و هماهنگی سازمان",
+        "note": "منبع اصلی برای ارتباط میان بخش‌های سازمان. کاربرد فروشگاه، نمونه آموزشی این مقاله است."
+      },
+      "en": {
+        "title": "The 7-S Framework",
+        "note": "Primary description of organizational coordination. The shop application is an educational example."
+      }
+    },
+    {
+      "id": "nine-box",
+      "url": "https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-ge-and-mckinsey-nine-box-matrix",
+      "publisher": "McKinsey Quarterly",
+      "date": "2008-09-01",
+      "kind": "guide",
+      "fa": {
+        "title": "ماتریس نه‌خانه‌ای GE–McKinsey",
+        "note": "مرجع دو محور جذابیت صنعت و توان رقابت در مقایسه کسب‌وکارها."
+      },
+      "en": {
+        "title": "The GE–McKinsey nine-box matrix",
+        "note": "Reference for industry attractiveness and competitive strength when comparing businesses."
+      }
+    },
+    {
+      "id": "three-horizons",
+      "url": "https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-three-horizons-of-growth",
+      "publisher": "McKinsey Quarterly",
+      "date": "2009-12-01",
+      "kind": "guide",
+      "fa": {
+        "title": "سه افق رشد",
+        "note": "مرجع توجه هم‌زمان به کسب‌وکار فعلی، فرصت نوپا و ایده اولیه. ساعت‌های نمودار برای تمرین ساخته شده‌اند."
+      },
+      "en": {
+        "title": "The three horizons of growth",
+        "note": "Reference for concurrent attention to core businesses, emerging opportunities and early options. The chart’s hours were authored for this exercise."
+      }
+    }
+  ],
+  "related": [
+    {
+      "target": "post:strategy-means-choices",
+      "fa": {
+        "title": "استراتژی از کدام انتخاب شروع می‌شه؟",
+        "description": "قول فروشگاه را در برخورد با درخواست واقعی مشتری بررسی کن."
+      },
+      "en": {
+        "title": "Where does strategy begin?",
+        "description": "Inspect a shop’s promise against an actual customer request."
+      }
+    },
+    {
+      "target": "post:planning-with-four-futures",
+      "fa": {
+        "title": "یک برنامه در برابر چهار آینده",
+        "description": "انتخاب را با عوض‌شدن شرایط دوباره بررسی کن."
+      },
+      "en": {
+        "title": "One plan, four futures",
+        "description": "Revisit a choice as its conditions change."
+      }
+    },
+    {
+      "target": "post:team-capacity",
+      "fa": {
+        "title": "وقتی تیم جا برای کار تازه نداره",
+        "description": "ظرفیت واقعی تیم را کنار کارهای در صف ببین."
+      },
+      "en": {
+        "title": "When the team has no room for more",
+        "description": "Inspect available capacity alongside the work waiting for it."
+      }
+    }
+  ]
+};
