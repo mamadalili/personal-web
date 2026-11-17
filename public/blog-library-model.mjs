@@ -16,11 +16,11 @@ const readingCollections = [
   {
     id:'ai-content', guided:true,
     fa:{
-      name:'پروندهٔ هوش مصنوعی و تولید محتوا', title:'از یک سؤال واقعی تا ویدیوی کوتاه',
+      name:'پروندهٔ هوش مصنوعی و تولید محتوا', title:'از یک سؤال واقعی تا ویدیوی کوتاه', backLabel:'برگشت به پروندهٔ هوش مصنوعی و تولید محتوا',
       intro:'یک سؤال بردار که مشتری یا همکارت واقعاً از تو پرسیده. در این سه نوشته، همان سؤال را به سوژه، پیش‌نویس و چند نمای ویدیویی تبدیل می‌کنی.',
     },
     en:{
-      name:'AI & content production', title:'From a real question to a short video',
+      name:'AI & content production', title:'From a real question to a short video', backLabel:'Back to the AI & content production collection',
       intro:'Start with a question a customer or colleague has actually asked you. These three articles help you find the story, draft an answer and decide what to show on screen.',
     },
     steps:[
@@ -36,13 +36,25 @@ const readingCollections = [
     ],
   },
   {
-    id:'journal-collection',
-    fa:{name:'پروندهٔ فروش آنلاین', title:'از جست‌وجو تا رسید خرید', intro:'خریدار چطور پیدایت می‌کند؟ چطور مدلش را انتخاب می‌کند؟ اگر پول از حسابش کم شد و رسید نگرفت، چه می‌شود؟'},
-    en:{name:'Ecommerce collection', title:'From search to the order receipt', intro:'How does a buyer find you, choose a model and track down an order when the money has left their account?'},
+    id:'journal-collection', guided:true,
+    fa:{
+      name:'پروندهٔ فروش آنلاین', title:'از جست‌وجو تا رسید خرید', backLabel:'برگشت به پروندهٔ فروش آنلاین',
+      intro:'خریدار چطور پیدایت می‌کند؟ چطور مدلش را انتخاب می‌کند؟ اگر پول از حسابش کم شد و رسید نگرفت، چه کسی پیگیری می‌کند؟',
+    },
+    en:{
+      name:'Ecommerce collection', title:'From search to the order receipt', backLabel:'Back to the ecommerce collection',
+      intro:'How does a buyer find you? What helps them choose a model? And who can help when the money leaves their account but the receipt never arrives?',
+    },
     steps:[
-      {slug:'search-to-sale', fa:{label:'پیدا کردن محصول'}, en:{label:'Discovery'}},
-      {slug:'product-page-decisions', fa:{label:'انتخاب مدل'}, en:{label:'Choosing a model'}},
-      {slug:'boomerang-channels', fa:{label:'پیگیری پرداخت'}, en:{label:'Tracing a payment'}},
+      {slug:'search-to-sale',
+        fa:{label:'از اینجا شروع کن', note:'قهوه‌سازت آب می‌دهد و سه تعمیرگاه در گوگل پیدا کرده‌ای. چه چیزی باعث می‌شود به یکی از آن‌ها زنگ بزنی؟'},
+        en:{label:'Start here', note:'Your espresso machine is leaking. You find three repair shops on Google. What would make you call one of them?'}},
+      {slug:'product-page-decisions',
+        fa:{label:'حالا یک مدل انتخاب کن', note:'چراغی برای میزت پیدا کرده‌ای. از روی صفحهٔ محصول ببین پایه‌اش روی میز جا می‌شود و رنگی که می‌خواهی چه وقت می‌رسد.'},
+        en:{label:'Next, choose a model', note:'You’ve found a desk lamp you like. Can the product page tell you whether the base fits and when the colour you want will arrive?'}},
+      {slug:'boomerang-channels',
+        fa:{label:'آخر، پرداخت را پیگیری کن', note:'پول از حساب خریدار کم شده، ولی رسیدی ندارد. در نمودار بومرنگ ببین بانک، فروشگاه و پشتیبانی هرکدام چه چیزی را بررسی می‌کنند.'},
+        en:{label:'Finally, trace the payment', note:'The buyer has a debit alert but no order receipt. Follow Boomerang’s diagram to see what the bank, the store and the support team can each check.'}},
     ],
   },
 ];

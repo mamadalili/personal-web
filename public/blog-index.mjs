@@ -65,7 +65,7 @@ export function renderArchive({lang, items}) {
         <span class="journal-stage">${group.guided ? `<b aria-hidden="true">${numbers.format(index + 1)}</b>` : ''}${esc(label)}</span>
         ${art(post)}<h3>${esc(post[lang].title)}</h3>${note ? `<p>${esc(note)}</p>` : ''}
       </a></li>`);
-    return `<section class="journal-collection${group.guided ? ' journal-collection-guided' : ''}" id="${group.id}" aria-labelledby="${group.id}-title" data-journal-front>
+    return `<section class="journal-collection" id="${group.id}" aria-labelledby="${group.id}-title" data-journal-front>
       <header><span class="journal-kicker">${esc(group.name)}</span><h2 id="${group.id}-title">${esc(group.title)}</h2><p>${esc(group.intro)}</p></header>
       <ol role="list">${steps.join('')}</ol>
     </section>`;

@@ -41,7 +41,8 @@ test('an editorial pick can become the lead without appearing twice; incomplete 
  assert.equal(edition.front.size, 2);
  const complete = journalEdition([...stories, {...draft, status:'published'}], 'fa');
  assert.deepEqual(complete.collections[0].steps.map(step => step.post.slug), ['search-to-sale','product-page-decisions','boomerang-channels']);
- assert.equal(complete.collections[0].steps[2].label, 'پیگیری پرداخت');
+ assert.equal(complete.collections[0].guided, true);
+ assert.ok(complete.collections[0].steps.every(step => step.label && step.note));
  assert.equal(journalEdition([draft], 'fa').front.size, 0);
 });
 

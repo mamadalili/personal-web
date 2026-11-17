@@ -43,7 +43,7 @@ function collectionGuide(slug, lang, href, collections) {
   const position = number.format(index + 1), total = number.format(group.steps.length);
   const progress = lang === 'fa' ? `گام ${position} از ${total}` : `Step ${position} of ${total}`;
   return `<nav class="article-reading-guide" data-reading-guide="${group.id}" aria-label="${esc(group.name)}">
-    <div><span>${progress}</span><a href="${esc(href('blog'))}#${group.id}">${esc(group.name)}</a></div>${next ? `
+    <div><span>${progress}</span><a href="${esc(href('blog'))}#${group.id}">${esc(next ? group.name : group.backLabel)}</a></div>${next ? `
     <a class="guide-next" rel="next" href="${esc(href('post:' + next.post.slug))}"><small>${lang === 'fa' ? 'بعد بخوان' : 'Read next'}</small><strong>${esc(next.post[lang].title)}</strong></a>` : ''}
   </nav>`;
 }
@@ -59,9 +59,9 @@ export function renderArticleFrame({article,lang,href,renderBlock,date,sourceCar
       ${renderPostCover(article,lang,{className:'article-cover-image',eager:true,decorative:false})}
     </header>
     <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ${openOutline?'open':''}><summary><span>${t.toc}</span><output data-reading-label>${number(0,'percent')}</output></summary><progress value="0" max="100" aria-label="${t.reading}"></progress><nav class="article-toc" aria-label="${t.toc}">${article.sections.map(section=>`<a href="#${esc(section.id)}">${esc(section[lang].title)}</a>`).join('')}${article.sources?.length?`<a href="#sources">${t.sources}</a>`:''}</nav></details>${a.takeaways?.length?`<div class="article-takeaways"><h2>${t.takeaways}</h2><ul>${a.takeaways.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></div>`:''}</aside>
-      <article class="article-body">${article.sections.map(section=>`<section id="${esc(section.id)}" class="article-section"><h2>${esc(section[lang].title)}</h2>${section.blocks.map(renderBlock).join('')}</section>`).join('')}${collectionGuide(article.slug, lang, href, collections)}
+      <article class="article-body">${article.sections.map(section=>`<section id="${esc(section.id)}" class="article-section"><h2>${esc(section[lang].title)}</h2>${section.blocks.map(renderBlock).join('')}</section>`).join('')}
       ${article.sources?.length?`<section id="sources" class="article-section article-sources"><h2>${t.sources}</h2><p>${esc(a.sourceNote || (lang==='fa'?'تاریخ، نوع داده و یادداشت هر منبع را همراه ادعایی که پشتیبانی می‌کند بخوانید.':'Read each source’s date, evidence type and note alongside the claim it supports.'))}</p><div class="source-ledger">${article.sources.map(source=>`<div class="source-card" id="source-${esc(source.id)}">${sourceCard(source)}</div>`).join('')}</div></section>`:''}
-      ${related.length?`<section class="article-related"><h2>${t.related}</h2><div>${related.map(({item,url})=>`<a href="${esc(url)}"><h3>${esc(item[lang].title)}</h3><p>${esc(item[lang].description)}</p><span aria-hidden="true">↗</span></a>`).join('')}</div></section>`:''}</article>
+      ${related.length?`<section class="article-related"><h2>${t.related}</h2><div>${related.map(({item,url})=>`<a href="${esc(url)}"><h3>${esc(item[lang].title)}</h3><p>${esc(item[lang].description)}</p><span aria-hidden="true">↗</span></a>`).join('')}</div></section>`:''}${collectionGuide(article.slug, lang, href, collections)}</article>
     </div>
     <dialog class="article-dialog" aria-labelledby="article-dialog-title"><div class="dialog-top"><span class="small-label">${t.blog}</span><button type="button" data-dialog-close autofocus>${t.close} <span aria-hidden="true">×</span></button></div><h2 id="article-dialog-title"></h2><div class="dialog-content"></div></dialog>`;
 }

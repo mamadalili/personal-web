@@ -86,7 +86,7 @@
   border-block-start: 3px solid #9383ff;
 }
 .journal-collection + .journal-collection { margin-block-start: clamp(24px, 3vw, 40px); }
-.journal-collection-guided {
+#ai-content {
   --collection-paper: #f6f3ec;
   --collection-ink: #292238;
   --collection-text: #514b54;
@@ -94,7 +94,7 @@
   --collection-line: #b3a6b4;
   border-block-start-color: var(--collection-accent);
 }
-:root[data-theme=dark] .journal-collection-guided {
+:root[data-theme=dark] #ai-content {
   --collection-paper: #26232d;
   --collection-ink: #f5f1ef;
   --collection-text: #d9cfd8;
