@@ -1,5 +1,12 @@
 export const pageFiles={home:'index.html',solutions:'strategy.html',blog:'blog.html',cv:'profile.html',contact:'contact.html'};
 
+export const pageSearchTitles={
+  fa:{
+    home:'محمدرضا دلیلی | بازاریابی دیجیتال و فروش آنلاین',
+    cv:'رزومه محمدرضا دلیلی | تجربه‌های بازاریابی و فروش آنلاین',
+  },
+};
+
 export const extraPageFiles={skills:'profile.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',article:'article.html','work-stories':'work-stories.html'};
 
 export const siteCopy={

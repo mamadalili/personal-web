@@ -5,13 +5,20 @@ export function publishedPosts(posts) {
   return posts.filter(post => post.status === 'published' && !post.template).slice().sort((a,b) => (b.date || '').localeCompare(a.date || ''));
 }
 
+export function articleHref(slug, language, base = 'https://example.invalid/') {
+  const url = new URL('article.html',base);
+  url.searchParams.set('post',slug);
+  url.searchParams.set('lang',language === 'en' ? 'en' : 'fa');
+  return url.href;
+}
+
 export function internalHref(target, language, posts = [], base = 'https://example.invalid/') {
   if (typeof target !== 'string' || !target) return null;
   const pages = {home:'index.html',solutions:'strategy.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',blog:'blog.html',cv:'profile.html','cv:projects':'profile.html?tab=projects','work-stories':'work-stories.html',contact:'contact.html',skills:'profile.html?tab=experience',template:'blog-template.html'};
   let path = Object.hasOwn(pages,target) ? pages[target] : null;
   if (target.startsWith('post:')) {
     const slug = target.slice(5);
-    if (publishedPosts(posts).some(post => post.slug === slug)) path = `article.html?post=${encodeURIComponent(slug)}`;
+    return publishedPosts(posts).some(post => post.slug === slug) ? articleHref(slug,language,base) : null;
   }
   if (!path) return null;
   const url = new URL(path,base);

@@ -1,5 +1,6 @@
 import {attachArchiveFilters} from './archive-controls.mjs';
-import {escapeHTML as esc} from './blog-core.mjs';
+import {articleHref, escapeHTML as esc} from './blog-core.mjs';
+import {siteUrl} from './site-config.mjs';
 import {renderPostCover} from './blog-covers.mjs';
 import {journalEdition} from './blog-library-model.mjs';
 
@@ -30,7 +31,10 @@ export function renderArchive({lang, items}) {
   const other = lang === 'fa' ? 'en' : 'fa';
   const dates = new Intl.DateTimeFormat(lang, {dateStyle:'medium'});
   const numbers = new Intl.NumberFormat(lang);
-  const href = post => 'reading/' + lang + '/' + esc(post.slug) + '.html';
+  const href = post => {
+    const url = new URL(articleHref(post.slug,lang,siteUrl));
+    return esc(url.pathname + url.search);
+  };
   const time = post => `<time datetime="${esc(post.date)}">${esc(dates.format(new Date(post.date + 'T12:00:00Z')))}</time>`;
   const topic = post => `<span class="journal-topic">${esc(post[lang].category)}</span>`;
   const employer = post => post.fa.category === 'روایت‌های کاری' && post[lang].subtitle
@@ -42,7 +46,7 @@ export function renderArchive({lang, items}) {
     const inCollection = collections.some(group => group.steps.some(step => step.post.slug === post.slug));
     return `<article class="journal-lead">
       <div class="journal-rubric"><span>${t.latest}</span>${time(post)}</div>
-      <a href="${inCollection ? '#story-' + esc(post.slug) : href(post)}" aria-labelledby="journal-lead-title">
+      <a href="${href(post)}" aria-labelledby="journal-lead-title">
         ${art(post, {preview:false, eager:true, sizes:'(max-width: 740px) 95vw, (max-width: 1220px) 60vw, 700px'})}
         <div class="journal-lead-copy">
           <div class="journal-byline">${topic(post)}${employer(post)}</div>

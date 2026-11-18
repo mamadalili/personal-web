@@ -42,7 +42,7 @@ export async function mountBlog(root, { language = 'fa', mode = 'index', templat
     return;
   }
   const a = article[lang];
-  document.title = `${a.title} — ${t.blog} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
+  document.title = `${a.seoTitle || `${a.title} — ${t.blog}`} — ${lang==='fa'?'محمدرضا دلیلی':'Mohamad Reza Dalili'}`;
   document.querySelector('meta[name="description"]').content = a.excerpt;
   const blocks = new Map(), states = new Map();
   let blockNumber = 0, lastTrigger;

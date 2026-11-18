@@ -1,5 +1,5 @@
 import {readFileSync} from 'node:fs';
-import {escapeHTML as esc, internalHref, publishedPosts, chartValues} from '../public/blog-core.mjs';
+import {articleHref, escapeHTML as esc, internalHref, publishedPosts, chartValues} from '../public/blog-core.mjs';
 import {libraryCopy, renderArchive} from '../public/blog-index.mjs';
 import {journalEdition} from '../public/blog-library-model.mjs';
 import {articleRichText, readingBlock, readingWidget, renderArticleFrame} from '../public/blog-reading.mjs';
@@ -15,7 +15,7 @@ const shell = () => readFileSync(new URL('../public/article.html',import.meta.ur
 function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}) {
   const archive = !slug, page = archive ? 'blog' : 'article';
   const entryFile = localizedEntryFile(page+'.html',lang);
-  const url = archive ? entryFile+'?lang=' + lang : 'article.html?post=' + slug + '&lang=' + lang;
+  const url = archive ? entryFile+'?lang=' + lang : articleHref(slug,lang,siteOrigin);
   const navMarkup = navigationItems(lang,'blog',id=>'/'+pageFiles[id]+'?lang='+lang).map(({href,label}) => `<a href="${href}">${esc(label)}</a>`).join(' ');
   let html = template.replace(/<html lang="fa" dir="rtl"/,`<html lang="${lang}" dir="${lang==='fa'?'rtl':'ltr'}"`)
     .replace(/<title>.*?<\/title>/,()=>`<title>${esc(title)} — ${esc(copy[lang].name)}</title>`)
@@ -78,7 +78,7 @@ export function buildReadingPages(items){
         const basic=readingBlock(block,lang,rich);
         return basic ?? `<div data-reading-slot>${staticBlock(block,lang,rich)}</div>`;
       },date,sourceCard});
-      files.set(`reading/${lang}/${post.slug}.html`,localizedDocument(template,{lang,slug:post.slug,dataSrc,title:post[lang].title,
+      files.set(`reading/${lang}/${post.slug}.html`,localizedDocument(template,{lang,slug:post.slug,dataSrc,title:post[lang].seoTitle || post[lang].title,
         intro:post[lang].excerpt,main,classes:'article-page'+(post[lang].subtitle?' editorial-story':'')}));
     }
   }

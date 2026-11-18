@@ -1,4 +1,4 @@
-import {career, projects, copy, siteCopy, skillsCopy, pageFiles, contactChannels, homePortalCopy} from '../content/index.mjs';
+import {career, projects, copy, siteCopy, skillsCopy, pageFiles, pageSearchTitles, contactChannels, homePortalCopy} from '../content/index.mjs';
 import {icon,skillIcon} from './icons.mjs';
 import {createPortfolioView} from './view.mjs';
 import {navigationItems} from './navigation.mjs';
@@ -48,7 +48,7 @@ function render(){
   const hasEntry=$('main').dataset.entryLang===lang;
   const hasStaticSolution=hasEntry && page==='solutions';
   const t=copy[lang],s=siteCopy[lang],pageLabel=page==='work-stories'?(lang==='fa'?'روایت‌های کاری':'Work stories'):page==='skills'?skillsCopy[lang].label:s.nav[Object.keys(pageFiles).indexOf(navPage)];document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';const hasReadingEntry=$('main').dataset.readingLang===lang && (page==='blog'||page==='article');
-  if (!hasStaticSolution && !hasReadingEntry) document.title=`${pageLabel} — ${t.name}`;
+  if (!hasStaticSolution && !hasReadingEntry) document.title=pageSearchTitles[lang]?.[page] || `${pageLabel} — ${t.name}`;
   if (!(hasEntry && page==='work-stories') && !hasStaticSolution && !hasReadingEntry) document.querySelector('meta[name="description"]').content=page==='work-stories'?(lang==='fa'?'روایت‌های کاری محمدرضا دلیلی؛ از کامپیوتر تا بازاریابی و فروش آنلاین.':'Work stories by Mohamad Reza Dalili, from computers to marketing and online sales.'):page==='skills'?skillsCopy[lang].intro:page==='home'?view.homeDescription():page==='blog'?s.blogIntro:page==='contact'?s.contactIntro:t.intro;
   document.body.dataset.currentPage=page;
   $('brand-name').textContent=t.name;$('brand-role').innerHTML=view.titleMarkup();$('header-label').textContent=page==='home'?'':pageLabel;$('header-label').hidden=page==='home';

@@ -55,8 +55,9 @@ test('a complete AI reading path takes precedence over picks and remains navigab
   assert.ok(edition.collections[0].steps.every(step => step.label && step.note));
   assert.deepEqual(edition.picks,[]);
   const html = renderArchive({items:articles,lang});
-  assert.ok(html.includes(`href="#story-${edition.featured.slug}"`));
-  assert.ok(html.includes(`id="story-${edition.featured.slug}" href="reading/${lang}/${edition.featured.slug}.html"`));
+  const href=`/article.html?post=${edition.featured.slug}&amp;lang=${lang}`;
+  assert.ok(html.includes(`href="${href}" aria-labelledby="journal-lead-title"`));
+  assert.ok(html.includes(`id="story-${edition.featured.slug}" href="${href}"`));
  }
  assert.deepEqual(journalEdition([...articles.slice(0,2), {...articles[2],status:'draft'}], 'fa').collections, []);
 });

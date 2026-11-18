@@ -7,6 +7,13 @@ import {stories as datis} from './work-datis.mjs';
 import {stories as binici} from './work-binici.mjs';
 
 const manuscripts = {boomerang, turbin, can, datis, binici};
+const persianSearchTitles = {
+  'can-sales-network':'خریدار هود در فروشگاه چه می‌پرسد؟ تجربهٔ لوازم خانگی کن',
+  'datis-fieldwork':'از سؤال قیمت تا مشاهدهٔ میدانی پشت پیشخوان در داتیس',
+  'binici-demand':'موجودی چطور برداشت ما از تقاضا را عوض می‌کند؟ تجربهٔ بی‌نی‌سی',
+  'boomerang-ai-operations':'کنترل مشخصات محصول در متن‌های تولیدشده با AI در بومرنگ',
+  'turbin-ai':'دسته‌بندی پیام‌های مشتری پیش از پاسخ با AI در آنلاین تحریر',
+};
 const palettes = ['brick-paper','tide-ink','spruce-peach','cobalt-straw','cherry-mist','aqua-oxide','indigo-flax','plum-apricot','olive-silk','ink-tangerine'];
 const localized = copy => ({fa:{title:copy.fa}, en:{title:copy.en}});
 const paragraph = copy => ({type:'paragraph', ...copy});
@@ -145,6 +152,7 @@ function edition(role, org, row, number, adjacent) {
     const low = Math.max(1,Math.ceil(words/180)), high = low+1;
     const digits = n=>new Intl.NumberFormat(fa?'fa-IR':'en').format(n);
     post[lang] = {title,subtitle:(fa?'در ':'At ')+org[lang],category:fa?'روایت‌های کاری':'Work stories',
+      ...(fa && persianSearchTitles[slug] ? {seoTitle:persianSearchTitles[slug]} : {}),
       sourceNote:copy.sourceNote?.[lang] ?? (fa?'شرح مسئولیت من در رزومه آمده. مثال و تمرین این نوشته برای توضیح موضوع‌اند.':'My CV documents the role. The situations and choices in this story are illustrative.'),
       excerpt:copy.intro[lang],readTime:fa?digits(low)+' تا '+digits(high)+' دقیقه با تمرین':low+'–'+high+' min with the exercise'};
     const alt = illustratedCoverAlts[slug]?.[lang] ?? [title,org[lang],fa?faKeys:enKeys].join(' — ');

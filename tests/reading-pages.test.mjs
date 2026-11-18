@@ -6,6 +6,22 @@ import {buildReadingPages} from '../scripts/reading-pages.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
 import {loadArticleData, matchesArticleDataSource} from '../public/blog-article-data.mjs';
 import {posts as summaries} from '../public/blog-summaries.mjs';
+import {journalEdition} from '../public/blog-library-model.mjs';
+
+function checkVisibleStories(archive,live,lang){
+  const visibleStories = [...archive.matchAll(/<a\b([^>]*?)href="\/article\.html\?post=([\w-]+)&amp;lang=(?:fa|en)"([^>]*)>/g)]
+    .filter(([,before,,after]) => !/\bhidden\b/.test(before + after)).map(match => match[2]);
+  const {featured,collections}=journalEdition(live,lang);
+  const expected=live.map(post=>post.slug);
+  if(collections.some(group=>group.steps.some(step=>step.post.slug===featured?.slug)))expected.push(featured.slug);
+  assert.deepEqual(visibleStories.sort(),expected.sort());
+}
+
+test('a collection-member lead and its reading step both link directly without other visible duplicates',()=>{
+  const items=posts.map(post=>post.slug==='search-to-sale'?{...post,date:'2099-12-31'}:post);
+  const files=buildReadingPages(items),live=items.filter(post=>post.status==='published');
+  for(const lang of ['fa','en'])checkVisibleStories(files.get('blog.'+lang+'.html'),live,lang);
+});
 
 test('every public article and both archives can be read from the first HTML response', () => {
   const files=buildReadingPages(posts), live=posts.filter(item=>item.status==='published');
@@ -19,9 +35,7 @@ test('every public article and both archives can be read from the first HTML res
     assert.ok(archive.includes('<html lang="'+lang+'" dir="'+(lang==='fa'?'rtl':'ltr')+'"'));
     assert.match(archive, /<header class="journal-masthead">\s*<h1>[^<]+<\/h1><p>[^<]+<\/p>/);
     assert.match(archive, /srcset="\/assets\/blog\/previews\/[^ ]+ 768w, \/assets\/blog\/[^ ]+ \d+w"/);
-    const visibleStories = [...archive.matchAll(/<a\b([^>]*?)href="\/reading\/(?:fa|en)\/([\w-]+)\.html"([^>]*)>/g)]
-      .filter(([,before,,after]) => !/\bhidden\b/.test(before + after)).map(match => match[2]);
-    assert.deepEqual(visibleStories.sort(),live.map(post => post.slug).sort());
+    checkVisibleStories(archive,live,lang);
     const paths = {
       'procurement-to-delivery': ['turbin-launch','turbin-warehouse','boomerang-logistics'],
       'data-marketing': ['datis-question','measuring-ai-search','binici-dashboard'],
@@ -31,7 +45,7 @@ test('every public article and both archives can be read from the first HTML res
     for (const [id, path] of Object.entries(paths)) {
       const section = archive.slice(archive.indexOf(`id="${id}"`)).split('</section>')[0];
       assert.ok(section.startsWith(`id="${id}"`));
-      assert.deepEqual([...section.matchAll(/<li><a[^>]* href="([^"]+)"/g)].map(m=>m[1]),path.map(slug=>`/reading/${lang}/${slug}.html`));
+      assert.deepEqual([...section.matchAll(/<li><a[^>]* href="([^"]+)"/g)].map(m=>m[1]),path.map(slug=>`/article.html?post=${slug}&amp;lang=${lang}`));
       for (const [index, slug] of path.entries()) {
         const article = files.get(`reading/${lang}/${slug}.html`);
         const footer = article.match(/<nav class="article-reading-guide" data-reading-guide="([^"]+)"[^>]*>([\s\S]*?)<\/nav>\s*<\/article>/);
@@ -50,7 +64,7 @@ test('every public article and both archives can be read from the first HTML res
     }
     assert.equal((archive.match(/data-alternate-text=/g) || []).length,live.length);
     for(const item of live){
-      assert.ok(archive.includes('href="/reading/'+lang+'/'+item.slug+'.html"'));
+      assert.ok(archive.includes(`href="/article.html?post=${item.slug}&amp;lang=${lang}"`));
       const html=files.get('reading/'+lang+'/'+item.slug+'.html');
       assert.ok(html.includes('<h1>'+escapeHTML(item[lang].title)+'</h1>'));
       assert.ok(html.includes('myphoto-avatar-v1.webp'));

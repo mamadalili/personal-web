@@ -5,7 +5,7 @@ import {readFileSync, writeFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {renderWorkStoriesMarkup, workStoriesCopy} from '../public/work-stories-view.mjs';
-import {copy, siteCopy, homePortalCopy, career, pageFiles} from '../src/content/index.mjs';
+import {copy, siteCopy, homePortalCopy, career, pageFiles, pageSearchTitles} from '../src/content/index.mjs';
 import {skillIcon} from '../src/portfolio/icons.mjs';
 import {createPortfolioView} from '../src/portfolio/view.mjs';
 import {renderHomeFolderCards, renderSolutionPage} from '../public/solutions.mjs';
@@ -53,7 +53,7 @@ function renderEntry(stem, page, lang, storyPosts, homePosts) {
     description=person.intro;
   }
   const parts = {
-    main, description, title:title || label+' — '+person.name,
+    main, description, title:pageSearchTitles[lang]?.[page] || title || label+' — '+person.name,
     name: person.name, role: titleMarkup(), languageButton: languageButtonMarkup(),
     label, homeLabel: site.nav[0], navLabel: site.navLabel,
     headerImage: home ? '<img class="header-portrait" src="images/myphoto-avatar-v1.webp" width="59" height="59" alt="" fetchpriority="high">' : brandMark(),
