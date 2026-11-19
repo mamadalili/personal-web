@@ -1,5 +1,6 @@
 import {workStoryCoverSrc} from './work-story-covers.mjs';
-import { escapeHTML as esc } from './blog-core.mjs';
+import { articleHref, escapeHTML as esc } from './blog-core.mjs';
+import { siteUrl } from './site-config.mjs';
 import { visibleWorkStories } from './work-stories-data.mjs?v=20261111-work-journals';
 
 export const workStoriesCopy={
@@ -17,9 +18,11 @@ export function roleURL(lang,id){
 
 function renderWorkPanel(role,lang,formatYears,renderWebsite,published){
   const t=workStoriesCopy[lang],c=role[lang];
-  const linked=visibleWorkStories(role.id).map(story=>({
-    story,url:published.has(story.post)?'reading/'+lang+'/'+encodeURIComponent(story.post)+'.html':null,
-  }));
+  const linked=visibleWorkStories(role.id).map(story=>{
+    if (!published.has(story.post)) return {story, url:null};
+    const url = new URL(articleHref(story.post,lang,siteUrl));
+    return {story, url:url.pathname + url.search};
+  });
   return `<section class="work-stories-detail" id="work-role-${esc(role.id)}" data-work-panel="${esc(role.id)}" aria-labelledby="work-role-title-${esc(role.id)}"><header class="work-role-header"><div class="work-role-meta"><span class="employer-detail-brand">${role.logo?`<span class="employer-detail-logo">${roleLogo(role)}</span>`:''}<span>${esc(c.company)}</span></span><time>${esc(formatYears(role.years))}</time></div><h2 id="work-role-title-${esc(role.id)}">${esc(c.role)}</h2><p class="work-sector">${esc(c.sector)}</p>${renderWebsite(role)}</header>
       <section class="work-story-collection" aria-labelledby="work-story-heading-${esc(role.id)}"><div class="work-story-heading"><h3 id="work-story-heading-${esc(role.id)}">${t.stories}</h3></div>${linked.every(row=>row.url)?'':'<p class="work-story-intro">'+(linked.some(row=>row.url)?t.mixedIntro:t.plannedIntro)+'</p>'}<div class="work-story-list" tabindex="0" role="region" aria-label="${t.stories}">${linked.map(({story,url})=>url?`<a id="${esc(story.id)}" class="work-story work-story--published" href="${esc(url)}"><img class="work-story-cover" src="${esc(workStoryCoverSrc(story.post,lang,true))}" width="768" height="432" alt="" loading="lazy"><div><h4>${esc(story[lang].title)}</h4><span class="work-story-state">${t.read}</span></div><span class="work-story-arrow">${arrow}</span></a>`:`<article id="${esc(story.id)}" class="work-story work-story--planned" tabindex="-1"><span class="work-story-icon">${paper}</span><div><span class="work-story-state">${t.plan}</span><h4>${esc(story[lang].title)}</h4></div></article>`).join('')}</div></section>
       <section class="work-role-background"><h3 class="work-scope-title">${t.scope}</h3><div class="work-role-summary">${c.points.map(point=>`<p>${esc(point)}</p>`).join('')}</div></section></section>`;

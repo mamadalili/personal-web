@@ -9,6 +9,8 @@ import {loadArticleData} from '../public/blog-article-data.mjs';
 import {blogLibrarySelection} from '../public/blog-library-model.mjs';
 import {homePostPages} from '../public/home-blog.mjs';
 import {visibleWorkStories, workStoryTopics} from '../public/work-stories-data.mjs';
+import {siteUrl} from '../public/site-config.mjs';
+import {escapeHTML} from '../public/blog-core.mjs';
 
 test('Home, archive and work stories exclude article bodies and article-only widgets', () => {
   const visit = (file, seen = new Set()) => {
@@ -34,12 +36,21 @@ test('work stories can be read in either language before any module downloads', 
     const panels = [...html.matchAll(/data-work-panel="([^"]+)"([\s\S]*?)(?=<section class="work-stories-detail"|<\/main>)/g)];
     assert.deepEqual(panels.map(match => match[1]), Object.keys(workStoryTopics));
     for (const [,id,panel] of panels) {
-      for (const story of visibleWorkStories(id)) {
+      const stories = visibleWorkStories(id);
+      const cards = [...panel.matchAll(/<a\b([^>]*\bclass="work-story work-story--published"[^>]*)>([\s\S]*?)<\/a>/g)];
+      assert.equal(cards.length, stories.filter(story => story.post).length, id);
+      for (const story of stories) {
         assert.ok(panel.includes(story[language].title),story.id);
         if (story.post) {
-          const href = `reading/${language}/${story.post}.html`;
-          assert.ok(panel.includes(`href="${href}"`));
-          assert.ok(readFileSync(new URL('../public/'+href,import.meta.url),'utf8').includes(`data-reading-post="${story.post}"`));
+          const card = cards.find(([, tag]) => tag.includes(` id="${story.id}"`));
+          assert.ok(card, `${language}/${story.id}`);
+          assert.ok(card[2].includes(`<h4>${escapeHTML(story[language].title)}</h4>`));
+          const href = card[1].match(/\bhref="([^"]+)"/)[1].replaceAll('&amp;', '&');
+          const legacy = readFileSync(new URL(`../public/reading/${language}/${story.post}.html`, import.meta.url), 'utf8');
+          assert.ok(legacy.includes(`data-reading-post="${story.post}"`));
+          assert.ok(legacy.includes(`data-reading-lang="${language}"`));
+          const canonical = legacy.match(/<link rel="canonical" href="([^"]+)"/)[1].replaceAll('&amp;', '&');
+          assert.equal(new URL(href, siteUrl).href, canonical, `${language}/${story.id}`);
         }
       }
     }
