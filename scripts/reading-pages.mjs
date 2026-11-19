@@ -6,7 +6,7 @@ import {articleRichText, readingBlock, readingWidget, renderArticleFrame} from '
 import {createResearchWidgets} from '../public/blog-widgets.mjs';
 import {createHash} from 'node:crypto';
 import {withDataMotion} from '../public/blog-data-motion-model.mjs';
-import {localizedEntryFile, siteUrl as siteOrigin} from '../public/site-config.mjs';
+import {homeHref, localizedEntryFile, siteUrl as siteOrigin} from '../public/site-config.mjs';
 import {copy,pageFiles} from '../src/content/index.mjs';
 import {navigationItems} from '../src/portfolio/navigation.mjs';
 
@@ -16,7 +16,7 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
   const archive = !slug, page = archive ? 'blog' : 'article';
   const entryFile = localizedEntryFile(page+'.html',lang);
   const url = archive ? entryFile+'?lang=' + lang : articleHref(slug,lang,siteOrigin);
-  const navMarkup = navigationItems(lang,'blog',id=>'/'+pageFiles[id]+'?lang='+lang).map(({href,label}) => `<a href="${href}">${esc(label)}</a>`).join(' ');
+  const navMarkup = navigationItems(lang,'blog',id=>id==='home' ? homeHref(lang) : '/'+pageFiles[id]+'?lang='+lang).map(({href,label}) => `<a href="${href}">${esc(label)}</a>`).join(' ');
   let html = template.replace(/<html lang="fa" dir="rtl"/,`<html lang="${lang}" dir="${lang==='fa'?'rtl':'ltr'}"`)
     .replace(/<title>.*?<\/title>/,()=>`<title>${esc(title)} — ${esc(copy[lang].name)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/,()=>`<meta name="description" content="${esc(intro)}">`)
@@ -39,7 +39,7 @@ function localizedDocument(template,{lang,slug,title,intro,main,classes,dataSrc}
   return html.replace(/\b(href|src)="(?![\/#]|[a-z][a-z0-9+.-]*:)([^"]+)"/gi,'$1="/$2"')
     .replace(/\bsrcset="([^"]+)"/g, (_, candidates) => 'srcset="' + candidates.split(',').map(part =>
       part.trim().replace(/^(?![\/#]|[a-z][a-z0-9+.-]*:)/i, '/')).join(', ') + '"')
-    .replace(/<a class="brand" href="\/index\.html"/,`<a class="brand" href="/index.html?lang=${lang}"`);
+    .replace(/<a class="brand" href="[^"]*"/,`<a class="brand" href="${homeHref(lang)}"`);
 }
 
 function staticBlock(block,lang,rich){

@@ -2,18 +2,20 @@ import {existsSync,readFileSync,realpathSync,statSync} from 'node:fs';
 import {join,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import sirv from 'sirv';
-import {localizedEntryFile} from '../public/site-config.mjs';
+import {homeHref, localizedEntryFile} from '../public/site-config.mjs';
 
 export const publicRoot=fileURLToPath(new URL('../public/',import.meta.url));
 const root=realpathSync(publicRoot);
+const homeEntry=/^\/(?:(?:index(?:\.en)?|landing)\.html)?$/;
 const localized=/^\/(profile|blog|contact|strategy|execution|technology|ai-tools|work-stories)(?:\.(fa|en))?\.html$/;
 const asset=/^\/(?:[a-z0-9][\w.-]*\.(?:html|ico|js|mjs|css|txt|xml)|(?:assets|reading|posts|fonts|images|figures)\/[\w./-]+)$/i;
 
 // Mirror the public language/bookmark rules without requiring Apache locally.
 export function publicFile(path,query,cookie=''){
   const explicit=query.get('lang');
-  const lang=explicit==='fa'||explicit==='en'?explicit:/(?:^|;\s*)portfolio_language=en(?:;|$)/.test(cookie)?'en':'fa';
-  if(path==='/'||path==='/index.html'){
+  const preferEnglish=path==='/index.en.html'||/(?:^|;\s*)portfolio_language=en(?:;|$)/.test(cookie);
+  const lang=explicit==='fa'||explicit==='en'?explicit:preferEnglish?'en':'fa';
+  if(homeEntry.test(path)){
     if(query.has('tab')||query.has('role'))return '/'+localizedEntryFile('profile.html',lang);
     return lang==='en'?'/index.en.html':'/index.html';
   }
@@ -49,9 +51,15 @@ export function publicMiddleware({react=false}={}){
       res.end(req.method==='HEAD'?undefined:readFileSync(join(root,'article-not-found.html')));
       return;
     }
-    if(path==='/solutions.html'||(localized.test(path)&&name!==path)||((path==='/'||path==='/index.html')&&name.startsWith('/cv.'))){
+    if(path==='/solutions.html'||(localized.test(path)&&name!==path)||(homeEntry.test(path)&&name.startsWith('/cv.'))){
       const location=path==='/solutions.html'?'/strategy.html':name;
       res.writeHead(302,{Location:location+(search?'?'+search:''),Vary:'Cookie','Cache-Control':'private, no-store'}).end();
+      return;
+    }
+    if(homeEntry.test(path)&&(path!=='/'||!query.has('lang'))){
+      const fixedLanguage=query.has('lang')||path==='/index.en.html';
+      const location=query.has('lang') ? '/?'+search : homeHref(name==='/index.en.html'?'en':'fa')+(search?'&'+search:'');
+      res.writeHead(fixedLanguage?301:302,{Location:location,Vary:'Cookie','Cache-Control':'private, no-store'}).end();
       return;
     }
     const full=join(root,name);

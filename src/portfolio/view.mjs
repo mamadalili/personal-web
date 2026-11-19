@@ -1,7 +1,7 @@
 import {career, copy, siteCopy, skillsCopy, pageFiles, extraPageFiles, collaborationCopy, contactChannels, contactCopy} from '../content/index.mjs';
 import {icon} from './icons.mjs';
 import {escapeHTML} from '../../public/blog-core.mjs';
-import {localizedEntryFile} from '../../public/site-config.mjs';
+import {homeHref, localizedEntryFile} from '../../public/site-config.mjs';
 
 export function createPortfolioView(lang){
  let motionSceneSerial=0;
@@ -24,6 +24,7 @@ const chips=items=>`<div class="chips">${items.map(s=>`<span class="chip">${esca
 const years=value=>lang==='fa'?value.replace(/\d/g,n=>'۰۱۲۳۴۵۶۷۸۹'[n]):`${value} SH`;
 
 function pageURL(id){
+  if (id === 'home') return homeHref(lang);
   const file=pageFiles[id]||extraPageFiles[id];
   return file ? localizedEntryFile(file,lang)+'?lang='+lang : null;
 }

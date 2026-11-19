@@ -1,4 +1,6 @@
 // Pure content/link/calculation helpers, shared by the renderer and Node tests.
+import {homeHref} from './site-config.mjs';
+
 export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
 
 export function publishedPosts(posts) {
@@ -14,7 +16,8 @@ export function articleHref(slug, language, base = 'https://example.invalid/') {
 
 export function internalHref(target, language, posts = [], base = 'https://example.invalid/') {
   if (typeof target !== 'string' || !target) return null;
-  const pages = {home:'index.html',solutions:'strategy.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',blog:'blog.html',cv:'profile.html','cv:projects':'profile.html?tab=projects','work-stories':'work-stories.html',contact:'contact.html',skills:'profile.html?tab=experience',template:'blog-template.html'};
+  if (target === 'home') return new URL(homeHref(language,base),base).href;
+  const pages = {solutions:'strategy.html',strategy:'strategy.html',execution:'execution.html',technology:'technology.html','ai-tools':'ai-tools.html',blog:'blog.html',cv:'profile.html','cv:projects':'profile.html?tab=projects','work-stories':'work-stories.html',contact:'contact.html',skills:'profile.html?tab=experience',template:'blog-template.html'};
   let path = Object.hasOwn(pages,target) ? pages[target] : null;
   if (target.startsWith('post:')) {
     const slug = target.slice(5);

@@ -11,7 +11,7 @@ import {createPortfolioView} from '../src/portfolio/view.mjs';
 import {renderHomeFolderCards, renderSolutionPage} from '../public/solutions.mjs';
 import {solutions} from '../public/solutions-data.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
-import {localizedEntryFile, siteUrl} from '../public/site-config.mjs';
+import {homeHref, localizedEntryFile, siteUrl} from '../public/site-config.mjs';
 import {entryResources} from '../src/templates/entry-resources.mjs';
 import {homeFirstPosts} from '../public/home-blog-view.mjs';
 import {publishedStories} from './published-stories.mjs';
@@ -59,8 +59,12 @@ function renderEntry(stem, page, lang, storyPosts, homePosts) {
     headerImage: home ? '<img class="header-portrait" src="images/myphoto-avatar-v1.webp" width="59" height="59" alt="" fetchpriority="high">' : brandMark(),
   };
 
-  const canonical = new URL(home ? './' : localizedEntryFile(file,lang), siteUrl);
+  const canonical = new URL(home ? homeHref(lang) : localizedEntryFile(file,lang), siteUrl);
   canonical.searchParams.set('lang', lang);
+  const homeAlternates = home ? ['fa','en','x-default'].map(locale => {
+    const url = new URL(homeHref(locale === 'x-default' ? 'fa' : locale), siteUrl);
+    return `  <link rel="alternate" hreflang="${locale}" href="${url.href}">\n`;
+  }).join('') : '';
   const resources=entryResources[page].map(file=>file.includes('.js?')
     ? `  <script src="${file}" defer></script>`
     : `  <link rel="stylesheet" href="${file}">`).join('\n');
@@ -81,14 +85,14 @@ ${resources}
   const coast=renderToStaticMarkup(h(CoastPrint));
   const footer=renderToStaticMarkup(h(GlassNavigation,{lang,active:navPage,hrefFor:pageURL}));
   return `${head}  <link rel="canonical" href="${canonical.href}">
-</head>
+${homeAlternates}</head>
 <body data-page="${page}"${solution ? ` data-solution="${solution}"` : ''} data-current-page="${page}">
   <a href="#main" class="skip">${isFa ? 'رفتن به محتوای اصلی' : 'Skip to content'}</a>
-  <header class="site-header"><a class="brand" href="index.html?lang=${lang}" aria-label="${escapeHTML(parts.homeLabel)} — ${escapeHTML(parts.name)}"><span class="brand-mark">${parts.headerImage}</span><span class="brand-identity"><span id="brand-name">${escapeHTML(parts.name)}</span><span class="professional-title header-role" id="brand-role">${parts.role}</span></span></a><div class="header-end"><span id="header-label"${home ? ' hidden' : ''}>${home ? '' : escapeHTML(parts.label)}</span><day-night-switch></day-night-switch><button id="language" type="button" lang="${other}" dir="${isFa ? 'ltr' : 'rtl'}" aria-label="${isFa ? 'Switch to English' : 'تغییر زبان به فارسی'}">${parts.languageButton}</button></div></header>
+  <header class="site-header"><a class="brand" href="${pageURL('home')}" aria-label="${escapeHTML(parts.homeLabel)} — ${escapeHTML(parts.name)}"><span class="brand-mark">${parts.headerImage}</span><span class="brand-identity"><span id="brand-name">${escapeHTML(parts.name)}</span><span class="professional-title header-role" id="brand-role">${parts.role}</span></span></a><div class="header-end"><span id="header-label"${home ? ' hidden' : ''}>${home ? '' : escapeHTML(parts.label)}</span><day-night-switch></day-night-switch><button id="language" type="button" lang="${other}" dir="${isFa ? 'ltr' : 'rtl'}" aria-label="${isFa ? 'Switch to English' : 'تغییر زبان به فارسی'}">${parts.languageButton}</button></div></header>
   <main id="main" tabindex="-1" class="${solution ? 'page-layout solutions-page' : page === 'cv' ? 'layout' : page === 'work-stories' ? 'page-layout work-stories-page' : 'page-layout'}" data-entry-lang="${lang}">${parts.main}</main>
   ${coast}
   ${footer}
-  <noscript><style>#language,day-night-switch{display:none}</style><p class="noscript"><a href="${localizedEntryFile(file,other)}?lang=${other}" lang="${other}">${isFa ? 'English' : 'فارسی'}</a></p></noscript>
+  <noscript><style>#language,day-night-switch{display:none}</style><p class="noscript"><a href="${home ? homeHref(other) : localizedEntryFile(file,other)+'?lang='+other}" lang="${other}">${isFa ? 'English' : 'فارسی'}</a></p></noscript>
 </body>
 </html>
 `;

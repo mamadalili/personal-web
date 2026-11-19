@@ -21,15 +21,31 @@ AddDefaultCharset UTF-8
   # A CV bookmark may carry a language preference as well as an employer or tab.
   RewriteRule ^profile(?:\.(?:en|fa))?\.html$ - [E=Cache-Control:no-cache]
   RewriteRule ^solutions\.html$ strategy.html [R=302,L]
+  RewriteRule ^(?:(?:index(?:\.en)?|landing)\.html)?$ - [E=PORTFOLIO_HOME:1,E=Cache-Control:no-cache]
 
   # Legacy home bookmarks can identify a CV employer or tab.
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
+  RewriteCond %{THE_REQUEST} \s/+index\.en\.html[?\s] [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(?:index\.html)?$ cv.en.html [R=302,L]
+  RewriteRule ^(?:(?:index(?:\.en)?|landing)\.html)?$ cv.en.html [R=302,L]
   RewriteCond %{QUERY_STRING} (?:^|&)(?:tab|role)(?:=|&|$)
-  RewriteRule ^(?:index\.html)?$ cv.fa.html [R=302,L]
+  RewriteRule ^(?:(?:index(?:\.en)?|landing)\.html)?$ cv.fa.html [R=302,L]
+
+  # Redirect requested filenames, never the internal DirectoryIndex or English rewrite.
+  RewriteCond %{THE_REQUEST} \s/+(?:index(?:\.en)?|landing)\.html[?\s]
+  RewriteCond %{QUERY_STRING} (?:^|&)lang(?:=|&|$)
+  RewriteRule ^(?:index(?:\.en)?|landing)\.html$ / [R=301,L,NE]
+  RewriteCond %{THE_REQUEST} \s/+index\.en\.html[?\s]
+  RewriteRule ^index\.en\.html$ /?lang=en [R=301,L,QSA,NE]
+
+  # Readers with an unqualified bookmark may change their language preference later.
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang(?:=|&|$)
+  RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
+  RewriteRule ^(?:(?:index|landing)\.html)?$ /?lang=en [R=302,L,QSA,NE]
+  RewriteCond %{QUERY_STRING} !(?:^|&)lang(?:=|&|$)
+  RewriteRule ^(?:(?:index|landing)\.html)?$ /?lang=fa [R=302,L,QSA,NE]
 
   # Old CV URLs only redirect; each final cv.* document always serves one language.
   RewriteCond %{QUERY_STRING} (?:^|&)lang=fa(?:&|$)
@@ -59,6 +75,8 @@ AddDefaultCharset UTF-8
   RewriteRule ^(?:index\.html)?$ index.en.html [END]
 </IfModule>
 <IfModule mod_headers.c>
+  Header always set Cache-Control "private, no-store" env=PORTFOLIO_HOME
+  Header always merge Vary Cookie env=PORTFOLIO_HOME
   <FilesMatch "^(?:index|profile(?:\.(?:en|fa))?|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$">
     Header unset Cache-Control
     Header always set Cache-Control "private, no-store"

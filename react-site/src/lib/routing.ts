@@ -1,5 +1,5 @@
 import {pageFiles,extraPageFiles} from '../../../src/content/index.mjs';
-import {localizedEntryFile, siteUrl} from '../../../public/site-config.mjs';
+import {homeHref, localizedEntryFile, siteUrl} from '../../../public/site-config.mjs';
 export type Language = 'fa' | 'en';
 export type NavPage = 'home' | 'solutions' | 'blog' | 'cv' | 'contact';
 export const solutionIds = ['strategy', 'execution', 'technology', 'ai-tools'] as const;
@@ -25,7 +25,7 @@ export function pageURL(page:Page,lang:Language,params:Record<string,string>={})
   return `/${publicFiles[page]}?${new URLSearchParams({lang,...params})}`;
 }
 export function canonicalURL(page:Page,lang:Language) {
-  const file=page==='home'?'./':localizedEntryFile(publicFiles[page],lang);
-  return new URL(file+'?lang='+lang,siteUrl).href;
+  const href=page==='home'?homeHref(lang):localizedEntryFile(publicFiles[page],lang)+'?lang='+lang;
+  return new URL(href,siteUrl).href;
 }
 export function assetURL(path:string) { return `/${path}`; }

@@ -4,7 +4,7 @@ import {createPortfolioView} from './view.mjs';
 import {navigationItems} from './navigation.mjs';
 import {watchSectionEntrances} from './section-entrances.mjs';
 import {escapeHTML} from '../../public/blog-core.mjs';
-import {localizedEntryFile} from '../../public/site-config.mjs';
+import {homeHref, localizedEntryFile} from '../../public/site-config.mjs';
 
 const tabIds=['experience','projects','about','contact'];
 const params=new URLSearchParams(location.search);
@@ -39,7 +39,19 @@ let activeTab=tabIds.includes(params.get('tab'))?params.get('tab'):location.path
 let activeCareer=career.some(x=>x.id===params.get('role'))?params.get('role'):'boomerang';
 const $=id=>document.getElementById(id);
 
-function updateURL(){const url=new URL(location.href);url.searchParams.set('lang',lang);if(page==='cv'){url.searchParams.set('tab',activeTab);url.searchParams.set('role',activeCareer);}else{url.searchParams.delete('tab');if(page!=='work-stories')url.searchParams.delete('role');}history.replaceState(null,'',url);}
+function updateURL(){
+ const url=new URL(location.href);
+ if(page==='home')url.pathname=new URL(homeHref(lang),url).pathname;
+ url.searchParams.set('lang',lang);
+ if(page==='cv'){
+  url.searchParams.set('tab',activeTab);
+  url.searchParams.set('role',activeCareer);
+ }else{
+  url.searchParams.delete('tab');
+  if(page!=='work-stories')url.searchParams.delete('role');
+ }
+ history.replaceState(null,'',url);
+}
 function heading(title,sub,extra=''){return `<div class="section-heading"><div><h3>${title}</h3><p>${sub}</p></div>${extra?`<span>${extra}</span>`:''}</div>`;}
 let view;
 function render(){
