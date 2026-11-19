@@ -11,7 +11,7 @@ import {createPortfolioView} from '../src/portfolio/view.mjs';
 import {renderHomeFolderCards, renderSolutionPage} from '../public/solutions.mjs';
 import {solutions} from '../public/solutions-data.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
-import {homeHref, localizedEntryFile, siteUrl} from '../public/site-config.mjs';
+import {homeDocument, homeHref, localizedEntryFile, siteUrl} from '../public/site-config.mjs';
 import {entryResources} from '../src/templates/entry-resources.mjs';
 import {homeFirstPosts} from '../public/home-blog-view.mjs';
 import {publishedStories} from './published-stories.mjs';
@@ -104,7 +104,7 @@ function buildEntries(selection, storyPosts, homePosts) {
   const entries = new Map();
   for (const [file, page] of selection) {
     for (const lang of ['fa', 'en']) {
-      const targets = new Set([file + (lang === 'en' ? '.en' : '') + '.html']);
+      const targets = new Set([page === 'home' ? homeDocument(lang) : file + (lang === 'en' ? '.en' : '') + '.html']);
       if (page !== 'home') targets.add(localizedEntryFile(file+'.html',lang));
       if (page === 'cv' && lang === 'fa') targets.add('profile.fa.html');
       const html = renderEntry(file, page, lang, storyPosts, homePosts);

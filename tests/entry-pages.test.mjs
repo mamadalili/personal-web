@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {solutions} from '../public/solutions-data.mjs';
 import {escapeHTML} from '../public/blog-core.mjs';
 import {posts} from '../public/blog-summaries.mjs';
-import {siteUrl} from '../public/site-config.mjs';
+import {homeDocument, siteUrl} from '../public/site-config.mjs';
 import {buildSitemapEntries} from '../public/sitemap-core.mjs';
 import {publicFile} from '../scripts/public-preview.mjs';
 
@@ -28,7 +28,7 @@ test('every published route includes the shared entrance runtime and its content
 for (const [lang, dir] of [['fa', 'rtl'], ['en', 'ltr']]) {
   for (const page of ['index', 'profile', 'contact', ...solutions.map(item => item.id)]) {
     test(`the ${lang} ${page} response includes its introduction before JavaScript runs`, () => {
-      const file = page + (lang === 'en' ? '.en.html' : '.html');
+      const file = page === 'index' ? homeDocument(lang) : page + (lang === 'en' ? '.en.html' : '.html');
       const html = readFileSync(new URL('../public/' + file, import.meta.url), 'utf8');
       if (lang === 'fa' && (page === 'contact' || solutions.some(item => item.id === page))) {
         assert.equal(readFileSync(new URL('../public/' + page + '.fa.html', import.meta.url), 'utf8'), html);

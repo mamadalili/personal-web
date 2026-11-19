@@ -2,7 +2,7 @@ import {existsSync,readFileSync,realpathSync,statSync} from 'node:fs';
 import {join,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import sirv from 'sirv';
-import {homeHref, localizedEntryFile} from '../public/site-config.mjs';
+import {homeDocument, homeHref, localizedEntryFile} from '../public/site-config.mjs';
 
 export const publicRoot=fileURLToPath(new URL('../public/',import.meta.url));
 const root=realpathSync(publicRoot);
@@ -12,12 +12,13 @@ const asset=/^\/(?:[a-z0-9][\w.-]*\.(?:html|ico|js|mjs|css|txt|xml)|(?:assets|re
 
 // Mirror the public language/bookmark rules without requiring Apache locally.
 export function publicFile(path,query,cookie=''){
+  if(path==='/'+homeDocument('en'))return null;
   const explicit=query.get('lang');
   const preferEnglish=path==='/index.en.html'||/(?:^|;\s*)portfolio_language=en(?:;|$)/.test(cookie);
   const lang=explicit==='fa'||explicit==='en'?explicit:preferEnglish?'en':'fa';
   if(homeEntry.test(path)){
     if(query.has('tab')||query.has('role'))return '/'+localizedEntryFile('profile.html',lang);
-    return lang==='en'?'/index.en.html':'/index.html';
+    return '/'+homeDocument(lang);
   }
   if(path==='/solutions.html')path='/strategy.html';
   const entry=localized.exec(path);
@@ -58,7 +59,7 @@ export function publicMiddleware({react=false}={}){
     }
     if(homeEntry.test(path)&&(path!=='/'||!query.has('lang'))){
       const fixedLanguage=query.has('lang')||path==='/index.en.html';
-      const location=query.has('lang') ? '/?'+search : homeHref(name==='/index.en.html'?'en':'fa')+(search?'&'+search:'');
+      const location=query.has('lang') ? '/?'+search : homeHref(name==='/'+homeDocument('en')?'en':'fa')+(search?'&'+search:'');
       res.writeHead(fixedLanguage?301:302,{Location:location,Vary:'Cookie','Cache-Control':'private, no-store'}).end();
       return;
     }

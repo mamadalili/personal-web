@@ -11,4 +11,6 @@ Build from the repository root with `npm ci` and `npm run build`; use `npm run c
 5. Merge the marked rules from `public/.htaccess` into the web server's configuration. Keep host-managed directives and previously referenced hashed assets. Publish `reading/.htaccess` with `article-not-found.html` for missing articles. Older CV links redirect to `cv.fa.html` or `cv.en.html` and retain the employer and selected tab.
 6. Open the public article in each language, try its interaction and follow its archive link. Verify changed files against the release hashes and check that a conditional request for an older version receives the new content. Check that a missing article returns HTTP 404 and each sitemap URL opens without a redirect.
 
+Deploy `home.en.html` and `home-entry.php` before the home routing rules. On the PHP-enabled host, the entry script reads the prebuilt English HTML from disk at `/?lang=en`. On older installations, move the former `index.en.html` file into the private rollback copy after checking both home languages. Its public address is handled by the redirect rules.
+
 For a local preview and the complete build commands, see the [repository layout](repository-layout.md).

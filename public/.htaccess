@@ -21,6 +21,7 @@ AddDefaultCharset UTF-8
   # A CV bookmark may carry a language preference as well as an employer or tab.
   RewriteRule ^profile(?:\.(?:en|fa))?\.html$ - [E=Cache-Control:no-cache]
   RewriteRule ^solutions\.html$ strategy.html [R=302,L]
+  RewriteRule ^home\.en\.html$ - [R=404,L]
   RewriteRule ^(?:(?:index(?:\.en)?|landing)\.html)?$ - [E=PORTFOLIO_HOME:1,E=Cache-Control:no-cache]
 
   # Legacy home bookmarks can identify a CV employer or tab.
@@ -72,12 +73,18 @@ AddDefaultCharset UTF-8
   RewriteCond %{QUERY_STRING} !(?:^|&)lang=fa(?:&|$)
   RewriteCond %{QUERY_STRING} (?:^|&)lang=en(?:&|$) [OR]
   RewriteCond %{HTTP_COOKIE} (?:^|;\s*)portfolio_language=en(?:;|$)
-  RewriteRule ^(?:index\.html)?$ index.en.html [END]
+  # Keep the legacy English address separate from the file served at the canonical URL.
+  RewriteRule ^(?:index\.html)?$ home-entry.php [END]
+</IfModule>
+<IfModule mod_authz_core.c>
+  <Files "home.en.html">
+    Require all denied
+  </Files>
 </IfModule>
 <IfModule mod_headers.c>
   Header always set Cache-Control "private, no-store" env=PORTFOLIO_HOME
   Header always merge Vary Cookie env=PORTFOLIO_HOME
-  <FilesMatch "^(?:index|profile(?:\.(?:en|fa))?|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$">
+  <FilesMatch "^(?:index(?:\.en)?|landing|profile(?:\.(?:en|fa))?|blog|strategy|execution|technology|ai-tools|contact|work-stories)\.html$">
     Header unset Cache-Control
     Header always set Cache-Control "private, no-store"
     Header always merge Vary Cookie

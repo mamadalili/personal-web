@@ -26,7 +26,7 @@ test('home canonicals and both reciprocal sitemap entries agree', () => {
     assert.equal(links.length, 3);
     assert.deepEqual(Object.fromEntries(links.map(([tag]) => [attribute(tag, 'hreflang'), attribute(tag, 'href')])), alternates);
   }
-  for (const [lang, file] of [['fa', 'index.html'], ['en', 'index.en.html']]) {
+  for (const [lang, file] of [['fa', 'index.html'], ['en', 'home.en.html']]) {
     const html = read(file);
     assert.equal(canonical(html), expected[lang]);
     for (const [choice, href] of Object.entries(alternates)) {
@@ -67,6 +67,10 @@ test('old home addresses resolve in the right language, retaining campaign and C
   await once(server, 'listening');
   t.after(() => new Promise(resolve => server.close(resolve)));
   const origin = 'http://127.0.0.1:' + server.address().port;
+  for (const file of ['home.en.html', 'home-entry.php']) {
+    const internal = await fetch(origin + '/' + file, {redirect:'manual'});
+    assert.ok([403, 404].includes(internal.status), file + ' must not expose another home URL');
+  }
   const cases = [
     ['/', '', 302, '/?lang=fa'], ['/', 'en', 302, '/?lang=en'],
     ['/?utm_source=mail', 'en', 302, '/?lang=en&utm_source=mail'],

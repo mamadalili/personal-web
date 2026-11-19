@@ -10,7 +10,7 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 
 PUBLIC_FILES = {
-    'robots.txt', 'sitemap.xml', 'favicon.ico',
+    'robots.txt', 'sitemap.xml', 'favicon.ico', 'home-entry.php',
     'assets/blog/previews/manifest.json', 'assets/brand/monogram.svg',
     'assets/brand/coastal-print.webp', 'assets/brand/coastal-print-mobile.webp',
     'assets/brand/studio-hand.webp', 'assets/brand/studio-hand-small.webp',

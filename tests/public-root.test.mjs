@@ -5,7 +5,7 @@ import {existsSync, readFileSync} from 'node:fs';
 const site = new URL('../public/', import.meta.url);
 
 test('the deployable directory contains the existing public entry points and shared assets', () => {
-  for (const file of ['index.html', 'index.en.html', 'profile.html', 'contact.fa.html', 'contact.en.html',
+  for (const file of ['index.html', 'home.en.html', 'profile.html', 'contact.fa.html', 'contact.en.html',
     'strategy.fa.html', 'strategy.en.html', 'blog.html', 'article.html', 'portfolio.js', 'portfolio.css',
     'runtime-blog.mjs', 'assets/brand/monogram.svg', 'figures/solo-model.mjs', '.htaccess', 'sitemap.xml', 'robots.txt']) {
     assert.ok(existsSync(new URL(file, site)), `Missing public dependency: ${file}`);
