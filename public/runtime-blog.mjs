@@ -71,36 +71,36 @@ var e=Object.defineProperty,t=(e,t,n)=>()=>{if(n)throw n[0];try{return e&&(t=e(e
           <div class="trace-notes">${l}</div>
         </div>
       </fieldset>
-    </figure>`}b();function k(e,t){let n=new Intl.NumberFormat(t),r=e!==`attention`;return`<svg class="ad-drawer" viewBox="0 0 240 162" aria-hidden="true" focusable="false">
-    <rect x="9" y="11" width="218" height="134" rx="9" fill="var(--ad-shadow)"/>
-    <rect x="6" y="7" width="218" height="134" rx="9" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="2"/>
-    <rect x="15" y="16" width="200" height="113" rx="4" fill="var(--ad-inside)" stroke="var(--ad-woodline)"/>
-    <path d="M20 124 H210 M26 22 H205" stroke="var(--ad-woodline)" opacity=".35"/>
-    <path d="M90 142 v4 q0 3 4 3 h43 q4 0 4 -3 v-4" fill="none" stroke="var(--ad-metal)" stroke-width="3"/>
-    <g transform="translate(56 92) rotate(-40)" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="1.5">
+    </figure>`}b();function k(e,t){let n=new Intl.NumberFormat(t),r=e!==`attention`;return`<svg class="storyboard-drawer" viewBox="0 0 240 162" aria-hidden="true" focusable="false">
+    <rect x="9" y="11" width="218" height="134" rx="9" fill="var(--storyboard-shadow)"/>
+    <rect x="6" y="7" width="218" height="134" rx="9" fill="var(--storyboard-wood)" stroke="var(--storyboard-woodline)" stroke-width="2"/>
+    <rect x="15" y="16" width="200" height="113" rx="4" fill="var(--storyboard-inside)" stroke="var(--storyboard-woodline)"/>
+    <path d="M20 124 H210 M26 22 H205" stroke="var(--storyboard-woodline)" opacity=".35"/>
+    <path d="M90 142 v4 q0 3 4 3 h43 q4 0 4 -3 v-4" fill="none" stroke="var(--storyboard-metal)" stroke-width="3"/>
+    <g transform="translate(56 92) rotate(-40)" fill="var(--storyboard-wood)" stroke="var(--storyboard-woodline)" stroke-width="1.5">
       <path d="M-3 0v-46q-9-4-8-14c1-8 5-13 11-13s10 5 11 13q1 10-8 14V0q-3 5-6 0z"/>
     </g>
-    ${r?`<path d="M119 17h8v112h-8z" fill="var(--ad-divider)" stroke="var(--ad-woodline)" stroke-width="2"/>`:``}
-    <g transform="${r?`translate(169 116) rotate(-88) scale(.88)`:`translate(76 98) rotate(-33) scale(1.28)`}"><path d="M-2 2 Q1 -3 4 1 L76 10 Q87 1 96 5 Q102 9 95 14 Q88 19 77 16 L3 5 M4 3 L78 -8 Q89 -15 96 -11 Q103 -7 94 -3 Q87 1 79 -2 L4 6" fill="var(--ad-steel)" stroke="var(--ad-metal)" stroke-width="2" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="var(--ad-metal)"/></g>
-    ${e===`attention`?`<path d="m193 26 5-8 m2 12 8-4 m-19-5 1-8" fill="none" stroke="var(--ad-pencil)" stroke-width="2.5" stroke-linecap="round"/>`:``}
-    ${e===`mechanism`?`<path d="M135 55q11-8 20-4m-4-5 5 5-6 3" fill="none" stroke="var(--ad-pencil)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>`:``}
-    ${e===`fit`||e===`action`?`<path d="M200 19v106 M194 19h12 M194 125h12" fill="none" stroke="var(--ad-pencil)" stroke-width="2.4"/><path d="M196 32h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4" stroke="var(--ad-pencil)" stroke-width="1.3"/>`:``}
-    ${e===`action`?`<g transform="rotate(-7 75 92)"><rect x="21" y="63" width="90" height="47" rx="2" fill="var(--ad-slip)" stroke="var(--ad-woodline)"/><text x="66" y="92" direction="ltr" text-anchor="middle" font-size="18" font-family="inherit" fill="var(--ad-pencil)">${t===`fa`?n.format(38)+` سانت`:`38 cm`}</text></g>`:``}
-  </svg>`.replace(/^ +$/gm,``)}function A(e,t){let n=e[t],r=new Intl.NumberFormat(t),i=`ad-`+t+`-`+e.id,a=e.stages.reduce((e,t)=>e+t.count,0),o=e.stages.map((e,a)=>{let o=e[t],s=i+`-`+e.id,c=`<i class="ad-mark"></i>`.repeat(e.count);return`<input class="ad-radio" type="radio" name="${y(i)}" id="${y(s)}" aria-controls="${y(s)}-panel"${a===0?` checked`:``}>
-      <label class="ad-frame" for="${y(s)}" id="${y(s)}-label">
-        <strong>${y(o.label)}</strong><span class="ad-units"><span class="ad-marks" aria-hidden="true">${c}</span><span class="ad-count">${r.format(e.count)}<span class="ad-sr"> ${y(t===`fa`?`جزء`:`elements`)}</span></span></span>
+    ${r?`<path d="M119 17h8v112h-8z" fill="var(--storyboard-divider)" stroke="var(--storyboard-woodline)" stroke-width="2"/>`:``}
+    <g transform="${r?`translate(169 116) rotate(-88) scale(.88)`:`translate(76 98) rotate(-33) scale(1.28)`}"><path d="M-2 2 Q1 -3 4 1 L76 10 Q87 1 96 5 Q102 9 95 14 Q88 19 77 16 L3 5 M4 3 L78 -8 Q89 -15 96 -11 Q103 -7 94 -3 Q87 1 79 -2 L4 6" fill="var(--storyboard-steel)" stroke="var(--storyboard-metal)" stroke-width="2" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="var(--storyboard-metal)"/></g>
+    ${e===`attention`?`<path d="m193 26 5-8 m2 12 8-4 m-19-5 1-8" fill="none" stroke="var(--storyboard-pencil)" stroke-width="2.5" stroke-linecap="round"/>`:``}
+    ${e===`mechanism`?`<path d="M135 55q11-8 20-4m-4-5 5 5-6 3" fill="none" stroke="var(--storyboard-pencil)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>`:``}
+    ${e===`fit`||e===`action`?`<path d="M200 19v106 M194 19h12 M194 125h12" fill="none" stroke="var(--storyboard-pencil)" stroke-width="2.4"/><path d="M196 32h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4" stroke="var(--storyboard-pencil)" stroke-width="1.3"/>`:``}
+    ${e===`action`?`<g transform="rotate(-7 75 92)"><rect x="21" y="63" width="90" height="47" rx="2" fill="var(--storyboard-slip)" stroke="var(--storyboard-woodline)"/><text x="66" y="92" direction="ltr" text-anchor="middle" font-size="18" font-family="inherit" fill="var(--storyboard-pencil)">${t===`fa`?n.format(38)+` سانت`:`38 cm`}</text></g>`:``}
+  </svg>`.replace(/^ +$/gm,``)}function A(e,t){let n=e[t],r=new Intl.NumberFormat(t),i=`storyboard-`+t+`-`+e.id,a=e.stages.reduce((e,t)=>e+t.count,0),o=e.stages.map((e,a)=>{let o=e[t],s=i+`-`+e.id,c=`<i class="storyboard-mark"></i>`.repeat(e.count);return`<input class="storyboard-radio" type="radio" name="${y(i)}" id="${y(s)}" aria-controls="${y(s)}-panel"${a===0?` checked`:``}>
+      <label class="storyboard-frame" for="${y(s)}" id="${y(s)}-label">
+        <strong>${y(o.label)}</strong><span class="storyboard-units"><span class="storyboard-marks" aria-hidden="true">${c}</span><span class="storyboard-count">${r.format(e.count)}<span class="storyboard-sr"> ${y(t===`fa`?`جزء`:`elements`)}</span></span></span>
       </label>
-      <section class="ad-panel" id="${y(s)}-panel" aria-labelledby="${y(s)}-label">
-        <div class="ad-shot">${k(e.id,t)}<p><b>${y(n.shot)}</b> ${y(o.shot)}</p></div>
-        <div class="ad-script"><h4>${y(o.question)}</h4><dl>
-          <dt>${y(n.line)}</dt><dd class="ad-line">${y(o.line)}</dd>
+      <section class="storyboard-panel" id="${y(s)}-panel" aria-labelledby="${y(s)}-label">
+        <div class="storyboard-shot">${k(e.id,t)}<p><b>${y(n.shot)}</b> ${y(o.shot)}</p></div>
+        <div class="storyboard-script"><h4>${y(o.question)}</h4><dl>
+          <dt>${y(n.line)}</dt><dd class="storyboard-line">${y(o.line)}</dd>
           <dt>${y(n.proof)}</dt><dd>${y(o.proof)}</dd>
         </dl></div>
-      </section>`}).join(``),s=e.stages.map(e=>`<tr><th scope="row">${y(e[t].label)}</th><td>${r.format(e.count)}</td></tr>`).join(``);return`<link rel="stylesheet" href="/blog-ad-storyboard.css?v=20261120">
-    <figure class="ad-storyboard">
+      </section>`}).join(``),s=e.stages.map(e=>`<tr><th scope="row">${y(e[t].label)}</th><td>${r.format(e.count)}</td></tr>`).join(``);return`<link rel="stylesheet" href="/blog-ad-storyboard.css?v=20261120-drawer">
+    <figure class="drawer-storyboard">
       <figcaption><h3>${y(n.title)}</h3><p>${y(n.key)}</p></figcaption>
-      <fieldset><legend>${y(n.legend)}</legend><div class="ad-track">${o}</div></fieldset>
-      <details class="ad-counts"><summary>${y(n.table)}</summary><table><caption>${y(n.table)}</caption>
+      <fieldset><legend>${y(n.legend)}</legend><div class="storyboard-track">${o}</div></fieldset>
+      <details class="storyboard-counts"><summary>${y(n.table)}</summary><table><caption>${y(n.table)}</caption>
         <thead><tr><th scope="col">${y(n.stage)}</th><th scope="col">${y(n.units)}</th></tr></thead>
         <tbody>${s}</tbody><tfoot><tr><th scope="row">${y(n.total)}</th><td>${r.format(a)}</td></tr></tfoot>
       </table><p>${y(n.method)}</p></details>

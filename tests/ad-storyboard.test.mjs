@@ -7,7 +7,7 @@ const stages = [['attention', 5], ['mechanism', 6], ['fit', 3], ['action', 3]];
 for (const lang of ['fa', 'en']) {
   test('the ' + lang + ' ad storyboard ships all four selectable shots and their source counts', () => {
     const html = read('reading/' + lang + '/cold-traffic-ad.html');
-    const figure = html.match(/<figure class="ad-storyboard">([\s\S]*?)<\/figure>/)?.[1];
+    const figure = html.match(/<figure class="drawer-storyboard">([\s\S]*?)<\/figure>/)?.[1];
     assert.ok(figure, 'figure in the first response');
     const radios = [...figure.matchAll(/<input\b[^>]*type="radio"[^>]*>/g)].map(match => match[0]);
     assert.equal(radios.length, stages.length);
@@ -15,11 +15,11 @@ for (const lang of ['fa', 'en']) {
     assert.match(radios[0], /\bchecked\b/);
     const counts = [];
     for (const [index, [key, count]] of stages.entries()) {
-      const id = 'ad-' + lang + '-drawer-' + key;
+      const id = 'storyboard-' + lang + '-drawer-' + key;
       assert.ok(radios[index].includes('aria-controls="' + id + '-panel"'));
       const label = figure.match(new RegExp('<label[^>]*for="' + id + '"[^>]*>([\\s\\S]*?)</label>'))?.[1];
       assert.ok(label);
-      const marks = (label.match(/class="ad-mark"/g) || []).length;
+      const marks = (label.match(/class="storyboard-mark"/g) || []).length;
       assert.equal(marks, count);
       counts.push(marks);
       assert.ok(figure.includes('id="' + id + '-panel" aria-labelledby="' + id + '-label"'));
