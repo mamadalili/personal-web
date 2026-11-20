@@ -3,6 +3,7 @@ import {renderPostCover} from './blog-covers.mjs';
 import {renderArticleImage} from './blog-inline-image.mjs';
 import {renderStockReservation} from './blog-stock-reservation.mjs';
 import {renderPaymentTrace} from './blog-payment-trace.mjs';
+import {renderAdStoryboard} from './blog-ad-storyboard.mjs';
 import {renderStrategyBrief} from './blog-strategy-brief.mjs';
 import {renderMarketingSummary} from './blog-marketing-summary.mjs';
 
@@ -70,6 +71,7 @@ export function renderArticleFrame({article,lang,href,renderBlock,date,sourceCar
 
 export function readingBlock(block,lang,rich) {
   if (block.type === 'marketing-summary') return renderMarketingSummary(block, lang);
+  if (block.type === 'ad-storyboard') return renderAdStoryboard(block, lang);
   if (block.type === 'strategy-brief') return renderStrategyBrief(block, lang);
   if (block.type === 'payment-trace') return renderPaymentTrace(block, lang);
   if (block.type === 'stock-reservation') return renderStockReservation(block, lang);

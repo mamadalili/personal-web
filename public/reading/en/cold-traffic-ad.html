@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <script>
+    document.addEventListener('error', event => {
+      const asset = event.target;
+      const script = asset.tagName === 'SCRIPT' && asset.src;
+      const style = asset.tagName === 'LINK' && asset.rel === 'stylesheet';
+      if ((!script && !style) || asset.parentNode !== document.head) return;
+      const url = new URL(script ? asset.src : asset.href);
+      const attempt = Number(asset.dataset.loadAttempt || 0) + 1;
+      if (url.origin !== location.origin || attempt > 2) return;
+      setTimeout(() => {
+        if (!asset.isConnected) return;
+        const next = document.createElement(script ? 'script' : 'link');
+        for (const {name, value} of asset.attributes) next.setAttribute(name, value);
+        next.dataset.loadAttempt = String(attempt);
+        url.searchParams.set('retry', String(Date.now()));
+        next[script ? 'src' : 'href'] = url.href;
+        const replace = () => asset.replaceWith(next);
+        if (script && asset.defer && document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replace, {once:true});
+        } else replace();
+      }, attempt * 500);
+    }, true);
+  </script>
+  <script>if (location.pathname.includes('/reading/')) {const u=new URL('../../article.html',location.href);u.search=location.search;u.searchParams.set('lang','en');u.searchParams.set('post','cold-traffic-ad');u.hash=location.hash;history.replaceState(null,'',u)}</script>
+  <meta name="theme-color" content="#1c0998">
+  <meta name="color-scheme" content="only light">
+  <script src="/day-night.js?v=20261110-session"></script>
+  <meta name="description" content="Take the brand name out of the opening shot. Is anything left worth watching? Work through a fictional drawer-divider ad, frame by frame, and decide what each line needs to earn its place.">
+  <title>An Ad for Someone Who’s Never Heard of You — Mohamad Reza Dalili</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preload" href="/fonts/Vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio.css?v=20261102-performance">
+  <link rel="stylesheet" href="/site-theme.css?v=20261110-manual">
+  <link rel="stylesheet" href="/blog.css?v=20261101-content-system">
+  <link rel="stylesheet" href="/blog-solo.css">
+  <link rel="stylesheet" href="/blog-market.css?v=20261031-original-visuals">
+  <link rel="stylesheet" href="/blog-data-motion.css?v=20261102-unit-objects">
+  <script src="/portfolio.js?v=20261110-recovery" defer></script>
+  <link rel="stylesheet" href="/color-mode.css?v=20261110-manual">
+  <link rel="canonical" href="https://mrdalili.ir/article.html?post=cold-traffic-ad&amp;lang=en">
+</head>
+<body data-page="article" data-current-page="article">
+  <a href="#main" class="skip">رفتن به محتوای اصلی / Skip to content</a>
+  <header class="site-header"><a class="brand" href="/?lang=en" aria-label="Mohamad Reza Dalili"><span class="brand-mark"><span class="brand-logo" aria-hidden="true"><img src="/assets/brand/monogram.svg" width="64" height="64" alt=""></span></span><span class="brand-identity"><span id="brand-name">Mohamad Reza Dalili</span><span class="professional-title header-role" id="brand-role"><span>Marketer and AI Operator</span><span class="title-shine" aria-hidden="true">Marketer and AI Operator</span></span></span></a><div class="header-end"><span id="header-label">Portfolio</span><day-night-switch></day-night-switch><button id="language" type="button" lang="fa" aria-label="تغییر زبان به فارسی">فارسی <span aria-hidden="true">↗</span></button></div></header>
+  <main id="main" tabindex="-1" class="page-layout article-page editorial-story" data-reading-lang="en" data-reading-post="cold-traffic-ad" data-reading-src="/assets/posts/cold-traffic-ad-9ef2db76a58a2bc3.json">
+    <header class="article-header"><a class="article-back" href="/blog.html?lang=en">← All posts</a><div class="eyebrow">Marketing &amp; online sales</div><h1>An Ad for Someone Who’s Never Heard of You</h1><p class="article-deck">From a jammed drawer to a reason to buy</p><p>Take the brand name out of the opening shot. Is anything left worth watching? Work through a fictional drawer-divider ad, frame by frame, and decide what each line needs to earn its place.</p>
+      <div class="article-byline"><img src="/images/myphoto-avatar-v1.webp" width="32" height="32" alt=""><span>Mohamad Reza Dalili</span><span aria-hidden="true">·</span><span>5 min with the exercise</span><time datetime="2026-11-20">Nov 20, 2026</time></div>
+      <p class="article-credit">Adapted from Derick Carneiro’s approach to writing ads for an unfamiliar audience. <a href="#sources">Sources & methodology ↗</a></p><p class="article-reviewed">Sources reviewed: <time datetime="2026-11-20">Nov 20, 2026</time></p>
+      <img class="article-cover-image" src="/assets/blog/cold-traffic-ad-en.webp" alt="An open drawer, steel tongs and a two-frame film strip showing the divider. The article title is printed on a cream storyboard card." width="1600" height="900" loading="eager" decoding="async" fetchpriority="high">
+    </header>
+    <div class="article-layout"><aside class="article-sidebar"><details class="article-outline" ><summary><span>IN THIS ARTICLE</span><output data-reading-label>0%</output></summary><progress value="0" max="100" aria-label="Reading progress"></progress><nav class="article-toc" aria-label="IN THIS ARTICLE"><a href="#opening-shot">When the drawer sticks halfway</a><a href="#storyboard">Four frames on the editing desk</a><a href="#from-claim-to-cut">Which line earns a shot?</a><a href="#edit-test">If there’s time for one more take</a><a href="#sources">Sources & methodology</a></nav></details><div class="article-takeaways"><h2>IN THIS EXPERIENCE</h2><ul><li>Find an observable behaviour for the opening shot.</li><li>Choose evidence for each product claim.</li><li>Change one thing when you test the ad.</li></ul></div></aside>
+      <article class="article-body"><section id="opening-shot" class="article-section"><h2>When the drawer sticks halfway</h2><p>You’re cooking with one hand and pulling open the utensil drawer with the other. It stops halfway. The tongs have turned sideways again. Imagine putting “premium kitchen organizer” across that shot. Now remove the caption and mute the sound. You can still tell what happened, and you might stay to see how the cook gets the drawer open. That’s an opening worth filming.</p><p>Carneiro starts with product facts, then looks for people who share a specific frustration. “People who like cooking” gives the writer very little to film. Someone who regularly reaches through a narrow gap to free a utensil can show you a scene. Ask a buyer to reenact the last time it happened before you write the script. You might discover the ladle handle was the real culprit.</p></section><section id="storyboard" class="article-section"><h2>Four frames on the editing desk</h2><p>Carneiro gives the ad four jobs. Earn a moment of attention, show why a solution could work, help the viewer judge its value, and give them a reason to act. Below, all four shots use the same drawer. Pick one to see the buyer’s question, a line of copy and the evidence you would have to bring back from the shoot.</p><link rel="stylesheet" href="/blog-ad-storyboard.css?v=20261120">
+    <figure class="ad-storyboard">
+      <figcaption><h3>Through the buyer’s eyes</h3><p>Each square represents one element in the author’s list.</p></figcaption>
+      <fieldset><legend>Choose a frame</legend><div class="ad-track"><input class="ad-radio" type="radio" name="ad-en-drawer" id="ad-en-drawer-attention" aria-controls="ad-en-drawer-attention-panel" checked>
+      <label class="ad-frame" for="ad-en-drawer-attention" id="ad-en-drawer-attention-label">
+        <strong>Attention</strong><span class="ad-units"><span class="ad-marks" aria-hidden="true"><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i></span><span class="ad-count">5<span class="ad-sr"> elements</span></span></span>
+      </label>
+      <section class="ad-panel" id="ad-en-drawer-attention-panel" aria-labelledby="ad-en-drawer-attention-label">
+        <div class="ad-shot"><svg class="ad-drawer" viewBox="0 0 240 162" aria-hidden="true" focusable="false">
+    <rect x="9" y="11" width="218" height="134" rx="9" fill="var(--ad-shadow)"/>
+    <rect x="6" y="7" width="218" height="134" rx="9" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <rect x="15" y="16" width="200" height="113" rx="4" fill="var(--ad-inside)" stroke="var(--ad-woodline)"/>
+    <path d="M20 124 H210 M26 22 H205" stroke="var(--ad-woodline)" opacity=".35"/>
+    <path d="M90 142 v4 q0 3 4 3 h43 q4 0 4 -3 v-4" fill="none" stroke="var(--ad-metal)" stroke-width="3"/>
+    <g transform="translate(56 92) rotate(-40)" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="1.5">
+      <path d="M-3 0v-46q-9-4-8-14c1-8 5-13 11-13s10 5 11 13q1 10-8 14V0q-3 5-6 0z"/>
+    </g>
+
+    <g transform="translate(76 98) rotate(-33) scale(1.28)"><path d="M-2 2 Q1 -3 4 1 L76 10 Q87 1 96 5 Q102 9 95 14 Q88 19 77 16 L3 5 M4 3 L78 -8 Q89 -15 96 -11 Q103 -7 94 -3 Q87 1 79 -2 L4 6" fill="var(--ad-steel)" stroke="var(--ad-metal)" stroke-width="2" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="var(--ad-metal)"/></g>
+    <path d="m193 26 5-8 m2 12 8-4 m-19-5 1-8" fill="none" stroke="var(--ad-pencil)" stroke-width="2.5" stroke-linecap="round"/>
+
+
+
+  </svg><p><b>In the shot</b> Shoot from above. The tongs lie diagonally across the drawer and it sticks halfway out.</p></div>
+        <div class="ad-script"><h4>Why stop scrolling here?</h4><dl>
+          <dt>On-screen line</dt><dd class="ad-line">“Is it the tongs again?”</dd>
+          <dt>Check before publishing</dt><dd>Film a drawer that actually catches in ordinary use. If you have to jam the tongs for the camera, find a different opening.</dd>
+        </dl></div>
+      </section><input class="ad-radio" type="radio" name="ad-en-drawer" id="ad-en-drawer-mechanism" aria-controls="ad-en-drawer-mechanism-panel">
+      <label class="ad-frame" for="ad-en-drawer-mechanism" id="ad-en-drawer-mechanism-label">
+        <strong>Mechanism</strong><span class="ad-units"><span class="ad-marks" aria-hidden="true"><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i></span><span class="ad-count">6<span class="ad-sr"> elements</span></span></span>
+      </label>
+      <section class="ad-panel" id="ad-en-drawer-mechanism-panel" aria-labelledby="ad-en-drawer-mechanism-label">
+        <div class="ad-shot"><svg class="ad-drawer" viewBox="0 0 240 162" aria-hidden="true" focusable="false">
+    <rect x="9" y="11" width="218" height="134" rx="9" fill="var(--ad-shadow)"/>
+    <rect x="6" y="7" width="218" height="134" rx="9" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <rect x="15" y="16" width="200" height="113" rx="4" fill="var(--ad-inside)" stroke="var(--ad-woodline)"/>
+    <path d="M20 124 H210 M26 22 H205" stroke="var(--ad-woodline)" opacity=".35"/>
+    <path d="M90 142 v4 q0 3 4 3 h43 q4 0 4 -3 v-4" fill="none" stroke="var(--ad-metal)" stroke-width="3"/>
+    <g transform="translate(56 92) rotate(-40)" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="1.5">
+      <path d="M-3 0v-46q-9-4-8-14c1-8 5-13 11-13s10 5 11 13q1 10-8 14V0q-3 5-6 0z"/>
+    </g>
+    <path d="M119 17h8v112h-8z" fill="var(--ad-divider)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <g transform="translate(169 116) rotate(-88) scale(.88)"><path d="M-2 2 Q1 -3 4 1 L76 10 Q87 1 96 5 Q102 9 95 14 Q88 19 77 16 L3 5 M4 3 L78 -8 Q89 -15 96 -11 Q103 -7 94 -3 Q87 1 79 -2 L4 6" fill="var(--ad-steel)" stroke="var(--ad-metal)" stroke-width="2" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="var(--ad-metal)"/></g>
+
+    <path d="M135 55q11-8 20-4m-4-5 5 5-6 3" fill="none" stroke="var(--ad-pencil)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+
+
+  </svg><p><b>In the shot</b> Stay with the same drawer and tongs. Fit a divider front to back, then lay the tongs in the narrow channel alongside it.</p></div>
+        <div class="ad-script"><h4>What keeps it from catching?</h4><dl>
+          <dt>On-screen line</dt><dd class="ad-line">“The divider leaves the tongs room to slide, but too little room to turn across the drawer.”</dd>
+          <dt>Check before publishing</dt><dd>Film a complete close and reopen in one take. Keep the camera angle and the other utensils in place so the change is visible.</dd>
+        </dl></div>
+      </section><input class="ad-radio" type="radio" name="ad-en-drawer" id="ad-en-drawer-fit" aria-controls="ad-en-drawer-fit-panel">
+      <label class="ad-frame" for="ad-en-drawer-fit" id="ad-en-drawer-fit-label">
+        <strong>Value &amp; fit</strong><span class="ad-units"><span class="ad-marks" aria-hidden="true"><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i></span><span class="ad-count">3<span class="ad-sr"> elements</span></span></span>
+      </label>
+      <section class="ad-panel" id="ad-en-drawer-fit-panel" aria-labelledby="ad-en-drawer-fit-label">
+        <div class="ad-shot"><svg class="ad-drawer" viewBox="0 0 240 162" aria-hidden="true" focusable="false">
+    <rect x="9" y="11" width="218" height="134" rx="9" fill="var(--ad-shadow)"/>
+    <rect x="6" y="7" width="218" height="134" rx="9" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <rect x="15" y="16" width="200" height="113" rx="4" fill="var(--ad-inside)" stroke="var(--ad-woodline)"/>
+    <path d="M20 124 H210 M26 22 H205" stroke="var(--ad-woodline)" opacity=".35"/>
+    <path d="M90 142 v4 q0 3 4 3 h43 q4 0 4 -3 v-4" fill="none" stroke="var(--ad-metal)" stroke-width="3"/>
+    <g transform="translate(56 92) rotate(-40)" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="1.5">
+      <path d="M-3 0v-46q-9-4-8-14c1-8 5-13 11-13s10 5 11 13q1 10-8 14V0q-3 5-6 0z"/>
+    </g>
+    <path d="M119 17h8v112h-8z" fill="var(--ad-divider)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <g transform="translate(169 116) rotate(-88) scale(.88)"><path d="M-2 2 Q1 -3 4 1 L76 10 Q87 1 96 5 Q102 9 95 14 Q88 19 77 16 L3 5 M4 3 L78 -8 Q89 -15 96 -11 Q103 -7 94 -3 Q87 1 79 -2 L4 6" fill="var(--ad-steel)" stroke="var(--ad-metal)" stroke-width="2" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="var(--ad-metal)"/></g>
+
+
+    <path d="M200 19v106 M194 19h12 M194 125h12" fill="none" stroke="var(--ad-pencil)" stroke-width="2.4"/><path d="M196 32h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4" stroke="var(--ad-pencil)" stroke-width="1.3"/>
+
+  </svg><p><b>In the shot</b> Run the tape from the inside front wall to the back wall. Keep both ends in the shot.</p></div>
+        <div class="ad-script"><h4>Would this one fit my drawer?</h4><dl>
+          <dt>On-screen line</dt><dd class="ad-line">“Measure the inside depth. The divider in our example spans 34 to 44 cm.”</dd>
+          <dt>Check before publishing</dt><dd>A 38 cm drawer is within this fictional model’s span. Check vertical clearance too. Verify the figures against the model you actually sell.</dd>
+        </dl></div>
+      </section><input class="ad-radio" type="radio" name="ad-en-drawer" id="ad-en-drawer-action" aria-controls="ad-en-drawer-action-panel">
+      <label class="ad-frame" for="ad-en-drawer-action" id="ad-en-drawer-action-label">
+        <strong>Next step</strong><span class="ad-units"><span class="ad-marks" aria-hidden="true"><i class="ad-mark"></i><i class="ad-mark"></i><i class="ad-mark"></i></span><span class="ad-count">3<span class="ad-sr"> elements</span></span></span>
+      </label>
+      <section class="ad-panel" id="ad-en-drawer-action-panel" aria-labelledby="ad-en-drawer-action-label">
+        <div class="ad-shot"><svg class="ad-drawer" viewBox="0 0 240 162" aria-hidden="true" focusable="false">
+    <rect x="9" y="11" width="218" height="134" rx="9" fill="var(--ad-shadow)"/>
+    <rect x="6" y="7" width="218" height="134" rx="9" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <rect x="15" y="16" width="200" height="113" rx="4" fill="var(--ad-inside)" stroke="var(--ad-woodline)"/>
+    <path d="M20 124 H210 M26 22 H205" stroke="var(--ad-woodline)" opacity=".35"/>
+    <path d="M90 142 v4 q0 3 4 3 h43 q4 0 4 -3 v-4" fill="none" stroke="var(--ad-metal)" stroke-width="3"/>
+    <g transform="translate(56 92) rotate(-40)" fill="var(--ad-wood)" stroke="var(--ad-woodline)" stroke-width="1.5">
+      <path d="M-3 0v-46q-9-4-8-14c1-8 5-13 11-13s10 5 11 13q1 10-8 14V0q-3 5-6 0z"/>
+    </g>
+    <path d="M119 17h8v112h-8z" fill="var(--ad-divider)" stroke="var(--ad-woodline)" stroke-width="2"/>
+    <g transform="translate(169 116) rotate(-88) scale(.88)"><path d="M-2 2 Q1 -3 4 1 L76 10 Q87 1 96 5 Q102 9 95 14 Q88 19 77 16 L3 5 M4 3 L78 -8 Q89 -15 96 -11 Q103 -7 94 -3 Q87 1 79 -2 L4 6" fill="var(--ad-steel)" stroke="var(--ad-metal)" stroke-width="2" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="var(--ad-metal)"/></g>
+
+
+    <path d="M200 19v106 M194 19h12 M194 125h12" fill="none" stroke="var(--ad-pencil)" stroke-width="2.4"/><path d="M196 32h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4m-4 13h4" stroke="var(--ad-pencil)" stroke-width="1.3"/>
+    <g transform="rotate(-7 75 92)"><rect x="21" y="63" width="90" height="47" rx="2" fill="var(--ad-slip)" stroke="var(--ad-woodline)"/><text x="66" y="92" direction="ltr" text-anchor="middle" font-size="18" font-family="inherit" fill="var(--ad-pencil)">38 cm</text></g>
+  </svg><p><b>In the shot</b> Write the measurement on a slip of paper and place it next to the model’s range in the size guide.</p></div>
+        <div class="ad-script"><h4>What can I check before I order?</h4><dl>
+          <dt>On-screen line</dt><dd class="ad-line">“Find your measurement in the guide for this divider.”</dd>
+          <dt>Check before publishing</dt><dd>Tap the link on a phone. It should open this model’s guide. If you mention returns, make the actual time limit and costs visible there too.</dd>
+        </dl></div>
+      </section></div></fieldset>
+      <details class="ad-counts"><summary>Element counts in a table</summary><table><caption>Element counts in a table</caption>
+        <thead><tr><th scope="col">Job of the ad</th><th scope="col">Elements</th></tr></thead>
+        <tbody><tr><th scope="row">Attention</th><td>5</td></tr><tr><th scope="row">Mechanism</th><td>6</td></tr><tr><th scope="row">Value &amp; fit</th><td>3</td></tr><tr><th scope="row">Next step</th><td>3</td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>17</td></tr></tfoot>
+      </table><p>The counts describe the structure of Carneiro’s article. Comparing the sales produced by two ads requires campaign data.</p></details>
+    </figure></section><section id="from-claim-to-cut" class="article-section"><h2>Which line earns a shot?</h2><p>“Your kitchen will stay tidy” is a tall order for one drawer opening. Shorten the claim until it fits the shot. Put the tongs back, close the drawer and open it again. If the divider slips along with the tongs, keep that failed take for the team. It tells you which line to cut or which installation step the instructions skipped.</p><p>One possible cut reads like this. <strong>“Stuck again? The tongs have swung across the drawer. Watch how much room they have to turn once I put a divider alongside them. Before you order, compare the inside depth of your drawer with this model’s guide.”</strong> Keep the price and buying terms wherever the viewer will make that decision.</p></section><section id="edit-test" class="article-section"><h2>If there’s time for one more take</h2><div data-reading-slot><details class="article-disclosure"><summary>Viewers finish the ad and message “Will it fit my drawer?” Which shot would you add to the next cut?</summary><p><strong>A closer shot of the jammed tongs</strong> That sharpens the opening. The viewer already recognizes the jam and still needs to know where to put the tape.</p><p><strong>Both ends of the tape and the range for that model</strong> The viewer can now compare their measurement with the product range. Check the second fit condition too: the divider must clear the top of the drawer.</p><p><strong>A wider shot of the tidy kitchen</strong> This gives the product a setting. Two drawers that look identical from across the kitchen can have different internal depths.</p></details></div><p>Make two cuts. In the second, replace only the product beauty shot with the measurement shot. Keep the audience, length, offer, dates and landing page the same. Randomly split the audience if the ad platform allows it. Decide in advance when you’ll count <strong>orders per product-page visit</strong>. Size-guide opens and sizing questions can help explain the result. Follow size-related returns through the return window, too.</p><p>If guide opens go up but there are too few orders or returns to compare, you’ve learned one thing: more visitors opened the guide. Listening to the questions those visitors still ask may be a better next edit than buying more impressions.</p></section>
+      <section id="sources" class="article-section article-sources"><h2>Sources & methodology</h2><p>The four stages and the count of elements in each come from Carneiro’s article. The drawer, sample dimensions, ad copy and proposed test are original teaching examples.</p><div class="source-ledger"><div class="source-card" id="source-carneiro"><span class="source-kind">Analytical note</span><h3><a href="https://x.com/derickcarneiro_/status/2123414633935520052" target="_blank" rel="noopener noreferrer">How I write ads that make strangers buy <span aria-hidden="true">↗</span></a></h3><div class="source-meta"><span>Derick Carneiro</span><time datetime="2026-11-19">Nov 19, 2026</time></div><p>The numbered list puts elements 1–5, 6–11, 12–14 and 15–17 in the four successive stages.</p></div></div></section>
+      <section class="article-related"><h2>KEEP EXPLORING</h2><div><a href="/article.html?post=search-to-sale&amp;lang=en"><h3>What happens after the click?</h3><p>Follow a search visit through to a purchase in the search-to-sale article.</p><span aria-hidden="true">↗</span></a></div></section></article>
+    </div>
+    <dialog class="article-dialog" aria-labelledby="article-dialog-title"><div class="dialog-top"><span class="small-label">Blog</span><button type="button" data-dialog-close autofocus>Close <span aria-hidden="true">×</span></button></div><h2 id="article-dialog-title"></h2><div class="dialog-content"></div></dialog></main>
+  <picture class="page-coast" aria-hidden="true">
+    <source media="(max-width: 680px)" srcset="/assets/brand/coastal-print-mobile.webp">
+    <img src="/assets/brand/coastal-print.webp" width="2172" height="724" alt="" loading="lazy" decoding="async">
+  </picture>
+  <footer id="footer" class="footer"></footer>
+  <noscript><nav class="noscript" aria-label="Pages"><a href="/?lang=en">Home</a> <a href="/strategy.html?lang=en">Solutions</a> <a href="/blog.html?lang=en">Blog</a> <a href="/profile.html?lang=en">CV</a> <a href="/contact.html?lang=en">Contact</a> <a href="/article.html?post=cold-traffic-ad&amp;lang=fa">فارسی</a></nav></noscript>
+</body>
+</html>
